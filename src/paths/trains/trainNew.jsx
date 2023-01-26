@@ -27,6 +27,10 @@ const hoursAndMinutesUnitl = (date) => {
   const hours = Math.floor(diff / 1000 / 60 / 60);
   const minutes = Math.floor((diff / 1000 / 60 / 60 - hours) * 60);
 
+  console.log('diff', diff)
+  console.log('now', now)
+  console.log('then', then)
+
   // creating the text
   let amount = `${Math.abs(hours)}h ${Math.abs(minutes)}m`;
   if (hours === 0) amount = `${Math.abs(minutes)}m`;

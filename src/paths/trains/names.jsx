@@ -33,7 +33,7 @@ const TrainsByName = () => {
           setTrainLink(`/trains/${finalData[0]}`);
         });
       });
-  }, [trainNums]);
+  }, []);
 
   return (
     <>
