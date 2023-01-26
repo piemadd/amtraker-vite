@@ -1,0 +1,20 @@
+.leaflet-control-attribution {
+  background-color: var(--bg-primary) !important;
+  color: var(--fg-primary) !important;
+}
+
+details {
+  z-index: 10;
+  position: absolute;
+  color: var(--fg-primary);
+  background-color: var(--bg-secondary);
+  margin: 16px;
+  padding: 8px 12px;
+}
+
+details > summary {
+  font-size: 1.5em;
+  font-weight: 400;
+  user-select: none;
+  cursor: pointer;
+}

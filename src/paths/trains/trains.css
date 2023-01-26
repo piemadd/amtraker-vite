@@ -1,0 +1,186 @@
+.train-box {
+  font-size: 1.2rem;
+  text-align: left;
+  border: 1px solid #777;
+  background-color: rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  padding: 8px 12px;
+  transition-duration: 100ms;
+}
+
+.train-box div {
+  font-weight: 300;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.train-box span {
+  font-weight: 400;
+}
+
+.train-box p:nth-child(2) {
+  margin-top: 0px;
+}
+
+.train-box p {
+  margin-top: -4px;
+}
+
+.train-box div:first-child {
+  font-weight: 400 !important;
+}
+
+.train-box div:first-child span:first-child {
+  font-weight: 600 !important;
+}
+
+.station-box {
+  font-size: 1.2rem;
+  text-align: left;
+  border: 1px solid #777;
+  background-color: rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  padding: 6px 12px;
+  transition-duration: 100ms;
+}
+
+.currentStation {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: #fff;
+}
+
+.station-box div {
+  font-weight: 300;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.station-box span {
+  font-weight: 400;
+}
+
+.station-box p {
+  margin-top: -4px;
+}
+
+.station-box div:first-child {
+  font-weight: 500 !important;
+}
+
+.station-box div:first-child span:first-child {
+  font-weight: 400 !important;
+}
+
+.status, .on-time {
+  font-size: 1rem;
+  padding: 2px 8px;
+  border-radius: 8px;
+  background-color: #1864ab;
+}
+
+.early {
+  background-color: #2b8a3e;
+}
+
+.late {
+  background-color: #c60c30;
+}
+
+.complete, .no-data {
+  background-color: #212529;
+}
+
+div.trainPage {
+  width: 100%;
+  height: 100vh;
+}
+
+div.trainPage div.header-trainpage {
+  background-color: rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  padding: 0 32px;
+  align-items: center;
+  justify-content: space-between;
+  left: 0;
+  top: 0;
+  height: 48px;
+}
+
+div.trainPage div.header-trainpage h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+div.trainPage div.header-trainpage h1 {
+  font-size: 2rem;
+}
+
+div.trainPage section.section-trainPage {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 16px;
+  padding: 16px;
+  height: calc(100vh - 114px);
+}
+
+div.trainPage section.section-trainPage div.stations {
+  width: calc(100% - 8px);
+  padding-right: 8px;
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  overflow-y: scroll;
+}
+
+table, th, td {
+  border: 1px solid;
+}
+
+.section-trainPage {
+  text-align: left;
+}
+
+.section-trainPage h1 {
+  font-size: 3rem;
+  line-height: 1.1em;
+  font-weight: 500;
+  margin-top: -0.25em;
+}
+
+.section-trainPage h2 {
+  font-size: 2rem;
+  font-weight: 500;
+  margin-top: -0.25em;
+}
+
+.section-trainPage ul li {
+  text-align: left;
+  font-size: 1.5rem;
+  line-height: 1.25em;
+  font-weight: 300;
+  margin-top: -0.05rem;
+  margin-left: 1.5rem;
+}
+
+.section-trainPage ul li a {
+  text-decoration: underline;
+}
+
+.section-trainPage ul li i {
+  font-weight: 400;
+  color: #aaa;
+  font-style: italic; 
+}
+
+.section-trainPage ul li span {
+  color: rgb(116, 116, 255);
+  text-decoration: dotted underline;
+  font-weight: 500;
+}

@@ -1,0 +1,146 @@
+root {
+  text-align: cetner;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+main h1 {
+  font-size: 4em;
+}
+
+main h2 {
+  font-size: 2em;
+}
+
+h1, h2 {
+  font-weight: 600;
+}
+
+h3, h4 {
+  font-weight: 500;
+}
+
+.welcome-to {
+  margin-top: 16px;
+  margin-bottom: -32px;
+}
+
+main section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 8px 20px 20px 20px;
+  border: 1px solid #777;
+  border-radius: 8px;
+  margin: 0 16px;
+}
+
+main section.section-new div h4 {
+  margin-bottom: 8px;
+}
+
+main section.section-new div button {
+  margin-top: 20px;
+}
+
+main section div.savedTrains {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 4px;
+}
+
+input,
+select,
+button {
+  font-size: 1.25em;
+  padding: 0.5em;
+  border: 1px solid #777;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+input.root,
+select.root,
+button.root,
+#trainName option {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+button {
+  cursor: pointer;
+}
+
+.click {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+.greyed {
+  color: #aaa;
+}
+
+section input,
+section select,
+section button {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+div.links {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+section.footer {
+  margin-top: 12px;
+  margin-bottom: 16px;
+  padding: 12px 16px 16px 16px;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+section.footer a {
+  text-decoration: underline;
+}
+
+section.section-settings {
+  display: flex;
+  overflow-y: scroll;
+}
+
+section.section-trainPage p {
+  font-size: 1.5rem;
+  line-height: 1.25em;
+}
+
+section.section-settings select, section.section-settings select option {
+  background-color: #111 !important;
+}
+
+section.section-settings h1,
+section.section-settings h2 {
+  line-height: 1.15em;
+}
+
+section.section-settings h2 {
+  margin-top: 8px;
+}
+
+section.section-settings select {
+  margin-top: 4px;
+}
