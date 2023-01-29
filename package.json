@@ -9,7 +9,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@turf/bbox-clip": "^6.5.0",
+    "@turf/helpers": "^6.5.0",
+    "@turf/simplify": "^6.5.0",
     "fuse.js": "^6.6.2",
+    "pigeon-maps": "^0.21.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-json-to-html-table": "^1.0.6",

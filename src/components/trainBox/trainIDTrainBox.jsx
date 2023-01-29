@@ -11,8 +11,6 @@ const TrainIDTrainBox = ({ trainID }) => {
     fetch(`https://api-v3.amtraker.com/v3/trains/${shortenedTrainID}`)
       .then((res) => res.json())
       .then((data) => {
-        setLoading(false);
-
         if (Array.isArray(data) && data.length === 0) {
           throw new Error("Train data not valid");
         }
@@ -43,6 +41,7 @@ const TrainIDTrainBox = ({ trainID }) => {
           return;
         }
 
+        setLoading(false);
         setTrain(trainData);
       })
       .catch((err) => {
@@ -64,7 +63,7 @@ const TrainIDTrainBox = ({ trainID }) => {
             .join(",")
         );
 
-        return;
+        return <p>Error loading train...</p>;
       });
   }, [trainID, shortenedTrainID]);
 

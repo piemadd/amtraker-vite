@@ -82,12 +82,24 @@
   background-color: #1864ab;
 }
 
+.status-text, .on-time-text {
+  color: #1864ab !important;
+}
+
 .early {
   background-color: #2b8a3e;
 }
 
+.early-text {
+  color: #2b8a3e !important;
+}
+
 .late {
   background-color: #c60c30;
+}
+
+.late-text {
+  color: #c60c30 !important;
 }
 
 .complete, .no-data {
@@ -128,6 +140,7 @@ div.trainPage section.section-trainPage {
   margin: 16px;
   padding: 16px;
   height: calc(100vh - 114px);
+  overflow-y: scroll;
 }
 
 div.trainPage section.section-trainPage div.stations {
@@ -136,7 +149,6 @@ div.trainPage section.section-trainPage div.stations {
   display: grid;
   gap: 8px;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  overflow-y: scroll;
 }
 
 table, th, td {

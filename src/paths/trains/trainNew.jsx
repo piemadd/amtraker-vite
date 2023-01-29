@@ -23,18 +23,13 @@ const fullDirections = {
 const hoursAndMinutesUnitl = (date) => {
   const now = new Date();
   const then = new Date(date);
-  const diff = then - now;
+  const diff = Math.max(then - now, 0);
   const hours = Math.floor(diff / 1000 / 60 / 60);
   const minutes = Math.floor((diff / 1000 / 60 / 60 - hours) * 60);
-
-  console.log('diff', diff)
-  console.log('now', now)
-  console.log('then', then)
-
   // creating the text
   let amount = `${Math.abs(hours)}h ${Math.abs(minutes)}m`;
-  if (hours === 0) amount = `${Math.abs(minutes)}m`;
   if (minutes === 0) amount = `${Math.abs(hours)}h`;
+  if (hours === 0) amount = `${Math.abs(minutes)}m`;
 
   return amount;
 };
@@ -63,6 +58,18 @@ const toHoursAndMinutesLate = (date1, date2) => {
 
   //late or early
   return diff > 0 ? `${amount} late` : `${amount} early`;
+};
+
+const colorizedToHoursAndMinutesLate = (date1, date2) => {
+  const res = toHoursAndMinutesLate(date1, date2);
+
+  if (res === "Estimate Error") return <span className='late-text'>{res}</span>;
+  if (res === "Schedule Error") return <span className='late-text'>{res}</span>;
+  if (res === "On Time") return <span className='on-time-text'>{res}</span>;
+  if (res.includes("late")) return <span className='late-text'>{res}</span>;
+  if (res.includes("early")) return <span className='early-text'>{res}</span>;
+
+  return <span className='error'>{res}</span>;
 };
 
 const calculateDistanceBetweenCoordinates = (lat1, lon1, lat2, lon2) => {
@@ -103,10 +110,18 @@ const calculateTimeTilLocation = (train, station, location) => {
       calculateDistanceBetweenCoordinates(
         train.lat,
         train.lon,
-        location.lat,
-        location.lon
+        location[0],
+        location[1]
       ) / distanceBetweenTrainAndStation
     ) * distanceBetweenTrainAndStation;
+
+  const unadjustedDistanceBetweenStationAndLocation =
+    calculateDistanceBetweenCoordinates(
+      train.lat,
+      train.lon,
+      location[0],
+      location[1]
+    );
 
   //in ms
   const timeUntilTrainAtStation =
@@ -121,7 +136,12 @@ const calculateTimeTilLocation = (train, station, location) => {
   //console.log('distanceBetweenTrainAndStation', distanceBetweenTrainAndStation)
   //console.log('timeUntilTrainAtStation', timeUntilTrainAtStation)
 
-  return timeUntilTrainAtLocation;
+  //if further away than ~50 miles, return an "error"
+  if (unadjustedDistanceBetweenStationAndLocation > 80467) {
+    return "Too far away to give estimate, try again when within ~50mi.";
+  }
+
+  return hoursAndMinutesUnitl(new Date().valueOf() + timeUntilTrainAtLocation);
 };
 
 const BetterTrainPage = () => {
@@ -131,6 +151,8 @@ const BetterTrainPage = () => {
   const [loading, setLoading] = useState(true);
   const [trainData, setTrainData] = useState([]);
   const [foamerMode, setFoamerMode] = useState(false);
+  const [loadingLocation, setLoadingLocation] = useState(true);
+  const [userLocation, setUserLocation] = useState([null, null]);
 
   useEffect(() => {
     console.log("sending request");
@@ -193,6 +215,14 @@ const BetterTrainPage = () => {
       localStorage.setItem("amtraker-v3-settings", JSON.stringify(settings));
     } //else is handled by the settings init
   }, []);
+
+  useEffect(() => {
+    if (!foamerMode || !navigator.geolocation) return;
+    navigator.geolocation.getCurrentPosition((res) => {
+      setLoadingLocation(false);
+      setUserLocation([res.coords.latitude, res.coords.longitude]);
+    });
+  }, [foamerMode]);
 
   const originStation = trainData[0]
     ? trainData[0].stations.find((station) => {
@@ -348,16 +378,14 @@ const BetterTrainPage = () => {
                         </li>
                         <li>
                           Currently{" "}
-                          <span>
-                            {toHoursAndMinutesLate(
-                              currentStation.arr
-                                ? new Date(currentStation.arr)
-                                : new Date(currentStation.dep),
-                              currentStation.schArr
-                                ? new Date(currentStation.schArr)
-                                : new Date(currentStation.schDep)
-                            )}
-                          </span>
+                          {colorizedToHoursAndMinutesLate(
+                            currentStation.arr
+                              ? new Date(currentStation.arr)
+                              : new Date(currentStation.dep),
+                            currentStation.schArr
+                              ? new Date(currentStation.schArr)
+                              : new Date(currentStation.schDep)
+                          )}
                         </li>
                       </ul>
                     </li>
@@ -373,7 +401,49 @@ const BetterTrainPage = () => {
                     <li>
                       <i>Foamer Mode:</i>{" "}
                       {foamerMode ? (
-                        <p>Foamer Mode</p>
+                        <>
+                          {navigator.geolocation ? (
+                            <>
+                              {loadingLocation ? (
+                                <p>Loading location...</p>
+                              ) : (
+                                <ul>
+                                  <li>
+                                    <i>Train ETA: </i>
+                                    {calculateTimeTilLocation(
+                                      trainData[0],
+                                      currentStation,
+                                      userLocation
+                                    )}
+                                  </li>
+                                  <li>
+                                    <i>Train Distance: </i>~
+                                    {(
+                                      calculateDistanceBetweenCoordinates(
+                                        trainData[0].lat,
+                                        trainData[0].lon,
+                                        userLocation[0],
+                                        userLocation[1]
+                                      ) / 1609.344
+                                    ).toFixed(2)}
+                                    mi away
+                                  </li>
+                                  <li>
+                                    <i>Your Location: </i>
+                                    {userLocation
+                                      .map((n) => n.toFixed(5))
+                                      .join(", ")}
+                                  </li>
+                                </ul>
+                              )}
+                            </>
+                          ) : (
+                            <p>
+                              Geolocation Services are not available. No ETA can
+                              be given.
+                            </p>
+                          )}
+                        </>
                       ) : (
                         <p>
                           Enable foamer mode in your{" "}
@@ -399,7 +469,6 @@ const BetterTrainPage = () => {
                         </Link>
                       );
                     })}
-                    <HtmlJsonTable data={trainData[0]} />
                   </div>
                 </>
               ) : (

@@ -50,7 +50,7 @@ const Settings = () => {
             Foamer Mode makes using Amtraker a bit more pleasant for foamers,
             but its features may be confusing and simply not useful for regular
             users. If you are wondering what a foamer is, you probably aren't
-            one, but the "foamer" is a derogatory term used to describe rail
+            one, but "foamer" is a derogatory term used to describe rail
             fans: people who take pictures of trains for fun. Here is a list of
             the current features:
           </p>

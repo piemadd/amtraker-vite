@@ -1,6 +1,35 @@
-.leaflet-control-attribution {
-  background-color: var(--bg-primary) !important;
-  color: var(--fg-primary) !important;
+.map {
+  width: 100%;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  position: absolute;
+}
+
+.pigeon-attribution {
+  background-color: #111 !important;
+  color: #fff !important;
+}
+
+.pigeon-attribution > a {
+  color: #fff !important;
+  text-decoration: underline;
+}
+
+.mapHolder {
+  width: 100%;
+  height: calc(100vh - 48px);
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.pigeon-tiles-box {
+  background-color: #021f35;
+}
+
+path {
+  fill: none;
 }
 
 details {
@@ -18,3 +47,4 @@ details > summary {
   user-select: none;
   cursor: pointer;
 }
+
