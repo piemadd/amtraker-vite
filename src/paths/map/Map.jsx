@@ -220,7 +220,12 @@ const AmtrakerMap = () => {
               sources: {
                 protomaps: {
                   type: "vector",
-                  tiles: ["https://tile.piemadd.com/na-latest/{z}/{x}/{y}.mvt"],
+                  tiles: [
+                    "https://tilea.piemadd.com/na-latest/{z}/{x}/{y}.mvt",
+                    "https://tileb.piemadd.com/na-latest/{z}/{x}/{y}.mvt",
+                    "https://tilec.piemadd.com/na-latest/{z}/{x}/{y}.mvt",
+                    "https://tiled.piemadd.com/na-latest/{z}/{x}/{y}.mvt"                 
+                  ],
                   attribution:
                     '<a href="https://protomaps.com">Protomaps</a> © <a href="https://openstreetmap.org">OpenStreetMap</a>',
                   maxzoom: 13
