@@ -220,7 +220,7 @@ const BetterTrainPage = () => {
   }, []);
 
   useEffect(() => {
-    if (!foamerMode || !navigator.geolocation) {
+    if (!foamerMode || !(geolocation in navigator)) {
       console.log("no geolocation");
     }
     setNavigatorExists(true);
