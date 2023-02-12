@@ -7,9 +7,7 @@ import * as serviceWorkerRegistration from "./serviceWorkerRegistration.js";
 
 //paths
 import App from "./paths/index/App.jsx";
-import TrainsByName from "./paths/trains/names.jsx";
 import TrainsByNumber from "./paths/trains/num.jsx";
-import TrainPage from "./paths/trains/train.jsx";
 import BetterTrainPage from "./paths/trains/trainNew.jsx";
 import TrainsList from "./paths/trains/list.jsx";
 import FullTrainsList from "./paths/trains/listFull.jsx";
