@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import ErrorPage from "./error.jsx";
-import * as serviceWorkerRegistration from "./serviceWorkerRegistration.js";
+//import * as serviceWorkerRegistration from "./serviceWorkerRegistration.js";
 
 //paths
 import App from "./paths/index/App.jsx";
@@ -77,10 +77,11 @@ root.render(
 );
 
 console.log("NODE_ENV", process.env.NODE_ENV);
-
+/*
 if (process.env.NODE_ENV === "production") {
   console.log('production, registring service worker')
   serviceWorkerRegistration.register();
 } else {
   serviceWorkerRegistration.unregister();
 }
+*/

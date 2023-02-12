@@ -27,5 +27,8 @@
     "react-map-gl": "^7.0.21",
     "react-router-dom": "^6.7.0",
     "vite": "^4.0.0"
+  },
+  "devDependencies": {
+    "vite-plugin-pwa": "^0.14.4"
   }
 }
