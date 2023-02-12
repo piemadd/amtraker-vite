@@ -421,52 +421,41 @@ const BetterTrainPage = () => {
                       <i>Foamer Mode:</i>{" "}
                       {foamerMode ? (
                         <>
-                          {navigator.geolocation ? (
-                            <>
-                              {loadingLocation ? (
-                                navigatorExists ? (
-                                  <p>Loading location...</p>
-                                ) : (
-                                  <p>
-                                    Error. Location permissions not allowed.{" "}
-                                  </p>
-                                )
-                              ) : (
-                                <ul>
-                                  <li>
-                                    <i>Train ETA: </i>
-                                    {calculateTimeTilLocation(
-                                      trainData[0],
-                                      currentStation,
-                                      userLocation
-                                    )}
-                                  </li>
-                                  <li>
-                                    <i>Train Distance: </i>~
-                                    {(
-                                      calculateDistanceBetweenCoordinates(
-                                        trainData[0].lat,
-                                        trainData[0].lon,
-                                        userLocation[0],
-                                        userLocation[1]
-                                      ) / 1609.344
-                                    ).toFixed(2)}
-                                    mi away
-                                  </li>
-                                  <li>
-                                    <i>Your Location: </i>
-                                    {userLocation
-                                      .map((n) => n.toFixed(5))
-                                      .join(", ")}
-                                  </li>
-                                </ul>
-                              )}
-                            </>
+                          {loadingLocation ? (
+                            navigatorExists ? (
+                              <p>Loading location...</p>
+                            ) : (
+                              <p>Error. Location permissions not allowed. </p>
+                            )
                           ) : (
-                            <p>
-                              Geolocation Services are not available. No ETA can
-                              be given.
-                            </p>
+                            <ul>
+                              <li>
+                                <i>Train ETA: </i>
+                                {calculateTimeTilLocation(
+                                  trainData[0],
+                                  currentStation,
+                                  userLocation
+                                )}
+                              </li>
+                              <li>
+                                <i>Train Distance: </i>~
+                                {(
+                                  calculateDistanceBetweenCoordinates(
+                                    trainData[0].lat,
+                                    trainData[0].lon,
+                                    userLocation[0],
+                                    userLocation[1]
+                                  ) / 1609.344
+                                ).toFixed(2)}
+                                mi away
+                              </li>
+                              <li>
+                                <i>Your Location: </i>
+                                {userLocation
+                                  .map((n) => n.toFixed(5))
+                                  .join(", ")}
+                              </li>
+                            </ul>
                           )}
                         </>
                       ) : (
