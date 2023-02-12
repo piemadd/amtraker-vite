@@ -77,7 +77,6 @@ const TrainsList = () => {
               );
             }}
           />
-          <br />
           <div className='stations fullTrainsList'>
             {!loading ? (
               <>

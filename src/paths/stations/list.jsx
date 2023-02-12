@@ -92,7 +92,6 @@ const StationsList = () => {
               );
             }}
           />
-          <br />
           <div className='stations fullStationsList'>
             {!loading ? (
               <>
