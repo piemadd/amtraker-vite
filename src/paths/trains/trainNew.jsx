@@ -222,42 +222,8 @@ const BetterTrainPage = () => {
   useEffect(() => {
     if (!foamerMode || !navigator.geolocation) {
       console.log("no geolocation");
-      navigator.permissions
-        .query({ name: "geolocation" })
-        .then((result) => {
-          if (result.state === "granted") {
-            console.log("granted");
-            setNavigatorExists(true);
-          } else if (result.state === "prompt") {
-            console.log("prompt");
-            console.log("getting location from prompt");
-            navigator.geolocation.getCurrentPosition(
-              (res) => {
-                console.log("location after prompt", res);
-                setUserLocation([res.coords.latitude, res.coords.longitude]);
-                setLoadingLocation(false);
-              },
-              (err) => {
-                console.log("location after prompt error");
-                console.log(err);
-                setLoadingLocation(false);
-                setNavigatorExists(false);
-              }
-            );
-            setNavigatorExists(true);
-          } else if (result.state === "denied") {
-            console.log("denied");
-            setNavigatorExists(false);
-          } else {
-            console.log(result.state);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          setNavigatorExists(false);
-        });
-      return;
     }
+    setNavigatorExists(true);
     navigator.geolocation.getCurrentPosition((res) => {
       setLoadingLocation(false);
       setUserLocation([res.coords.latitude, res.coords.longitude]);
@@ -342,10 +308,12 @@ const BetterTrainPage = () => {
                       onClick={() => {
                         navigator.share({
                           title: `Track the Amtrak ${trainData[0].routeName} Train with Amtraker!`,
-                          url: `https://amtraker.com/trains/${trainData[0].trainID.split('-').join('/')}`,
+                          url: `https://amtraker.com/trains/${trainData[0].trainID
+                            .split("-")
+                            .join("/")}`,
                         });
                       }}
-                      style={{ textDecoration: "underline", marginTop: '-6px' }}
+                      style={{ textDecoration: "underline", marginTop: "-6px" }}
                       className='click'
                     >
                       Share Train
@@ -356,8 +324,7 @@ const BetterTrainPage = () => {
                     <li>
                       <i>Origin: </i>
                       <Link to={`/stations/${trainData[0].origCode}`}>
-                        {trainData[0].origName} (
-                        {trainData[0].origCode})
+                        {trainData[0].origName} ({trainData[0].origCode})
                       </Link>
                       <ul>
                         <li>
@@ -380,8 +347,7 @@ const BetterTrainPage = () => {
                     <li>
                       <i>Destination: </i>
                       <Link to={`/stations/${trainData[0].destCode}`}>
-                        {trainData[0].destName} (
-                        {trainData[0].destCode})
+                        {trainData[0].destName} ({trainData[0].destCode})
                       </Link>
                       <ul>
                         <li>
@@ -404,8 +370,7 @@ const BetterTrainPage = () => {
                     <li>
                       <i>Next Stop:</i>{" "}
                       <span>
-                        {trainData[0].eventName} (
-                        {trainData[0].eventCode})
+                        {trainData[0].eventName} ({trainData[0].eventCode})
                       </span>
                       <ul>
                         <li>
