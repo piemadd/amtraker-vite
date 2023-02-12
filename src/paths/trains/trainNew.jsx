@@ -136,6 +136,10 @@ const calculateTimeTilLocation = (train, station, location) => {
   //console.log('distanceBetweenTrainAndStation', distanceBetweenTrainAndStation)
   //console.log('timeUntilTrainAtStation', timeUntilTrainAtStation)
 
+  if (distanceBetweenTrainAndLocation > distanceBetweenTrainAndStation) {
+    return "Train has already passed or you are along the wrong tracks";
+  }
+
   //if further away than ~50 miles, return an "error"
   if (unadjustedDistanceBetweenStationAndLocation > 80467) {
     return "Too far away to give estimate, try again when within ~50mi.";
@@ -151,6 +155,7 @@ const BetterTrainPage = () => {
   const [loading, setLoading] = useState(true);
   const [trainData, setTrainData] = useState([]);
   const [foamerMode, setFoamerMode] = useState(false);
+  const [navigatorExists, setNavigatorExists] = useState(false);
   const [loadingLocation, setLoadingLocation] = useState(true);
   const [userLocation, setUserLocation] = useState([null, null]);
 
@@ -217,7 +222,44 @@ const BetterTrainPage = () => {
   }, []);
 
   useEffect(() => {
-    if (!foamerMode || !navigator.geolocation) return;
+    if (!foamerMode || !navigator.geolocation) {
+      console.log("no geolocation");
+      navigator.permissions
+        .query({ name: "geolocation" })
+        .then((result) => {
+          if (result.state === "granted") {
+            console.log("granted");
+            setNavigatorExists(true);
+          } else if (result.state === "prompt") {
+            console.log("prompt");
+            console.log("getting location from prompt");
+            navigator.geolocation.getCurrentPosition(
+              (res) => {
+                console.log("location after prompt", res);
+                setUserLocation([res.coords.latitude, res.coords.longitude]);
+                setLoadingLocation(false);
+              },
+              (err) => {
+                console.log("location after prompt error");
+                console.log(err);
+                setLoadingLocation(false);
+                setNavigatorExists(false);
+              }
+            );
+            setNavigatorExists(true);
+          } else if (result.state === "denied") {
+            console.log("denied");
+            setNavigatorExists(false);
+          } else {
+            console.log(result.state);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          setNavigatorExists(false);
+        });
+      return;
+    }
     navigator.geolocation.getCurrentPosition((res) => {
       setLoadingLocation(false);
       setUserLocation([res.coords.latitude, res.coords.longitude]);
@@ -297,6 +339,20 @@ const BetterTrainPage = () => {
                   <h1>
                     {trainData[0].routeName} (Train {trainData[0].trainNum})
                   </h1>
+                  {navigator.share ? (
+                    <p
+                      onClick={() => {
+                        navigator.share({
+                          title: `Track the Amtrak ${trainData[0].routeName} Train with Amtraker!`,
+                          url: `https://amtraker.com/trains/${trainData[0].trainID.split('-').join('/')}`,
+                        });
+                      }}
+                      style={{ textDecoration: "underline", marginTop: '-6px' }}
+                      className='click'
+                    >
+                      Share Train
+                    </p>
+                  ) : null}
                   <h2>Train Info:</h2>
                   <ul>
                     <li>
@@ -316,7 +372,7 @@ const BetterTrainPage = () => {
                           {new Intl.DateTimeFormat([], {
                             hour: "numeric",
                             minute: "numeric",
-                            timeZone: currentStation.tz,
+                            timeZone: originStation.tz,
                             timeZoneName: "short",
                           }).format(new Date(originStation.dep))}
                           )
@@ -340,9 +396,9 @@ const BetterTrainPage = () => {
                           {new Intl.DateTimeFormat([], {
                             hour: "numeric",
                             minute: "numeric",
-                            timeZone: currentStation.tz,
+                            timeZone: destinationStation.tz,
                             timeZoneName: "short",
-                          }).format(new Date(originStation.arr))}
+                          }).format(new Date(destinationStation.arr))}
                           )
                         </li>
                       </ul>
@@ -405,7 +461,13 @@ const BetterTrainPage = () => {
                           {navigator.geolocation ? (
                             <>
                               {loadingLocation ? (
-                                <p>Loading location...</p>
+                                navigatorExists ? (
+                                  <p>Loading location...</p>
+                                ) : (
+                                  <p>
+                                    Error. Location permissions not allowed.{" "}
+                                  </p>
+                                )
                               ) : (
                                 <ul>
                                   <li>
@@ -452,7 +514,6 @@ const BetterTrainPage = () => {
                       )}
                     </li>
                   </ul>
-                  <ManualTrainBox train={trainData[0]} />
                   <h2>Stations</h2>
                   <div className='stations'>
                     {trainData[0].stations.map((station, index) => {

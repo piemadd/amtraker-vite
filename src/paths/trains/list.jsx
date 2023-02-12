@@ -95,7 +95,7 @@ const TrainsList = () => {
               </>
             ) : (
               <div className='station-box'>
-                <p>Loading station data...</p>
+                <p>Loading train data...</p>
               </div>
             )}
           </div>

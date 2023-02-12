@@ -28,9 +28,17 @@ const StationsList = () => {
       .then((data) => {
         console.log("data fetched", data);
         setStationData(
-          Object.values(data).sort((a, b) => {
-            return a.name.localeCompare(b.name);
-          })
+          Object.values(data)
+            .map((n) => {
+              if (!n.name) {
+                console.log("no name", n.code, n.city, n.state);
+                n.name = n.city;
+              }
+              return n;
+            })
+            .sort((a, b) => {
+              return a.name.localeCompare(b.name);
+            })
         );
         setResults(
           Object.values(data).sort((a, b) => {
@@ -90,7 +98,15 @@ const StationsList = () => {
               <>
                 {results.map((station) => {
                   if (!station.tz) {
-                    console.log(station.name, station.code, station.state);
+                    console.log(
+                      "no tz:",
+                      station.name,
+                      station.code,
+                      station.state
+                    );
+                  }
+                  if (!station.name) {
+                    console.log("no name:", station.code, station.state);
                   }
                   return (
                     <Link

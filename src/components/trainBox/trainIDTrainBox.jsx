@@ -1,7 +1,18 @@
 import ManualTrainBox from "./manualTrainBox";
 import { useState, useEffect } from "react";
 
-const TrainIDTrainBox = ({ trainID }) => {
+const defaultCallbackIfInvalid = (trainID) => {
+  const newSavedTrains = localStorage
+    .getItem("savedTrainsAmtrakerV3")
+    .split(",")
+    .filter((n) => n)
+    .filter((train) => train !== trainID);
+
+  localStorage.setItem("savedTrainsAmtrakerV3", newSavedTrains.join(","));
+};
+
+
+const TrainIDTrainBox = ({ trainID, callbackIfInvalid={defaultCallbackIfInvalid} }) => {
   const [train, setTrain] = useState(undefined);
   const [loading, setLoading] = useState(true);
 
@@ -26,17 +37,7 @@ const TrainIDTrainBox = ({ trainID }) => {
         ) {
           console.log("data not valid for", trainID, "returning");
 
-          localStorage.setItem(
-            "savedTrainsAmtrakerV3",
-            localStorage
-              .getItem("savedTrainsAmtrakerV3")
-              .split(",")
-              .filter((n) => {
-                console.log(n, trainID);
-                return trainID !== n;
-              })
-              .join(",")
-          );
+          callbackIfInvalid(trainID);
 
           return;
         }

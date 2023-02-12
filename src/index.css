@@ -38,6 +38,11 @@ a::after {
   font-family: "Inter", sans-serif;
 }
 
+.errorTrace {
+  font-size: 0.8em;
+  color: rgb(245, 138, 138);
+}
+
 html,
 body,
 #root {
@@ -92,4 +97,13 @@ body,
   display: flex;
   filter: blur(2px);
   z-index: -2;
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }

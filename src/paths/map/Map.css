@@ -32,6 +32,23 @@ path {
   fill: none;
 }
 
+.maplibregl-canvas {
+  width: 100% !important;
+}
+
+.mapboxgl-popup-content, .maplibregl-popup-content {
+  background-color: #111 !important;
+}
+
+.mapboxgl-popup-close-button, .maplibregl-popup-close-button {
+  background-color: #222 !important;
+  transition-duration: 100ms;
+}
+
+.mapboxgl-popup-close-button:hover, .maplibregl-popup-close-button:hover {
+  background-color: #333 !important;
+}
+
 details {
   z-index: 10;
   position: absolute;

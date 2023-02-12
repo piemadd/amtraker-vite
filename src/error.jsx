@@ -4,6 +4,8 @@ export default function ErrorPage() {
   const error = useRouteError();
   //console.error(error);
 
+  console.log(error.stack);
+
   return (
     <div id='error-page'>
       <h1>Oops!</h1>
@@ -23,8 +25,20 @@ export default function ErrorPage() {
           Current date and time (local): {new Date().toLocaleString()}
           <br />
           {error.toString()}
+          <br />
+          Error Trace:
         </i>
       </p>
+      <div>
+        {error.stack
+          .split("\n")
+          .filter((n) => n)
+          .map((line, i) => (
+            <p className='errorTrace' key={`error-trace-${i}`}>
+              {line}
+            </p>
+          ))}
+      </div>
     </div>
   );
 }

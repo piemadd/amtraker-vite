@@ -26,6 +26,18 @@ const App = () => {
     );
   }, []);
 
+  const callbackIfInvalid = (trainID) => {
+    const newSavedTrains = localStorage
+      .getItem("savedTrainsAmtrakerV3")
+      .split(",")
+      .filter((n) => n)
+      .filter((train) => train !== trainID);
+  
+      setSavedTrains(newSavedTrains);
+  
+    localStorage.setItem("savedTrainsAmtrakerV3", newSavedTrains.join(","));
+  };
+
   const updateTrainLink = (
     routeName = trainName,
     routeNumber = trainNumber
@@ -59,7 +71,7 @@ const App = () => {
                     key={`saved-train-${train}`}
                     to={`/trains/${train.split("-")[0]}/${train.split("-")[2]}`}
                   >
-                    <TrainIDTrainBox trainID={train} />
+                    <TrainIDTrainBox trainID={train} callBackIfInvalid={callbackIfInvalid}/>
                   </Link>
                 );
               })
@@ -69,6 +81,7 @@ const App = () => {
           </div>
         </section>
         <h3 className='split'>or</h3>
+        {/*
         <section className='section-new'>
           <h3>Track a New Train</h3>
           <div>
@@ -114,16 +127,17 @@ const App = () => {
           </div>
         </section>
         <h3 className='split'>or</h3>
+        */}
         <div className='links'>
-          {" "}
-          <Link to={"/map"}>
-            <button className='root'>View the Map</button>
+          <Link to={"/trains"}>
+            <button className='root'>Track a new Train</button>
           </Link>
         </div>
         <div className='links'>
-          <Link to={"/trains"}>
-            <button className='root'>Full Trains List</button>
+        <Link to={"/map"}>
+            <button className='root'>View the Map</button>
           </Link>
+          
           <Link to={"/stations"}>
             <button className='root'>Full Stations List</button>
           </Link>
