@@ -45,7 +45,6 @@ const Settings = () => {
               Light
             </option>
           </select>
-          {/*
           <h2>Foamer Mode</h2>
           <p>
             Foamer Mode makes using Amtraker a bit more pleasant for foamers,
@@ -103,7 +102,6 @@ const Settings = () => {
               </>
             )}
           </select>
-          */}
           <h2>More?</h2>
           <p>
             If you have any feature requests for Amtraker, please send them my

@@ -152,7 +152,7 @@ const BetterTrainPage = () => {
 
   const [loading, setLoading] = useState(true);
   const [trainData, setTrainData] = useState([]);
-  const [foamerMode, setFoamerMode] = useState(true);
+  const [foamerMode, setFoamerMode] = useState(false);
   const [navigatorExists, setNavigatorExists] = useState(false);
   const [loadingLocation, setLoadingLocation] = useState(true);
   const [userLocation, setUserLocation] = useState([null, null]);
@@ -210,10 +210,10 @@ const BetterTrainPage = () => {
     let settings = JSON.parse(localStorage.getItem("amtraker-v3-settings"));
     if (settings) {
       if (settings.foamerMode) {
-        //setFoamerMode(settings.foamerMode);
+        setFoamerMode(settings.foamerMode);
       } else {
-        //setFoamerMode(false);
-        //settings.foamerMode = false;
+        setFoamerMode(false);
+        settings.foamerMode = false;
       }
       localStorage.setItem("amtraker-v3-settings", JSON.stringify(settings));
     } //else is handled by the settings init
