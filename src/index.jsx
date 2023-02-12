@@ -30,11 +30,6 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/trains/names/:trainName",
-    element: <TrainsByName />,
-    errorElement: <ErrorPage />,
-  },
-  {
     path: "/trains",
     element: <TrainsList />,
     errorElement: <ErrorPage />,

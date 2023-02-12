@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import Map, { Source, Layer, Marker, Popup } from "react-map-gl";
+import Map, { Layer, Marker, Popup } from "react-map-gl";
 import maplibregl from "maplibre-gl";
 import "./Map.css";
 import "maplibre-gl/dist/maplibre-gl.css";
@@ -9,7 +9,7 @@ import layers from "protomaps-themes-base";
 import nationalRoute from "./nationalRoute.json";
 import mapStyle from "./style.json";
 import MarkerIcon from "./MarkerIcon.jsx";
-import bbox from "@turf/bbox";
+//import bbox from "@turf/bbox";
 import ManualTrainPopup from "../../components/trainBox/maualTrainPopup";
 
 //adding pmtiles protocol

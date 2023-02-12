@@ -1,5 +1,3 @@
-import { stationNames } from "../../data/stations";
-
 const toHoursAndMinutesLate = (date1, date2) => {
   const diff = date1.valueOf() - date2.valueOf();
 
@@ -71,7 +69,7 @@ const ManualTrainPopup = ({
         {toHoursAndMinutesLate(arr, schArr)} - {train.velocity.toFixed(1)} mph
       </p>
       <p>
-        Next: {stationNames[train.eventCode]} ({train.eventCode})
+        Next: {train.eventName} ({train.eventCode})
       </p>
       {
         train.statusMsg === 'SERVICE DISRUPTION' ? (

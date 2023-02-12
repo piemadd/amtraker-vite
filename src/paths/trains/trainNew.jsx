@@ -1,11 +1,9 @@
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import ManualStationBox from "../../components/stationBox/manualStationBox";
 
-import { stationNames, stationMeta } from "../../data/stations.js";
+import { stationMeta } from "../../data/stations.js";
 
-import HtmlJsonTable from "react-json-to-html-table";
 import "./trains.css";
 import SettingsInit from "../index/settingsInit";
 
@@ -358,7 +356,7 @@ const BetterTrainPage = () => {
                     <li>
                       <i>Origin: </i>
                       <Link to={`/stations/${trainData[0].origCode}`}>
-                        {stationNames[trainData[0].origCode]} (
+                        {trainData[0].origName} (
                         {trainData[0].origCode})
                       </Link>
                       <ul>
@@ -382,7 +380,7 @@ const BetterTrainPage = () => {
                     <li>
                       <i>Destination: </i>
                       <Link to={`/stations/${trainData[0].destCode}`}>
-                        {stationNames[trainData[0].destCode]} (
+                        {trainData[0].destName} (
                         {trainData[0].destCode})
                       </Link>
                       <ul>
@@ -406,7 +404,7 @@ const BetterTrainPage = () => {
                     <li>
                       <i>Next Stop:</i>{" "}
                       <span>
-                        {stationNames[trainData[0].eventCode]} (
+                        {trainData[0].eventName} (
                         {trainData[0].eventCode})
                       </span>
                       <ul>

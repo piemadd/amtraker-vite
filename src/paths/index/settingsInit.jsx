@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 
-import HtmlJsonTable from "react-json-to-html-table";
-
 const SettingsInit = () => {
   const [error, setError] = useState(false);
   const [appSettings, setAppSettings] = useState(null);
