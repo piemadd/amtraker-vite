@@ -91,6 +91,9 @@ const TrainPage = () => {
                 "savedTrainsAmtrakerV3",
                 savedTrains
                   .filter((element) => {
+                    console.log('element', element)
+                    console.log(element.split("-")[0] !== trainNum)
+                    console.log(element.split("-")[2] !== trainDate)
                     return (
                       element.split("-")[0] !== trainNum &&
                       element.split("-")[2] !== trainDate

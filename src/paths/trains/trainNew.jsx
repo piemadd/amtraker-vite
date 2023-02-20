@@ -279,10 +279,11 @@ const BetterTrainPage = () => {
                 "savedTrainsAmtrakerV3",
                 savedTrains
                   .filter((element) => {
-                    return (
-                      element.split("-")[0] !== trainNum &&
-                      element.split("-")[2] !== trainDate
-                    );
+                    if (element.split("-")[0] === trainNum && element.split("-")[2] === trainDate) {
+                      return false;
+                    }
+
+                    return true;
                   })
                   .join(",")
               );
