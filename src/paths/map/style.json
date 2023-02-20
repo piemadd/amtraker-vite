@@ -466,7 +466,7 @@
       "source-layer": "transportation",
       "filter": ["all", ["==", "brunnel", "tunnel"], ["in", "class", "rail"]],
       "paint": {
-        "line-color": "#111111",
+        "line-color": "#777",
         "line-width": {"base": 1.4, "stops": [[14, 0.4], [15, 0.75], [20, 2]]}
       }
     },
@@ -477,7 +477,7 @@
       "source-layer": "transportation",
       "filter": ["all", ["==", "brunnel", "tunnel"], ["==", "class", "rail"]],
       "paint": {
-        "line-color": "#111111",
+        "line-color": "#777",
         "line-dasharray": [0.2, 8],
         "line-width": {"base": 1.4, "stops": [[14.5, 0], [15, 3], [20, 8]]}
       }
@@ -493,7 +493,7 @@
         ["in", "class", "transit"]
       ],
       "paint": {
-        "line-color": "#111111",
+        "line-color": "#777",
         "line-width": {"base": 1.4, "stops": [[14, 0.4], [15, 0.75], [20, 2]]}
       }
     },
@@ -508,7 +508,7 @@
         ["==", "class", "transit"]
       ],
       "paint": {
-        "line-color": "#111111",
+        "line-color": "#777",
         "line-dasharray": [0.2, 8],
         "line-width": {"base": 1.4, "stops": [[14.5, 0], [15, 3], [20, 8]]}
       }
@@ -813,7 +813,7 @@
         ["==", "class", "rail"]
       ],
       "paint": {
-        "line-color": "#555",
+        "line-color": "#777",
         "line-width": {"stops": [[1, 4], [6, 2], [10, 1.4], [14, 1]]}
       }
     },
@@ -828,7 +828,7 @@
         ["==", "class", "rail"]
       ],
       "paint": {
-        "line-color": "#666",
+        "line-color": "#777",
         "line-width": {"base": 1.4, "stops": [[14, 0.4], [15, 0.75], [20, 2]]}
       }
     },
@@ -1164,7 +1164,7 @@
       "source-layer": "transportation",
       "filter": ["all", ["==", "class", "rail"], ["==", "brunnel", "bridge"]],
       "paint": {
-        "line-color": "#666",
+        "line-color": "#777",
         "line-width": {"base": 1.4, "stops": [[14, 0.4], [15, 0.75], [20, 2]]}
       }
     },
@@ -1175,7 +1175,7 @@
       "source-layer": "transportation",
       "filter": ["all", ["==", "class", "rail"], ["==", "brunnel", "bridge"]],
       "paint": {
-        "line-color": "#666",
+        "line-color": "#777",
         "line-dasharray": [0.2, 8],
         "line-width": {"base": 1.4, "stops": [[14.5, 0], [15, 3], [20, 8]]}
       }
@@ -1649,6 +1649,17 @@
         "text-color": "#fff",
         "text-halo-color": "#000",
         "text-halo-width": 1
+      }
+    },
+    {
+      "id": "Amtrak_Routes",
+      "type": "line",
+      "source": "protomaps",
+      "source-layer": "amtrak_routes",
+      "filter": ["all"],
+      "paint": {
+        "line-color": "#5366c9",
+        "line-width": {"base": 1, "stops": [[0, 1], [9, 2], [20, 2]]}
       }
     }
   ],

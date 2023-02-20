@@ -66,7 +66,7 @@ const StationPage = () => {
                 {stationData.trains.length > 0 ? stationData.trains.map((trainID) => {
                   return (
                     <Link
-                      to={`/trains/${trainID}`}
+                      to={`/trains/${trainID.split('-').join('/')}`}
                       key={`train-${trainID}`}
                       className='station-link'
                     >

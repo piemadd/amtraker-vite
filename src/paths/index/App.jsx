@@ -103,9 +103,6 @@ const App = () => {
           <Link to='/about'>
             <p>About</p>
           </Link>
-          <Link to='/trains/full'>
-            <p>Train Index</p>
-          </Link>
           <Link to='/settings'>
             <p>Settings</p>
           </Link>
@@ -114,5 +111,11 @@ const App = () => {
     </>
   );
 };
+
+/*
+<Link to='/trains/full'>
+            <p>Train Index</p>
+          </Link>
+*/
 
 export default App;

@@ -196,3 +196,7 @@ table, th, td {
   text-decoration: dotted underline;
   font-weight: 500;
 }
+
+#searchbox {
+  margin-bottom: 12px;
+}

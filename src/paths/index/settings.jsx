@@ -105,7 +105,7 @@ const Settings = () => {
           <h2>More?</h2>
           <p>
             If you have any feature requests for Amtraker, please send them my
-            way via my email: hi (at) amtraker (dot) com.
+            way via my email: <a href="mailto:hi@amtraker.com">hi@amtraker.com</a>.
           </p>
         </section>
       </div>

@@ -221,18 +221,15 @@ const AmtrakerMap = () => {
                 protomaps: {
                   type: "vector",
                   tiles: [
-                    "https://tilea.piemadd.com/na-latest/{z}/{x}/{y}.mvt",
-                    "https://tileb.piemadd.com/na-latest/{z}/{x}/{y}.mvt",
-                    "https://tilec.piemadd.com/na-latest/{z}/{x}/{y}.mvt",
-                    "https://tiled.piemadd.com/na-latest/{z}/{x}/{y}.mvt"                 
+                    "https://tilea.piemadd.com/tiles/{z}/{x}/{y}.mvt",
+                    "https://tileb.piemadd.com/tiles/{z}/{x}/{y}.mvt",
+                    "https://tilec.piemadd.com/tiles/{z}/{x}/{y}.mvt",
+                    "https://tiled.piemadd.com/tiles/{z}/{x}/{y}.mvt",
+                    //"http://10.0.0.237:8081/z7_z13_full/{z}/{x}/{y}.mvt"            
                   ],
                   attribution:
                     '<a href="https://protomaps.com">Protomaps</a> © <a href="https://openstreetmap.org">OpenStreetMap</a>',
                   maxzoom: 13
-                },
-                nationalRoute: {
-                  type: "geojson",
-                  data: nationalRoute,
                 }
               },
               version: 8,
