@@ -37,16 +37,19 @@ path {
   width: 100% !important;
 }
 
-.mapboxgl-popup-content, .maplibregl-popup-content {
+.mapboxgl-popup-content,
+.maplibregl-popup-content {
   background-color: #111 !important;
 }
 
-.mapboxgl-popup-close-button, .maplibregl-popup-close-button {
+.mapboxgl-popup-close-button,
+.maplibregl-popup-close-button {
   background-color: #222 !important;
   transition-duration: 100ms;
 }
 
-.mapboxgl-popup-close-button:hover, .maplibregl-popup-close-button:hover {
+.mapboxgl-popup-close-button:hover,
+.maplibregl-popup-close-button:hover {
   background-color: #333 !important;
 }
 
@@ -64,4 +67,80 @@ details > summary {
   font-weight: 400;
   user-select: none;
   cursor: pointer;
+}
+
+.mapboxgl-ctrl-group,
+.maplibregl-ctrl-group {
+  background-color: #444 !important;
+  color: #fff !important;
+}
+
+.mapboxgl-ctrl-group:hover,
+.maplibregl-ctrl-group:hover {
+  border-radius: 4px !important;
+}
+
+.maplibregl-ctrl button {
+  border-radius: 0 !important;
+}
+
+.maplibregl-ctrl button:hover {
+  background-color: #555 !important;
+  border-radius: 4px !important;
+}
+
+.mapboxgl-ctrl button.mapboxgl-ctrl-zoom-in .mapboxgl-ctrl-icon,
+.maplibregl-ctrl button.maplibregl-ctrl-zoom-in .maplibregl-ctrl-icon {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='29' height='29' viewBox='0 0 29 29' xmlns='http://www.w3.org/2000/svg' fill='%23fff'%3E%3Cpath d='M14.5 8.5c-.75 0-1.5.75-1.5 1.5v3h-3c-.75 0-1.5.75-1.5 1.5S9.25 16 10 16h3v3c0 .75.75 1.5 1.5 1.5S16 19.75 16 19v-3h3c.75 0 1.5-.75 1.5-1.5S19.75 13 19 13h-3v-3c0-.75-.75-1.5-1.5-1.5z'/%3E%3C/svg%3E") !important;
+}
+
+.mapboxgl-ctrl button.mapboxgl-ctrl-zoom-out .mapboxgl-ctrl-icon,
+.maplibregl-ctrl button.maplibregl-ctrl-zoom-out .maplibregl-ctrl-icon {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='29' height='29' viewBox='0 0 29 29' xmlns='http://www.w3.org/2000/svg' fill='%23fff'%3E%3Cpath d='M10 13c-.75 0-1.5.75-1.5 1.5S9.25 16 10 16h9c.75 0 1.5-.75 1.5-1.5S19.75 13 19 13h-9z'/%3E%3C/svg%3E") !important;
+}
+
+.mapboxgl-ctrl button.mapboxgl-ctrl-compass .mapboxgl-ctrl-icon,
+.maplibregl-ctrl button.maplibregl-ctrl-compass .maplibregl-ctrl-icon {
+  background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='29' height='29' viewBox='0 0 29 29' xmlns='http://www.w3.org/2000/svg' fill='%23fff'%3E%3Cpath d='m10.5 14 4-8 4 8h-8z'/%3E%3Cpath d='m10.5 16 4 8 4-8h-8z' fill='%23aaa'/%3E%3C/svg%3E") !important;
+}
+
+.map-over > div, .map-over > button {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  z-index: 1;
+  background-color: #444;
+  border: 0;
+  box-sizing: border-box;
+  display: block;
+  outline: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 1.2rem;
+  font-family: Kanit, sans-serif;
+}
+
+.map-over > .settings {
+  padding: 2px 8px;
+  top: 0;
+  left: 0;
+  margin-left: 10px;
+  margin-top: 10px;
+}
+
+.map-over > .settings:hover {
+  background-color: #555;
+}
+
+.map-over > .attribution {
+  flex-wrap: wrap;
+  bottom: 0;
+  right: 0;
+  padding-bottom: 8px;
+  border-radius: 4px 0 0 0;
+  font-size: 1rem;
+}
+
+.map-over > .attribution > a {
+  text-decoration: underline;
 }

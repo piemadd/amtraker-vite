@@ -67,7 +67,7 @@ const ManualTrainBox = ({ train, loading = false }) => {
               : train.stations[0].schDep
           )
         )}{" "}
-        - {train.origCode} =&gt; {train.destCode}
+        - {train.origCode} to {train.destCode}
       </p>
       <p>
         {toHoursAndMinutesLate(arr, schArr)} - {train.velocity.toFixed(1)} mph

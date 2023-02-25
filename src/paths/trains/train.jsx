@@ -220,14 +220,15 @@ const BetterTrainPage = () => {
   }, []);
 
   useEffect(() => {
-    if (!foamerMode || !("geolocation" in navigator)) {
+    if (foamerMode == false || !("geolocation" in navigator)) {
       console.log("no geolocation");
+    } else {
+      setNavigatorExists(true);
+      navigator.geolocation.getCurrentPosition((res) => {
+        setLoadingLocation(false);
+        setUserLocation([res.coords.latitude, res.coords.longitude]);
+      });
     }
-    setNavigatorExists(true);
-    navigator.geolocation.getCurrentPosition((res) => {
-      setLoadingLocation(false);
-      setUserLocation([res.coords.latitude, res.coords.longitude]);
-    });
   }, [foamerMode]);
 
   const originStation = trainData[0]
@@ -266,37 +267,21 @@ const BetterTrainPage = () => {
           >
             Back
           </h2>
-          <h2
-            className='click'
-            onClick={() => {
-              // removing saved train
-              const savedTrains = localStorage
-                .getItem("savedTrainsAmtrakerV3")
-                .split(",")
-                .filter((n) => n);
-
-              localStorage.setItem(
-                "savedTrainsAmtrakerV3",
-                savedTrains
-                  .filter((element) => {
-                    if (
-                      element.split("-")[0] === trainNum &&
-                      element.split("-")[2] === trainDate
-                    ) {
-                      return false;
-                    }
-
-                    return true;
-                  })
-                  .join(",")
-              );
-
-              navigate(-1);
-              navigate("/", { replace: true }); //fallback
-            }}
-          >
-            Delete Train
-          </h2>
+          {navigator.share ? (
+            <h2
+              onClick={() => {
+                navigator.share({
+                  title: `Track the Amtrak ${trainData[0].routeName} Train with Amtraker!`,
+                  url: `https://amtraker.com/trains/${trainData[0].trainID
+                    .split("-")
+                    .join("/")}`,
+                });
+              }}
+              className='click'
+            >
+              Share Train
+            </h2>
+          ) : null}
         </div>
         <section className='section-trainPage'>
           <SettingsInit />
@@ -307,22 +292,38 @@ const BetterTrainPage = () => {
                   <h1>
                     {trainData[0].routeName} (Train {trainData[0].trainNum})
                   </h1>
-                  {navigator.share ? (
-                    <p
-                      onClick={() => {
-                        navigator.share({
-                          title: `Track the Amtrak ${trainData[0].routeName} Train with Amtraker!`,
-                          url: `https://amtraker.com/trains/${trainData[0].trainID
-                            .split("-")
-                            .join("/")}`,
-                        });
-                      }}
-                      style={{ textDecoration: "underline", marginTop: "-6px" }}
-                      className='click'
-                    >
-                      Share Train
-                    </p>
-                  ) : null}
+                  <p
+                    className='click'
+                    style={{ textDecoration: "underline", marginTop: "-6px" }}
+                    onClick={() => {
+                      // removing saved train
+                      const savedTrains = localStorage
+                        .getItem("savedTrainsAmtrakerV3")
+                        .split(",")
+                        .filter((n) => n);
+
+                      localStorage.setItem(
+                        "savedTrainsAmtrakerV3",
+                        savedTrains
+                          .filter((element) => {
+                            if (
+                              element.split("-")[0] === trainNum &&
+                              element.split("-")[2] === trainDate
+                            ) {
+                              return false;
+                            }
+
+                            return true;
+                          })
+                          .join(",")
+                      );
+
+                      navigate(-1);
+                      navigate("/", { replace: true }); //fallback
+                    }}
+                  >
+                    Delete Train
+                  </p>
                   <h2>Train Info:</h2>
                   <ul>
                     <li>

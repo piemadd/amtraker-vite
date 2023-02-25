@@ -8,7 +8,7 @@ import ErrorPage from "./error.jsx";
 //paths
 import App from "./paths/index/App.jsx";
 import TrainsByNumber from "./paths/trains/num.jsx";
-import BetterTrainPage from "./paths/trains/trainNew.jsx";
+import BetterTrainPage from "./paths/trains/train.jsx";
 import TrainsList from "./paths/trains/list.jsx";
 import FullTrainsList from "./paths/trains/listFull.jsx";
 import StationsList from "./paths/stations/list.jsx";
@@ -16,6 +16,7 @@ import StationPage from "./paths/stations/station.jsx";
 import Settings from "./paths/index/settings.jsx";
 import Map from "./paths/map/Map.jsx";
 import PrivacyPolicy from "./paths/index/privacy";
+import AboutPage from "./paths/index/about";
 
 const router = createBrowserRouter([
   {
@@ -60,7 +61,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/about",
-    element: <div>About Page</div>,
+    element: <AboutPage />,
     errorElement: <ErrorPage />,
   },
   {

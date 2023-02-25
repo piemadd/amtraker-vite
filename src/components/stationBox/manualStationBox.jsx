@@ -37,7 +37,11 @@ const ManualStationBox = ({ station, train, loading = false }) => {
   if (schArr.valueOf() < arr.valueOf()) trainTimely = "Late";
   if (!schArr || !arr) trainTimely = "No Data";
 
-  const stationTimelyClass = trainTimely.toLowerCase().split(" ").join("-");
+  let stationTimelyClass = "on-time";
+  const stationTimely = toHoursAndMinutesLate(dep, schDep);
+
+  if (stationTimely.includes("Late")) stationTimelyClass = "late";
+  if (stationTimely.includes("Early")) stationTimelyClass = "early";
 
   return loading ? (
     <div className={"station-line"}>Loading train...</div>
@@ -63,16 +67,16 @@ const ManualStationBox = ({ station, train, loading = false }) => {
       </div>
       {train.origCode !== station.code && station.status === "Enroute" ? (
         <div>
-          <p>
+          <p className='enroute'>
             {new Intl.DateTimeFormat([], {
               hour: "numeric",
               minute: "numeric",
               timeZone: station.tz,
             }).format(arr)}
-            {" :"}
           </p>
           &nbsp;
-          <p className='greyed'>
+          <p className='greyed enroute'>
+            {": "}
             {new Intl.DateTimeFormat([], {
               month: "short",
               day: "numeric",

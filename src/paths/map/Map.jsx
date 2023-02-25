@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import Map, { Layer, Marker, Popup } from "react-map-gl";
+import Map, { Layer, Marker, Popup, NavigationControl } from "react-map-gl";
 import maplibregl from "maplibre-gl";
 import "./Map.css";
 import "maplibre-gl/dist/maplibre-gl.css";
@@ -77,6 +77,7 @@ const dataLayer = {
 
 const AmtrakerMap = () => {
   const [allData, setAllData] = useState([]);
+  const [showAll, setShowAll] = useState(false);
   const [popupInfo, setPopupInfo] = useState(null);
   const [open, setOpen] = useState(true);
   const ref = useRef();
@@ -87,74 +88,86 @@ const AmtrakerMap = () => {
       localStorage.setItem("savedTrainsAmtrakerV3", "");
     }
 
-    return localStorage
+    const trains = localStorage
       .getItem("savedTrainsAmtrakerV3")
       .split(",")
       .filter((n) => n);
-  });
+
+    if (trains.length === 0) {
+      setShowAll(true);
+    }
+
+    return trains;
+  }, []);
   console.log(savedTrains);
 
+  const savedTrainsShortID = useMemo(() => {
+    if (savedTrains.length === 0) return [];
+    return savedTrains.map((n) => `${n.split("-")[0]}-${n.split("-")[2]}`);
+  }, [savedTrains]);
+
   const markers = useMemo(() => {
-    return allData.map((train) => {
-      const currentStation = train.stations.find(
-        (station) => station.code === train.eventCode
-      );
+    return allData
+      .filter((n) => {
+        if (showAll) return true;
+        return savedTrainsShortID.includes(n.trainID);
+      })
+      .map((train) => {
+        if (train.eventCode == "CBN") {
+          const stationCodes = train.stations.map((station) => station.code);
+          if (stationCodes.indexOf("NFS") < stationCodes.indexOf("NFL")) {
+            train.eventCode = "NFL";
+          } else {
+            train.eventCode = "NFS";
+          }
+        }
 
-      const trainStatus = toHoursAndMinutesLate(
-        new Date(currentStation.arr ?? currentStation.dep),
-        new Date(currentStation.schArr ?? currentStation.schDep)
-      );
+        const currentStation = train.stations.find(
+          (station) => station.code === train.eventCode
+        );
 
-      return (
-        <Marker
-          latitude={train.lat}
-          longitude={train.lon}
-          anchor='center'
-          dsadrotationAlignment='map'
-          key={`train-marker-${train.trainID}`}
-          height={"48px"}
-          onClick={(e) => {
-            // If we let the click event propagates to the map, it will immediately close the popup
-            // with `closeOnClick: true`
-            e.originalEvent.stopPropagation();
-            setPopupInfo(train);
-          }}
-        >
-          <MarkerIcon
-            num={train.trainNum}
-            trainTimely={trainStatus}
-            trainState={train.trainState}
-            direction={train.heading}
+        if (!currentStation) {
+          console.log(train);
+          return null;
+        }
+
+        const trainStatus = toHoursAndMinutesLate(
+          new Date(currentStation.arr ?? currentStation.dep),
+          new Date(currentStation.schArr ?? currentStation.schDep)
+        );
+
+        return (
+          <Marker
+            latitude={train.lat}
+            longitude={train.lon}
+            anchor='center'
+            dsadrotationAlignment='map'
+            key={`train-marker-${train.trainID}`}
             height={"48px"}
-          />
-        </Marker>
-      );
-    });
-  }, [allData]);
+            onClick={(e) => {
+              // If we let the click event propagates to the map, it will immediately close the popup
+              // with `closeOnClick: true`
+              e.originalEvent.stopPropagation();
+              setPopupInfo(train);
+            }}
+          >
+            <MarkerIcon
+              num={train.trainNum}
+              trainTimely={trainStatus}
+              trainState={train.trainState}
+              direction={train.heading}
+              height={"48px"}
+            />
+          </Marker>
+        );
+      });
+  }, [allData, showAll]);
 
   useEffect(() => {
     setInterval(() => {
       fetch("https://api-v3.amtraker.com/v3/trains")
         .then((res) => res.json())
         .then((data) => {
-          console.log(allData);
-
-          const currentTwenty = allData.filter((n) => n.trainNum == 20)[0];
-          const newTwenty = Object.values(data)
-            .flatMap((n) => n)
-            .filter((n) => n.trainNum == 20)[0];
-
-          if (currentTwenty && newTwenty) {
-            if (
-              currentTwenty.lat != newTwenty.lat ||
-              currentTwenty.lon != newTwenty.lon
-            ) {
-              console.log("20 moved");
-            }
-          } else {
-            console.log("20 not found, wait til next time ig idk");
-          }
-
           setAllData(
             JSON.parse(JSON.stringify(Object.values(data).flatMap((n) => n)))
           );
@@ -236,26 +249,11 @@ const AmtrakerMap = () => {
                     "https://tiled.piemadd.com/tiles/{z}/{x}/{y}.mvt",
                     //"http://10.0.0.237:8081/tiles/{z}/{x}/{y}.mvt"
                   ],
-                  attribution:
-                    '<a href="https://protomaps.com">Protomaps</a> © <a href="https://openstreetmap.org">OpenStreetMap</a>',
                   maxzoom: 13,
                 },
               },
               version: 8,
               metadata: {},
-            }}
-            oldMapStyle={{
-              version: 8,
-              glyphs: "http://fonts.openmaptiles.org/{fontstack}/{range}.pbf",
-              sources: {
-                protomaps: {
-                  type: "vector",
-                  url: "http://10.0.0.237:8081/illinois-latest.pmtiles",
-                  attribution:
-                    '<a href="https://protomaps.com">Protomaps</a> © <a href="https://openstreetmap.org">OpenStreetMap</a>',
-                },
-              },
-              layers: layers("protomaps", "dark"),
             }}
           >
             <Layer
@@ -283,11 +281,33 @@ const AmtrakerMap = () => {
                 <ManualTrainPopup train={popupInfo} />
               </Popup>
             )}
+            <NavigationControl visualizePitch={true} />
+            <div className='map-over'>
+              <div className='attribution'>
+                <a href='https://protomaps.com'>Protomaps</a>
+                {" | "}
+                <a href='https://openstreetmap.org/copyright'>
+                  © OpenStreetMap
+                </a>
+                {" | "}
+                <span>© Amtraker Tiles</span>
+              </div>
+              <button
+                className='settings'
+                onClick={() => {
+                  setShowAll(!showAll);
+                }}
+              >
+                {showAll ? "Show Saved" : "Show All"}
+              </button>
+            </div>
           </Map>
         </div>
       </div>
     </>
   );
 };
+
+//'<a href="https://protomaps.com">Protomaps</a> © <a href="https://openstreetmap.org">OpenStreetMap</a>'
 
 export default AmtrakerMap;

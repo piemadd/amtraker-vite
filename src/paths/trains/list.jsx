@@ -85,6 +85,7 @@ const TrainsList = () => {
                     <Link
                       to={`/trains/${train.trainID.replace('-', '/')}`}
                       key={`train-${train.trainID}`}
+                      replace={true}
                       className='station-link'
                     >
                       <ManualTrainBox train={train} />

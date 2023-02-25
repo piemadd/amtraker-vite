@@ -26,7 +26,11 @@ const App = () => {
   console.log(savedTrains);
 
   useEffect(() => {
-    setSavedTrainsObjects([]);
+    if (savedTrains.length === 0) {
+      setLoading(false);
+    }
+    //setSavedTrainsObjects([]);
+    let savedTranisObjectsTemp = [];
     savedTrains.forEach((trainID, i, arr) => {
       const shortenedTrainID = `${trainID.split("-")[0]}-${
         trainID.split("-")[2]
@@ -51,6 +55,11 @@ const App = () => {
               "savedTrainsAmtrakerV3",
               newSavedTrains.join(",")
             );
+
+            if (i === arr.length - 1) {
+              setSavedTrainsObjects(savedTranisObjectsTemp);
+            }
+            return null;
           }
 
           const trainData = data[shortenedTrainID.split("-")[0]][0];
@@ -74,18 +83,25 @@ const App = () => {
               "savedTrainsAmtrakerV3",
               newSavedTrains.join(",")
             );
+
+            if (i === arr.length - 1) {
+              setSavedTrainsObjects(savedTranisObjectsTemp);
+            }
             return null;
           }
 
-          setSavedTrainsObjects([
-            ...savedTrainsObjects,
+          savedTranisObjectsTemp.push(
             <Link
               key={`saved-train-${trainID}`}
               to={`/trains/${trainID.split("-")[0]}/${trainID.split("-")[2]}`}
             >
               <ManualTrainBox train={trainData} />
-            </Link>,
-          ]);
+            </Link>
+          );
+
+          if (i === arr.length - 1) {
+            setSavedTrainsObjects(savedTranisObjectsTemp);
+          }
         })
         .catch((err) => {
           console.log(err);

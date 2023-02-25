@@ -111,6 +111,7 @@ const StationsList = () => {
                     <Link
                       to={`/stations/${station.code}`}
                       key={`station-${station.code}`}
+                      replace={true}
                       className='station-link'
                     >
                       <div className='station-box'>
