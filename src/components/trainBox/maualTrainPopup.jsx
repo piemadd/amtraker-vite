@@ -78,7 +78,7 @@ const ManualTrainPopup = ({ train, loading = false }) => {
               ? currentStation.schArr
               : currentStation.schDep
           )
-        )}
+        )} to {currentStation.code}
       </div>
       <div className='train-popup__info'>
         <Link to={`/trains/${train.trainID.split('-').join('/')}`}>View More</Link>

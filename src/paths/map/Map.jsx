@@ -6,7 +6,7 @@ import Map, {
   Popup,
   NavigationControl,
   FullscreenControl,
-  ScaleControl,
+  //ScaleControl,
 } from "react-map-gl";
 import maplibregl from "maplibre-gl";
 import "./Map.css";
@@ -290,6 +290,7 @@ const AmtrakerMap = () => {
             )}
             <NavigationControl visualizePitch={true} />
             <FullscreenControl />
+            {/*
             <ScaleControl
               style={{
                 color: "white",
@@ -297,6 +298,7 @@ const AmtrakerMap = () => {
               }}
               unit='imperial'
             />
+            */}
             <div className='map-over'>
               <div className='attribution'>
                 <a href='https://protomaps.com'>Protomaps</a>
