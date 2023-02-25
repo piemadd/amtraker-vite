@@ -7,6 +7,8 @@ import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 
 const App = () => {
   const [savedTrains, setSavedTrains] = useState([]);
+  const [isStale, setIsStale] = useState(true);
+  const [timeSinceLastUpdate, setTimeSinceLastUpdate] = useState(0);
   const [savedTrainsObjects, setSavedTrainsObjects] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -35,6 +37,13 @@ const App = () => {
       const shortenedTrainID = `${trainID.split("-")[0]}-${
         trainID.split("-")[2]
       }`;
+
+      fetch("https://api-v3.amtraker.com/v3/stale")
+        .then((res) => res.json())
+        .then((data) => {
+          setIsStale(data.stale);
+          setTimeSinceLastUpdate(data.avgLastUpdate);
+        });
 
       fetch(`https://api-v3.amtraker.com/v3/trains/${shortenedTrainID}`)
         .then((res) => res.json())
@@ -136,6 +145,15 @@ const App = () => {
         <h1>Amtraker</h1>
         <SettingsInit />
         <section id='section-saved'>
+          {isStale ? (
+            <div className='stale'>
+              <p>
+                <span className='stale-text'>Warning:</span> Data is stale.
+                Trains were last updated on average{" "}
+                {Math.floor(timeSinceLastUpdate / 60000)} minutes ago.
+              </p>
+            </div>
+          ) : null}
           <h3>Track a Saved Train</h3>
           <div className='savedTrains'>
             {loading ? (
