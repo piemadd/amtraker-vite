@@ -62,13 +62,19 @@ const Settings = () => {
               be helpful for those who want to time their shots better. This
               feature is currently in beta and should improve over time.
             </li>
+            {/*
             <li>
               <i>User Location:</i> The location of a user is shown on the
               tracking map. This can be helpful for those who are new to a location and
               aren't sure where they are in relation to the train route.
             </li>
+            */}
           </ul>
           <select
+            disabled
+            style={{
+              color: "#777",
+            }}
             onChange={(e) => {
               console.log("changing foamer mode to", e.target.value);
               let settings = JSON.parse(
@@ -84,10 +90,10 @@ const Settings = () => {
             {JSON.parse(localStorage.getItem("amtraker-v3-settings"))
               .foamerMode ? (
               <>
-                <option value='true' key='foamer-mode-enabled'>
+                <option value='true' key='foamer-mode-enabled' disabled>
                   Enabled
                 </option>
-                <option value='false' key='foamer-mode-disabled'>
+                <option value='false' key='foamer-mode-disabled' disabled>
                   Disabled
                 </option>
               </>
@@ -102,6 +108,7 @@ const Settings = () => {
               </>
             )}
           </select>
+          <p>Foamer mode has been disabled for the time being as some kinks are worked out in the Android permissions system.</p>
           <h2>More?</h2>
           <p>
             If you have any feature requests for Amtraker, please send them my
