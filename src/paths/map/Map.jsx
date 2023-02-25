@@ -1,6 +1,13 @@
 import React, { useEffect, useState, useMemo, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import Map, { Layer, Marker, Popup, NavigationControl } from "react-map-gl";
+import Map, {
+  Layer,
+  Marker,
+  Popup,
+  NavigationControl,
+  FullscreenControl,
+  ScaleControl,
+} from "react-map-gl";
 import maplibregl from "maplibre-gl";
 import "./Map.css";
 import "maplibre-gl/dist/maplibre-gl.css";
@@ -282,6 +289,14 @@ const AmtrakerMap = () => {
               </Popup>
             )}
             <NavigationControl visualizePitch={true} />
+            <FullscreenControl />
+            <ScaleControl
+              style={{
+                color: "white",
+                backgroundColor: "#444",
+              }}
+              unit='imperial'
+            />
             <div className='map-over'>
               <div className='attribution'>
                 <a href='https://protomaps.com'>Protomaps</a>
