@@ -62,13 +62,12 @@ const Settings = () => {
               be helpful for those who want to time their shots better. This
               feature is currently in beta and should improve over time.
             </li>
-            {/*
             <li>
               <i>User Location:</i> The location of a user is shown on the
-              tracking map. This can be helpful for those who are new to a location and
-              aren't sure where they are in relation to the train route.
+              tracking map. This can be helpful for those who are new to a
+              location and aren't sure where they are in relation to the train
+              route.
             </li>
-            */}
           </ul>
           <select
             disabled
@@ -108,7 +107,10 @@ const Settings = () => {
               </>
             )}
           </select>
-          <p>Foamer mode has been disabled for the time being as some kinks are worked out in the Android permissions system.</p>
+          <p>
+            Foamer mode has been disabled for the time being as some kinks are
+            worked out in the Android permissions system.
+          </p>
           <h2>More?</h2>
           <p>
             If you have any feature requests for Amtraker, please send them my
