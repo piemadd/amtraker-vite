@@ -44,6 +44,37 @@
   border-radius: 4px;
   padding: 6px 12px;
   transition-duration: 100ms;
+  max-width: 395px;
+}
+
+.station-line {
+  font-size: 1.2rem;
+  text-align: left;
+  border: 1px solid #777;
+  background-color: rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  padding: 0px 8px;
+  transition-duration: 100ms;
+  width: 100%;
+}
+
+.station-line > div {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: -8px;
+  width: 100%;
+}
+
+.station-line > div:first-child {
+  margin-top: 0px;
+}
+
+.station-line > div > p:last-child {
+}
+
+.station-line * {
+  vertical-align: middle;
+  line-height: 38px;
 }
 
 .currentStation {
@@ -75,15 +106,19 @@
   font-weight: 400 !important;
 }
 
-.status, .on-time {
+.status,
+.on-time {
   font-size: 1rem;
   padding: 2px 8px;
   border-radius: 8px;
   background-color: #1864ab;
 }
 
-.status-text, .on-time-text {
+.status-text,
+.on-time-text {
   color: #1864ab !important;
+  font-weight: 500;
+  text-decoration: dotted underline;
 }
 
 .early {
@@ -102,7 +137,8 @@
   color: #c60c30 !important;
 }
 
-.complete, .no-data {
+.complete,
+.no-data {
   background-color: #212529;
 }
 
@@ -144,14 +180,16 @@ div.trainPage section.section-trainPage {
 }
 
 div.trainPage section.section-trainPage div.stations {
-  width: calc(100% - 8px);
-  padding-right: 8px;
-  display: grid;
+  width: calc(100% - 18px);
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
   gap: 8px;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
 }
 
-table, th, td {
+table,
+th,
+td {
   border: 1px solid;
 }
 
@@ -188,7 +226,7 @@ table, th, td {
 .section-trainPage ul li i {
   font-weight: 400;
   color: #aaa;
-  font-style: italic; 
+  font-style: italic;
 }
 
 .section-trainPage ul li span {
@@ -199,4 +237,35 @@ table, th, td {
 
 #searchbox {
   margin-bottom: 12px;
+}
+
+.maplibregl-popup-content, .mapboxgl-popup-content {
+  width: 100%;
+}
+
+.train-popup {
+  font-family: Kanit, sans-serif;
+  display: flex;
+  flex-direction: column;
+  flex: wrap;
+  gap: 6px;
+}
+
+.train-popup__header {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.train-popup__info {
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+
+.train-popup__info > span {
+  font-size: 1.4rem;
+  font-style: italic;
+}
+
+.train-popup__info > a {
+  text-decoration: underline;
 }

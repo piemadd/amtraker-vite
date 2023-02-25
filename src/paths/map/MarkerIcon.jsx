@@ -1,22 +1,22 @@
 const colors = {
-  early: "#62a744",
-  onTime: "#62a744",
-  late: "#f9a240",
-  default: "#111111",
+  early: "#2b8a3e",
+  onTime: "#1864ab",
+  late: "#c60c30",
+  default: "#212529",
 };
 
 const MarkerIcon = ({ num, trainTimely, trainState, direction }) => {
   const trainNum = num ? num.toString() : "NULL";
   const trainDirection = direction ? direction : "none";
 
-  let trainColor = "#111111";
+  let trainColor = "#212529";
 
   if (trainTimely) {
-    if (trainTimely.includes("Early") || trainTimely.includes("On Time")) {
+    if (trainTimely.includes("early") || trainTimely.includes("On Time")) {
       trainColor = colors.early;
     }
 
-    if (trainTimely.includes("Late") || trainTimely.includes("NaN")) {
+    if (trainTimely.includes("late") || trainTimely.includes("NaN")) {
       trainColor = colors.late;
     }
 

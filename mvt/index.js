@@ -19,11 +19,26 @@ const listOutTileInfo = (tile) => {
 const root = protobuf.loadSync('mvt.proto');
 const VectorTile = root.lookupType('vector_tile.Tile');
 
-//const buffer = fs.readFileSync('0(3).mvt');
-//const tile = VectorTile.decode(buffer);
+const buffer = fs.readFileSync('0(6).mvt');
+const tile = VectorTile.decode(buffer);
 
-const harInput = JSON.parse(fs.readFileSync('test.har'));
+//console.dir(tile, { depth: null });
+let layerGeometries = {};
 
+tile.layers.forEach((layer) => {
+  layerGeometries[layer.name] = layer.features.flatMap((feature) => {
+    return feature.geometry;
+  }).length;
+});
+
+Object.keys(layerGeometries).sort((a, b) => {
+  return layerGeometries[b] - layerGeometries[a];
+}).forEach((layerName) => {
+  console.log(layerName, layerGeometries[layerName]);
+});
+
+//const harInput = JSON.parse(fs.readFileSync('test.har'));
+/*
 harInput.log.entries.forEach((entry, i, arr) => {
   if (entry.response.content.mimeType === 'application/x-protobuf') {
     const buffer = Buffer.from(entry.response.content.text, 'base64');
@@ -35,3 +50,4 @@ harInput.log.entries.forEach((entry, i, arr) => {
     }
   }
 });
+*/

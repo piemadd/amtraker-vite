@@ -1,29 +1,30 @@
 import ManualTrainBox from "./manualTrainBox";
 import { useState, useEffect } from "react";
 
-const defaultCallbackIfInvalid = (trainID) => {
-  const newSavedTrains = localStorage
-    .getItem("savedTrainsAmtrakerV3")
-    .split(",")
-    .filter((n) => n)
-    .filter((train) => train !== trainID);
-
-  localStorage.setItem("savedTrainsAmtrakerV3", newSavedTrains.join(","));
-};
-
-
-const TrainIDTrainBox = ({ trainID, callbackIfInvalid={defaultCallbackIfInvalid} }) => {
+const TrainIDTrainBox = ({ trainID }) => {
   const [train, setTrain] = useState(undefined);
   const [loading, setLoading] = useState(true);
 
   const shortenedTrainID = `${trainID.split("-")[0]}-${trainID.split("-")[2]}`;
-
   useEffect(() => {
     fetch(`https://api-v3.amtraker.com/v3/trains/${shortenedTrainID}`)
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data) && data.length === 0) {
-          throw new Error("Train data not valid");
+          console.log('removing train due to invalid data')
+          const newSavedTrains = localStorage
+            .getItem("savedTrainsAmtrakerV3")
+            .split(",")
+            .filter((n) => n)
+            .filter((train) => train !== trainID);
+
+          localStorage.setItem(
+            "savedTrainsAmtrakerV3",
+            newSavedTrains.join(",")
+          );
+
+          return null;
+          //throw new Error("Train data not valid");
         }
 
         const trainData = data[shortenedTrainID.split("-")[0]][0];
@@ -35,11 +36,19 @@ const TrainIDTrainBox = ({ trainID, callbackIfInvalid={defaultCallbackIfInvalid}
           schDep.getFullYear().toString().substring(2, 4) !==
             trainID.split("-")[3]
         ) {
-          console.log("data not valid for", trainID, "returning");
+          console.log("removing train due to incorrect date");
 
-          callbackIfInvalid(trainID);
+          const newSavedTrains = localStorage
+            .getItem("savedTrainsAmtrakerV3")
+            .split(",")
+            .filter((n) => n)
+            .filter((train) => train !== trainID);
 
-          return;
+          localStorage.setItem(
+            "savedTrainsAmtrakerV3",
+            newSavedTrains.join(",")
+          );
+          return null;
         }
 
         setLoading(false);
@@ -52,19 +61,18 @@ const TrainIDTrainBox = ({ trainID, callbackIfInvalid={defaultCallbackIfInvalid}
 
         console.log("data not valid for", trainID, "returning");
 
-        localStorage.setItem(
-          "savedTrainsAmtrakerV3",
-          localStorage
-            .getItem("savedTrainsAmtrakerV3")
-            .split(",")
-            .filter((n) => {
-              console.log(n, trainID);
-              return trainID !== n;
-            })
-            .join(",")
-        );
+        /*
 
-        return <p>Error loading train...</p>;
+        const newSavedTrains = localStorage
+    .getItem("savedTrainsAmtrakerV3")
+    .split(",")
+    .filter((n) => n)
+    .filter((train) => train !== trainID);
+
+  localStorage.setItem("savedTrainsAmtrakerV3", newSavedTrains.join(","));
+        */
+
+        return null;
       });
   }, [trainID, shortenedTrainID]);
 

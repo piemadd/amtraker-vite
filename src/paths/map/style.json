@@ -1453,6 +1453,7 @@
       "type": "symbol",
       "source": "protomaps",
       "source-layer": "place",
+      "minzoom": 12,
       "filter": ["all", ["in", "class", "neighbourhood", "suburb", "island"]],
       "layout": {
         "text-field": "{name:latin}",
@@ -1493,6 +1494,7 @@
       "type": "symbol",
       "source": "protomaps",
       "source-layer": "place",
+      "minzoom": 11,
       "filter": ["all", ["==", "class", "village"]],
       "layout": {
         "text-field": "{name:latin}",
@@ -1509,6 +1511,7 @@
     {
       "id": "place_town",
       "type": "symbol",
+      "minzoom": 11,
       "source": "protomaps",
       "source-layer": "place",
       "filter": ["all", ["==", "class", "town"]],
@@ -1532,7 +1535,7 @@
       "type": "symbol",
       "source": "protomaps",
       "source-layer": "place",
-      "minzoom": 5,
+      "minzoom": 6,
       "filter": ["all", ["==", "class", "city"]],
       "layout": {
         "icon-image": "",

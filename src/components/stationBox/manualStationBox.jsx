@@ -1,24 +1,27 @@
 const toHoursAndMinutesLate = (date1, date2) => {
-
-  if (date1.toString() === "Invalid Date" || date2.toString() === "Invalid Date") return "Estimate Error";
+  if (
+    date1.toString() === "Invalid Date" ||
+    date2.toString() === "Invalid Date"
+  )
+    return "Unknown (Estimate Error)";
 
   const diff = date1.valueOf() - date2.valueOf();
 
-  if (Math.abs(diff) > 1000 * 60 * 60 * 24) return "Schedule Error";
+  if (Math.abs(diff) > 1000 * 60 * 60 * 24) return "Unknown (Schedule Error)";
 
   const hours = Math.floor(Math.abs(diff) / 1000 / 60 / 60);
   const minutes = Math.floor((Math.abs(diff) / 1000 / 60 / 60 - hours) * 60);
 
   // creating the text
-  let amount = `${Math.abs(hours)}h ${Math.abs(minutes)}m`;
-  if (hours === 0) amount = `${Math.abs(minutes)}m`;
+  let amount = `${Math.abs(hours)}h ${Math.abs(minutes)}min`;
+  if (hours === 0) amount = `${Math.abs(minutes)}min`;
   if (minutes === 0) amount = `${Math.abs(hours)}h`;
 
   //on time
   if (diff === 0) return "On Time";
 
   //late or early
-  return diff > 0 ? `${amount} late` : `${amount} early`;
+  return diff > 0 ? `${amount} Late` : `${amount} Early`;
 };
 
 const ManualStationBox = ({ station, train, loading = false }) => {
@@ -37,63 +40,67 @@ const ManualStationBox = ({ station, train, loading = false }) => {
   const stationTimelyClass = trainTimely.toLowerCase().split(" ").join("-");
 
   return loading ? (
-    <div className={"station-box"}>Loading train...</div>
+    <div className={"station-line"}>Loading train...</div>
   ) : (
     <div
-      className={`station-box${
+      className={`station-line${
         train.eventCode === station.code ? " currentStation" : ""
       }`}
     >
       <div>
-        {station.name} ({station.code})&nbsp;
-        <span className={`${stationTimelyClass} status`}>{trainTimely}</span>
+        <h3>
+          {station.name} ({station.code})
+        </h3>
       </div>
-      <p>
-        {arr.toString() !== "Invalid Date" ? new Intl.DateTimeFormat([], {
-          month: "long",
-          day: "numeric",
-        }).format(arr) : 'Arrival Time Error'}{" "}
-      </p>
-      {station.status !== "Enroute" ? (
-        <p>
-          <span className='greyed'>Actual Arrival/Departure:</span>
+      <div>
+        <p className='greyed'>
+          {station.status === "Departed" ? "Dep" : "Est arr"}
         </p>
-      ) : (
-        <p>
-          <span className='greyed'>Estimated Arrival/Departure:</span>
+        &nbsp;
+        <p className={`${stationTimelyClass}-text status-text`}>
+          {toHoursAndMinutesLate(dep, schDep)}
         </p>
-      )}
-      {train.origCode !== station.code ? (
-        <p>
-          <span className='greyed'>A:</span>{" "}
-          {arr.toString() !== "Invalid Date" ? new Intl.DateTimeFormat([], {
-            hour: "numeric",
-            minute: "numeric",
-            timeZone: station.tz,
-            timeZoneName: "short",
-          }).format(arr) : "Arrival Time Error"}{" "}
-          {arr.valueOf() !== schArr.valueOf()
-            ? `(${toHoursAndMinutesLate(arr, schArr)})`
-            : null}
-        </p>
+      </div>
+      {train.origCode !== station.code && station.status === "Enroute" ? (
+        <div>
+          <p>
+            {new Intl.DateTimeFormat([], {
+              hour: "numeric",
+              minute: "numeric",
+              timeZone: station.tz,
+            }).format(arr)}
+            {" :"}
+          </p>
+          &nbsp;
+          <p className='greyed'>
+            {new Intl.DateTimeFormat([], {
+              month: "short",
+              day: "numeric",
+              timeZone: station.tz,
+            }).format(arr)}
+          </p>
+        </div>
       ) : null}
-      {train.destCode !== station.code ? (
-        <p>
-          <span className='greyed'>D:</span>{" "}
-          {new Intl.DateTimeFormat([], {
-            hour: "numeric",
-            minute: "numeric",
-            timeZone: station.tz,
-            timeZoneName: "short",
-          }).format(dep)}{" "}
-          {dep.valueOf() !== schDep.valueOf()
-            ? `(${toHoursAndMinutesLate(dep, schDep)})`
-            : null}
-        </p>
-      ) : (
-        <p>&nbsp;</p>
-      )}
-      {train.origCode === station.code ? <p>&nbsp;</p> : null}
+      {train.destCode !== station.code && station.status === "Departed" ? (
+        <div>
+          <p>
+            {new Intl.DateTimeFormat([], {
+              hour: "numeric",
+              minute: "numeric",
+              timeZone: station.tz,
+            }).format(dep)}
+          </p>
+          &nbsp;
+          <p className='greyed'>
+            {": "}
+            {new Intl.DateTimeFormat([], {
+              month: "short",
+              day: "numeric",
+              timeZone: station.tz,
+            }).format(dep)}
+          </p>
+        </div>
+      ) : null}
     </div>
   );
 };

@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const toHoursAndMinutesLate = (date1, date2) => {
   const diff = date1.valueOf() - date2.valueOf();
 
@@ -16,66 +18,71 @@ const toHoursAndMinutesLate = (date1, date2) => {
   return diff > 0 ? `${amount} late` : `${amount} early`;
 };
 
-const ManualTrainPopup = ({
-  train,
-  loading = false,
-}) => {
+const colorizedToHoursAndMinutesLate = (date1, date2) => {
+  const res = toHoursAndMinutesLate(date1, date2);
+
+  if (res === "Estimate Error") return <span className='late-text'>{res}</span>;
+  if (res === "Schedule Error") return <span className='late-text'>{res}</span>;
+  if (res === "On Time") return <span className='on-time-text'>{res}</span>;
+  if (res.includes("late")) return <span className='late-text'>{res}</span>;
+  if (res.includes("early")) return <span className='early-text'>{res}</span>;
+
+  return <span className='error'>{res}</span>;
+};
+
+const fullDirections = {
+  N: "North",
+  S: "South",
+  E: "East",
+  W: "West",
+  NE: "Northeast",
+  NW: "Northwest",
+  SE: "Southeast",
+  SW: "Southwest",
+};
+
+const ManualTrainPopup = ({ train, loading = false }) => {
   const currentStation = train.stations.find(
     (station) => station.code === train.eventCode
   );
 
-  const schArr = new Date(
-    currentStation.schArr ? currentStation.schArr : currentStation.schDep
-  );
-  const arr = new Date(
-    currentStation.arr ? currentStation.arr : currentStation.dep
-  );
-
-  let trainTimely = "On Time";
-
-  if (schArr.valueOf() > arr.valueOf()) trainTimely = "Early";
-  if (schArr.valueOf() < arr.valueOf()) trainTimely = "Late";
-  if (!schArr || !arr) trainTimely = "No Data";
-  if (train.eventCode === train.destCode && currentStation.status !== "Enroute")
-    trainTimely = "Complete";
-
-  const trainTimelyClass = trainTimely.toLowerCase().split(" ").join("-");
-
   return loading ? (
-    <div className={'train-box'}>
-      Loading train...
-    </div>
+    <div>Loading train...</div>
   ) : (
-    <div className={'train-box'}>
-      <div>
-        <span className={`${trainTimelyClass} status`}>{train.trainNum}</span>{" "}
-        {train.routeName}{" "}
-        <span className={`${trainTimelyClass} status`}>{trainTimely}</span>
+    <div className='train-popup'>
+      <div className='train-popup__header'>{train.routeName}</div>
+      <div className='train-popup__info greyed'>
+        {train.origCode} to {train.destCode}
       </div>
-      <p>
+      {/*
+      <div className='train-popup__info greyed'>
         {new Intl.DateTimeFormat([], {
           month: "short",
           day: "numeric",
-        }).format(
+          timeZone: train.stations[0].tz,
+        }).format(new Date(train.stations[0].dep))}{" "}
+        : Train {train.trainNum}
+      </div>
+      */}
+
+      <div className='train-popup__info greyed'>
+        {train.velocity.toFixed(2)} mph {train.heading}
+      </div>
+      <div className='train-popup__info'>
+        {colorizedToHoursAndMinutesLate(
           new Date(
-            train.stations[0].dep
-              ? train.stations[0].dep
-              : train.stations[0].schDep
+            currentStation.arr ? currentStation.arr : currentStation.dep
+          ),
+          new Date(
+            currentStation.schArr
+              ? currentStation.schArr
+              : currentStation.schDep
           )
-        )}{" "}
-        - {train.origCode} 🡒 {train.destCode}
-      </p>
-      <p>
-        {toHoursAndMinutesLate(arr, schArr)} - {train.velocity.toFixed(1)} mph
-      </p>
-      <p>
-        Next: {train.eventName} ({train.eventCode})
-      </p>
-      {
-        train.statusMsg === 'SERVICE DISRUPTION' ? (
-          <p><b>Service Disruption</b></p>
-        ) : null
-      }
+        )}
+      </div>
+      <div className='train-popup__info'>
+        <Link to={`/trains/${train.trainID.split('-').join('/')}`}>View More</Link>
+      </div>
     </div>
   );
 };

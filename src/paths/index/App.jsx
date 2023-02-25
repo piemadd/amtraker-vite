@@ -1,14 +1,14 @@
 import "./App.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 
-import TrainIDTrainBox from "../../components/trainBox/trainIDTrainBox.jsx";
 import SettingsInit from "./settingsInit.jsx";
+import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 
 const App = () => {
   const [savedTrains, setSavedTrains] = useState([]);
-  const [trainName, setTrainName] = useState("Acela");
-  const [trainNumber, setTrainNumber] = useState("");
+  const [savedTrainsObjects, setSavedTrainsObjects] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!localStorage.getItem("savedTrainsAmtrakerV3")) {
@@ -23,28 +23,89 @@ const App = () => {
     );
   }, []);
 
-  const callbackIfInvalid = (trainID) => {
-    const newSavedTrains = localStorage
-      .getItem("savedTrainsAmtrakerV3")
-      .split(",")
-      .filter((n) => n)
-      .filter((train) => train !== trainID);
+  console.log(savedTrains);
 
-    setSavedTrains(newSavedTrains);
+  useEffect(() => {
+    setSavedTrainsObjects([]);
+    savedTrains.forEach((trainID, i, arr) => {
+      const shortenedTrainID = `${trainID.split("-")[0]}-${
+        trainID.split("-")[2]
+      }`;
 
-    localStorage.setItem("savedTrainsAmtrakerV3", newSavedTrains.join(","));
-  };
+      fetch(`https://api-v3.amtraker.com/v3/trains/${shortenedTrainID}`)
+        .then((res) => res.json())
+        .then((data) => {
+          if (i === arr.length - 1) {
+            setLoading(false);
+          }
 
-  const updateTrainLink = (
-    routeName = trainName,
-    routeNumber = trainNumber
-  ) => {
-    if (routeNumber !== "") {
-      setTrainLink(`/trains/${routeNumber}`);
-    } else {
-      setTrainLink(`/trains/names/${routeName}`);
-    }
-  };
+          if (Array.isArray(data) && data.length === 0) {
+            console.log("removing train due to invalid data");
+            const newSavedTrains = localStorage
+              .getItem("savedTrainsAmtrakerV3")
+              .split(",")
+              .filter((n) => n)
+              .filter((train) => train !== trainID);
+
+            localStorage.setItem(
+              "savedTrainsAmtrakerV3",
+              newSavedTrains.join(",")
+            );
+          }
+
+          const trainData = data[shortenedTrainID.split("-")[0]][0];
+          const schDep = new Date(trainData.stations[0].dep);
+
+          //removing train if the saved train id doesn't match the data
+          if (
+            schDep.getMonth() + 1 !== parseInt(trainID.split("-")[1]) ||
+            schDep.getFullYear().toString().substring(2, 4) !==
+              trainID.split("-")[3]
+          ) {
+            console.log("removing train due to incorrect date");
+
+            const newSavedTrains = localStorage
+              .getItem("savedTrainsAmtrakerV3")
+              .split(",")
+              .filter((n) => n)
+              .filter((train) => train !== trainID);
+
+            localStorage.setItem(
+              "savedTrainsAmtrakerV3",
+              newSavedTrains.join(",")
+            );
+            return null;
+          }
+
+          setSavedTrainsObjects([
+            ...savedTrainsObjects,
+            <Link
+              key={`saved-train-${trainID}`}
+              to={`/trains/${trainID.split("-")[0]}/${trainID.split("-")[2]}`}
+            >
+              <ManualTrainBox train={trainData} />
+            </Link>,
+          ]);
+        })
+        .catch((err) => {
+          console.log(err);
+
+          //removing train if data is invalid
+
+          const newSavedTrains = localStorage
+            .getItem("savedTrainsAmtrakerV3")
+            .split(",")
+            .filter((n) => n)
+            .filter((train) => train !== trainID);
+
+          localStorage.setItem(
+            "savedTrainsAmtrakerV3",
+            newSavedTrains.join(",")
+          );
+          return null;
+        });
+    });
+  }, [savedTrains]);
 
   return (
     <>
@@ -61,20 +122,10 @@ const App = () => {
         <section id='section-saved'>
           <h3>Track a Saved Train</h3>
           <div className='savedTrains'>
-            {savedTrains.length > 0 ? (
-              savedTrains.map((train) => {
-                return (
-                  <Link
-                    key={`saved-train-${train}`}
-                    to={`/trains/${train.split("-")[0]}/${train.split("-")[2]}`}
-                  >
-                    <TrainIDTrainBox
-                      trainID={train}
-                      callBackIfInvalid={callbackIfInvalid}
-                    />
-                  </Link>
-                );
-              })
+            {loading ? (
+              <div className='loading'>Loading...</div>
+            ) : savedTrainsObjects.length > 0 ? (
+              savedTrainsObjects
             ) : (
               <div>No Saved Trains</div>
             )}

@@ -17,6 +17,7 @@
 }
 
 .mapHolder {
+  display: flex;
   width: 100%;
   height: calc(100vh - 48px);
   padding: 0;
@@ -64,4 +65,3 @@ details > summary {
   user-select: none;
   cursor: pointer;
 }
-

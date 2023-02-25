@@ -16,10 +16,16 @@ const toHoursAndMinutesLate = (date1, date2) => {
   return diff > 0 ? `${amount} late` : `${amount} early`;
 };
 
-const ManualTrainBox = ({
-  train,
-  loading = false,
-}) => {
+const ManualTrainBox = ({ train, loading = false }) => {
+  if (train.eventCode == "CBN") {
+    const stationCodes = train.stations.map((station) => station.code);
+    if (stationCodes.indexOf("NFS") < stationCodes.indexOf("NFL")) {
+      train.eventCode = "NFL";
+    } else {
+      train.eventCode = "NFS";
+    }
+  }
+
   const currentStation = train.stations.find(
     (station) => station.code === train.eventCode
   );
@@ -42,11 +48,9 @@ const ManualTrainBox = ({
   const trainTimelyClass = trainTimely.toLowerCase().split(" ").join("-");
 
   return loading ? (
-    <div className={'train-box'}>
-      Loading train...
-    </div>
+    <div className={"train-box"}>Loading train...</div>
   ) : (
-    <div className={'train-box'}>
+    <div className={"train-box"}>
       <div>
         <span className={`${trainTimelyClass} status`}>{train.trainNum}</span>{" "}
         {train.routeName}{" "}
@@ -71,11 +75,11 @@ const ManualTrainBox = ({
       <p>
         Next: {train.eventName} ({train.eventCode})
       </p>
-      {
-        train.statusMsg === 'SERVICE DISRUPTION' ? (
-          <p><b>Service Disruption</b></p>
-        ) : null
-      }
+      {train.statusMsg === "SERVICE DISRUPTION" ? (
+        <p>
+          <b>Service Disruption</b>
+        </p>
+      ) : null}
     </div>
   );
 };

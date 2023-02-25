@@ -37,11 +37,11 @@ const toHoursAndMinutesLate = (date1, date2) => {
     date1.toString() === "Invalid Date" ||
     date2.toString() === "Invalid Date"
   )
-    return "Estimate Error";
+    return "Unknown (Estimate Error)";
 
   const diff = date1.valueOf() - date2.valueOf();
 
-  if (Math.abs(diff) > 1000 * 60 * 60 * 24) return "Schedule Error";
+  if (Math.abs(diff) > 1000 * 60 * 60 * 24) return "Unknown (Schedule Error)";
 
   const hours = Math.floor(Math.abs(diff) / 1000 / 60 / 60);
   const minutes = Math.floor((Math.abs(diff) / 1000 / 60 / 60 - hours) * 60);
@@ -220,7 +220,7 @@ const BetterTrainPage = () => {
   }, []);
 
   useEffect(() => {
-    if (!foamerMode || !('geolocation' in navigator)) {
+    if (!foamerMode || !("geolocation" in navigator)) {
       console.log("no geolocation");
     }
     setNavigatorExists(true);
@@ -279,7 +279,10 @@ const BetterTrainPage = () => {
                 "savedTrainsAmtrakerV3",
                 savedTrains
                   .filter((element) => {
-                    if (element.split("-")[0] === trainNum && element.split("-")[2] === trainDate) {
+                    if (
+                      element.split("-")[0] === trainNum &&
+                      element.split("-")[2] === trainDate
+                    ) {
                       return false;
                     }
 
@@ -339,7 +342,6 @@ const BetterTrainPage = () => {
                             hour: "numeric",
                             minute: "numeric",
                             timeZone: originStation.tz,
-                            timeZoneName: "short",
                           }).format(new Date(originStation.dep))}
                           )
                         </li>
@@ -362,7 +364,6 @@ const BetterTrainPage = () => {
                             hour: "numeric",
                             minute: "numeric",
                             timeZone: destinationStation.tz,
-                            timeZoneName: "short",
                           }).format(new Date(destinationStation.arr))}
                           )
                         </li>
@@ -375,23 +376,22 @@ const BetterTrainPage = () => {
                       </span>
                       <ul>
                         <li>
-                          Arriving in about{" "}
+                          Arriving at{" "}
                           <span>
-                            {hoursAndMinutesUnitl(
-                              currentStation.arr
-                                ? currentStation.arr
-                                : currentStation.dep
-                            )}{" "}
-                            (
                             {new Intl.DateTimeFormat([], {
                               hour: "numeric",
                               minute: "numeric",
                               timeZone: currentStation.tz,
-                              timeZoneName: "short",
                             }).format(
                               currentStation.arr
                                 ? new Date(currentStation.arr)
                                 : new Date(currentStation.dep)
+                            )}{" "}
+                            (in{" "}
+                            {hoursAndMinutesUnitl(
+                              currentStation.arr
+                                ? currentStation.arr
+                                : currentStation.dep
                             )}
                             )
                           </span>
