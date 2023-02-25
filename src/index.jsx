@@ -15,6 +15,7 @@ import StationsList from "./paths/stations/list.jsx";
 import StationPage from "./paths/stations/station.jsx";
 import Settings from "./paths/index/settings.jsx";
 import Map from "./paths/map/Map.jsx";
+import PrivacyPolicy from "./paths/index/privacy";
 
 const router = createBrowserRouter([
   {
@@ -67,6 +68,11 @@ const router = createBrowserRouter([
     element: <Settings />,
     errorElement: <ErrorPage />,
   },
+  {
+    path: "/privacy",
+    element: <PrivacyPolicy />,
+    errorElement: <ErrorPage />,
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

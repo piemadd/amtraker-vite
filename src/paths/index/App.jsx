@@ -148,7 +148,7 @@ const App = () => {
         </div>
 
         <section className='footer'>
-          <Link to='/privacy.html'>
+          <Link to='/privacy'>
             <p>Privacy Policy</p>
           </Link>
           <Link to='/about'>
