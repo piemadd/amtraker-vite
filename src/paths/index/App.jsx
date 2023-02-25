@@ -7,7 +7,7 @@ import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 
 const App = () => {
   const [savedTrains, setSavedTrains] = useState([]);
-  const [isStale, setIsStale] = useState(true);
+  const [isStale, setIsStale] = useState(false);
   const [timeSinceLastUpdate, setTimeSinceLastUpdate] = useState(0);
   const [savedTrainsObjects, setSavedTrainsObjects] = useState([]);
   const [loading, setLoading] = useState(true);
