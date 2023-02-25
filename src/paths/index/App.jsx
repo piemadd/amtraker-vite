@@ -28,6 +28,13 @@ const App = () => {
   console.log(savedTrains);
 
   useEffect(() => {
+    fetch("https://api-v3.amtraker.com/v3/stale")
+      .then((res) => res.json())
+      .then((data) => {
+        setIsStale(data.stale);
+        setTimeSinceLastUpdate(data.avgLastUpdate);
+      });
+
     if (savedTrains.length === 0) {
       setLoading(false);
     }
@@ -37,13 +44,6 @@ const App = () => {
       const shortenedTrainID = `${trainID.split("-")[0]}-${
         trainID.split("-")[2]
       }`;
-
-      fetch("https://api-v3.amtraker.com/v3/stale")
-        .then((res) => res.json())
-        .then((data) => {
-          setIsStale(data.stale);
-          setTimeSinceLastUpdate(data.avgLastUpdate);
-        });
 
       fetch(`https://api-v3.amtraker.com/v3/trains/${shortenedTrainID}`)
         .then((res) => res.json())
