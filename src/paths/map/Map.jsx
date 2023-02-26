@@ -6,6 +6,7 @@ import Map, {
   Popup,
   NavigationControl,
   FullscreenControl,
+  GeolocateControl,
   //ScaleControl,
 } from "react-map-gl";
 import maplibregl from "maplibre-gl";
@@ -15,6 +16,7 @@ import * as pmtiles from "pmtiles";
 import layers from "protomaps-themes-base";
 import mapStyle from "./style.json";
 import MarkerIcon from "./MarkerIcon.jsx";
+import UserMarker from "./UserMarker.svg";
 //import bbox from "@turf/bbox";
 import ManualTrainPopup from "../../components/trainBox/maualTrainPopup";
 
@@ -86,9 +88,33 @@ const AmtrakerMap = () => {
   const [allData, setAllData] = useState([]);
   const [showAll, setShowAll] = useState(false);
   const [popupInfo, setPopupInfo] = useState(null);
+  const [foamerMode, setFoamerMode] = useState(false);
+  const [userLocation, setUserLocation] = useState([0, 0]);
   const [open, setOpen] = useState(true);
   const ref = useRef();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    let settings = JSON.parse(localStorage.getItem("amtraker-v3-settings"));
+    if (settings) {
+      if (settings.foamerMode) {
+        setFoamerMode(settings.foamerMode);
+
+        navigator.geolocation.watchPosition((pos) => {
+          setUserLocation([pos.coords.latitude, pos.coords.longitude]);
+        }, (err) => {
+          console.log(err);
+        }, {
+          enableHighAccuracy: true,
+          timeout: 5000
+        });
+      } else {
+        setFoamerMode(false);
+        settings.foamerMode = false;
+      }
+      localStorage.setItem("amtraker-v3-settings", JSON.stringify(settings));
+    } //else is handled by the settings init
+  }, []);
 
   const savedTrains = useMemo(() => {
     if (!localStorage.getItem("savedTrainsAmtrakerV3")) {
@@ -290,6 +316,20 @@ const AmtrakerMap = () => {
             )}
             <NavigationControl visualizePitch={true} />
             <FullscreenControl />
+            {foamerMode ? (
+              <Marker
+                latitude={userLocation[0]}
+                longitude={userLocation[1]}
+                anchor='center'
+                dsadrotationAlignment='map'
+                key={'user-marker'}
+                height={"16px"}
+              >
+                <img src={UserMarker} alt='user' style={{
+                  height: "16px",
+                }}/>
+              </Marker>
+            ) : null}
             {/*
             <ScaleControl
               style={{

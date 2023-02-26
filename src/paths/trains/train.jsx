@@ -419,7 +419,6 @@ const BetterTrainPage = () => {
                       <i>Location:</i> {trainData[0].lat.toFixed(5)},{" "}
                       {trainData[0].lon.toFixed(5)}
                     </li>
-                    { /*
                     <li>
                       <i>Foamer Mode:</i>{" "}
                       {foamerMode ? (
@@ -468,7 +467,6 @@ const BetterTrainPage = () => {
                         </p>
                       )}
                     </li>
-                    */ }
                   </ul>
                   <h2>Stations</h2>
                   <div className='stations'>

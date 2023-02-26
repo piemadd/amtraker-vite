@@ -70,10 +70,6 @@ const Settings = () => {
             </li>
           </ul>
           <select
-            disabled
-            style={{
-              color: "#777",
-            }}
             onChange={(e) => {
               console.log("changing foamer mode to", e.target.value);
               let settings = JSON.parse(
@@ -89,10 +85,10 @@ const Settings = () => {
             {JSON.parse(localStorage.getItem("amtraker-v3-settings"))
               .foamerMode ? (
               <>
-                <option value='true' key='foamer-mode-enabled' disabled>
+                <option value='true' key='foamer-mode-enabled'>
                   Enabled
                 </option>
-                <option value='false' key='foamer-mode-disabled' disabled>
+                <option value='false' key='foamer-mode-disabled'>
                   Disabled
                 </option>
               </>
@@ -107,10 +103,6 @@ const Settings = () => {
               </>
             )}
           </select>
-          <p>
-            Foamer mode has been disabled for the time being as some kinks are
-            worked out in the Android permissions system.
-          </p>
           <h2>More?</h2>
           <p>
             If you have any feature requests for Amtraker, please send them my
