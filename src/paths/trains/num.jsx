@@ -106,8 +106,11 @@ const TrainsByNumber = () => {
                   </h4>
                   <button
                     onClick={() => {
-                      navigate(-1);
-                      navigate("/", { replace: true });
+                      if (history.state.idx && history.state.idx > 0) {
+                        navigate(-1);
+                      } else {
+                        navigate("/", { replace: true }); //fallback
+                      }
                     }}
                   >
                     Go Back to Home

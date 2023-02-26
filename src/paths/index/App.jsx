@@ -182,15 +182,19 @@ const App = () => {
         </div>
 
         <section className='footer'>
-          <Link to='/privacy'>
-            <p>Privacy Policy</p>
-          </Link>
           <Link to='/about'>
             <p>About</p>
           </Link>
           <Link to='/settings'>
             <p>Settings</p>
           </Link>
+          <Link to='/privacy'>
+            <p>Privacy Policy</p>
+          </Link>
+        </section>
+        <section className='amtrakerVersion'>
+          <p>Amtraker v3.0.2</p>
+          <p>&copy; Piero Maddaleni 2023</p>
         </section>
       </main>
     </>

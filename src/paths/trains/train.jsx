@@ -260,8 +260,11 @@ const BetterTrainPage = () => {
         <div className='header-trainpage'>
           <h2
             onClick={() => {
-              navigate(-1);
-              navigate("/", { replace: true }); //fallback
+              if (history.state.idx && history.state.idx > 0) {
+                navigate(-1);
+              } else {
+                navigate("/", { replace: true }); //fallback
+              }
             }}
             className='click'
           >
@@ -318,8 +321,11 @@ const BetterTrainPage = () => {
                           .join(",")
                       );
 
-                      navigate(-1);
-                      navigate("/", { replace: true }); //fallback
+                      if (history.state.idx && history.state.idx > 0) {
+                        navigate(-1);
+                      } else {
+                        navigate("/", { replace: true }); //fallback
+                      }
                     }}
                   >
                     Delete Train
@@ -492,7 +498,17 @@ const BetterTrainPage = () => {
                     This train is not currently tracking. Please try again
                     later. We apologize for the inconvenience.
                   </p>
-                  <button onClick={() => navigate(-1)}>Go Back</button>
+                  <button
+                    onClick={() => {
+                      if (history.state.idx && history.state.idx > 0) {
+                        navigate(-1);
+                      } else {
+                        navigate("/", { replace: true }); //fallback
+                      }
+                    }}
+                  >
+                    Go Back
+                  </button>
                 </>
               )}
             </>

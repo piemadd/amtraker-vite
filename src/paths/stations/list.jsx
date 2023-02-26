@@ -66,8 +66,11 @@ const StationsList = () => {
         <div className='header-trainpage'>
           <h2
             onClick={() => {
-              navigate(-1);
-              navigate("/", { replace: true }); //fallback
+              if (history.state.idx && history.state.idx > 0) {
+                navigate(-1);
+              } else {
+                navigate("/", { replace: true }); //fallback
+              }
             }}
             className='click'
           >
