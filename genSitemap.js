@@ -6,8 +6,8 @@ const sitemap = fs.createWriteStream('./public/sitemap.xml');
 
 const now = new Date();
 const year = now.getFullYear();
-const month = now.getMonth() + 1;
-const day = now.getDate();
+const month = (now.getMonth() + 1).toString().padStart(2, '0');
+const day = now.getDate().toString().padStart(2, '0');
 
 sitemap.write('<?xml version="1.0" encoding="UTF-8"?>');
 sitemap.write('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
