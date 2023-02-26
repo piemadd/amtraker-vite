@@ -21,6 +21,7 @@ sitemap.write(`
 `);
 
 // train names
+/*
 [...new Set(Object.values(trainNames))].forEach((trainName) => {
   sitemap.write(`
   <url>
@@ -31,6 +32,7 @@ sitemap.write(`
   </url>
 `);
 });
+*/
 
 // train numbers
 [...new Set(Object.keys(trainNames))].forEach((trainNum) => {
@@ -59,7 +61,7 @@ sitemap.write(`
 // train list
 sitemap.write(`
   <url>
-    <loc>https://amtraker.com/trains/full</loc>
+    <loc>https://amtraker.com/trains</loc>
     <lastmod>${year}-${month}-${day}</lastmod>
     <changefreq>hourly</changefreq>
     <priority>0.6</priority>
@@ -69,7 +71,7 @@ sitemap.write(`
 // station list
 sitemap.write(`
   <url>
-    <loc>https://amtraker.com/stations/full</loc>
+    <loc>https://amtraker.com/stations</loc>
     <lastmod>${year}-${month}-${day}</lastmod>
     <changefreq>never</changefreq>
     <priority>0.5</priority>
