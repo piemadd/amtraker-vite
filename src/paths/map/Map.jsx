@@ -227,7 +227,7 @@ const AmtrakerMap = () => {
           <Map
             mapLib={maplibregl}
             minZoom={3}
-            maxZoom={16}
+            maxZoom={20}
             initialViewState={{
               latitude: 41.884579601743276,
               longitude: -87.6279871036212,
