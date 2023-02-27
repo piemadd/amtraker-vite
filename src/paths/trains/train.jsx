@@ -389,9 +389,7 @@ const BetterTrainPage = () => {
                               minute: "numeric",
                               timeZone: currentStation.tz,
                             }).format(
-                              currentStation.arr
-                                ? new Date(currentStation.arr)
-                                : new Date(currentStation.dep)
+                              new Date(currentStation.arr ?? currentStation.dep ?? 0)
                             )}{" "}
                             (in{" "}
                             {hoursAndMinutesUnitl(
