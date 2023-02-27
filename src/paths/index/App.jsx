@@ -135,7 +135,6 @@ const App = () => {
   return (
     <>
       <img
-        alt={"A slightly blurred version of a map of Amtrak's Network"}
         id='background'
         className='bg-focus-in'
         src='content/images/amtraker-bg.webp'
@@ -193,7 +192,7 @@ const App = () => {
           </Link>
         </section>
         <section className='amtrakerVersion'>
-          <p>Amtraker v3.0.3</p>
+          <p>Amtraker v3.0.4</p>
           <p>&copy; Piero Maddaleni 2023</p>
           <p>
             <a href='https://forms.gle/Fp6fVc2wqVLZKXKq9' target='__blank' style={{

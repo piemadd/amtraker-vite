@@ -38,7 +38,6 @@ const TrainsByName = () => {
   return (
     <>
       <img
-        alt={"A slightly blurred version of a map of Amtrak's Network"}
         id='background'
         className='bg-focus-in'
         src='/content/images/amtraker-bg.webp'
