@@ -193,8 +193,15 @@ const App = () => {
           </Link>
         </section>
         <section className='amtrakerVersion'>
-          <p>Amtraker v3.0.2</p>
+          <p>Amtraker v3.0.3</p>
           <p>&copy; Piero Maddaleni 2023</p>
+          <p>
+            <a href='https://forms.gle/Fp6fVc2wqVLZKXKq9' target='__blank' style={{
+              textDecoration: 'underline',
+            }}>
+              Give Feedback
+            </a>
+          </p>
         </section>
       </main>
     </>
