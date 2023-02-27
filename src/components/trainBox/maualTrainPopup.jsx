@@ -81,13 +81,9 @@ const ManualTrainPopup = ({ train, loading = false }) => {
       </div>
       <div className='train-popup__info'>
         {colorizedToHoursAndMinutesLate(
-          new Date(
-            currentStation.arr ? currentStation.arr : currentStation.dep
+          new Date(currentStation.arr ?? currentStation.dep ?? null
           ),
-          new Date(
-            currentStation.schArr
-              ? currentStation.schArr
-              : currentStation.schDep
+          new Date(currentStation.schArr ?? currentStation.schDep ?? null
           )
         )}{" "}
         to {currentStation.code}

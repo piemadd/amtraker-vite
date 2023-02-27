@@ -165,8 +165,8 @@ const AmtrakerMap = () => {
         }
 
         const trainStatus = toHoursAndMinutesLate(
-          new Date(currentStation.arr ?? currentStation.dep),
-          new Date(currentStation.schArr ?? currentStation.schDep)
+          new Date(currentStation.arr ?? currentStation.dep ?? null),
+          new Date(currentStation.schArr ?? currentStation.schDep ?? null)
         );
 
         return (

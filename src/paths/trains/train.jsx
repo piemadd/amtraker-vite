@@ -340,15 +340,15 @@ const BetterTrainPage = () => {
                         <li>
                           Left{" "}
                           {toHoursAndMinutesLate(
-                            new Date(originStation.dep),
-                            new Date(originStation.schDep)
+                            new Date(originStation.dep ?? null),
+                            new Date(originStation.schDep ?? null)
                           )}{" "}
                           (
                           {new Intl.DateTimeFormat([], {
                             hour: "numeric",
                             minute: "numeric",
                             timeZone: originStation.tz,
-                          }).format(new Date(originStation.dep))}
+                          }).format(new Date(originStation.dep ?? null))}
                           )
                         </li>
                       </ul>
@@ -362,15 +362,15 @@ const BetterTrainPage = () => {
                         <li>
                           Estimated to be{" "}
                           {toHoursAndMinutesLate(
-                            new Date(destinationStation.arr),
-                            new Date(destinationStation.schArr)
+                            new Date(destinationStation.arr ?? null),
+                            new Date(destinationStation.schArr ?? null)
                           )}{" "}
                           (
                           {new Intl.DateTimeFormat([], {
                             hour: "numeric",
                             minute: "numeric",
                             timeZone: destinationStation.tz,
-                          }).format(new Date(destinationStation.arr))}
+                          }).format(new Date(destinationStation.arr ?? null))}
                           )
                         </li>
                       </ul>
@@ -404,11 +404,11 @@ const BetterTrainPage = () => {
                           Currently{" "}
                           {colorizedToHoursAndMinutesLate(
                             currentStation.arr
-                              ? new Date(currentStation.arr)
-                              : new Date(currentStation.dep),
+                              ? new Date(currentStation.arr ?? null)
+                              : new Date(currentStation.dep ?? null),
                             currentStation.schArr
-                              ? new Date(currentStation.schArr)
-                              : new Date(currentStation.schDep)
+                              ? new Date(currentStation.schArr ?? null)
+                              : new Date(currentStation.schDep ?? null)
                           )}
                         </li>
                       </ul>

@@ -25,11 +25,11 @@ const toHoursAndMinutesLate = (date1, date2) => {
 };
 
 const ManualStationBox = ({ station, train, loading = false }) => {
-  const schArr = new Date(station.schArr ? station.schArr : station.schDep);
-  const arr = new Date(station.arr ? station.arr : station.dep);
+  const schArr = new Date(station.schArr ?? station.schDep ?? null);
+  const arr = new Date(station.arr ?? station.dep ?? null);
 
-  const schDep = new Date(station.schDep ? station.schDep : station.schArr);
-  const dep = new Date(station.dep ? station.dep : station.arr);
+  const schDep = new Date(station.schDep ?? station.schArr ?? null);
+  const dep = new Date(station.dep ?? station.arr ?? null);
 
   let trainTimely = "On Time";
 

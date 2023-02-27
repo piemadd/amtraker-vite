@@ -39,11 +39,9 @@ const ManualTrainBox = ({ train, loading = false }) => {
   );
 
   const schArr = new Date(
-    currentStation.schArr ? currentStation.schArr : currentStation.schDep
+    currentStation.schArr ?? currentStation.schDep ?? null
   );
-  const arr = new Date(
-    currentStation.arr ? currentStation.arr : currentStation.dep
-  );
+  const arr = new Date(currentStation.arr ?? currentStation.dep ?? null);
 
   let trainTimely = "On Time";
 
@@ -69,11 +67,7 @@ const ManualTrainBox = ({ train, loading = false }) => {
           month: "short",
           day: "numeric",
         }).format(
-          new Date(
-            train.stations[0].dep
-              ? train.stations[0].dep
-              : train.stations[0].schDep
-          )
+          new Date(train.stations[0].dep ?? train.stations[0].schDep ?? null)
         )}{" "}
         - {train.origCode} to {train.destCode}
       </p>
