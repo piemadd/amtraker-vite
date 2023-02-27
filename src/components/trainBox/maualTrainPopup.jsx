@@ -1,7 +1,15 @@
 import { Link } from "react-router-dom";
 
 const toHoursAndMinutesLate = (date1, date2) => {
+  if (
+    date1.toString() === "Invalid Date" ||
+    date2.toString() === "Invalid Date"
+  )
+    return "Unknown (Estimate Error)";
+
   const diff = date1.valueOf() - date2.valueOf();
+
+  if (Math.abs(diff) > 1000 * 60 * 60 * 24) return "Unknown (Schedule Error)";
 
   const hours = Math.floor(Math.abs(diff) / 1000 / 60 / 60);
   const minutes = Math.floor((Math.abs(diff) / 1000 / 60 / 60 - hours) * 60);
@@ -51,6 +59,9 @@ const ManualTrainPopup = ({ train, loading = false }) => {
   ) : (
     <div className='train-popup'>
       <div className='train-popup__header'>{train.routeName}</div>
+      <div className='train-popup__header'>
+        {train.statusMsg === "SERVICE DISRUPTION" ? "Service Disruption" : null}
+      </div>
       <div className='train-popup__info greyed'>
         {train.origCode} to {train.destCode}
       </div>
@@ -78,10 +89,13 @@ const ManualTrainPopup = ({ train, loading = false }) => {
               ? currentStation.schArr
               : currentStation.schDep
           )
-        )} to {currentStation.code}
+        )}{" "}
+        to {currentStation.code}
       </div>
       <div className='train-popup__info'>
-        <Link to={`/trains/${train.trainID.split('-').join('/')}`}>View More</Link>
+        <Link to={`/trains/${train.trainID.split("-").join("/")}`}>
+          View More
+        </Link>
       </div>
     </div>
   );

@@ -1,5 +1,13 @@
 const toHoursAndMinutesLate = (date1, date2) => {
+  if (
+    date1.toString() === "Invalid Date" ||
+    date2.toString() === "Invalid Date"
+  )
+    return "Unknown (Estimate Error)";
+
   const diff = date1.valueOf() - date2.valueOf();
+
+  if (Math.abs(diff) > 1000 * 60 * 60 * 24) return "Unknown (Schedule Error)";
 
   const hours = Math.floor(Math.abs(diff) / 1000 / 60 / 60);
   const minutes = Math.floor((Math.abs(diff) / 1000 / 60 / 60 - hours) * 60);
