@@ -192,8 +192,9 @@ const App = () => {
           </Link>
         </section>
         <section className='amtrakerVersion'>
-          <p>Amtraker v3.0.7</p>
+          <p>Amtraker v3.0.8</p>
           <p>&copy; Piero Maddaleni 2023</p>
+          {/*
           <p>
             <a
               href='https://forms.gle/Fp6fVc2wqVLZKXKq9'
@@ -205,6 +206,7 @@ const App = () => {
               Give Feedback
             </a>
           </p>
+          */}
         </section>
       </main>
     </>
