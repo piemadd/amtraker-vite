@@ -267,6 +267,16 @@ td {
   text-decoration: underline;
 }
 
+.train-popup__updated {
+  font-size: 1rem;
+  line-height: 90%;
+}
+
 .enroute {
   font-style: italic;
+}
+
+.staleTrainWarning {
+  font-weight: 500;
+  color:rgb(231, 39, 39);
 }

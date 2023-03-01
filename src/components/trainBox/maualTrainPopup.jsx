@@ -59,10 +59,10 @@ const ManualTrainPopup = ({ train, loading = false }) => {
   ) : (
     <div className='train-popup'>
       <div className='train-popup__header'>{train.routeName}</div>
-      <div className='train-popup__header'>
-        {train.statusMsg === "SERVICE DISRUPTION" ? "Service Disruption" : null}
-      </div>
-      <div className='train-popup__info greyed'>
+      {train.statusMsg === "SERVICE DISRUPTION" ? (
+        <div className='train-popup__header'>Service Disruption</div>
+      ) : null}
+      <div className='train-popup__info train-popup__updated greyed'>
         {train.origCode} to {train.destCode}
       </div>
       {/*
@@ -76,15 +76,22 @@ const ManualTrainPopup = ({ train, loading = false }) => {
       </div>
       */}
 
-      <div className='train-popup__info greyed'>
+      <div className='train-popup__info train-popup__updated greyed'>
         {train.velocity.toFixed(2)} mph {train.heading}
+      </div>
+      <div className='train-popup__info train-popup__updated greyed'>
+        Updated:{" "}
+        {new Intl.DateTimeFormat([], {
+          hour: "numeric",
+          minute: "numeric",
+          timeZoneName: "short",
+          timeZone: train.eventTZ,
+        }).format(new Date(train.lastValTS))}
       </div>
       <div className='train-popup__info'>
         {colorizedToHoursAndMinutesLate(
-          new Date(currentStation.arr ?? currentStation.dep ?? null
-          ),
-          new Date(currentStation.schArr ?? currentStation.schDep ?? null
-          )
+          new Date(currentStation.arr ?? currentStation.dep ?? null),
+          new Date(currentStation.schArr ?? currentStation.schDep ?? null)
         )}{" "}
         to {currentStation.code}
       </div>

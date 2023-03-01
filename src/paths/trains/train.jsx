@@ -329,6 +329,19 @@ const BetterTrainPage = () => {
                   >
                     Delete Train
                   </p>
+                  {new Date(trainData[0].lastValTS).valueOf() <
+                  new Date().valueOf() - 1000 * 60 * 15 ? (
+                    <p className='staleTrainWarning'>
+                      WARNING: THIS TRAIN'S DATA IS STALE! Data feed has not been updated since{" "}
+                      {new Intl.DateTimeFormat([], {
+                        hour: "numeric",
+                        minute: "numeric",
+                        month: "short",
+                        day: "numeric",
+                        timeZoneName: "short",
+                      }).format(new Date(trainData[0].lastValTS))}
+                    </p>
+                  ) : null}
                   <h2>Train Info:</h2>
                   <ul>
                     <li>
@@ -389,7 +402,9 @@ const BetterTrainPage = () => {
                               minute: "numeric",
                               timeZone: currentStation.tz,
                             }).format(
-                              new Date(currentStation.arr ?? currentStation.dep ?? 0)
+                              new Date(
+                                currentStation.arr ?? currentStation.dep ?? 0
+                              )
                             )}{" "}
                             (in{" "}
                             {hoursAndMinutesUnitl(
@@ -421,6 +436,16 @@ const BetterTrainPage = () => {
                     <li>
                       <i>Location:</i> {trainData[0].lat.toFixed(5)},{" "}
                       {trainData[0].lon.toFixed(5)}
+                    </li>
+                    <li>
+                      <i>Last Updated:</i>{" "}
+                      {new Intl.DateTimeFormat([], {
+                        hour: "numeric",
+                        minute: "numeric",
+                        month: "short",
+                        day: "numeric",
+                        timeZoneName: "short",
+                      }).format(new Date(trainData[0].lastValTS))}
                     </li>
                     <li>
                       <i>Foamer Mode:</i>{" "}
