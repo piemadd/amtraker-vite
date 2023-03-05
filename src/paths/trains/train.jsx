@@ -513,8 +513,6 @@ const BetterTrainPage = () => {
                         </Link>
                       );
                     })}
-                    <p>I am testing out ads, I apologize if they cause an interruption. If you face an issue, please contact me at piero@piemadd.com</p>
-                    <AdsBox />
                   </div>
                 </>
               ) : (
