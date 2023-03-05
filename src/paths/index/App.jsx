@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import SettingsInit from "./settingsInit.jsx";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
+import AdsBox from "../../components/adBox";
 
 const App = () => {
   const [savedTrains, setSavedTrains] = useState([]);
@@ -162,6 +163,9 @@ const App = () => {
             ) : (
               <div>No Saved Trains</div>
             )}
+            {
+              //<AdsBox />
+            }
           </div>
         </section>
         <h3 className='split'>or</h3>
@@ -192,7 +196,7 @@ const App = () => {
           </Link>
         </section>
         <section className='amtrakerVersion'>
-          <p>Amtraker v3.0.12</p>
+          <p>Amtraker v3.0.14</p>
           <p>&copy; Piero Maddaleni 2023</p>
           {/*
           <p>

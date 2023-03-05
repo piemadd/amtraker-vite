@@ -6,6 +6,7 @@ import { stationMeta } from "../../data/stations.js";
 
 import "./trains.css";
 import SettingsInit from "../index/settingsInit";
+import AdsBox from "../../components/adBox";
 
 const fullDirections = {
   N: "North",
@@ -512,6 +513,8 @@ const BetterTrainPage = () => {
                         </Link>
                       );
                     })}
+                    <p>I am testing out ads, I apologize if they cause an interruption. If you face an issue, please contact me at piero@piemadd.com</p>
+                    <AdsBox />
                   </div>
                 </>
               ) : (
