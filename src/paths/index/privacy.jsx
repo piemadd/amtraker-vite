@@ -240,6 +240,9 @@ const PrivacyPolicy = () => {
             strongly encourage you to contact us immediately and we will do our
             best efforts to promptly remove such information from our records.
           </p>
+          {
+          //<span id='ezoic-privacy-policy-embed'> </span>
+          }
         </section>
       </div>
     </>
