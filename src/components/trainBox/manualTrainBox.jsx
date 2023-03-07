@@ -1,3 +1,5 @@
+import '../../paths/trains/trains.css';
+
 const toHoursAndMinutesLate = (date1, date2) => {
   if (
     date1.toString() === "Invalid Date" ||
