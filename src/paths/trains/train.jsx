@@ -6,7 +6,6 @@ import { stationMeta } from "../../data/stations.js";
 
 import "./trains.css";
 import SettingsInit from "../index/settingsInit";
-import AdsBox from "../../components/adBox";
 
 const fullDirections = {
   N: "North",

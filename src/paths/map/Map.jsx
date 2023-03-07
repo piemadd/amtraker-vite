@@ -6,6 +6,7 @@ import Map, {
   Popup,
   NavigationControl,
   FullscreenControl,
+  Source,
   GeolocateControl,
   //ScaleControl,
 } from "react-map-gl";
@@ -19,6 +20,7 @@ import MarkerIcon from "./MarkerIcon.jsx";
 import UserMarker from "./UserMarker.svg";
 //import bbox from "@turf/bbox";
 import ManualTrainPopup from "../../components/trainBox/maualTrainPopup";
+//import nationalRoute from "./nationalRoute.json";
 
 //adding pmtiles protocol
 let protocol = new pmtiles.Protocol();
@@ -100,14 +102,18 @@ const AmtrakerMap = () => {
       if (settings.foamerMode) {
         setFoamerMode(settings.foamerMode);
 
-        navigator.geolocation.watchPosition((pos) => {
-          setUserLocation([pos.coords.latitude, pos.coords.longitude]);
-        }, (err) => {
-          console.log(err);
-        }, {
-          enableHighAccuracy: true,
-          timeout: 5000
-        });
+        navigator.geolocation.watchPosition(
+          (pos) => {
+            setUserLocation([pos.coords.latitude, pos.coords.longitude]);
+          },
+          (err) => {
+            console.log(err);
+          },
+          {
+            enableHighAccuracy: true,
+            timeout: 5000,
+          }
+        );
       } else {
         setFoamerMode(false);
         settings.foamerMode = false;
@@ -132,7 +138,6 @@ const AmtrakerMap = () => {
 
     return trains;
   }, []);
-  console.log(savedTrains);
 
   const savedTrainsShortID = useMemo(() => {
     if (savedTrains.length === 0) return [];
@@ -174,7 +179,6 @@ const AmtrakerMap = () => {
             latitude={train.lat}
             longitude={train.lon}
             anchor='center'
-            dsadrotationAlignment='map'
             key={`train-marker-${train.trainID}`}
             height={"48px"}
             onClick={(e) => {
@@ -214,13 +218,18 @@ const AmtrakerMap = () => {
   }, []);
 
   let baseStyle = mapStyle.layers;
+
+  /*
   const baseStyleIDs = baseStyle.map((layer) => layer.id);
 
   layers("protomaps", "dark").forEach((layer) => {
     if (!baseStyleIDs.includes(layer.id)) {
-      baseStyle.push(layer);
+      //baseStyle.push(layer);
     }
   });
+
+  console.log(JSON.stringify(baseStyle));
+  */
 
   return (
     <>
@@ -255,7 +264,8 @@ const AmtrakerMap = () => {
         <div className='mapHolder'>
           <Map
             mapLib={maplibregl}
-            minZoom={3}
+            showTileBoundaries={true}
+            minZoom={2}
             maxZoom={20}
             initialViewState={{
               latitude: 41.884579601743276,
@@ -264,7 +274,7 @@ const AmtrakerMap = () => {
               pitch: 0,
               bearing: 0,
             }}
-            renderWorldCopies={false}
+            renderWorldCopies={true}
             mapStyle={{
               id: "43f36e14-e3f5-43c1-84c0-50a9c80dc5c7",
               name: "MapLibre",
@@ -272,7 +282,7 @@ const AmtrakerMap = () => {
               pitch: 0,
               center: [41.884579601743276, -87.6279871036212],
               glyphs:
-                "https://cdn.jsdelivr.net/gh/piemadd/fonts@a77fb90360c26d9838438c5543026aa3af2a46f5/_output/{fontstack}/{range}.pbf",
+                "https://cdn.jsdelivr.net/gh/piemadd/fonts@54b954f510dc79e04ae47068c5c1f2ee39a69216/_output/{fontstack}/{range}.pbf",
               layers: baseStyle,
               bearing: 0,
               sources: {
@@ -283,7 +293,20 @@ const AmtrakerMap = () => {
                     "https://tileb.piemadd.com/tiles/{z}/{x}/{y}.mvt",
                     "https://tilec.piemadd.com/tiles/{z}/{x}/{y}.mvt",
                     "https://tiled.piemadd.com/tiles/{z}/{x}/{y}.mvt",
-                    //"http://10.0.0.237:8081/tiles/{z}/{x}/{y}.mvt"
+                    //"http://10.0.0.237:8081/basemap/{z}/{x}/{y}.mvt"
+                  ],
+                  maxzoom: 13,
+                },
+                nationalRoute: {
+                  type: "vector",
+                  scheme: "tms",
+                  tiles: [
+                    //"http://10.0.0.207:8081/new/{z}/{x}/{y}.mvt"
+                    //"https://tilealt.piemadd.com/nationalRoute/{z}/{y}/{x}.mvt",
+                    "https://tilealta.piemadd.com/nationalRoute/{z}/{y}/{x}.mvt",
+                    "https://tilealtb.piemadd.com/nationalRoute/{z}/{y}/{x}.mvt",
+                    "https://tilealtc.piemadd.com/nationalRoute/{z}/{y}/{x}.mvt",
+                    "https://tilealtd.piemadd.com/nationalRoute/{z}/{y}/{x}.mvt",
                   ],
                   maxzoom: 13,
                 },
@@ -292,24 +315,14 @@ const AmtrakerMap = () => {
               metadata: {},
             }}
           >
-            <Layer
-              id='nationalRoute'
-              type='line'
-              source='nationalRoute'
-              paint={{
-                "line-color": "#092de3",
-                "line-opacity": 1,
-                "line-width": 2,
-              }}
-            />
-            {markers}
-
             {popupInfo && (
               <Popup
                 anchor='bottom'
                 longitude={Number(popupInfo.lon)}
                 latitude={Number(popupInfo.lat)}
                 onClose={() => setPopupInfo(null)}
+                closeOnClick={true}
+                focusAfterOpen={false}
                 offset={{
                   bottom: [0, -24],
                 }}
@@ -317,6 +330,8 @@ const AmtrakerMap = () => {
                 <ManualTrainPopup train={popupInfo} />
               </Popup>
             )}
+
+            {markers}
             <NavigationControl visualizePitch={true} />
             <FullscreenControl />
             {foamerMode ? (
@@ -325,12 +340,16 @@ const AmtrakerMap = () => {
                 longitude={userLocation[1]}
                 anchor='center'
                 dsadrotationAlignment='map'
-                key={'user-marker'}
+                key={"user-marker"}
                 height={"16px"}
               >
-                <img src={UserMarker} alt='user' style={{
-                  height: "16px",
-                }}/>
+                <img
+                  src={UserMarker}
+                  alt='user'
+                  style={{
+                    height: "16px",
+                  }}
+                />
               </Marker>
             ) : null}
             {/*

@@ -50,6 +50,8 @@ const fullDirections = {
 };
 
 const ManualTrainPopup = ({ train, loading = false }) => {
+  if (!train) return null;
+
   const currentStation = train.stations.find(
     (station) => station.code === train.eventCode
   );
