@@ -37,7 +37,7 @@
       "paint": {
         "fill-color": "#000d1c"
       }
-    },  
+    },
     {
       "id": "park",
       "type": "fill",
@@ -3186,7 +3186,7 @@
       "id": "building",
       "type": "fill",
       "source": "protomaps",
-      "source-layer": "building",
+      "source-layer": "buildings",
       "minzoom": 13,
       "maxzoom": 24,
       "paint": {
@@ -3582,65 +3582,6 @@
         "text-opacity": 1,
         "icon-opacity": 0,
         "text-halo-blur": 0.5
-      }
-    },
-    {
-      "id": "Amtrak_Routes",
-      "type": "line",
-      "source": "protomaps",
-      "source-layer": "amtrak_routes",
-      "filter": [
-        "all"
-      ],
-      "paint": {
-        "line-color": "#5366c9",
-        "line-opacity": 0,
-        "line-width": {
-          "base": 1,
-          "stops": [
-            [
-              0,
-              1
-            ],
-            [
-              9,
-              2
-            ],
-            [
-              20,
-              2
-            ]
-          ]
-        }
-      }
-    },
-    {
-      "id": "Amtrak_Routes_MVT",
-      "type": "line",
-      "source": "nationalRoute",
-      "source-layer": "zcta",
-      "filter": [
-        "all"
-      ],
-      "paint": {
-        "line-color": "#5366c9",
-        "line-width": {
-          "base": 1,
-          "stops": [
-            [
-              0,
-              1
-            ],
-            [
-              9,
-              2
-            ],
-            [
-              20,
-              2
-            ]
-          ]
-        }
       }
     },
     {
@@ -5191,14 +5132,13 @@
       "filter": [
         "all",
         [
-          "==",
-          "pmap:kind",
+          "has",
           "railway"
         ]
       ],
       "paint": {
-        "line-color": "#bbbbbb",
-        "line-width": 2
+        "line-color": "#aaa",
+        "line-width": 1
       }
     },
     {
@@ -5702,6 +5642,65 @@
       }
     },
     {
+      "id": "Amtrak_Routes",
+      "type": "line",
+      "source": "protomaps",
+      "source-layer": "amtrak_routes",
+      "filter": [
+        "all"
+      ],
+      "paint": {
+        "line-color": "#5366c9",
+        "line-opacity": 0,
+        "line-width": {
+          "base": 1,
+          "stops": [
+            [
+              0,
+              1
+            ],
+            [
+              9,
+              2
+            ],
+            [
+              20,
+              2
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "Amtrak_Routes_MVT",
+      "type": "line",
+      "source": "nationalRoute",
+      "source-layer": "zcta",
+      "filter": [
+        "all"
+      ],
+      "paint": {
+        "line-color": "#5366c9",
+        "line-width": {
+          "base": 1,
+          "stops": [
+            [
+              0,
+              1
+            ],
+            [
+              9,
+              2
+            ],
+            [
+              20,
+              2
+            ]
+          ]
+        }
+      }
+    },
+    {
       "id": "roads_labels",
       "type": "symbol",
       "source": "protomaps",
@@ -5727,7 +5726,7 @@
       "id": "buildings",
       "type": "fill-extrusion",
       "source": "protomaps",
-      "source-layer": "buildings",
+      "source-layer": "buildings-blahblahblahremovemeforbuildings",
       "paint": {
         "fill-extrusion-color": "#393f43",
         "fill-extrusion-height": [
