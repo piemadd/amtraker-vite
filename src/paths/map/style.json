@@ -27,6 +27,18 @@
       }
     },
     {
+      "id": "water",
+      "type": "fill",
+      "source": "protomaps",
+      "source-layer": "water",
+      "filter": [
+        "all"
+      ],
+      "paint": {
+        "fill-color": "#000d1c"
+      }
+    },  
+    {
       "id": "park",
       "type": "fill",
       "source": "protomaps",
@@ -286,18 +298,6 @@
             ]
           ]
         }
-      }
-    },
-    {
-      "id": "water",
-      "type": "fill",
-      "source": "protomaps",
-      "source-layer": "water",
-      "filter": [
-        "all"
-      ],
-      "paint": {
-        "fill-color": "rgba(0, 13, 28, 1)"
       }
     },
     {
