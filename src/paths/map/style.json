@@ -18,6 +18,15 @@
       }
     },
     {
+      "id": "earth",
+      "type": "fill",
+      "source": "protomaps",
+      "source-layer": "earth",
+      "paint": {
+        "fill-color": "#151515"
+      }
+    },
+    {
       "id": "park",
       "type": "fill",
       "source": "protomaps",
@@ -4118,15 +4127,6 @@
       }
     },
     {
-      "id": "earth",
-      "type": "fill",
-      "source": "protomaps",
-      "source-layer": "earth",
-      "paint": {
-        "fill-color": "#151515"
-      }
-    },
-    {
       "id": "landuse_park",
       "type": "fill",
       "source": "protomaps",
@@ -4779,23 +4779,6 @@
       "paint": {
         "line-color": "#1e293b",
         "line-width": 0.5
-      }
-    },
-    {
-      "id": "buildings",
-      "type": "fill-extrusion",
-      "source": "protomaps",
-      "source-layer": "buildings",
-      "paint": {
-        "fill-extrusion-color": "#393f43",
-        "fill-extrusion-height": [
-          "to-number",
-          [
-            "get",
-            "height"
-          ]
-        ],
-        "fill-extrusion-opacity": 0.5
       }
     },
     {
@@ -5738,6 +5721,23 @@
         "text-color": "#7a7a7a",
         "text-halo-color": "#000000",
         "text-halo-width": 2
+      }
+    },
+    {
+      "id": "buildings",
+      "type": "fill-extrusion",
+      "source": "protomaps",
+      "source-layer": "buildings",
+      "paint": {
+        "fill-extrusion-color": "#393f43",
+        "fill-extrusion-height": [
+          "to-number",
+          [
+            "get",
+            "height"
+          ]
+        ],
+        "fill-extrusion-opacity": 0.5
       }
     },
     {
