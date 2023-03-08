@@ -1,6 +1,6 @@
 import { useNavigate, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import "../trains/trains.css"; //fuck it we ball
+import "./trains.css"; //fuck it we ball
 import Fuse from "fuse.js";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import SettingsInit from "../index/settingsInit";

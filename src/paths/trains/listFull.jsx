@@ -1,7 +1,7 @@
 import { useNavigate, Link } from "react-router-dom";
 import { trainNames } from "../../data/trains";
 import SettingsInit from "../index/settingsInit";
-import "../trains/trains.css"; //fuck it we ball
+import "../trains.css"; //fuck it we ball
 
 const FullTrainsList = () => {
   const navigate = useNavigate();

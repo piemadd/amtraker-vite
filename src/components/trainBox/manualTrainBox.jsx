@@ -40,6 +40,11 @@ const ManualTrainBox = ({ train, loading = false }) => {
     (station) => station.code === train.eventCode
   );
 
+  if (!currentStation) {
+    console.log(train)
+    return null;
+  }
+
   const schArr = new Date(
     currentStation.schArr ?? currentStation.schDep ?? null
   );
