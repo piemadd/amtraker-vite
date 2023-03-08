@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
+import "./paths/index/App.css";
+import "./paths/trains/trains.css";
 import ErrorPage from "./error.jsx";
 import LoadingPage from "./loading";
 //import * as serviceWorkerRegistration from "./serviceWorkerRegistration.js";
