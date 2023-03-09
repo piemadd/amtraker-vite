@@ -136,7 +136,7 @@ const App = () => {
   return (
     <>
       <img
-        id='background'
+        id='background' alt='Amtrak network map.'
         className='bg-focus-in'
         src='content/images/amtraker-bg.webp'
       ></img>
