@@ -527,7 +527,7 @@ const BetterTrainPage = () => {
                     {trainData[0].stations.map((station, i, arr) => {
                       if (i == 10 || (i == arr.length - 1 && arr.length < 10)) {
                         return (
-                          <>
+                          <div key={'with-terra-banner'}>
                             <Link
                               to={`/stations/${station.code}`}
                               key={`station-${station.code}`}
@@ -539,7 +539,7 @@ const BetterTrainPage = () => {
                               />
                             </Link>
                             <Banner key={"terra-banner"} />
-                          </>
+                          </div>
                         );
                       } else {
                         return (

@@ -113,7 +113,7 @@ const TrainsList = () => {
                 {results.map((train, i) => {
                   if (i == 10) {
                     return (
-                      <>
+                      <div key={'with-terra-banner'}>
                         <Banner key={"terra-banner"} />
                         <Link
                           to={`/trains/${train.trainID.replace("-", "/")}`}
@@ -123,7 +123,7 @@ const TrainsList = () => {
                         >
                           <ManualTrainBox train={train} />
                         </Link>
-                      </>
+                      </div>
                     );
                   } else {
                     return (

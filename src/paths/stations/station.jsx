@@ -90,7 +90,7 @@ const StationPage = () => {
                     console.log("train index", i);
                     if (i == 10 || (i == arr.length - 1 && arr.length < 10)) {
                       return (
-                        <>
+                        <div key={'with-terra-banner'}>
                           <Link
                             to={`/trains/${trainID.split("-").join("/")}`}
                             key={`train-${trainID}`}
@@ -99,7 +99,7 @@ const StationPage = () => {
                             <ShortTrainIDTrainBox trainID={trainID} />
                           </Link>
                           <Banner key={"terra-banner"} />
-                        </>
+                        </div>
                       );
                     } else {
                       return (

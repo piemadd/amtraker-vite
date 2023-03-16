@@ -132,7 +132,7 @@ const StationsList = () => {
 
                   if (i == 10) {
                     return (
-                      <>
+                      <div key={'with-terra-banner'}>
                         <Banner key={"terra-banner"} />
                         <Link
                           to={`/stations/${station.code}`}
@@ -158,7 +158,7 @@ const StationsList = () => {
                             </p>
                           </div>
                         </Link>
-                      </>
+                      </div>
                     );
                   } else {
                     return (
