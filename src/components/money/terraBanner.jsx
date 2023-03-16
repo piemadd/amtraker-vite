@@ -67,7 +67,9 @@ export default function Banner() {
         className={
           "terrabanner terrabanner-actually bnr-threehundredtimestwofifty"
         }
-      >ad placeholder</div>
+      >
+        <img src='/content/images/ad.jpg'></img>
+      </div>
     );
   } else {
     return (
