@@ -158,10 +158,16 @@ section.section-settings select {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  margin-top: 8px;
+  margin-bottom: 8px;
   border: #777 1px solid;
   background-color: rgba(0, 0, 0, 0.5);
   padding: 4px;
   border-radius: 4px;
+}
+
+.terrabanner:nth-child(2) {
+  margin-bottom: 0px;
 }
 
 .terrabanner-actually::before {
