@@ -42,6 +42,7 @@ export default function Banner() {
     width: 300,
     params: {},
   };
+  /*
   useEffect(() => {
     if (!banner.current.firstChild) {
       const conf = document.createElement("script");
@@ -56,17 +57,17 @@ export default function Banner() {
       }
     }
   }, []);
+  */
 
   console.log("is adblocked", isAdBlocked);
 
   if (!isAdBlocked) {
     return (
       <div
-        ref={banner}
         className={
           "terrabanner terrabanner-actually bnr-threehundredtimestwofifty"
         }
-      ></div>
+      >ad placeholder</div>
     );
   } else {
     return (
