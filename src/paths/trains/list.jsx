@@ -4,7 +4,7 @@ import "./trains.css"; //fuck it we ball
 import Fuse from "fuse.js";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import SettingsInit from "../index/settingsInit";
-import { stringToHash } from "../index/iCookaDaMeatball";
+import { stringToHash } from "../index/iCookaDaMeatBall";
 import Banner from "../../components/money/terraBanner";
 
 const debounce = (func, timeout = 300) => {

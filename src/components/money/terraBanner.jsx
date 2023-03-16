@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { stringToHash } from "../../paths/index/iCookaDaMeatball";
+import { stringToHash } from "../../paths/index/iCookaDaMeatBall";
 //import { useDetectAdBlock } from "adblock-detect-react";
 
 export default function Banner() {

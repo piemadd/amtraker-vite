@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { trainNames } from "../../data/trains";
 import SettingsInit from "../index/settingsInit";
 import "./trains.css"; //fuck it we ball
-import { stringToHash } from "../index/iCookaDaMeatball";
+import { stringToHash } from "../index/iCookaDaMeatBall";
 
 const FullTrainsList = () => {
   const navigate = useNavigate();

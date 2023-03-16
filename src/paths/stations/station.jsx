@@ -1,6 +1,6 @@
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { stringToHash } from "../index/iCookaDaMeatball";
+import { stringToHash } from "../index/iCookaDaMeatBall";
 import Banner from "../../components/money/terraBanner";
 
 import "../trains/trains.css"; //fuck it we ball

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { stringToHash } from "./iCookaDaMeatball";
+import { stringToHash } from "./iCookaDaMeatBall";
 
 const AboutPage = () => {
   const navigate = useNavigate();

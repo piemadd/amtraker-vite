@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { trainNames } from "../../data/trains";
 import "./trains.css";
 import SettingsInit from "../index/settingsInit";
-import { stringToHash } from "../index/iCookaDaMeatball";
+import { stringToHash } from "../index/iCookaDaMeatBall";
 
 const TrainsByNumber = () => {
   const { trainNum } = useParams();

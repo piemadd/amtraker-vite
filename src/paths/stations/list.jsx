@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import "../trains/trains.css"; //fuck it we ball
 import Fuse from "fuse.js";
 import SettingsInit from "../index/settingsInit";
-import { stringToHash } from "../index/iCookaDaMeatball";
+import { stringToHash } from "../index/iCookaDaMeatBall";
 import Banner from "../../components/money/terraBanner";
 
 const debounce = (func, timeout = 300) => {

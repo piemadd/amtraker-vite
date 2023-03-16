@@ -1,7 +1,7 @@
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ManualStationBox from "../../components/stationBox/manualStationBox";
-import { stringToHash } from "../index/iCookaDaMeatball";
+import { stringToHash } from "../index/iCookaDaMeatBall";
 import { stationMeta } from "../../data/stations.js";
 import Banner from "../../components/money/terraBanner";
 
