@@ -43,7 +43,9 @@ const TrainsByName = () => {
     stringToHash(localStorage.getItem("passphrase")).then((hash) => {
       if (
         hash ==
-        "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
+          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
+        hash ==
+          "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
       ) {
         setBGURL("/content/images/prideflag.jpg");
         setBGClass("bg-focus-in peppino");
@@ -54,7 +56,8 @@ const TrainsByName = () => {
   return (
     <>
       <img
-        id='background' alt='Amtrak network map.'
+        id='background'
+        alt='Amtrak network map.'
         className={bgClass}
         src={bgURL}
       ></img>
