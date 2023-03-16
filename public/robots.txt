@@ -1,4 +1,5 @@
 User-agent: *
+Disallow: /bippityboppityicookadameatball
 Allow: /
 
 Sitemap: https://amtraker.com/sitemap.xml
