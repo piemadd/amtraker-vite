@@ -1,5 +1,7 @@
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { stringToHash } from "../index/iCookaDaMeatball";
+import Banner from "../../components/money/terraBanner";
 
 import "../trains/trains.css"; //fuck it we ball
 import ShortTrainIDTrainBox from "../../components/trainBox/shortTrainIDTrainBox";
@@ -22,12 +24,28 @@ const StationPage = () => {
       });
   }, [stationCode]);
 
+  const [bgURL, setBGURL] = useState("/content/images/amtraker-bg.webp");
+  const [bgClass, setBGClass] = useState("bg-focus-in");
+
+  useEffect(() => {
+    stringToHash(localStorage.getItem("passphrase")).then((hash) => {
+      if (
+        hash ==
+        "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
+      ) {
+        setBGURL("/content/images/prideflag.jpg");
+        setBGClass("bg-focus-in peppino");
+      }
+    });
+  }, []);
+
   return (
     <>
       <img
-        id='background' alt='Amtrak network map.'
-        className='bg-focus-in'
-        src='/content/images/amtraker-bg.webp'
+        id='background'
+        alt='Amtrak network map.'
+        className={bgClass}
+        src={bgURL}
       ></img>
       <div className='trainPage'>
         <div className='header-trainpage'>
@@ -65,20 +83,44 @@ const StationPage = () => {
             <SettingsInit />
             {!loading ? (
               <>
-                {stationData.trains.length > 0 ? stationData.trains.map((trainID) => {
-                  return (
-                    <Link
-                      to={`/trains/${trainID.split('-').join('/')}`}
-                      key={`train-${trainID}`}
-                      className='station-link'
-                    >
-                      <ShortTrainIDTrainBox trainID={trainID} />
-                    </Link>
-                  );
-                }) : <div className='station-box'><p>No trains active for this station</p></div>}
+                {stationData.trains.length > 0 ? (
+                  stationData.trains.map((trainID, i, arr) => {
+                    console.log('train index', i)
+                    if (i == 10 || (i == arr.length - 1 && arr.length < 10)) {
+                      return (
+                        <>
+                          <Link
+                            to={`/trains/${trainID.split("-").join("/")}`}
+                            key={`train-${trainID}`}
+                            className='station-link'
+                          >
+                            <ShortTrainIDTrainBox trainID={trainID} />
+                          </Link>
+                          <Banner />
+                        </>
+                      );
+                    } else {
+                      return (
+                        <Link
+                          to={`/trains/${trainID.split("-").join("/")}`}
+                          key={`train-${trainID}`}
+                          className='station-link'
+                        >
+                          <ShortTrainIDTrainBox trainID={trainID} />
+                        </Link>
+                      );
+                    }
+                  })
+                ) : (
+                  <div className='station-box'>
+                    <p>No trains active for this station</p>
+                  </div>
+                )}
               </>
             ) : (
-              <div className='station-box'><p>Loading station data...</p></div>
+              <div className='station-box'>
+                <p>Loading station data...</p>
+              </div>
             )}
           </div>
         </section>

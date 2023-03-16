@@ -18,11 +18,13 @@ main h2 {
   font-size: 2em;
 }
 
-h1, h2 {
+h1,
+h2 {
   font-weight: 600;
 }
 
-h3, h4 {
+h3,
+h4 {
   font-weight: 500;
 }
 
@@ -134,7 +136,8 @@ section.section-trainPage p {
   font-size: 1.5rem;
 }
 
-section.section-settings select, section.section-settings select option {
+section.section-settings select,
+section.section-settings select option {
   background-color: #111 !important;
 }
 
@@ -149,4 +152,31 @@ section.section-settings h2 {
 
 section.section-settings select {
   margin-top: 4px;
+}
+
+.terrabanner {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: #777 1px solid;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.terrabanner-actually::before {
+  content: "Advertisement by Adterra";
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: 400;
+}
+
+.terrabanner-actually::after {
+  content: "The above is an ad and the content shown is not provided by Amtraker. If you click on the ad, you will be taken to a third party website. Apologies for the click-baity nature the ads can be.";
+  font-size: 1em;
+  font-weight: 200;
+}
+
+.bnr-threehundredtimestwofifty {
+  max-width: 300px !important;
 }

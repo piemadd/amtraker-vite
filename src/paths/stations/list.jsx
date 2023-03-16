@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import "../trains/trains.css"; //fuck it we ball
 import Fuse from "fuse.js";
 import SettingsInit from "../index/settingsInit";
+import { stringToHash } from "../index/iCookaDaMeatball";
+import Banner from "../../components/money/terraBanner";
 
 const debounce = (func, timeout = 300) => {
   let timer;
@@ -54,12 +56,28 @@ const StationsList = () => {
     includeScore: true,
   });
 
+  const [bgURL, setBGURL] = useState("/content/images/amtraker-bg.webp");
+  const [bgClass, setBGClass] = useState("bg-focus-in");
+
+  useEffect(() => {
+    stringToHash(localStorage.getItem("passphrase")).then((hash) => {
+      if (
+        hash ==
+        "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
+      ) {
+        setBGURL("/content/images/prideflag.jpg");
+        setBGClass("bg-focus-in peppino");
+      }
+    });
+  }, []);
+
   return (
     <>
       <img
-        id='background' alt='Amtrak network map.'
-        className='bg-focus-in'
-        src='/content/images/amtraker-bg.webp'
+        id='background'
+        alt='Amtrak network map.'
+        className={bgClass}
+        src={bgURL}
       ></img>
       <div className='trainPage'>
         <div className='header-trainpage'>
@@ -97,7 +115,7 @@ const StationsList = () => {
           <div className='stations fullStationsList'>
             {!loading ? (
               <>
-                {results.map((station) => {
+                {results.map((station, i) => {
                   if (!station.tz) {
                     console.log(
                       "no tz:",
@@ -109,30 +127,65 @@ const StationsList = () => {
                   if (!station.name) {
                     console.log("no name:", station.code, station.state);
                   }
-                  return (
-                    <Link
-                      to={`/stations/${station.code}`}
-                      key={`station-${station.code}`}
-                      replace={true}
-                      className='station-link'
-                    >
-                      <div className='station-box'>
-                        <div>
-                          {station.name} ({station.code})&nbsp;
+
+                  if (i == 10) {
+                    return (
+                      <>
+                        <Banner />
+                        <Link
+                          to={`/stations/${station.code}`}
+                          key={`station-${station.code}`}
+                          replace={true}
+                          className='station-link'
+                        >
+                          <div className='station-box'>
+                            <div>
+                              {station.name} ({station.code})&nbsp;
+                            </div>
+                            <p>
+                              <span className='greyed'>
+                                {station.address1}{" "}
+                                {station.address2 !== " "
+                                  ? station.address2
+                                  : null}
+                                <br />
+                                {station.city}, {station.state} {station.zip}
+                                <br />
+                                {station.tz}
+                              </span>
+                            </p>
+                          </div>
+                        </Link>
+                      </>
+                    );
+                  } else {
+                    return (
+                      <Link
+                        to={`/stations/${station.code}`}
+                        key={`station-${station.code}`}
+                        replace={true}
+                        className='station-link'
+                      >
+                        <div className='station-box'>
+                          <div>
+                            {station.name} ({station.code})&nbsp;
+                          </div>
+                          <p>
+                            <span className='greyed'>
+                              {station.address1}{" "}
+                              {station.address2 !== " "
+                                ? station.address2
+                                : null}
+                              <br />
+                              {station.city}, {station.state} {station.zip}
+                              <br />
+                              {station.tz}
+                            </span>
+                          </p>
                         </div>
-                        <p>
-                          <span className='greyed'>
-                            {station.address1}{" "}
-                            {station.address2 !== " " ? station.address2 : null}
-                            <br />
-                            {station.city}, {station.state} {station.zip}
-                            <br />
-                            {station.tz}
-                          </span>
-                        </p>
-                      </div>
-                    </Link>
-                  );
+                      </Link>
+                    );
+                  }
                 })}
               </>
             ) : (

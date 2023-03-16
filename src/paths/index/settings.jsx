@@ -1,14 +1,31 @@
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { stringToHash } from "./iCookaDaMeatball";
 
 const Settings = () => {
   const navigate = useNavigate();
+
+  const [bgURL, setBGURL] = useState("/content/images/amtraker-bg.webp");
+  const [bgClass, setBGClass] = useState("bg-focus-in");
+
+  useEffect(() => {
+    stringToHash(localStorage.getItem("passphrase")).then((hash) => {
+      if (
+        hash ==
+        "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
+      ) {
+        setBGURL("/content/images/prideflag.jpg");
+        setBGClass("bg-focus-in peppino");
+      }
+    });
+  }, []);
 
   return (
     <>
       <img
         id='background' alt='Amtrak network map.'
-        className='bg-focus-in'
-        src='/content/images/amtraker-bg.webp'
+        className={bgClass}
+        src={bgURL}
       ></img>
       <div className='trainPage'>
         <div className='header-trainpage'>

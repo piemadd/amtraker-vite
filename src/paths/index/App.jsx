@@ -1,10 +1,11 @@
 import "./App.css";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
+import { stringToHash } from "./iCookaDaMeatball";
 import { Link } from "react-router-dom";
 
 import SettingsInit from "./settingsInit.jsx";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
-import AdsBox from "../../components/adBox";
+import Banner from "../../components/money/terraBanner";
 
 const App = () => {
   const [savedTrains, setSavedTrains] = useState([]);
@@ -133,12 +134,28 @@ const App = () => {
     });
   }, [savedTrains]);
 
+  const [bgURL, setBGURL] = useState("/content/images/amtraker-bg.webp");
+  const [bgClass, setBGClass] = useState("bg-focus-in");
+
+  useEffect(() => {
+    stringToHash(localStorage.getItem("passphrase")).then((hash) => {
+      if (
+        hash ==
+        "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
+      ) {
+        setBGURL("/content/images/prideflag.jpg");
+        setBGClass("bg-focus-in peppino");
+      }
+    });
+  }, []);
+
   return (
     <>
       <img
-        id='background' alt='Amtrak network map.'
-        className='bg-focus-in'
-        src='content/images/amtraker-bg.webp'
+        id='background'
+        alt='Amtrak network map.'
+        className={bgClass}
+        src={bgURL}
       ></img>
       <main>
         <h2 className='welcome-to'>Welcome to</h2>
@@ -163,9 +180,6 @@ const App = () => {
             ) : (
               <div>No Saved Trains</div>
             )}
-            {
-              //<AdsBox />
-            }
           </div>
         </section>
         <h3 className='split'>or</h3>
@@ -196,7 +210,7 @@ const App = () => {
           </Link>
         </section>
         <section className='amtrakerVersion'>
-          <p>Amtraker v3.3.6</p>
+          <p>Amtraker v3.4.0</p>
           <p>&copy; Piero Maddaleni 2023</p>
           {/*
           <p>
@@ -212,6 +226,7 @@ const App = () => {
           </p>
           */}
         </section>
+        <Banner />
       </main>
     </>
   );

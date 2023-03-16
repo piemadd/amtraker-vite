@@ -4,6 +4,8 @@ import "./trains.css"; //fuck it we ball
 import Fuse from "fuse.js";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import SettingsInit from "../index/settingsInit";
+import { stringToHash } from "../index/iCookaDaMeatball";
+import Banner from "../../components/money/terraBanner";
 
 const debounce = (func, timeout = 300) => {
   let timer;
@@ -35,16 +37,40 @@ const TrainsList = () => {
   }, []);
 
   const fuse = new Fuse(trainData, {
-    keys: ["routeName", "trainNum", "trainID", "stations.name", "stations.code", "stations.city", "stations.zip"],
+    keys: [
+      "routeName",
+      "trainNum",
+      "trainID",
+      "stations.name",
+      "stations.code",
+      "stations.city",
+      "stations.zip",
+    ],
     includeScore: true,
   });
+
+  const [bgURL, setBGURL] = useState("/content/images/amtraker-bg.webp");
+  const [bgClass, setBGClass] = useState("bg-focus-in");
+
+  useEffect(() => {
+    stringToHash(localStorage.getItem("passphrase")).then((hash) => {
+      if (
+        hash ==
+        "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
+      ) {
+        setBGURL("/content/images/prideflag.jpg");
+        setBGClass("bg-focus-in peppino");
+      }
+    });
+  }, []);
 
   return (
     <>
       <img
-        id='background' alt='Amtrak network map.'
-        className='bg-focus-in'
-        src='/content/images/amtraker-bg.webp'
+        id='background'
+        alt='Amtrak network map.'
+        className={bgClass}
+        src={bgURL}
       ></img>
       <div className='trainPage'>
         <div className='header-trainpage'>
@@ -82,17 +108,33 @@ const TrainsList = () => {
           <div className='stations fullTrainsList'>
             {!loading ? (
               <>
-                {results.map((train) => {
-                  return (
-                    <Link
-                      to={`/trains/${train.trainID.replace('-', '/')}`}
-                      key={`train-${train.trainID}`}
-                      replace={true}
-                      className='station-link'
-                    >
-                      <ManualTrainBox train={train} />
-                    </Link>
-                  );
+                {results.map((train, i) => {
+                  if (i == 10) {
+                    return (
+                      <>
+                        <Banner />
+                        <Link
+                          to={`/trains/${train.trainID.replace("-", "/")}`}
+                          key={`train-${train.trainID}`}
+                          replace={true}
+                          className='station-link'
+                        >
+                          <ManualTrainBox train={train} />
+                        </Link>
+                      </>
+                    );
+                  } else {
+                    return (
+                      <Link
+                        to={`/trains/${train.trainID.replace("-", "/")}`}
+                        key={`train-${train.trainID}`}
+                        replace={true}
+                        className='station-link'
+                      >
+                        <ManualTrainBox train={train} />
+                      </Link>
+                    );
+                  }
                 })}
               </>
             ) : (

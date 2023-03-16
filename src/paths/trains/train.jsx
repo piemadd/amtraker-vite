@@ -1,8 +1,9 @@
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ManualStationBox from "../../components/stationBox/manualStationBox";
-
+import { stringToHash } from "../index/iCookaDaMeatball";
 import { stationMeta } from "../../data/stations.js";
+import Banner from "../../components/money/terraBanner";
 
 import "./trains.css";
 import SettingsInit from "../index/settingsInit";
@@ -248,12 +249,29 @@ const BetterTrainPage = () => {
         return station.code === trainData[0].eventCode;
       })
     : null;
+
+  const [bgURL, setBGURL] = useState("/content/images/amtraker-bg.webp");
+  const [bgClass, setBGClass] = useState("bg-focus-in");
+
+  useEffect(() => {
+    stringToHash(localStorage.getItem("passphrase")).then((hash) => {
+      if (
+        hash ==
+        "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
+      ) {
+        setBGURL("/content/images/prideflag.jpg");
+        setBGClass("bg-focus-in peppino");
+      }
+    });
+  }, []);
+
   return (
     <>
       <img
-        id='background' alt='Amtrak network map.'
-        className='bg-focus-in'
-        src='/content/images/amtraker-bg.webp'
+        id='background'
+        alt='Amtrak network map.'
+        className={bgClass}
+        src={bgURL}
       ></img>
       <div className='trainPage'>
         <div className='header-trainpage'>
@@ -332,7 +350,8 @@ const BetterTrainPage = () => {
                   {new Date(trainData[0].lastValTS).valueOf() <
                   new Date().valueOf() - 1000 * 60 * 15 ? (
                     <p className='staleTrainWarning'>
-                      WARNING: THIS TRAIN'S DATA IS STALE! Data feed has not been updated since{" "}
+                      WARNING: THIS TRAIN'S DATA IS STALE! Data feed has not
+                      been updated since{" "}
                       {new Intl.DateTimeFormat([], {
                         hour: "numeric",
                         minute: "numeric",
@@ -498,19 +517,37 @@ const BetterTrainPage = () => {
                   </ul>
                   <h2>Stations</h2>
                   <div className='stations'>
-                    {trainData[0].stations.map((station, index) => {
-                      return (
-                        <Link
-                          to={`/stations/${station.code}`}
-                          key={`station-${station.code}`}
-                          className='station-link'
-                        >
-                          <ManualStationBox
-                            station={station}
-                            train={trainData[0]}
-                          />
-                        </Link>
-                      );
+                    {trainData[0].stations.map((station, i, arr) => {
+                      if (i == 10 || (i == arr.length - 1 && arr.length < 10)) {
+                        return (
+                          <>
+                            <Link
+                              to={`/stations/${station.code}`}
+                              key={`station-${station.code}`}
+                              className='station-link'
+                            >
+                              <ManualStationBox
+                                station={station}
+                                train={trainData[0]}
+                              />
+                            </Link>
+                            <Banner />
+                          </>
+                        );
+                      } else {
+                        return (
+                          <Link
+                            to={`/stations/${station.code}`}
+                            key={`station-${station.code}`}
+                            className='station-link'
+                          >
+                            <ManualStationBox
+                              station={station}
+                              train={trainData[0]}
+                            />
+                          </Link>
+                        );
+                      }
                     })}
                   </div>
                 </>
