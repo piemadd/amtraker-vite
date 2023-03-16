@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { stringToHash } from "./iCookaDaMeatBall";
+import stringToHash from "../../components/money/stringToHash";
 
 const PrivacyPolicy = () => {
   const navigate = useNavigate();

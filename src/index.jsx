@@ -33,7 +33,7 @@ const Settings = React.lazy(() => import("./paths/index/settings.jsx"));
 const Map = React.lazy(() => import("./paths/map/Map.jsx"));
 const PrivacyPolicy = React.lazy(() => import("./paths/index/privacy"));
 const AboutPage = React.lazy(() => import("./paths/index/about"));
-const ICookaDaMeatBall = React.lazy(() => import("./paths/index/iCookaDaMeatBall"));
+const ICookaDaMeatBall = React.lazy(() => import("./paths/index/meatball"));
 
 const router = createBrowserRouter([
   {

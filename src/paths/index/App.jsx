@@ -1,6 +1,6 @@
 import "./App.css";
 import { useState, useEffect } from "react";
-import { stringToHash } from "./iCookaDaMeatBall";
+import stringToHash from "../../components/money/stringToHash";
 import { Link } from "react-router-dom";
 
 import SettingsInit from "./settingsInit.jsx";

@@ -43,4 +43,4 @@ const ICookaDaMeatBall = () => {
   );
 };
 
-export { ICookaDaMeatBall as default, stringToHash as stringToHash };
+export default ICookaDaMeatBall;

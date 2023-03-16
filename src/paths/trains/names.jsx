@@ -4,7 +4,7 @@ import { trainNames } from "../../data/trains";
 import "./trains.css";
 import { useEffect } from "react";
 import SettingsInit from "../index/settingsInit";
-import { stringToHash } from "../index/iCookaDaMeatball";
+import stringToHash from "../../components/money/stringToHash";
 
 const TrainsByName = () => {
   const { trainName } = useParams();
