@@ -40,7 +40,7 @@ const ICookaDaMeatBall = () => {
         <p>remove passphrase</p>
       </button>
       <button onClick={(e) => {
-        localStorage.setItem("passphrase", e.target.value);
+        //localStorage.setItem("passphrase", e.target.value);
         window.location.replace("https://amtraker.com/");
       }}>
         <p>Submit</p>
