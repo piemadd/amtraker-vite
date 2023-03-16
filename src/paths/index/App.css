@@ -171,7 +171,7 @@ section.section-settings select {
   font-weight: 400;
 }
 
-.terrabanner-actually::after {
+.terrabanner-actually-poopy::after {
   content: "The above is an ad and the content shown is not provided by Amtraker. If you click on the ad, you will be taken to a third party website. Apologies for the click-baity nature the ads can be.";
   font-size: 1em;
   font-weight: 200;
