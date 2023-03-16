@@ -14,6 +14,11 @@ export default function ErrorPage() {
         can debug and fix the issue. Thanks, and apologies for the
         inconvenience.
       </p>
+      <p>
+        If the error number below doesn't match up with the error number on the
+        home page, chances are your error has already been fixed. If so,
+        clearing your cache should fix the issue.
+      </p>
       <br />
       {errorString.includes("error loading dynamically imported module") ? (
         <p>
