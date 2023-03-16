@@ -133,7 +133,7 @@ const StationsList = () => {
                   if (i == 10) {
                     return (
                       <>
-                        <Banner />
+                        <Banner key={"terra-banner"} />
                         <Link
                           to={`/stations/${station.code}`}
                           key={`station-${station.code}`}

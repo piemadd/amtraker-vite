@@ -78,9 +78,10 @@ const App = () => {
 
           //removing train if the saved train id doesn't match the data
           if (
-            schDep.getMonth() + 1 !== parseInt(trainID.split("-")[1]) ||
-            schDep.getFullYear().toString().substring(2, 4) !==
-              trainID.split("-")[3]
+            (schDep.getMonth() + 1 !== parseInt(trainID.split("-")[1]) ||
+              schDep.getFullYear().toString().substring(2, 4) !==
+                trainID.split("-")[3]) &&
+            !trainID.includes("NaN")
           ) {
             console.log("removing train due to incorrect date");
 
@@ -228,7 +229,7 @@ const App = () => {
           </p>
           */}
         </section>
-        <Banner />
+        <Banner key={"terra-banner"} />
       </main>
     </>
   );

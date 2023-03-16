@@ -98,7 +98,7 @@ const StationPage = () => {
                           >
                             <ShortTrainIDTrainBox trainID={trainID} />
                           </Link>
-                          <Banner />
+                          <Banner key={"terra-banner"} />
                         </>
                       );
                     } else {

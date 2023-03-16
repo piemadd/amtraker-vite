@@ -189,7 +189,12 @@ const BetterTrainPage = () => {
           });
 
           if (savedTrain === undefined) {
-            const departureDate = new Date(data[trainNum][0].stations[0].dep);
+            let departureDate = new Date(data[trainNum][0].stations[0].schDep);
+
+            if (departureDate.toString() == "Invalid Date") {
+              departureDate = new Date(data[trainNum][0].stations[0].schDep);
+            };
+
             localStorage.setItem(
               "savedTrainsAmtrakerV3",
               [
@@ -533,7 +538,7 @@ const BetterTrainPage = () => {
                                 train={trainData[0]}
                               />
                             </Link>
-                            <Banner />
+                            <Banner key={"terra-banner"} />
                           </>
                         );
                       } else {

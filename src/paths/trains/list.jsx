@@ -114,7 +114,7 @@ const TrainsList = () => {
                   if (i == 10) {
                     return (
                       <>
-                        <Banner />
+                        <Banner key={"terra-banner"} />
                         <Link
                           to={`/trains/${train.trainID.replace("-", "/")}`}
                           key={`train-${train.trainID}`}
