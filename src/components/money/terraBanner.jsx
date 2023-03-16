@@ -73,7 +73,7 @@ export default function Banner() {
           "terrabanner terrabanner-actually bnr-threehundredtimestwofifty"
         }
       >
-        <img src='/content/images/ad.jpg'></img>
+        <img src='/content/images/ad.jpg' alt='Placeholder ad image.'></img>
       </div>
     );
   } else {

@@ -31,7 +31,7 @@ export default function ErrorPage() {
         <i>
           Current path: {window.location.href}
           <br />
-          Current version: 3.4.3
+          Current version: v3.4.4
           <br />
           Current date and time (UTC): {new Date().toUTCString()}
           <br />
