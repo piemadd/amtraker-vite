@@ -174,7 +174,10 @@ const App = () => {
               </p>
             </div>
           ) : null}
-          <h3>Track a Saved Train</h3>
+          <h2 style={{
+            fontWeight: 500,
+            fontSize: "1.2rem",
+          }}>Track a Saved Train</h2>
           <div className='savedTrains'>
             {loading ? (
               <div className='loading'>Loading...</div>
@@ -213,7 +216,7 @@ const App = () => {
           </Link>
         </section>
         <section className='amtrakerVersion'>
-          <p>Amtraker v3.4.4</p>
+          <p>Amtraker v3.4.5</p>
           <p>&copy; Piero Maddaleni 2023</p>
           {/*
           <p>
