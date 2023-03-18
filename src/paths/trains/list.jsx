@@ -7,6 +7,8 @@ import SettingsInit from "../index/settingsInit";
 import stringToHash from "../../components/money/stringToHash";
 import Banner from "../../components/money/terraBanner";
 
+//import ErrorData from "../../data/error.json";
+
 const debounce = (func, timeout = 300) => {
   let timer;
   return (...args) => {
@@ -32,6 +34,10 @@ const TrainsList = () => {
         console.log("data fetched", data);
         setTrainData(Object.values(data).flat());
         setResults(Object.values(data).flat());
+
+        //setTrainData(Object.values(ErrorData).flat());
+        //setResults(Object.values(ErrorData).flat());
+
         setLoading(false);
       });
   }, []);
