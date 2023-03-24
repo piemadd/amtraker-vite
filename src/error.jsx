@@ -3,9 +3,36 @@ import { useRouteError } from "react-router-dom";
 export default function ErrorPage() {
   const error = useRouteError();
 
+  console.log(error);
+
   const errorString = error.toString();
 
-  return (
+  console.log(errorString);
+
+  return error.status === 404 ? (
+    <div id='error-page'>
+      <h1>404 - Not Found</h1>
+      <p>Seems like that page doens't exist.</p>
+      <p>
+        Please copy the following and email it to me (piero@piemadd.com) so I
+        can debug and fix the issue. Thanks, and apologies for the
+        inconvenience.
+      </p>
+      <p>
+        <i>
+          Current path: {window.location.href}
+          <br />
+          Current version: v3.4.7
+          <br />
+          Current date and time (UTC): {new Date().toUTCString()}
+          <br />
+          Current date and time (local): {new Date().toLocaleString()}
+          <br />
+          {errorString}
+        </i>
+      </p>
+    </div>
+  ) : (
     <div id='error-page'>
       <h1>Oops!</h1>
       <p>Sorry, an unexpected error has occurred.</p>
@@ -31,31 +58,15 @@ export default function ErrorPage() {
         <i>
           Current path: {window.location.href}
           <br />
-          Current version: v3.4.5
+          Current version: v3.4.7
           <br />
           Current date and time (UTC): {new Date().toUTCString()}
           <br />
           Current date and time (local): {new Date().toLocaleString()}
           <br />
-          {error.toString()}
-          {/*
-            <br />
-          Error Trace:
-      */}
+          {errorString}
         </i>
       </p>
-      {/*
-        <div>
-          {error.stack
-            .split("\n")
-            .filter((n) => n)
-            .map((line, i) => (
-              <p className='errorTrace' key={`error-trace-${i}`}>
-                {line}
-              </p>
-            ))}
-        </div>
-            */}
     </div>
   );
 }
