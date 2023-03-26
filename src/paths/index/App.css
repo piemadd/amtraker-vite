@@ -179,4 +179,5 @@ section.section-settings select {
 
 .bnr-threehundredtimestwofifty {
   min-width: 250px !important;
+  max-width: 400px !important;
 }
