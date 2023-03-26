@@ -3,10 +3,9 @@ import { useEffect, useState } from "react";
 import ManualStationBox from "../../components/stationBox/manualStationBox";
 import stringToHash from "../../components/money/stringToHash";
 import { stationMeta } from "../../data/stations.js";
-import Banner from "../../components/money/terraBanner";
-
 import "./trains.css";
 import SettingsInit from "../index/settingsInit";
+import SenseList from "../../components/money/senseList";
 
 const fullDirections = {
   N: "North",
@@ -193,7 +192,7 @@ const BetterTrainPage = () => {
 
             if (departureDate.toString() == "Invalid Date") {
               departureDate = new Date(data[trainNum][0].stations[0].schDep);
-            };
+            }
 
             localStorage.setItem(
               "savedTrainsAmtrakerV3",
@@ -525,9 +524,13 @@ const BetterTrainPage = () => {
                   <h2>Stations</h2>
                   <div className='stations'>
                     {trainData[0].stations.map((station, i, arr) => {
-                      if (i == 10 || (i == arr.length - 1 && arr.length < 10)) {
+                      if (
+                        (i % 10 === 0 ||
+                          (i == arr.length - 1 && arr.length < 10)) &&
+                        i !== 0
+                      ) {
                         return (
-                          <div key={'with-terra-banner'}>
+                          <div key={`with-terra-banner-${i}`}>
                             <Link
                               to={`/stations/${station.code}`}
                               key={`station-${station.code}`}
@@ -538,7 +541,10 @@ const BetterTrainPage = () => {
                                 train={trainData[0]}
                               />
                             </Link>
-                            <Banner key={"terra-banner"} />
+                            <SenseList
+                              key={`sense-list-${i}`}
+                              dataAdSlot={"6510210014"}
+                            />
                           </div>
                         );
                       } else {

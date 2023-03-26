@@ -1,11 +1,11 @@
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import stringToHash from "../../components/money/stringToHash";
-import Banner from "../../components/money/terraBanner";
 
 import "../trains/trains.css"; //fuck it we ball
 import ShortTrainIDTrainBox from "../../components/trainBox/shortTrainIDTrainBox";
 import SettingsInit from "../index/settingsInit";
+import SenseList from "../../components/money/senseList";
 
 const StationPage = () => {
   const { stationCode } = useParams();
@@ -88,9 +88,13 @@ const StationPage = () => {
                 {stationData.trains.length > 0 ? (
                   stationData.trains.map((trainID, i, arr) => {
                     console.log("train index", i);
-                    if (i == 10 || (i == arr.length - 1 && arr.length < 10)) {
+                    if (
+                      (i % 10 === 0 ||
+                        (i == arr.length - 1 && arr.length < 10)) &&
+                      i !== 0
+                    ) {
                       return (
-                        <div key={'with-terra-banner'}>
+                        <div key={`with-terra-banner-${i}`}>
                           <Link
                             to={`/trains/${trainID.split("-").join("/")}`}
                             key={`train-${trainID}`}
@@ -98,7 +102,10 @@ const StationPage = () => {
                           >
                             <ShortTrainIDTrainBox trainID={trainID} />
                           </Link>
-                          <Banner key={"terra-banner"} />
+                          <SenseList
+                            key={`sense-list-${i}`}
+                            dataAdSlot={"6510210014"}
+                          />
                         </div>
                       );
                     } else {

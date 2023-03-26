@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 
 import SettingsInit from "./settingsInit.jsx";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
-import Banner from "../../components/money/terraBanner";
+
+import SenseBlock from "../../components/money/senseArticle";
 
 const App = () => {
   const [savedTrains, setSavedTrains] = useState([]);
@@ -174,10 +175,14 @@ const App = () => {
               </p>
             </div>
           ) : null}
-          <h2 style={{
-            fontWeight: 500,
-            fontSize: "1.2rem",
-          }}>Track a Saved Train</h2>
+          <h2
+            style={{
+              fontWeight: 500,
+              fontSize: "1.2rem",
+            }}
+          >
+            Track a Saved Train
+          </h2>
           <div className='savedTrains'>
             {loading ? (
               <div className='loading'>Loading...</div>
@@ -216,7 +221,7 @@ const App = () => {
           </Link>
         </section>
         <section className='amtrakerVersion'>
-          <p>Amtraker v3.4.7</p>
+          <p>Amtraker v3.5.0</p>
           <p>&copy; Piero Maddaleni 2023</p>
           {/*
           <p>
@@ -232,10 +237,10 @@ const App = () => {
           </p>
           */}
         </section>
-        <Banner key={"terra-banner"} />
+        <SenseBlock key={"sense-block"} dataAdSlot={"5433502883"} />
       </main>
     </>
   );
 };
 
-export default App;
+export default App; 
