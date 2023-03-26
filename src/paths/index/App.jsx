@@ -221,7 +221,7 @@ const App = () => {
           </Link>
         </section>
         <section className='amtrakerVersion'>
-          <p>Amtraker vv3.5.1</p>
+          <p>Amtraker v3.5.1</p>
           <p>&copy; Piero Maddaleni 2023</p>
           {/*
           <p>
