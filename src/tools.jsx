@@ -1,3 +1,5 @@
+import { stationMeta } from "./data/stations";
+
 const deleteTrain = (trainNum, trainDate) => {
   // removing saved train
   const savedTrains = localStorage
