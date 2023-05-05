@@ -48,7 +48,7 @@ export default function ErrorPage() {
           <i>
             Current path: {window.location.href}
             <br />
-            Current version: v3.6.0
+            Current version: v3.6.1
             <br />
             Current date and time (UTC): {new Date().toUTCString()}
             <br />
@@ -69,17 +69,12 @@ export default function ErrorPage() {
           can debug and fix the issue. Thanks, and apologies for the
           inconvenience.
         </p>
-        <p>
-          If the error number below doesn't match up with the error number on
-          the home page, chances are your error has already been fixed. If so,
-          clearing your cache should fix the issue.
-        </p>
         <br />
         <p>
           <i>
             Current path: {window.location.href}
             <br />
-            Current version: v3.6.0
+            Current version: v3.6.1
             <br />
             Current date and time (UTC): {new Date().toUTCString()}
             <br />
