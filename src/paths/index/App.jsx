@@ -8,6 +8,8 @@ import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 
 import SenseBlock from "../../components/money/senseArticle";
 
+import { autoAddTrains } from "../../tools";
+
 const App = () => {
   const [savedTrains, setSavedTrains] = useState([]);
   const [isStale, setIsStale] = useState(false);
@@ -26,6 +28,15 @@ const App = () => {
         .split(",")
         .filter((n) => n)
     );
+
+    autoAddTrains().then(() => {
+      setSavedTrains(
+        localStorage
+          .getItem("savedTrainsAmtrakerV3")
+          .split(",")
+          .filter((n) => n)
+      );
+    });
   }, []);
 
   console.log(savedTrains);
@@ -221,21 +232,8 @@ const App = () => {
           </Link>
         </section>
         <section className='amtrakerVersion'>
-          <p>Amtraker v3.5.1</p>
+          <p>Amtraker v3.6.0</p>
           <p>&copy; Piero Maddaleni 2023</p>
-          {/*
-          <p>
-            <a
-              href='https://forms.gle/Fp6fVc2wqVLZKXKq9'
-              target='__blank'
-              style={{
-                textDecoration: "underline",
-              }}
-            >
-              Give Feedback
-            </a>
-          </p>
-          */}
         </section>
         <SenseBlock key={"sense-block"} dataAdSlot={"5433502883"} />
       </main>
@@ -243,4 +241,4 @@ const App = () => {
   );
 };
 
-export default App; 
+export default App;

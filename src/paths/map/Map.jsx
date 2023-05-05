@@ -1,14 +1,12 @@
 import React, { useEffect, useState, useMemo, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Map, {
-  Layer,
+  //Layer,
   Marker,
   Popup,
   NavigationControl,
   FullscreenControl,
-  Source,
-  GeolocateControl,
-  //ScaleControl,
+  //Source,
 } from "react-map-gl";
 import maplibregl from "maplibre-gl";
 import "./Map.css";
@@ -25,6 +23,14 @@ import ManualTrainPopup from "../../components/trainBox/maualTrainPopup";
 //adding pmtiles protocol
 let protocol = new pmtiles.Protocol();
 maplibregl.addProtocol("pmtiles", protocol.tile);
+
+const nationalRouteStyle = {
+  id: "data",
+  type: "fill",
+  paint: {
+    color: "#ff0000",
+  },
+};
 
 const toHoursAndMinutesLate = (date1, date2) => {
   if (
@@ -64,28 +70,6 @@ const colorizedToHoursAndMinutesLate = (date1, date2) => {
   return <span className='error'>{res}</span>;
 };
 
-const dataLayer = {
-  id: "line",
-  type: "fill",
-  paint: {
-    "fill-color": {
-      property: "percentile",
-      stops: [
-        [0, "#3288bd"],
-        [1, "#66c2a5"],
-        [2, "#abdda4"],
-        [3, "#e6f598"],
-        [4, "#ffffbf"],
-        [5, "#fee08b"],
-        [6, "#fdae61"],
-        [7, "#f46d43"],
-        [8, "#d53e4f"],
-      ],
-    },
-    "fill-opacity": 0.8,
-  },
-};
-
 const AmtrakerMap = () => {
   const [allData, setAllData] = useState([]);
   const [showAll, setShowAll] = useState(false);
@@ -95,6 +79,8 @@ const AmtrakerMap = () => {
   const [open, setOpen] = useState(true);
   const ref = useRef();
   const navigate = useNavigate();
+
+  //const nationalRouteMemo = useMemo(() => nationalRoute, []);
 
   useEffect(() => {
     let settings = JSON.parse(localStorage.getItem("amtraker-v3-settings"));
@@ -352,15 +338,6 @@ const AmtrakerMap = () => {
                 />
               </Marker>
             ) : null}
-            {/*
-            <ScaleControl
-              style={{
-                color: "white",
-                backgroundColor: "#444",
-              }}
-              unit='imperial'
-            />
-            */}
             <div className='map-over'>
               <div className='attribution'>
                 <a href='https://protomaps.com'>Protomaps</a>
