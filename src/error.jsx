@@ -22,7 +22,9 @@ export default function ErrorPage() {
         caches.keys().then((newKeys) => console.log("new caches:", newKeys));
       });
 
-      window.location.reload();
+      setTimeout(() => {
+        window.location.reload();
+      }, 5000)
     });
 
     return (
@@ -32,6 +34,8 @@ export default function ErrorPage() {
           Seems like an old version of Amtraker tried to load. We'll fix that
           right up for you and you'll be on your way!
         </p>
+        <br />
+        <p>Reloading in 5 seconds...</p>
       </div>
     );
   } else if (error.status === 404) {
@@ -48,7 +52,7 @@ export default function ErrorPage() {
           <i>
             Current path: {window.location.href}
             <br />
-            Current version: v3.6.1
+            Current version: v3.6.2
             <br />
             Current date and time (UTC): {new Date().toUTCString()}
             <br />
@@ -74,7 +78,7 @@ export default function ErrorPage() {
           <i>
             Current path: {window.location.href}
             <br />
-            Current version: v3.6.1
+            Current version: v3.6.2
             <br />
             Current date and time (UTC): {new Date().toUTCString()}
             <br />
