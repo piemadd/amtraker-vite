@@ -109,8 +109,18 @@ const BetterTrainPage = () => {
     } //else is handled by the settings init
 
     initAlwaysTracked();
-    if (localStorage.getItem("alwaysTrackedAmtrakerV3").split(",").includes(trainNum))
-        setAlwaysTracked(true);
+    console.log('alwaysTrackedAmtrakerV3:', localStorage.getItem("alwaysTrackedAmtrakerV3"));
+    console.log('trainNum:', trainNum)
+
+    if (
+      localStorage
+        .getItem("alwaysTrackedAmtrakerV3")
+        .split(",")
+        .includes(trainNum)
+    ) {
+      console.log('is always tracked')
+      setAlwaysTracked(true);
+    }
   }, []);
 
   useEffect(() => {
@@ -235,7 +245,7 @@ const BetterTrainPage = () => {
                   >
                     <input
                       type='checkbox'
-                      value={alwaysTracked}
+                      checked={alwaysTracked}
                       onChange={(e) => {
                         setAlwaysTracked(e.target.checked);
                         if (e.target.checked) {
