@@ -161,11 +161,12 @@ const autoAddTrains = async (trainArr) => {
   const req = await fetch("https://api-v3.amtraker.com/v3/ids");
   const ids = await req.json();
 
-  const alwaysTracked = localStorage
-    .getItem("alwaysTrackedAmtrakerV3")
-    .split(",");
+  const alwaysTrackedRaw =
+    localStorage.getItem("alwaysTrackedAmtrakerV3") || "";
+  const alwaysTracked = alwaysTrackedRaw.split(",");
 
-  let savedTrains = localStorage.getItem("savedTrainsAmtrakerV3").split(",");
+  const savedTrainsRaw = localStorage.getItem("savedTrainsAmtrakerV3") || "";
+  const savedTrains = savedTrainsRaw.split(",");
 
   ids.forEach((id) => {
     const trainNum = id.split("-")[0];

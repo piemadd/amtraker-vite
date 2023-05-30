@@ -14,7 +14,6 @@ import {
   calculateDistanceBetweenCoordinates,
   presetExponential,
   calculateTimeTilLocation,
-  initAlwaysTracked,
   addAlwaysTracked,
   removeAlwaysTracked,
 } from "../../tools";
@@ -108,9 +107,11 @@ const BetterTrainPage = () => {
       localStorage.setItem("amtraker-v3-settings", JSON.stringify(settings));
     } //else is handled by the settings init
 
-    initAlwaysTracked();
-    console.log('alwaysTrackedAmtrakerV3:', localStorage.getItem("alwaysTrackedAmtrakerV3"));
-    console.log('trainNum:', trainNum)
+    console.log(
+      "alwaysTrackedAmtrakerV3:",
+      localStorage.getItem("alwaysTrackedAmtrakerV3")
+    );
+    console.log("trainNum:", trainNum);
 
     if (
       localStorage
@@ -118,7 +119,7 @@ const BetterTrainPage = () => {
         .split(",")
         .includes(trainNum)
     ) {
-      console.log('is always tracked')
+      console.log("is always tracked");
       setAlwaysTracked(true);
     }
   }, []);
