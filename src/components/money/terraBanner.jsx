@@ -24,7 +24,7 @@ export default function Banner() {
           console.log("passphrase hash", hash);
           if (
             hash ==
-              "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
+            "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
             hash ==
               "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
           ) {
@@ -65,8 +65,6 @@ export default function Banner() {
   */
 
   console.log("is adblocked", isAdBlocked);
-
-  return null;
 
   if (!isAdBlocked) {
     return (
