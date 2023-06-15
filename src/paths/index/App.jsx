@@ -174,7 +174,7 @@ const App = () => {
       ></img>
       <main>
         <h2 className='welcome-to'>Welcome to</h2>
-        <h1>Amtraker</h1>
+        <h1 className='gayTitle'>Amtraker</h1>
         <SettingsInit />
         <section id='section-saved'>
           {isStale ? (
@@ -232,7 +232,7 @@ const App = () => {
           </Link>
         </section>
         <section className='amtrakerVersion'>
-          <p>Amtraker v3.6.3</p>
+          <p>Amtraker v3.6.4</p>
           <p>&copy; Piero Maddaleni 2023</p>
         </section>
         <SenseBlock key={"sense-block"} dataAdSlot={"5433502883"} />

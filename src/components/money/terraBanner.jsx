@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import stringToHash from "./stringToHash";
-//import { useDetectAdBlock } from "adblock-detect-react";
 
 export default function Banner() {
   const banner = useRef();

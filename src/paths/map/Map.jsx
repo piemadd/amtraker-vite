@@ -12,11 +12,10 @@ import maplibregl from "maplibre-gl";
 import "./Map.css";
 import "maplibre-gl/dist/maplibre-gl.css";
 import * as pmtiles from "pmtiles";
-import layers from "protomaps-themes-base";
+//import layers from "protomaps-themes-base";
 import mapStyle from "./style.json";
 import MarkerIcon from "./MarkerIcon.jsx";
 import UserMarker from "./UserMarker.svg";
-//import bbox from "@turf/bbox";
 import ManualTrainPopup from "../../components/trainBox/maualTrainPopup";
 //import nationalRoute from "./nationalRoute.json";
 
