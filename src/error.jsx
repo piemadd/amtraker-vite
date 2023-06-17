@@ -12,7 +12,8 @@ export default function ErrorPage() {
 
   if (
     errorString.includes("error loading dynamically imported module") ||
-    errorString.includes("Failed to fetch dynamically imported module")
+    errorString.includes("Failed to fetch dynamically imported module") ||
+    errorString.includes("dynamically imported module")
   ) {
     useEffect(() => {
       console.log("clearing cache");
@@ -55,7 +56,7 @@ export default function ErrorPage() {
           <i>
             Current path: {window.location.href}
             <br />
-            Current version: v3.6.5
+            Current version: v3.6.6
             <br />
             Current date and time (UTC): {new Date().toUTCString()}
             <br />
@@ -81,7 +82,7 @@ export default function ErrorPage() {
           <i>
             Current path: {window.location.href}
             <br />
-            Current version: v3.6.5
+            Current version: v3.6.6
             <br />
             Current date and time (UTC): {new Date().toUTCString()}
             <br />
