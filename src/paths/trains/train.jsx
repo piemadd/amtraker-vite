@@ -109,8 +109,11 @@ const BetterTrainPage = () => {
     } //else is handled by the settings init
 
     initAlwaysTracked();
-    console.log('alwaysTrackedAmtrakerV3:', localStorage.getItem("alwaysTrackedAmtrakerV3"));
-    console.log('trainNum:', trainNum)
+    console.log(
+      "alwaysTrackedAmtrakerV3:",
+      localStorage.getItem("alwaysTrackedAmtrakerV3")
+    );
+    console.log("trainNum:", trainNum);
 
     if (
       localStorage
@@ -118,7 +121,7 @@ const BetterTrainPage = () => {
         .split(",")
         .includes(trainNum)
     ) {
-      console.log('is always tracked')
+      console.log("is always tracked");
       setAlwaysTracked(true);
     }
   }, []);
@@ -135,16 +138,10 @@ const BetterTrainPage = () => {
     }
   }, [foamerMode]);
 
-  const originStation = trainData[0]
-    ? trainData[0].stations.find((station) => {
-        return station.code === trainData[0].origCode;
-      })
-    : null;
+  const originStation = trainData[0] ? trainData[0].stations[0] : null;
 
   const destinationStation = trainData[0]
-    ? trainData[0].stations.find((station) => {
-        return station.code === trainData[0].destCode;
-      })
+    ? trainData[0].stations[trainData[0].stations.length - 1]
     : null;
 
   const currentStation = trainData[0]
