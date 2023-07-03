@@ -280,3 +280,7 @@ td {
   font-weight: 500;
   color:rgb(231, 39, 39);
 }
+
+.train-box-max-width {
+  width: 100%;
+}

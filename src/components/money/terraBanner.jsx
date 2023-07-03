@@ -65,6 +65,8 @@ export default function Banner() {
 
   console.log("is adblocked", isAdBlocked);
 
+  return null;
+
   if (!isAdBlocked) {
     return (
       <div

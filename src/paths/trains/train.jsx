@@ -18,6 +18,7 @@ import {
   addAlwaysTracked,
   removeAlwaysTracked,
 } from "../../tools";
+import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 
 const fullDirections = {
   N: "North",
@@ -211,9 +212,22 @@ const BetterTrainPage = () => {
             <>
               {trainData.length > 0 ? (
                 <>
-                  <h1>
-                    {trainData[0].routeName} (Train {trainData[0].trainNum})
-                  </h1>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "left",
+                      justifyContent: "left",
+                      width: "100%",
+                      marginBottom: "8px",
+                    }}
+                  >
+                    <ManualTrainBox
+                      train={trainData[0]}
+                      loading={false}
+                      maxWidth={true}
+                    />
+                  </div>
+
                   <h2>Manage Train:</h2>
                   <p
                     className='click'
@@ -269,6 +283,7 @@ const BetterTrainPage = () => {
                       }).format(new Date(trainData[0].lastValTS))}
                     </p>
                   ) : null}
+                  {/*
                   <h2>Train Info:</h2>
                   <ul>
                     <li>
@@ -374,55 +389,50 @@ const BetterTrainPage = () => {
                         timeZoneName: "short",
                       }).format(new Date(trainData[0].lastValTS))}
                     </li>
-                    <li>
-                      <i>Foamer Mode:</i>{" "}
-                      {foamerMode ? (
-                        <>
-                          {loadingLocation ? (
-                            navigatorExists ? (
-                              <p>Loading location...</p>
-                            ) : (
-                              <p>Error. Location permissions not allowed. </p>
-                            )
+              </ul>
+               */}
+                  <>
+                    {foamerMode ? (
+                      <>
+                        <h2>Foamer Mode:</h2>
+                        {loadingLocation ? (
+                          navigatorExists ? (
+                            <p>Loading location...</p>
                           ) : (
-                            <ul>
-                              <li>
-                                <i>Train ETA: </i>
-                                {calculateTimeTilLocation(
-                                  trainData[0],
-                                  currentStation,
-                                  userLocation
-                                )}
-                              </li>
-                              <li>
-                                <i>Train Distance: </i>~
-                                {(
-                                  calculateDistanceBetweenCoordinates(
-                                    trainData[0].lat,
-                                    trainData[0].lon,
-                                    userLocation[0],
-                                    userLocation[1]
-                                  ) / 1609.344
-                                ).toFixed(2)}
-                                mi away
-                              </li>
-                              <li>
-                                <i>Your Location: </i>
-                                {userLocation
-                                  .map((n) => n.toFixed(5))
-                                  .join(", ")}
-                              </li>
-                            </ul>
-                          )}
-                        </>
-                      ) : (
-                        <p>
-                          Enable foamer mode in your{" "}
-                          <Link to={"/settings"}>Amtraker settings</Link>.
-                        </p>
-                      )}
-                    </li>
-                  </ul>
+                            <p>Error. Location permissions not allowed. </p>
+                          )
+                        ) : (
+                          <ul>
+                            <li>
+                              <i>Train ETA: </i>
+                              {calculateTimeTilLocation(
+                                trainData[0],
+                                currentStation,
+                                userLocation
+                              )}
+                            </li>
+                            <li>
+                              <i>Train Distance: </i>~
+                              {(
+                                calculateDistanceBetweenCoordinates(
+                                  trainData[0].lat,
+                                  trainData[0].lon,
+                                  userLocation[0],
+                                  userLocation[1]
+                                ) / 1609.344
+                              ).toFixed(2)}
+                              mi away
+                            </li>
+                            <li>
+                              <i>Your Location: </i>
+                              {userLocation.map((n) => n.toFixed(5)).join(", ")}
+                            </li>
+                          </ul>
+                        )}
+                      </>
+                    ) : null}
+                  </>
+
                   <h2>Stations</h2>
                   <div className='stations'>
                     {trainData[0].stations.map((station, i, arr) => {
