@@ -221,9 +221,11 @@ const App = () => {
         </div>
 
         <section className='footer'>
-          <Link to='https://docs.google.com/forms/d/e/1FAIpQLSfLfypJxtK62zBakCzo23y-WKFZj_TjbX5pKGZ08gxOeBatkg/viewform?usp=sf_link'>
-            <p>Feedback</p>
-          </Link>
+          <p>
+            <a href='https://docs.google.com/forms/d/e/1FAIpQLSfLfypJxtK62zBakCzo23y-WKFZj_TjbX5pKGZ08gxOeBatkg/viewform?usp=sf_link' target="blank">
+              Feedback
+            </a>
+          </p>
           <Link to='/about'>
             <p>About</p>
           </Link>
@@ -235,7 +237,7 @@ const App = () => {
           </Link>
         </section>
         <section className='amtrakerVersion'>
-          <p>Amtraker v3.7.2</p>
+          <p>Amtraker v3.7.3</p>
           <p>&copy; Piero Maddaleni 2023</p>
         </section>
         <SenseBlock key={"sense-block"} dataAdSlot={"5433502883"} />

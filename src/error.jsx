@@ -13,7 +13,8 @@ export default function ErrorPage() {
   if (
     errorString.includes("error loading dynamically imported module") ||
     errorString.includes("Failed to fetch dynamically imported module") ||
-    errorString.includes("dynamically imported module")
+    errorString.includes("dynamically imported module") ||
+    errorString.includes("'text/html' is not a valid JavaScript MIME type")
   ) {
     useEffect(() => {
       console.log("clearing cache");
