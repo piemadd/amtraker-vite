@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Map, {
   //Layer,
   Marker,
@@ -17,6 +17,7 @@ import mapStyle from "./style.json";
 import MarkerIcon from "./MarkerIcon.jsx";
 import UserMarker from "./UserMarker.svg";
 import ManualTrainPopup from "../../components/trainBox/maualTrainPopup";
+import ManualStationBox from "../../components/stationBox/manualStationBox";
 //import nationalRoute from "./nationalRoute.json";
 
 //adding pmtiles protocol
@@ -69,15 +70,37 @@ const colorizedToHoursAndMinutesLate = (date1, date2) => {
   return <span className='error'>{res}</span>;
 };
 
+const debounce = (func, timeout = 300) => {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func.apply(this, args);
+    }, timeout);
+  };
+};
+
 const AmtrakerMap = () => {
   const [allData, setAllData] = useState([]);
   const [showAll, setShowAll] = useState(false);
   const [popupInfo, setPopupInfo] = useState(null);
   const [foamerMode, setFoamerMode] = useState(false);
   const [userLocation, setUserLocation] = useState([0, 0]);
+  const [windowSize, setWindowSize] = useState([
+    window.innerWidth,
+    window.innerHeight,
+  ]);
   const [open, setOpen] = useState(true);
   const ref = useRef();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    addEventListener("resize", (event) => {
+      debounce(setWindowSize([window.innerWidth, window.innerHeight]));
+
+      //setWindowSize([window.innerWidth, window.innerHeight]);
+    });
+  }, []);
 
   //const nationalRouteMemo = useMemo(() => nationalRoute, []);
 
@@ -247,6 +270,21 @@ const AmtrakerMap = () => {
           ) : null}
         </div>
         <div className='mapHolder'>
+          {windowSize[0] > 1000 && popupInfo ? (
+            <div className='infoBox'>
+              {popupInfo.stations.map((station, i, arr) => {
+                return (
+                  <Link
+                    to={`/stations/${station.code}`}
+                    key={`station-${station.code}`}
+                    className='station-link'
+                  >
+                    <ManualStationBox station={station} train={popupInfo} />
+                  </Link>
+                );
+              })}
+            </div>
+          ) : null}
           <Map
             mapLib={maplibregl}
             showTileBoundaries={true}

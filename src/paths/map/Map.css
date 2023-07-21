@@ -152,3 +152,14 @@ details > summary {
 .map-over > .attribution > a {
   text-decoration: underline;
 }
+
+.infoBox {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px;
+  padding-right: 24px;
+  background-color: #222;
+  min-width: 300px;
+  overflow-y: scroll;
+}
