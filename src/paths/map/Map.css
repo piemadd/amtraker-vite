@@ -161,5 +161,7 @@ details > summary {
   padding-right: 24px;
   background-color: #222;
   min-width: 300px;
+  width: fit-content;
+  overflow-x: hidden;
   overflow-y: scroll;
 }

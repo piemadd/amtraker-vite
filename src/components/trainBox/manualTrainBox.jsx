@@ -79,9 +79,6 @@ const ManualTrainBox = ({
   ) : (
     <div
       className={`train-box${maxWidth ? " train-box-max-width" : ""}`}
-      style={{
-        width: width,
-      }}
       onClick={onClick}
     >
       <div>

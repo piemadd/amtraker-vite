@@ -291,15 +291,25 @@ const AmtrakerMap = () => {
                       return savedTrainsShortID.includes(n.trainID);
                     })
                     .map((train) => {
-                      return <ManualTrainBox train={train} width={292} onClick={() => {
-                        setPopupInfo(train);
-                        if (mapRef.current) {
-                          mapRef.current.getMap().flyTo({
-                            center: [train.lon, train.lat],
-                            duration: 500,
-                          });
-                        }
-                      }}/>;
+                      return (
+                        <div style={{
+                          marginRight: '8px',
+                        }}>
+                          <ManualTrainBox
+                            train={train}
+                            maxWidth={true}
+                            onClick={() => {
+                              setPopupInfo(train);
+                              if (mapRef.current) {
+                                mapRef.current.getMap().flyTo({
+                                  center: [train.lon, train.lat],
+                                  duration: 500,
+                                });
+                              }
+                            }}
+                          />
+                        </div>
+                      );
                     })}
             </div>
           ) : null}
