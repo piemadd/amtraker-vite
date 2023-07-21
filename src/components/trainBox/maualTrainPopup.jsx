@@ -67,17 +67,6 @@ const ManualTrainPopup = ({ train, loading = false }) => {
       <div className='train-popup__info train-popup__updated greyed'>
         {train.origCode} to {train.destCode}
       </div>
-      {/*
-      <div className='train-popup__info greyed'>
-        {new Intl.DateTimeFormat([], {
-          month: "short",
-          day: "numeric",
-          timeZone: train.stations[0].tz,
-        }).format(new Date(train.stations[0].dep))}{" "}
-        : Train {train.trainNum}
-      </div>
-      */}
-
       <div className='train-popup__info train-popup__updated greyed'>
         {train.velocity.toFixed(2)} mph {train.heading}
       </div>
@@ -96,6 +85,15 @@ const ManualTrainPopup = ({ train, loading = false }) => {
           new Date(currentStation.schArr ?? currentStation.schDep ?? null)
         )}{" "}
         to {currentStation.code}
+      </div>
+      <div className='train-popup__info train-popup__updated greyed'>
+        {new Date(
+          currentStation.arr ?? currentStation.dep ?? null
+        ).toLocaleTimeString([], {
+          hour: "numeric",
+          minute: "numeric",
+        })}{" "}
+        ETA
       </div>
       <div className='train-popup__info'>
         <Link to={`/trains/${train.trainID.split("-").join("/")}`}>
