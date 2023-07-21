@@ -18,6 +18,7 @@ import MarkerIcon from "./MarkerIcon.jsx";
 import UserMarker from "./UserMarker.svg";
 import ManualTrainPopup from "../../components/trainBox/maualTrainPopup";
 import ManualStationBox from "../../components/stationBox/manualStationBox";
+import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 //import nationalRoute from "./nationalRoute.json";
 
 //adding pmtiles protocol
@@ -90,9 +91,9 @@ const AmtrakerMap = () => {
     window.innerWidth,
     window.innerHeight,
   ]);
-  const [open, setOpen] = useState(true);
-  const ref = useRef();
   const navigate = useNavigate();
+
+  const mapRef = useRef(null);
 
   useEffect(() => {
     addEventListener("resize", (event) => {
@@ -270,23 +271,41 @@ const AmtrakerMap = () => {
           ) : null}
         </div>
         <div className='mapHolder'>
-          {windowSize[0] > 1000 && popupInfo ? (
+          {windowSize[0] > 800 ? (
             <div className='infoBox'>
-              {popupInfo.stations.map((station, i, arr) => {
-                return (
-                  <Link
-                    to={`/stations/${station.code}`}
-                    key={`station-${station.code}`}
-                    className='station-link'
-                  >
-                    <ManualStationBox station={station} train={popupInfo} />
-                  </Link>
-                );
-              })}
+              {popupInfo
+                ? popupInfo.stations.map((station, i, arr) => {
+                    return (
+                      <Link
+                        to={`/stations/${station.code}`}
+                        key={`station-${station.code}`}
+                        className='station-link'
+                      >
+                        <ManualStationBox station={station} train={popupInfo} />
+                      </Link>
+                    );
+                  })
+                : allData
+                    .filter((n) => {
+                      if (showAll) return true;
+                      return savedTrainsShortID.includes(n.trainID);
+                    })
+                    .map((train) => {
+                      return <ManualTrainBox train={train} width={292} onClick={() => {
+                        setPopupInfo(train);
+                        if (mapRef.current) {
+                          mapRef.current.getMap().flyTo({
+                            center: [train.lon, train.lat],
+                            duration: 500,
+                          });
+                        }
+                      }}/>;
+                    })}
             </div>
           ) : null}
           <Map
             mapLib={maplibregl}
+            ref={mapRef}
             showTileBoundaries={true}
             minZoom={2}
             maxZoom={20}

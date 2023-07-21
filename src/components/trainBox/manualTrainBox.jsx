@@ -26,7 +26,13 @@ const toHoursAndMinutesLate = (date1, date2) => {
   return diff > 0 ? `${amount} late` : `${amount} early`;
 };
 
-const ManualTrainBox = ({ train, loading = false, maxWidth = false }) => {
+const ManualTrainBox = ({
+  train,
+  loading = false,
+  maxWidth = false,
+  width = null,
+  onClick = null,
+}) => {
   if (train.eventCode == "CBN") {
     const stationCodes = train.stations.map((station) => station.code);
     if (stationCodes.indexOf("NFS") < stationCodes.indexOf("NFL")) {
@@ -61,11 +67,23 @@ const ManualTrainBox = ({ train, loading = false, maxWidth = false }) => {
   const trainTimelyClass = trainTimely.toLowerCase().split(" ").join("-");
 
   return loading ? (
-    <div className={`train-box${maxWidth ? " train-box-max-width" : ""}`}>
+    <div
+      className={`train-box${maxWidth ? " train-box-max-width" : ""}`}
+      style={{
+        width: width ? width : "auto",
+      }}
+      onClick={onClick}
+    >
       Loading train...
     </div>
   ) : (
-    <div className={`train-box${maxWidth ? " train-box-max-width" : ""}`}>
+    <div
+      className={`train-box${maxWidth ? " train-box-max-width" : ""}`}
+      style={{
+        width: width,
+      }}
+      onClick={onClick}
+    >
       <div>
         <span className={`${trainTimelyClass} status`}>{train.trainNum}</span>{" "}
         {train.routeName}{" "}
