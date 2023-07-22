@@ -12,6 +12,7 @@ import maplibregl from "maplibre-gl";
 import "./Map.css";
 import "maplibre-gl/dist/maplibre-gl.css";
 import * as pmtiles from "pmtiles";
+import Fuse from "fuse.js";
 //import layers from "protomaps-themes-base";
 import mapStyle from "./style.json";
 import MarkerIcon from "./MarkerIcon.jsx";
@@ -86,6 +87,8 @@ const AmtrakerMap = () => {
   const [showAll, setShowAll] = useState(false);
   const [popupInfo, setPopupInfo] = useState(null);
   const [foamerMode, setFoamerMode] = useState(false);
+  const [results, setResults] = useState([]);
+  const [query, updateQuery] = useState("");
   const [userLocation, setUserLocation] = useState([0, 0]);
   const [windowSize, setWindowSize] = useState([
     window.innerWidth,
@@ -102,6 +105,19 @@ const AmtrakerMap = () => {
       //setWindowSize([window.innerWidth, window.innerHeight]);
     });
   }, []);
+
+  const fuse = new Fuse(allData, {
+    keys: [
+      "routeName",
+      "trainNum",
+      "trainID",
+      "stations.name",
+      "stations.code",
+      "stations.city",
+      "stations.zip",
+    ],
+    includeScore: true,
+  });
 
   //const nationalRouteMemo = useMemo(() => nationalRoute, []);
 
@@ -154,7 +170,7 @@ const AmtrakerMap = () => {
   }, [savedTrains]);
 
   const markers = useMemo(() => {
-    return allData
+    return results
       .filter((n) => {
         if (showAll) return true;
         return savedTrainsShortID.includes(n.trainID);
@@ -207,22 +223,22 @@ const AmtrakerMap = () => {
           </Marker>
         );
       });
-  }, [allData, showAll]);
+  }, [allData, showAll, results]);
 
   useEffect(() => {
     setInterval(() => {
       fetch("https://api-v3.amtraker.com/v3/trains")
         .then((res) => res.json())
         .then((data) => {
-          setAllData(
-            JSON.parse(JSON.stringify(Object.values(data).flatMap((n) => n)))
-          );
+          setAllData(JSON.parse(JSON.stringify(Object.values(data).flat())));
+          fuse.setCollection(Object.values(data).flat());
         });
     }, 60000);
     fetch("https://api-v3.amtraker.com/v3/trains")
       .then((res) => res.json())
       .then((data) => {
-        setAllData(Object.values(data).flatMap((n) => n));
+        setAllData(Object.values(data).flat());
+        setResults(Object.values(data).flat());
       });
   }, []);
 
@@ -281,7 +297,32 @@ const AmtrakerMap = () => {
                 >
                   <ManualTrainBox train={popupInfo} maxWidth={true} />
                 </div>
-              ) : null}
+              ) : (
+                <input
+                  type='text'
+                  value={query}
+                  placeholder='Search...'
+                  style={{
+                    width: "100%",
+                    padding: "8px",
+                  }}
+                  onChange={(e) => {
+                    updateQuery(e.target.value);
+                    debounce(
+                      setResults(
+                        e.target.value.length > 0
+                          ? fuse
+                              .search(e.target.value)
+                              .map((result, i) => result.item)
+                          : allData.filter((n) => {
+                              if (showAll) return true;
+                              return savedTrainsShortID.includes(n.trainID);
+                            })
+                      )
+                    );
+                  }}
+                />
+              )}
               {popupInfo
                 ? popupInfo.stations.map((station, i, arr) => {
                     return (
@@ -294,7 +335,7 @@ const AmtrakerMap = () => {
                       </Link>
                     );
                   })
-                : allData
+                : results
                     .filter((n) => {
                       if (showAll) return true;
                       return savedTrainsShortID.includes(n.trainID);
@@ -428,7 +469,16 @@ const AmtrakerMap = () => {
               <button
                 className='settings'
                 onClick={() => {
-                  setShowAll(!showAll);
+                  const currentShowAll = showAll;
+                  setShowAll(!currentShowAll);
+                  setResults(
+                    query.length > 0
+                      ? fuse.search(query).map((result, i) => result.item)
+                      : allData.filter((n) => {
+                          if (!currentShowAll) return true;
+                          return savedTrainsShortID.includes(n.trainID);
+                        })
+                  );
                 }}
               >
                 {showAll ? "Show Saved" : "Show All"}
