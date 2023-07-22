@@ -273,6 +273,15 @@ const AmtrakerMap = () => {
         <div className='mapHolder'>
           {windowSize[0] > 800 ? (
             <div className='infoBox'>
+              {popupInfo ? (
+                <div
+                  style={{
+                    marginRight: "8px",
+                  }}
+                >
+                  <ManualTrainBox train={popupInfo} maxWidth={true} />
+                </div>
+              ) : null}
               {popupInfo
                 ? popupInfo.stations.map((station, i, arr) => {
                     return (
@@ -292,9 +301,11 @@ const AmtrakerMap = () => {
                     })
                     .map((train) => {
                       return (
-                        <div style={{
-                          marginRight: '8px',
-                        }}>
+                        <div
+                          style={{
+                            marginRight: "8px",
+                          }}
+                        >
                           <ManualTrainBox
                             train={train}
                             maxWidth={true}

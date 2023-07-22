@@ -5,12 +5,11 @@ root {
 .gayTitle {
   background: rgb(255, 244, 48);
   background: linear-gradient(
-    120deg,
-    rgba(255, 244, 48, 1) 0%,
-    rgba(255, 244, 48, 1) 25%,
-    rgba(255, 255, 255, 1) 50%,
-    rgba(156, 89, 209, 1) 75%,
-    rgba(156, 89, 209, 1) 100%
+    90deg,
+    #00ae00 15%,
+    white 40%,
+    white 60%,
+    red 85%
   );
   background-clip: text;
   -webkit-background-clip: text;
