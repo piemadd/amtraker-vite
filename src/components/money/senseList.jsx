@@ -63,7 +63,7 @@ const SenseList = (props) => {
           style={{ display: "block", minWidth: "250px" }}
           data-ad-format='fluid'
           data-ad-layout-key='-fb+5w+4e-db+86'
-          data-ad-client='ca-pub-9074000161783128'
+          data-ad-client='ca-pub-1957239635288103'
           data-ad-slot={dataAdSlot}
         ></ins>
       </div>

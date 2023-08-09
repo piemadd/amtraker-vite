@@ -62,7 +62,7 @@ const SenseBlock = (props) => {
           className='adsbygoogle'
           style={{ display: "block", textAlign: "center", minWidth: '250px' }}
           data-ad-layout='in-article'
-          data-ad-client='ca-pub-9074000161783128'
+          data-ad-client='ca-pub-1957239635288103'
           data-ad-slot={dataAdSlot}
           data-ad-format='fluid'
         />

@@ -3,14 +3,20 @@ root {
 }
 
 .gayTitle {
-  background: rgb(255, 244, 48);
+  background: #ffffff;
+  /*
   background: linear-gradient(
-    90deg,
-    #00ae00 15%,
-    white 40%,
-    white 60%,
-    red 85%
+    120deg,
+    #5bcefa 20%,
+    #f5a9b8 20%,
+    40%,
+    #ffffff 40%,
+    60%,
+    #f5a9b8 60%,
+    80%,
+    #5bcefa 80%
   );
+  */
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;

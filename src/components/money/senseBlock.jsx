@@ -61,7 +61,7 @@ const SenseBlock = (props) => {
         <ins
           className='adsbygoogle'
           style={{ display: "block" }}
-          data-ad-client='ca-pub-9074000161783128'
+          data-ad-client='ca-pub-1957239635288103'
           data-ad-slot={dataAdSlot}
           data-ad-format='auto'
         />
