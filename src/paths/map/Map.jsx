@@ -94,6 +94,7 @@ const AmtrakerMap = () => {
     window.innerWidth,
     window.innerHeight,
   ]);
+  const [shitsFucked, setShitsFucked] = useState(false);
   const navigate = useNavigate();
 
   const mapRef = useRef(null);
@@ -227,9 +228,14 @@ const AmtrakerMap = () => {
 
   useEffect(() => {
     setInterval(() => {
+      setShitsFucked(false);
       fetch("https://api-v3.amtraker.com/v3/trains")
         .then((res) => res.json())
         .then((data) => {
+          if (Object.keys(data).length === 0) {
+            setShitsFucked(true);
+          }
+
           setAllData(JSON.parse(JSON.stringify(Object.values(data).flat())));
           fuse.setCollection(Object.values(data).flat());
         });
@@ -237,6 +243,10 @@ const AmtrakerMap = () => {
     fetch("https://api-v3.amtraker.com/v3/trains")
       .then((res) => res.json())
       .then((data) => {
+        if (Object.keys(data).length === 0) {
+          setShitsFucked(true);
+        }
+
         setAllData(Object.values(data).flat());
         setResults(Object.values(data).flat());
       });
@@ -272,6 +282,12 @@ const AmtrakerMap = () => {
           >
             Back
           </h2>
+          {shitsFucked ? (
+            <p>
+              The Amtrak API seems to be having issues currently! Please try
+              again later...
+            </p>
+          ) : null}
           {navigator.share ? (
             <h2
               onClick={() => {

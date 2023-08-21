@@ -16,6 +16,7 @@ const App = () => {
   const [timeSinceLastUpdate, setTimeSinceLastUpdate] = useState(0);
   const [savedTrainsObjects, setSavedTrainsObjects] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [shitsFucked, setShitsFucked] = useState(false);
 
   useEffect(() => {
     if (!localStorage.getItem("savedTrainsAmtrakerV3")) {
@@ -48,6 +49,10 @@ const App = () => {
         setIsStale(data.stale);
         setTimeSinceLastUpdate(data.avgLastUpdate);
       });
+
+    fetch("https://api-v3.amtraker.com/v3/shitsfuckedlmao")
+      .then((res) => res.json())
+      .then((data) => setShitsFucked(data));
 
     if (savedTrains.length === 0) {
       setLoading(false);
@@ -186,6 +191,15 @@ const App = () => {
               </p>
             </div>
           ) : null}
+          {shitsFucked ? (
+            <div className='stale'>
+              <p>
+                <span className='stale-text'>Warning:</span>
+                The Amtrak API seems to be having issues currently! Please try
+                again later...
+              </p>
+            </div>
+          ) : null}
           <h2
             style={{
               fontWeight: 500,
@@ -222,7 +236,10 @@ const App = () => {
 
         <section className='footer'>
           <p>
-            <a href='https://docs.google.com/forms/d/e/1FAIpQLSfLfypJxtK62zBakCzo23y-WKFZj_TjbX5pKGZ08gxOeBatkg/viewform?usp=sf_link' target="blank">
+            <a
+              href='https://docs.google.com/forms/d/e/1FAIpQLSfLfypJxtK62zBakCzo23y-WKFZj_TjbX5pKGZ08gxOeBatkg/viewform?usp=sf_link'
+              target='blank'
+            >
               Feedback
             </a>
           </p>
@@ -237,7 +254,7 @@ const App = () => {
           </Link>
         </section>
         <section className='amtrakerVersion'>
-          <p>Amtraker v3.9.1</p>
+          <p>Amtraker v3.9.2</p>
           <p>&copy; Piero Maddaleni 2023</p>
         </section>
         <SenseBlock key={"sense-block"} dataAdSlot={"5433502883"} />

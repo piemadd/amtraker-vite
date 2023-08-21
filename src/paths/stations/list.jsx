@@ -23,11 +23,16 @@ const StationsList = () => {
   const [stationData, setStationData] = useState([]);
   const [results, setResults] = useState([]);
   const [query, updateQuery] = useState("");
+  const [shitsFucked, setShitsFucked] = useState(false);
 
   useEffect(() => {
     fetch("https://api-v3.amtraker.com/v3/stations")
       .then((res) => res.json())
       .then((data) => {
+        if (Object.keys(data).length === 0) {
+          setShitsFucked(true);
+        }
+
         console.log("data fetched", data);
         setStationData(
           Object.values(data)
@@ -95,6 +100,15 @@ const StationsList = () => {
           >
             Back
           </h2>
+          {shitsFucked ? (
+            <>
+              <p>
+                The Amtrak API seems to be having issues currently! Please try
+                again later...
+              </p>
+              <h2></h2>
+            </>
+          ) : null}
         </div>
         <section className='section-trainPage'>
           <SettingsInit />
@@ -133,7 +147,10 @@ const StationsList = () => {
                   if (i % 10 === 0 && i !== 0) {
                     return (
                       <div key={`with-terra-banner-${i}`}>
-                        <SenseList key={`sense-list-${i}`} dataAdSlot={'6510210014'} />
+                        <SenseList
+                          key={`sense-list-${i}`}
+                          dataAdSlot={"6510210014"}
+                        />
                         <Link
                           to={`/stations/${station.code}`}
                           key={`station-${station.code}`}
