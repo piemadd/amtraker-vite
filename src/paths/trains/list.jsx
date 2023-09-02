@@ -5,7 +5,7 @@ import Fuse from "fuse.js";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import SettingsInit from "../index/settingsInit";
 import stringToHash from "../../components/money/stringToHash";
-import SenseList from "../../components/money/senseList";
+import SenseBlock from "../../components/money/senseArticle";
 
 //import ErrorData from "../../data/error.json";
 
@@ -134,7 +134,7 @@ const TrainsList = () => {
                   if (i % 10 === 0 && i !== 0) {
                     return (
                       <div key={`with-terra-banner-${i}`}>
-                        <SenseList
+                        <SenseBlock
                           key={`sense-list-${i}`}
                           dataAdSlot={"2090024099"}
                         />

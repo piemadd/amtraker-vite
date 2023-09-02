@@ -5,7 +5,6 @@ import stringToHash from "../../components/money/stringToHash";
 import { stationMeta } from "../../data/stations.js";
 import "./trains.css";
 import SettingsInit from "../index/settingsInit";
-import SenseList from "../../components/money/senseList";
 import {
   deleteTrain,
   hoursAndMinutesUnitl,
@@ -19,6 +18,7 @@ import {
   removeAlwaysTracked,
 } from "../../tools";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
+import SenseBlock from "../../components/money/senseArticle";
 
 const fullDirections = {
   N: "North",
@@ -453,7 +453,7 @@ const BetterTrainPage = () => {
                                 train={trainData[0]}
                               />
                             </Link>
-                            <SenseList
+                            <SenseBlock
                               key={`sense-list-${i}`}
                               dataAdSlot={"2090024099"}
                             />

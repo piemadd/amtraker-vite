@@ -5,7 +5,7 @@ import stringToHash from "../../components/money/stringToHash";
 import "../trains/trains.css"; //fuck it we ball
 import ShortTrainIDTrainBox from "../../components/trainBox/shortTrainIDTrainBox";
 import SettingsInit from "../index/settingsInit";
-import SenseList from "../../components/money/senseList";
+import SenseBlock from "../../components/money/senseArticle";
 
 const StationPage = () => {
   const { stationCode } = useParams();
@@ -102,7 +102,7 @@ const StationPage = () => {
                           >
                             <ShortTrainIDTrainBox trainID={trainID} />
                           </Link>
-                          <SenseList
+                          <SenseBlock
                             key={`sense-list-${i}`}
                             dataAdSlot={"2090024099"}
                           />

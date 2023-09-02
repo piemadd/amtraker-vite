@@ -4,7 +4,7 @@ import "../trains/trains.css"; //fuck it we ball
 import Fuse from "fuse.js";
 import SettingsInit from "../index/settingsInit";
 import stringToHash from "../../components/money/stringToHash";
-import SenseList from "../../components/money/senseList";
+import SenseBlock from "../../components/money/senseArticle";
 
 const debounce = (func, timeout = 300) => {
   let timer;
@@ -147,7 +147,7 @@ const StationsList = () => {
                   if (i % 10 === 0 && i !== 0) {
                     return (
                       <div key={`with-terra-banner-${i}`}>
-                        <SenseList
+                        <SenseBlock
                           key={`sense-list-${i}`}
                           dataAdSlot={"2090024099"}
                         />
