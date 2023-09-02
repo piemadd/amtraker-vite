@@ -58,7 +58,9 @@ const SenseList = (props) => {
       >
         <ins
           class='adsbygoogle'
-          style='display:block'
+          style={{
+            display: "block",
+          }}
           data-ad-client='ca-pub-1957239635288103'
           data-ad-slot={dataAdSlot}
           data-ad-format='auto'
