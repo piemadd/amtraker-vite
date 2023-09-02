@@ -455,7 +455,7 @@ const BetterTrainPage = () => {
                             </Link>
                             <SenseList
                               key={`sense-list-${i}`}
-                              dataAdSlot={"6510210014"}
+                              dataAdSlot={"2090024099"}
                             />
                           </div>
                         );

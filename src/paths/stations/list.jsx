@@ -149,7 +149,7 @@ const StationsList = () => {
                       <div key={`with-terra-banner-${i}`}>
                         <SenseList
                           key={`sense-list-${i}`}
-                          dataAdSlot={"6510210014"}
+                          dataAdSlot={"2090024099"}
                         />
                         <Link
                           to={`/stations/${station.code}`}
