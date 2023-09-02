@@ -49,8 +49,6 @@ const SenseBlock = (props) => {
 
   console.log("is adblocked", isAdBlocked);
 
-  return null;
-
   if (!isAdBlocked) {
     return (
       <div

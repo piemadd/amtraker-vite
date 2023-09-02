@@ -57,13 +57,13 @@ const SenseBlock = (props) => {
         }
       >
         <ins
-          className='adsbygoogle'
-          style={{ display: "block", textAlign: "center", minWidth: '250px' }}
+          class='adsbygoogle'
+          style={{ display: "block", textAlign: "center", minWidth: "250px" }}
           data-ad-layout='in-article'
+          data-ad-format='fluid'
           data-ad-client='ca-pub-1957239635288103'
           data-ad-slot={dataAdSlot}
-          data-ad-format='fluid'
-        />
+        ></ins>
       </div>
     );
   } else {
