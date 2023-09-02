@@ -57,12 +57,12 @@ const SenseList = (props) => {
         }
       >
         <ins
-          className='adsbygoogle'
-          style={{ display: "block", minWidth: "250px" }}
-          data-ad-format='fluid'
-          data-ad-layout-key='-fb+5w+4e-db+86'
+          class='adsbygoogle'
+          style='display:block'
           data-ad-client='ca-pub-1957239635288103'
           data-ad-slot={dataAdSlot}
+          data-ad-format='auto'
+          data-full-width-responsive='true'
         ></ins>
       </div>
     );
