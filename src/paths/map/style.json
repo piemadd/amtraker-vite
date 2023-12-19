@@ -4120,11 +4120,6 @@
         ],
         [
           "==",
-          "leisure",
-          "nature_reserve"
-        ],
-        [
-          "==",
           "landuse",
           "forest"
         ]
