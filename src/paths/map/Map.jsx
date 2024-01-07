@@ -14,7 +14,8 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import * as pmtiles from "pmtiles";
 import Fuse from "fuse.js";
 //import layers from "protomaps-themes-base";
-import mapStyle from "./style.json";
+//import mapStyle from "./style.json";
+import mapLayers from "./mapLayers.json";
 import MarkerIcon from "./MarkerIcon.jsx";
 import UserMarker from "./UserMarker.svg";
 import ManualTrainPopup from "../../components/trainBox/maualTrainPopup";
@@ -252,7 +253,7 @@ const AmtrakerMap = () => {
       });
   }, []);
 
-  let baseStyle = mapStyle.layers;
+  //let baseStyle = mapStyle.layers;
 
   /*
   const baseStyleIDs = baseStyle.map((layer) => layer.id);
@@ -396,39 +397,31 @@ const AmtrakerMap = () => {
             }}
             renderWorldCopies={true}
             mapStyle={{
-              id: "43f36e14-e3f5-43c1-84c0-50a9c80dc5c7",
-              name: "MapLibre",
               zoom: 0,
               pitch: 0,
               center: [41.884579601743276, -87.6279871036212],
-              glyphs:
-                "https://cdn.jsdelivr.net/gh/piemadd/fonts@54b954f510dc79e04ae47068c5c1f2ee39a69216/_output/{fontstack}/{range}.pbf",
-              layers: baseStyle,
+              glyphs: "https://fonts.transitstat.us/_output/{fontstack}/{range}.pbf",
+              sprite: "https://osml.transitstat.us/sprites/osm-liberty",
+              layers: mapLayers, //layers("protomaps", "dark"),
               bearing: 0,
               sources: {
                 protomaps: {
                   type: "vector",
-                  tiles: [
-                    "https://tilea.piemadd.com/tiles/{z}/{x}/{y}.mvt",
-                    "https://tileb.piemadd.com/tiles/{z}/{x}/{y}.mvt",
-                    "https://tilec.piemadd.com/tiles/{z}/{x}/{y}.mvt",
-                    "https://tiled.piemadd.com/tiles/{z}/{x}/{y}.mvt",
-                    //"http://10.0.0.237:8081/basemap/{z}/{x}/{y}.mvt"
-                  ],
-                  maxzoom: 13,
+                  url: "pmtiles://https://pm.transitstat.us/20240105.pmtiles",
+                  maxzoom: 15,
+                  attribution:
+                    "Map Data &copy; OpenStreetMap Contributors | &copy; Transitstatus 2023 | Uses Protomaps",
                 },
-                nationalRoute: {
+                natural_earth_shaded_relief: {
+                  maxzoom: 6,
+                  tileSize: 256,
+                  tiles: ["https://naturalearthtiles.transitstat.us/{z}/{x}/{y}.png"],
+                  type: "raster",
+                },
+                transit_lines: {
                   type: "vector",
-                  scheme: "tms",
-                  tiles: [
-                    //"http://10.0.0.207:8081/new/{z}/{x}/{y}.mvt"
-                    //"https://tilealt.piemadd.com/nationalRoute/{z}/{y}/{x}.mvt",
-                    "https://tilealta.piemadd.com/nationalRoute/{z}/{y}/{x}.mvt",
-                    "https://tilealtb.piemadd.com/nationalRoute/{z}/{y}/{x}.mvt",
-                    "https://tilealtc.piemadd.com/nationalRoute/{z}/{y}/{x}.mvt",
-                    "https://tilealtd.piemadd.com/nationalRoute/{z}/{y}/{x}.mvt",
-                  ],
-                  maxzoom: 13,
+                  url: "pmtiles://https://pm.transitstat.us/transit.pmtiles",
+                  maxzoom: 12,
                 },
               },
               version: 8,
