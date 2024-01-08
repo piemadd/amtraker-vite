@@ -420,7 +420,7 @@ const AmtrakerMap = () => {
                 },
                 transit_lines: {
                   type: "vector",
-                  url: "pmtiles://https://pm.transitstat.us/transit.pmtiles",
+                  url: "pmtiles://https://shape-tiling.transitstat.us/transit.pmtiles",
                   maxzoom: 12,
                 },
               },
