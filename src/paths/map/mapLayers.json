@@ -2401,6 +2401,26 @@
     }
   },
   {
+    "id": "transit_lines_under",
+    "type": "line",
+    "source": "transit_lines",
+    "source-layer": "zcta",
+    "filter": [
+      "==",
+      "routeColor",
+      "#5366c9"
+    ],
+    "layout": {
+      "line-join": "round",
+      "line-cap": "round"
+    },
+    "paint": {
+      "line-color": "#222222",
+      "line-opacity": 1,
+      "line-width": 6
+    }
+  },
+  {
     "id": "transit_lines",
     "type": "line",
     "source": "transit_lines",
