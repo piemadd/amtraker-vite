@@ -11,7 +11,7 @@ import Map, {
 import maplibregl from "maplibre-gl";
 import "./Map.css";
 import "maplibre-gl/dist/maplibre-gl.css";
-import * as pmtiles from "pmtiles";
+//import * as pmtiles from "pmtiles";
 import Fuse from "fuse.js";
 //import layers from "protomaps-themes-base";
 //import mapStyle from "./style.json";
@@ -24,8 +24,8 @@ import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 //import nationalRoute from "./nationalRoute.json";
 
 //adding pmtiles protocol
-let protocol = new pmtiles.Protocol();
-maplibregl.addProtocol("pmtiles", protocol.tile);
+//let protocol = new pmtiles.Protocol();
+//maplibregl.addProtocol("pmtiles", protocol.tile);
 
 const nationalRouteStyle = {
   id: "data",
@@ -400,22 +400,30 @@ const AmtrakerMap = () => {
               zoom: 0,
               pitch: 0,
               center: [41.884579601743276, -87.6279871036212],
-              glyphs: "https://fonts.transitstat.us/_output/{fontstack}/{range}.pbf",
+              glyphs:
+                "https://fonts.transitstat.us/_output/{fontstack}/{range}.pbf",
               sprite: "https://osml.transitstat.us/sprites/osm-liberty",
               layers: mapLayers, //layers("protomaps", "dark"),
               bearing: 0,
               sources: {
                 protomaps: {
                   type: "vector",
-                  url: "pmtiles://https://pm.transitstat.us/20240105.pmtiles",
+                  tiles: [
+                    "https://tilea.transitstat.us/tiles/{z}/{x}/{y}.mvt",
+                    "https://tileb.transitstat.us/tiles/{z}/{x}/{y}.mvt",
+                    "https://tilec.transitstat.us/tiles/{z}/{x}/{y}.mvt",
+                    "https://tiled.transitstat.us/tiles/{z}/{x}/{y}.mvt",
+                  ],
                   maxzoom: 15,
                   attribution:
-                    "Map Data &copy; OpenStreetMap Contributors | &copy; Transitstatus 2023 | Uses Protomaps",
+                    "Map Data &copy; OpenStreetMap Contributors | &copy; Transitstatus | &copy; Protomaps",
                 },
                 natural_earth_shaded_relief: {
                   maxzoom: 6,
                   tileSize: 256,
-                  tiles: ["https://naturalearthtiles.transitstat.us/{z}/{x}/{y}.png"],
+                  tiles: [
+                    "https://naturalearthtiles.transitstat.us/{z}/{x}/{y}.png",
+                  ],
                   type: "raster",
                 },
                 transit_lines: {
