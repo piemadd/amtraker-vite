@@ -11,7 +11,7 @@ import Map, {
 import maplibregl from "maplibre-gl";
 import "./Map.css";
 import "maplibre-gl/dist/maplibre-gl.css";
-//import * as pmtiles from "pmtiles";
+import * as pmtiles from "pmtiles";
 import Fuse from "fuse.js";
 //import layers from "protomaps-themes-base";
 //import mapStyle from "./style.json";
@@ -24,8 +24,8 @@ import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 //import nationalRoute from "./nationalRoute.json";
 
 //adding pmtiles protocol
-//let protocol = new pmtiles.Protocol();
-//maplibregl.addProtocol("pmtiles", protocol.tile);
+let protocol = new pmtiles.Protocol();
+maplibregl.addProtocol("pmtiles", protocol.tile);
 
 const nationalRouteStyle = {
   id: "data",
