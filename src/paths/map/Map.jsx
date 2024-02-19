@@ -415,8 +415,6 @@ const AmtrakerMap = () => {
                     "https://tiled.transitstat.us/tiles/{z}/{x}/{y}.mvt",
                   ],
                   maxzoom: 15,
-                  attribution:
-                    "Map Data &copy; OpenStreetMap Contributors | &copy; Transitstatus | &copy; Protomaps",
                 },
                 natural_earth_shaded_relief: {
                   maxzoom: 6,
@@ -475,13 +473,13 @@ const AmtrakerMap = () => {
             ) : null}
             <div className='map-over'>
               <div className='attribution'>
-                <a href='https://protomaps.com'>Protomaps</a>
-                {" | "}
-                <a href='https://openstreetmap.org/copyright'>
-                  © OpenStreetMap
+                <a href='https://protomaps.com' target='_blank'>
+                  &copy; Protomaps Tiles
                 </a>
                 {" | "}
-                <span>© Amtraker Tiles</span>
+                <a href='https://openstreetmap.org/copyright' target='_blank'>
+                  &copy; OpenStreetMap
+                </a>
               </div>
               <button
                 className='settings'
