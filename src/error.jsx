@@ -15,7 +15,8 @@ export default function ErrorPage() {
     errorString.includes("Failed to fetch dynamically imported module") ||
     errorString.includes("dynamically imported module") ||
     errorString.includes("'text/html' is not a valid JavaScript MIME type") ||
-    errorString.includes("Unable to preload CSS for")
+    errorString.includes("Unable to preload CSS for") ||
+    errorString.includes("module script failed")
   ) {
     useEffect(() => {
       console.log("clearing cache");
@@ -58,7 +59,7 @@ export default function ErrorPage() {
           <i>
             Current path: {window.location.href}
             <br />
-            Current version: v3.9.12
+            Current version: v3.9.13
             <br />
             Current date and time (UTC): {new Date().toUTCString()}
             <br />
@@ -84,7 +85,7 @@ export default function ErrorPage() {
           <i>
             Current path: {window.location.href}
             <br />
-            Current version: v3.9.12
+            Current version: v3.9.13
             <br />
             Current date and time (UTC): {new Date().toUTCString()}
             <br />
