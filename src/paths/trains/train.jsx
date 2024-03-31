@@ -101,7 +101,7 @@ const BetterTrainPage = () => {
     let settings = JSON.parse(localStorage.getItem("amtraker-v3-settings"));
     if (settings) {
       if (settings.foamerMode) {
-        setFoamerMode(settings.foamerMode);
+        //setFoamerMode(settings.foamerMode);
       } else {
         setFoamerMode(false);
         settings.foamerMode = false;

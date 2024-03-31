@@ -127,6 +127,7 @@ const AmtrakerMap = () => {
     let settings = JSON.parse(localStorage.getItem("amtraker-v3-settings"));
     if (settings) {
       if (settings.foamerMode) {
+        /*
         setFoamerMode(settings.foamerMode);
 
         navigator.geolocation.watchPosition(
@@ -141,6 +142,7 @@ const AmtrakerMap = () => {
             timeout: 5000,
           }
         );
+        */
       } else {
         setFoamerMode(false);
         settings.foamerMode = false;
@@ -240,7 +242,7 @@ const AmtrakerMap = () => {
           setAllData(JSON.parse(JSON.stringify(Object.values(data).flat())));
           fuse.setCollection(Object.values(data).flat());
         });
-    }, 60000);
+    }, 30000);
     fetch("https://api-v3.amtraker.com/v3/trains")
       .then((res) => res.json())
       .then((data) => {

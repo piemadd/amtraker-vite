@@ -2406,9 +2406,17 @@
     "source": "transit_lines",
     "source-layer": "zcta",
     "filter": [
-      "==",
-      "routeColor",
-      "#5366c9"
+      "any",
+      [
+        "==",
+        "routeColor",
+        "#5366c9"
+      ],
+      [
+        "==",
+        "routeColor",
+        "#a5c9d7"
+      ]
     ],
     "layout": {
       "line-join": "round",
@@ -2426,9 +2434,17 @@
     "source": "transit_lines",
     "source-layer": "zcta",
     "filter": [
-      "==",
-      "routeColor",
-      "#5366c9"
+      "any",
+      [
+        "==",
+        "routeColor",
+        "#5366c9"
+      ],
+      [
+        "==",
+        "routeColor",
+        "#a5c9d7"
+      ]
     ],
     "layout": {
       "line-join": "round",
