@@ -1,16 +1,19 @@
 import ManualTrainBox from "./manualTrainBox";
 import { useState, useEffect } from "react";
+import DataManager from "../dataManager/dataManager";
 
 const ShortTrainIDTrainBox = ({ trainID }) => {
   const [train, setTrain] = useState(undefined);
   const [loading, setLoading] = useState(true);
 
+  const dataManager = new DataManager();
+
   useEffect(() => {
-    fetch(`https://api-v3.amtraker.com/v3/trains/${trainID}`)
-      .then((res) => res.json())
+    dataManager
+      .getTrains()
       .then((data) => {
         setLoading(false);
-        console.log('data fetched', data)
+        console.log("data fetched", data);
 
         if (Array.isArray(data) && data.length === 0) {
           throw new Error("Train data not valid");

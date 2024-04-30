@@ -4,10 +4,12 @@ import { trainNames } from "../../data/trains";
 import "./trains.css";
 import SettingsInit from "../index/settingsInit";
 import stringToHash from "../../components/money/stringToHash";
+import DataManager from "../../components/dataManager/dataManager";
 
 const TrainsByNumber = () => {
   const { trainNum } = useParams();
   const navigate = useNavigate();
+  const dataManager = new DataManager();
 
   const [loading, setLoading] = useState(true);
   const [trainData, setTrainData] = useState([]);
@@ -15,39 +17,35 @@ const TrainsByNumber = () => {
   const [trainLink, setTrainLink] = useState(`/trains/${trainNum}`);
 
   useEffect(() => {
-    fetch(`https://api-v3.amtraker.com/v3/trains/${trainNum}`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("data fetched", data);
-        setLoading(false);
-        if (Array.isArray(data) && Object.keys(data).length === 0) {
-          console.log("is not valid");
-        } else {
-          console.log("is valid");
+    dataManager.getTrain(trainNum).then((data) => {
+      console.log("data fetched", data);
+      setLoading(false);
+      if (Array.isArray(data) && Object.keys(data).length === 0) {
+        console.log("is not valid");
+      } else {
+        console.log("is valid");
 
-          const sorted = data[trainNum].sort((a, b) => {
-            return (
-              Number(a.trainID.split("-")[1]) - Number(b.trainID.split("-")[1])
-            );
-          });
-
-          setTrainData(sorted);
-          setSelectedTrain(sorted[0].trainID);
-          setTrainLink(
-            `/trains/${trainNum}/${sorted[0].trainID.split("-")[1]}`
+        const sorted = data[trainNum].sort((a, b) => {
+          return (
+            Number(a.trainID.split("-")[1]) - Number(b.trainID.split("-")[1])
           );
+        });
 
-          if (data[trainNum].length === 1) {
-            console.log("only one train, navigating");
-            navigate(
-              `/trains/${trainNum}/${data[trainNum][0].trainID.split("-")[1]}`,
-              {
-                replace: true,
-              }
-            );
-          }
+        setTrainData(sorted);
+        setSelectedTrain(sorted[0].trainID);
+        setTrainLink(`/trains/${trainNum}/${sorted[0].trainID.split("-")[1]}`);
+
+        if (data[trainNum].length === 1) {
+          console.log("only one train, navigating");
+          navigate(
+            `/trains/${trainNum}/${data[trainNum][0].trainID.split("-")[1]}`,
+            {
+              replace: true,
+            }
+          );
         }
-      });
+      }
+    });
   }, [trainNum, navigate]);
 
   const [bgURL, setBGURL] = useState("/content/images/amtraker-bg.webp");

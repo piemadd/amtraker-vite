@@ -21,6 +21,7 @@ import UserMarker from "./UserMarker.svg";
 import ManualTrainPopup from "../../components/trainBox/maualTrainPopup";
 import ManualStationBox from "../../components/stationBox/manualStationBox";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
+import DataManager from "../../components/dataManager/dataManager.js";
 //import nationalRoute from "./nationalRoute.json";
 
 //adding pmtiles protocol
@@ -97,6 +98,7 @@ const AmtrakerMap = () => {
   ]);
   const [shitsFucked, setShitsFucked] = useState(false);
   const navigate = useNavigate();
+  const dataManager = new DataManager();
 
   const mapRef = useRef(null);
 
@@ -231,28 +233,26 @@ const AmtrakerMap = () => {
 
   useEffect(() => {
     setInterval(() => {
-      setShitsFucked(false);
-      fetch("https://api-v3.amtraker.com/v3/trains")
-        .then((res) => res.json())
-        .then((data) => {
-          if (Object.keys(data).length === 0) {
-            setShitsFucked(true);
-          }
-
-          setAllData(JSON.parse(JSON.stringify(Object.values(data).flat())));
-          fuse.setCollection(Object.values(data).flat());
-        });
-    }, 30000);
-    fetch("https://api-v3.amtraker.com/v3/trains")
-      .then((res) => res.json())
-      .then((data) => {
+      dataManager.getTrains().then((data) => {
         if (Object.keys(data).length === 0) {
           setShitsFucked(true);
         }
 
-        setAllData(Object.values(data).flat());
-        setResults(Object.values(data).flat());
+        setShitsFucked(false);
+
+        setAllData(JSON.parse(JSON.stringify(Object.values(data).flat())));
+        fuse.setCollection(Object.values(data).flat());
       });
+    }, 30000);
+
+    dataManager.getTrains().then((data) => {
+      if (Object.keys(data).length === 0) {
+        setShitsFucked(true);
+      }
+
+      setAllData(Object.values(data).flat());
+      setResults(Object.values(data).flat());
+    });
   }, []);
 
   //let baseStyle = mapStyle.layers;
