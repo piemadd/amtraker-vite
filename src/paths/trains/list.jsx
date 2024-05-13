@@ -6,7 +6,6 @@ import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import SettingsInit from "../index/settingsInit";
 import stringToHash from "../../components/money/stringToHash";
 import SenseBlock from "../../components/money/senseArticle";
-import DataManager from "../../components/dataManager/dataManager";
 
 //import ErrorData from "../../data/error.json";
 
@@ -22,7 +21,6 @@ const debounce = (func, timeout = 300) => {
 
 const TrainsList = () => {
   const navigate = useNavigate();
-  const dataManager = new DataManager();
 
   const [loading, setLoading] = useState(true);
   const [trainData, setTrainData] = useState([]);
@@ -31,7 +29,8 @@ const TrainsList = () => {
   const [shitsFucked, setShitsFucked] = useState(false);
 
   useEffect(() => {
-    dataManager.getTrains()
+    fetch("https://api-v3.amtraker.com/v3/trains")
+      .then((res) => res.json())
       .then((data) => {
         console.log("data fetched", data);
         setTrainData(Object.values(data).flat());

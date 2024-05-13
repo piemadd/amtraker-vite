@@ -2,11 +2,13 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import stringToHash from "../../components/money/stringToHash";
 import { Link } from "react-router-dom";
+
 import SettingsInit from "./settingsInit.jsx";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
+
 import SenseBlock from "../../components/money/senseArticle";
+
 import { autoAddTrains } from "../../tools";
-import DataManager from "../../components/dataManager/dataManager.js";
 
 const App = () => {
   const [savedTrains, setSavedTrains] = useState([]);
@@ -15,8 +17,6 @@ const App = () => {
   const [savedTrainsObjects, setSavedTrainsObjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [shitsFucked, setShitsFucked] = useState(false);
-
-  const dataManager = new DataManager();
 
   useEffect(() => {
     if (!localStorage.getItem("savedTrainsAmtrakerV3")) {
@@ -40,13 +40,19 @@ const App = () => {
     });
   }, []);
 
-  useEffect(() => {
-    dataManager.getStaleData().then((data) => {
-      setIsStale(data.stale);
-      setTimeSinceLastUpdate(data.avgLastUpdate);
-    });
+  console.log(savedTrains);
 
-    dataManager.getShitsFucked().then((data) => setShitsFucked(data));
+  useEffect(() => {
+    fetch("https://api-v3.amtraker.com/v3/stale")
+      .then((res) => res.json())
+      .then((data) => {
+        setIsStale(data.stale);
+        setTimeSinceLastUpdate(data.avgLastUpdate);
+      });
+
+    fetch("https://api-v3.amtraker.com/v3/shitsfuckedlmao")
+      .then((res) => res.json())
+      .then((data) => setShitsFucked(data));
 
     if (savedTrains.length === 0) {
       setLoading(false);
@@ -58,8 +64,8 @@ const App = () => {
         trainID.split("-")[2]
       }`;
 
-      dataManager
-        .getTrain(shortenedTrainID)
+      fetch(`https://api-v3.amtraker.com/v3/trains/${shortenedTrainID}`)
+        .then((res) => res.json())
         .then((data) => {
           if (i === arr.length - 1) {
             setLoading(false);
@@ -248,7 +254,7 @@ const App = () => {
           </Link>
         </section>
         <section className='amtrakerVersion'>
-          <p>Amtraker v3.10.0</p>
+          <p>Amtraker v3.9.15</p>
           <p>&copy; Piero Maddaleni 2023</p>
         </section>
         <SenseBlock key={"sense-block"} dataAdSlot={"3140178047"} />

@@ -57,7 +57,7 @@ const SenseList = (props) => {
         }
       >
         <ins
-          className='adsbygoogle'
+          class='adsbygoogle'
           style={{
             display: "block",
           }}

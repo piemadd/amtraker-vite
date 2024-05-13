@@ -5,7 +5,6 @@ import Fuse from "fuse.js";
 import SettingsInit from "../index/settingsInit";
 import stringToHash from "../../components/money/stringToHash";
 import SenseBlock from "../../components/money/senseArticle";
-import DataManager from "../../components/dataManager/dataManager";
 
 const debounce = (func, timeout = 300) => {
   let timer;
@@ -26,35 +25,35 @@ const StationsList = () => {
   const [query, updateQuery] = useState("");
   const [shitsFucked, setShitsFucked] = useState(false);
 
-  const dataManger = new DataManager();
-
   useEffect(() => {
-    dataManger.getStations().then((data) => {
-      if (Object.keys(data).length === 0) {
-        setShitsFucked(true);
-      }
+    fetch("https://api-v3.amtraker.com/v3/stations")
+      .then((res) => res.json())
+      .then((data) => {
+        if (Object.keys(data).length === 0) {
+          setShitsFucked(true);
+        }
 
-      console.log("data fetched", data);
-      setStationData(
-        Object.values(data)
-          .map((n) => {
-            if (!n.name) {
-              console.log("no name", n.code, n.city, n.state);
-              n.name = n.city;
-            }
-            return n;
-          })
-          .sort((a, b) => {
+        console.log("data fetched", data);
+        setStationData(
+          Object.values(data)
+            .map((n) => {
+              if (!n.name) {
+                console.log("no name", n.code, n.city, n.state);
+                n.name = n.city;
+              }
+              return n;
+            })
+            .sort((a, b) => {
+              return a.name.localeCompare(b.name);
+            })
+        );
+        setResults(
+          Object.values(data).sort((a, b) => {
             return a.name.localeCompare(b.name);
           })
-      );
-      setResults(
-        Object.values(data).sort((a, b) => {
-          return a.name.localeCompare(b.name);
-        })
-      );
-      setLoading(false);
-    });
+        );
+        setLoading(false);
+      });
   }, []);
 
   const fuse = new Fuse(stationData, {

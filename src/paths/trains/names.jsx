@@ -5,11 +5,9 @@ import "./trains.css";
 import { useEffect } from "react";
 import SettingsInit from "../index/settingsInit";
 import stringToHash from "../../components/money/stringToHash";
-import DataManager from "../../components/dataManager/dataManager";
 
 const TrainsByName = () => {
   const { trainName } = useParams();
-  const dataManager = new DataManager();
 
   const trainNums = Object.keys(trainNames)
     .filter((trainNum) => trainNames[trainNum] === trainName)
@@ -22,18 +20,20 @@ const TrainsByName = () => {
 
   useEffect(() => {
     let finalData = [];
-    dataManager.getTrains().then((data) => {
-      Object.keys(data).forEach((trainNum, i, arr) => {
-        if (trainNums.includes(trainNum)) {
-          finalData.push(trainNum);
-        }
+    fetch("https://api-v3.amtraker.com/v3/trains")
+      .then((res) => res.json())
+      .then((data) => {
+        Object.keys(data).forEach((trainNum, i, arr) => {
+          if (trainNums.includes(trainNum)) {
+            finalData.push(trainNum);
+          }
 
-        if (i === arr.length - 1) setTrainData(finalData);
-        setLoading(false);
+          if (i === arr.length - 1) setTrainData(finalData);
+          setLoading(false);
 
-        setTrainLink(`/trains/${finalData[0]}`);
+          setTrainLink(`/trains/${finalData[0]}`);
+        });
       });
-    });
   }, []);
 
   const [bgURL, setBGURL] = useState("/content/images/amtraker-bg.webp");

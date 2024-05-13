@@ -6,22 +6,22 @@ import "../trains/trains.css"; //fuck it we ball
 import ShortTrainIDTrainBox from "../../components/trainBox/shortTrainIDTrainBox";
 import SettingsInit from "../index/settingsInit";
 import SenseBlock from "../../components/money/senseArticle";
-import DataManager from "../../components/dataManager/dataManager";
 
 const StationPage = () => {
   const { stationCode } = useParams();
   const navigate = useNavigate();
-  const dataManager = new DataManager();
 
   const [loading, setLoading] = useState(true);
   const [stationData, setStationData] = useState([]);
 
   useEffect(() => {
-    dataManager.getStation(stationCode).then((data) => {
-      console.log("data fetched", data);
-      setStationData(data[stationCode]);
-      setLoading(false);
-    });
+    fetch(`https://api-v3.amtraker.com/v3/stations/${stationCode}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("data fetched", data);
+        setStationData(data[stationCode]);
+        setLoading(false);
+      });
   }, [stationCode]);
 
   const [bgURL, setBGURL] = useState("/content/images/amtraker-bg.webp");

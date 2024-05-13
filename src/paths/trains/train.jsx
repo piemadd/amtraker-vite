@@ -19,7 +19,6 @@ import {
 } from "../../tools";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import SenseBlock from "../../components/money/senseArticle";
-import DataManager from "../../components/dataManager/dataManager.js";
 
 const fullDirections = {
   N: "North",
@@ -35,7 +34,6 @@ const fullDirections = {
 const BetterTrainPage = () => {
   const { trainNum, trainDate } = useParams();
   const navigate = useNavigate();
-  const dataManager = new DataManager();
 
   const [loading, setLoading] = useState(true);
   const [trainData, setTrainData] = useState([]);
@@ -47,54 +45,56 @@ const BetterTrainPage = () => {
 
   useEffect(() => {
     console.log("sending request");
-    dataManager.getTrain(`${trainNum}-${trainDate}`).then((data) => {
-      console.log("data fetched", data);
-      setLoading(false);
-      if (Array.isArray(data) && Object.keys(data).length === 0) {
-        console.log("is not valid");
-      } else {
-        console.log("is valid");
-        setTrainData(data[trainNum]);
+    fetch(`https://api-v3.amtraker.com/v3/trains/${trainNum}-${trainDate}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("data fetched", data);
+        setLoading(false);
+        if (Array.isArray(data) && Object.keys(data).length === 0) {
+          console.log("is not valid");
+        } else {
+          console.log("is valid");
+          setTrainData(data[trainNum]);
 
-        // setting saved train
-        if (!localStorage.getItem("savedTrainsAmtrakerV3")) {
-          localStorage.setItem("savedTrainsAmtrakerV3", "");
-        }
-
-        const savedTrains = localStorage
-          .getItem("savedTrainsAmtrakerV3")
-          .split(",")
-          .filter((n) => n);
-
-        const savedTrain = savedTrains.find((element) => {
-          return (
-            element.split("-")[0] === trainNum &&
-            element.split("-")[2] === trainDate
-          );
-        });
-
-        if (savedTrain === undefined) {
-          let departureDate = new Date(data[trainNum][0].stations[0].schDep);
-
-          if (departureDate.toString() == "Invalid Date") {
-            departureDate = new Date(data[trainNum][0].stations[0].schDep);
+          // setting saved train
+          if (!localStorage.getItem("savedTrainsAmtrakerV3")) {
+            localStorage.setItem("savedTrainsAmtrakerV3", "");
           }
 
-          localStorage.setItem(
-            "savedTrainsAmtrakerV3",
-            [
-              ...savedTrains,
-              `${trainNum}-${
-                departureDate.getMonth() + 1
-              }-${trainDate}-${departureDate
-                .getFullYear()
-                .toString()
-                .substring(2, 4)}`,
-            ].join(",")
-          );
+          const savedTrains = localStorage
+            .getItem("savedTrainsAmtrakerV3")
+            .split(",")
+            .filter((n) => n);
+
+          const savedTrain = savedTrains.find((element) => {
+            return (
+              element.split("-")[0] === trainNum &&
+              element.split("-")[2] === trainDate
+            );
+          });
+
+          if (savedTrain === undefined) {
+            let departureDate = new Date(data[trainNum][0].stations[0].schDep);
+
+            if (departureDate.toString() == "Invalid Date") {
+              departureDate = new Date(data[trainNum][0].stations[0].schDep);
+            }
+
+            localStorage.setItem(
+              "savedTrainsAmtrakerV3",
+              [
+                ...savedTrains,
+                `${trainNum}-${
+                  departureDate.getMonth() + 1
+                }-${trainDate}-${departureDate
+                  .getFullYear()
+                  .toString()
+                  .substring(2, 4)}`,
+              ].join(",")
+            );
+          }
         }
-      }
-    });
+      });
   }, [trainNum, trainDate]);
 
   useEffect(() => {
