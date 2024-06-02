@@ -159,10 +159,8 @@ const initAlwaysTracked = () => {
 };
 
 const autoAddTrains = async (trainArr) => {
-  const dataManager = new DataManager();
+  const dataManager = window.dataManager;
   const ids = await dataManager.getIDs();
-
-  console.log(ids)
 
   const alwaysTracked = (localStorage
     .getItem("alwaysTrackedAmtrakerV3") ?? '')

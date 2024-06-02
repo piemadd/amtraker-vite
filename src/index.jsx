@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
@@ -6,7 +6,13 @@ import "./paths/index/App.css";
 import "./paths/trains/trains.css";
 import ErrorPage from "./error.jsx";
 import LoadingPage from "./loading";
+import DataManager from "./components/dataManager/dataManager.js";
 //import * as serviceWorkerRegistration from "./serviceWorkerRegistration.js";
+
+
+console.log(`DM-N: ${window.dataManager}`)
+const dataManager = new DataManager();
+window.dataManager = dataManager;
 
 //paths
 //import App from "./paths/index/App.jsx";
@@ -100,10 +106,12 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-root.render(
-  <React.Suspense fallback={<LoadingPage />}>
-    <React.StrictMode>
-      <RouterProvider router={router} />
-    </React.StrictMode>
-  </React.Suspense>
-);
+dataManager.checkDataStatusAndUpdate().then(() => {
+  root.render(
+    <React.Suspense fallback={<LoadingPage />}>
+      <React.StrictMode>
+        <RouterProvider router={router} />
+      </React.StrictMode>
+    </React.Suspense>
+  );
+});

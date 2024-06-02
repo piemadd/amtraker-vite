@@ -9,7 +9,7 @@ import DataManager from "../../components/dataManager/dataManager";
 const TrainsByNumber = () => {
   const { trainNum } = useParams();
   const navigate = useNavigate();
-  const dataManager = new DataManager();
+  const dataManager = window.dataManager;
 
   const [loading, setLoading] = useState(true);
   const [trainData, setTrainData] = useState([]);

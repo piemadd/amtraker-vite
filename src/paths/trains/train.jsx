@@ -35,7 +35,7 @@ const fullDirections = {
 const BetterTrainPage = () => {
   const { trainNum, trainDate } = useParams();
   const navigate = useNavigate();
-  const dataManager = new DataManager();
+  const dataManager = window.dataManager;
 
   const [loading, setLoading] = useState(true);
   const [trainData, setTrainData] = useState([]);

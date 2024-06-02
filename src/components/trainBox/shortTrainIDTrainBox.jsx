@@ -6,7 +6,7 @@ const ShortTrainIDTrainBox = ({ trainID }) => {
   const [train, setTrain] = useState(undefined);
   const [loading, setLoading] = useState(true);
 
-  const dataManager = new DataManager();
+  const dataManager = window.dataManager;
 
   useEffect(() => {
     dataManager

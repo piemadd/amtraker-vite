@@ -9,7 +9,7 @@ import DataManager from "../../components/dataManager/dataManager";
 
 const TrainsByName = () => {
   const { trainName } = useParams();
-  const dataManager = new DataManager();
+  const dataManager = window.dataManager;
 
   const trainNums = Object.keys(trainNames)
     .filter((trainNum) => trainNames[trainNum] === trainName)

@@ -2,11 +2,13 @@ export class DataManager {
   constructor() {
     const now = Date.now();
 
+    this._id = (Math.random() + 1).toString(36).substring(7);
     this._data = JSON.parse(localStorage.getItem('amtraker_datamanager_v1_data') ?? '{}');
     this._lastUpdated = localStorage.getItem('amtraker_datamanager_v1_last_updated') ?? 0;
 
     const updateData = () => {
       if (this._lastUpdated < now - (1000 * 60)) { //if the last time we fetched data was more than a minute ago
+        console.log('DM-R:', this._id);
         fetch('https://api-v3.amtraker.com/v3/all', {
           cache: 'reload'
         })
@@ -31,12 +33,9 @@ export class DataManager {
 
   //if the data hasnt been updated within 5 minute or is null, update it
   async checkDataStatusAndUpdate() {
-    const now = Date.now();
-
-    if (this._lastUpdated < now - (1000 * 60) || Object.keys(this._data).length === 0) { //if the last time we fetched data was more than a minute ago
-      const res = await fetch('https://api-v3.amtraker.com/v3/all', {
-        cache: 'reload'
-      });
+    if (Object.keys(this._data).length === 0) {
+      console.log('DM-C:', this._id);
+      const res = await fetch('https://api-v3.amtraker.com/v3/all');
       const data = await res.json();
       this._data = data;
 
@@ -49,13 +48,10 @@ export class DataManager {
   };
 
   async getTrains() {
-    await this.checkDataStatusAndUpdate();
     return this._data.trains;
   }
 
   async getTrain(trainID) {
-    await this.checkDataStatusAndUpdate();
-
     //a full ID is passed
     if (trainID.includes('-')) {
       const trainNum = trainID.split('-')[0];
@@ -78,12 +74,10 @@ export class DataManager {
   }
 
   async getStations() {
-    await this.checkDataStatusAndUpdate();
     return this._data.stations;
   }
 
   async getStation(stationCode) {
-    await this.checkDataStatusAndUpdate();
     if (!this._data.stations[stationCode]) return []; // station doesn't exist
 
     return {
@@ -92,17 +86,14 @@ export class DataManager {
   }
 
   async getIDs() {
-    await this.checkDataStatusAndUpdate();
     return this._data.ids;
   }
 
   async getShitsFucked() {
-    await this.checkDataStatusAndUpdate();
     return this._data.shitsFucked;
   }
 
   async getStaleData() {
-    await this.checkDataStatusAndUpdate();
     return this._data.staleData;
   }
 }

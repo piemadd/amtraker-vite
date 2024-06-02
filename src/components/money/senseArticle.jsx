@@ -18,17 +18,17 @@ const SenseBlock = (props) => {
       method: "HEAD",
     })
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         if (res.status === 200) {
           setIsadBlocked(false);
-          console.log("no adblock");
+          //console.log("no adblock");
         } else {
           setIsadBlocked(true);
-          console.log("adblock");
+          //console.log("adblock");
         }
 
         stringToHash(localStorage.getItem("passphrase")).then((hash) => {
-          console.log("passphrase hash", hash);
+          //console.log("passphrase hash", hash);
           if (
             hash ==
               "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
@@ -43,11 +43,11 @@ const SenseBlock = (props) => {
       })
       .catch((err) => {
         setIsadBlocked(true);
-        console.log("adblock");
+        //console.log("adblock");
       });
   }, []);
 
-  console.log("is adblocked", isAdBlocked);
+  //console.log("is adblocked", isAdBlocked);
 
   if (!isAdBlocked) {
     return (

@@ -26,7 +26,7 @@ const StationsList = () => {
   const [query, updateQuery] = useState("");
   const [shitsFucked, setShitsFucked] = useState(false);
 
-  const dataManger = new DataManager();
+  const dataManger = window.dataManager;
 
   useEffect(() => {
     dataManger.getStations().then((data) => {

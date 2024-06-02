@@ -1,12 +1,11 @@
 import "./App.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import stringToHash from "../../components/money/stringToHash";
 import { Link } from "react-router-dom";
 import SettingsInit from "./settingsInit.jsx";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import SenseBlock from "../../components/money/senseArticle";
 import { autoAddTrains } from "../../tools";
-import DataManager from "../../components/dataManager/dataManager.js";
 
 const App = () => {
   const [savedTrains, setSavedTrains] = useState([]);
@@ -15,8 +14,7 @@ const App = () => {
   const [savedTrainsObjects, setSavedTrainsObjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [shitsFucked, setShitsFucked] = useState(false);
-
-  const dataManager = new DataManager();
+  const dataManager = window.dataManager;
 
   useEffect(() => {
     if (!localStorage.getItem("savedTrainsAmtrakerV3")) {
@@ -41,32 +39,97 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    dataManager.getStaleData().then((data) => {
-      setIsStale(data.stale);
-      setTimeSinceLastUpdate(data.avgLastUpdate);
-    });
+    dataManager.checkDataStatusAndUpdate().then(() => {
+      dataManager.getStaleData().then((data) => {
+        setIsStale(data.stale);
+        setTimeSinceLastUpdate(data.avgLastUpdate);
+      });
 
-    dataManager.getShitsFucked().then((data) => setShitsFucked(data));
+      dataManager.getShitsFucked().then((data) => setShitsFucked(data));
 
-    if (savedTrains.length === 0) {
-      setLoading(false);
-    }
-    //setSavedTrainsObjects([]);
-    let savedTranisObjectsTemp = [];
-    savedTrains.forEach((trainID, i, arr) => {
-      const shortenedTrainID = `${trainID.split("-")[0]}-${
-        trainID.split("-")[2]
-      }`;
+      if (savedTrains.length === 0) {
+        setLoading(false);
+      }
+      //setSavedTrainsObjects([]);
+      let savedTranisObjectsTemp = [];
+      savedTrains.forEach((trainID, i, arr) => {
+        const shortenedTrainID = `${trainID.split("-")[0]}-${
+          trainID.split("-")[2]
+        }`;
 
-      dataManager
-        .getTrain(shortenedTrainID)
-        .then((data) => {
-          if (i === arr.length - 1) {
-            setLoading(false);
-          }
+        dataManager
+          .getTrain(shortenedTrainID)
+          .then((data) => {
+            if (i === arr.length - 1) {
+              setLoading(false);
+            }
 
-          if (Array.isArray(data) && data.length === 0) {
-            console.log("removing train due to invalid data");
+            if (Array.isArray(data) && data.length === 0) {
+              console.log("removing train due to invalid data");
+              const newSavedTrains = localStorage
+                .getItem("savedTrainsAmtrakerV3")
+                .split(",")
+                .filter((n) => n)
+                .filter((train) => train !== trainID);
+
+              localStorage.setItem(
+                "savedTrainsAmtrakerV3",
+                newSavedTrains.join(",")
+              );
+
+              if (i === arr.length - 1) {
+                setSavedTrainsObjects(savedTranisObjectsTemp);
+              }
+              return null;
+            }
+
+            const trainData = data[shortenedTrainID.split("-")[0]][0];
+            const schDep = new Date(trainData.stations[0].dep);
+
+            //removing train if the saved train id doesn't match the data
+            if (
+              (schDep.getMonth() + 1 !== parseInt(trainID.split("-")[1]) ||
+                schDep.getFullYear().toString().substring(2, 4) !==
+                  trainID.split("-")[3]) &&
+              !trainID.includes("NaN")
+            ) {
+              console.log("removing train due to incorrect date");
+
+              const newSavedTrains = localStorage
+                .getItem("savedTrainsAmtrakerV3")
+                .split(",")
+                .filter((n) => n)
+                .filter((train) => train !== trainID);
+
+              localStorage.setItem(
+                "savedTrainsAmtrakerV3",
+                newSavedTrains.join(",")
+              );
+
+              if (i === arr.length - 1) {
+                setSavedTrainsObjects(savedTranisObjectsTemp);
+              }
+              return null;
+            }
+
+            savedTranisObjectsTemp.push(
+              <Link
+                key={`saved-train-${trainID}`}
+                to={`/trains/${trainID.split("-")[0]}/${trainID.split("-")[2]}`}
+              >
+                <ManualTrainBox train={trainData} />
+              </Link>
+            );
+
+            if (i === arr.length - 1) {
+              setSavedTrainsObjects(savedTranisObjectsTemp);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+
+            //removing train if data is invalid
+
             const newSavedTrains = localStorage
               .getItem("savedTrainsAmtrakerV3")
               .split(",")
@@ -77,72 +140,9 @@ const App = () => {
               "savedTrainsAmtrakerV3",
               newSavedTrains.join(",")
             );
-
-            if (i === arr.length - 1) {
-              setSavedTrainsObjects(savedTranisObjectsTemp);
-            }
             return null;
-          }
-
-          const trainData = data[shortenedTrainID.split("-")[0]][0];
-          const schDep = new Date(trainData.stations[0].dep);
-
-          //removing train if the saved train id doesn't match the data
-          if (
-            (schDep.getMonth() + 1 !== parseInt(trainID.split("-")[1]) ||
-              schDep.getFullYear().toString().substring(2, 4) !==
-                trainID.split("-")[3]) &&
-            !trainID.includes("NaN")
-          ) {
-            console.log("removing train due to incorrect date");
-
-            const newSavedTrains = localStorage
-              .getItem("savedTrainsAmtrakerV3")
-              .split(",")
-              .filter((n) => n)
-              .filter((train) => train !== trainID);
-
-            localStorage.setItem(
-              "savedTrainsAmtrakerV3",
-              newSavedTrains.join(",")
-            );
-
-            if (i === arr.length - 1) {
-              setSavedTrainsObjects(savedTranisObjectsTemp);
-            }
-            return null;
-          }
-
-          savedTranisObjectsTemp.push(
-            <Link
-              key={`saved-train-${trainID}`}
-              to={`/trains/${trainID.split("-")[0]}/${trainID.split("-")[2]}`}
-            >
-              <ManualTrainBox train={trainData} />
-            </Link>
-          );
-
-          if (i === arr.length - 1) {
-            setSavedTrainsObjects(savedTranisObjectsTemp);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-
-          //removing train if data is invalid
-
-          const newSavedTrains = localStorage
-            .getItem("savedTrainsAmtrakerV3")
-            .split(",")
-            .filter((n) => n)
-            .filter((train) => train !== trainID);
-
-          localStorage.setItem(
-            "savedTrainsAmtrakerV3",
-            newSavedTrains.join(",")
-          );
-          return null;
-        });
+          });
+      });
     });
   }, [savedTrains]);
 
@@ -248,7 +248,7 @@ const App = () => {
           </Link>
         </section>
         <section className='amtrakerVersion'>
-          <p>Amtraker v3.10.0</p>
+          <p>Amtraker v3.10.1</p>
           <p>&copy; Piero Maddaleni 2023</p>
         </section>
         <SenseBlock key={"sense-block"} dataAdSlot={"3140178047"} />

@@ -6,7 +6,7 @@ const TrainIDTrainBox = ({ trainID }) => {
   const [train, setTrain] = useState(undefined);
   const [loading, setLoading] = useState(true);
 
-  const dataManager = new DataManager();
+  const dataManager = window.dataManager;
 
   const shortenedTrainID = `${trainID.split("-")[0]}-${trainID.split("-")[2]}`;
   useEffect(() => {

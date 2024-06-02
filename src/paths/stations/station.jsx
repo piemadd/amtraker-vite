@@ -11,7 +11,7 @@ import DataManager from "../../components/dataManager/dataManager";
 const StationPage = () => {
   const { stationCode } = useParams();
   const navigate = useNavigate();
-  const dataManager = new DataManager();
+  const dataManager = window.dataManager;
 
   const [loading, setLoading] = useState(true);
   const [stationData, setStationData] = useState([]);

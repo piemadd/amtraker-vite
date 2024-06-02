@@ -1,12 +1,11 @@
 import { useNavigate, Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import "./trains.css"; //fuck it we ball
 import Fuse from "fuse.js";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import SettingsInit from "../index/settingsInit";
 import stringToHash from "../../components/money/stringToHash";
 import SenseBlock from "../../components/money/senseArticle";
-import DataManager from "../../components/dataManager/dataManager";
 
 //import ErrorData from "../../data/error.json";
 
@@ -22,7 +21,7 @@ const debounce = (func, timeout = 300) => {
 
 const TrainsList = () => {
   const navigate = useNavigate();
-  const dataManager = new DataManager();
+  const dataManager = window.dataManager;
 
   const [loading, setLoading] = useState(true);
   const [trainData, setTrainData] = useState([]);

@@ -98,7 +98,7 @@ const AmtrakerMap = () => {
   ]);
   const [shitsFucked, setShitsFucked] = useState(false);
   const navigate = useNavigate();
-  const dataManager = new DataManager();
+  const dataManager = window.dataManager;
 
   const mapRef = useRef(null);
 
