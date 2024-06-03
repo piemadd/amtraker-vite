@@ -1,14 +1,17 @@
 import ManualTrainBox from "./manualTrainBox";
 import { useState, useEffect } from "react";
+import DataManager from "../dataManager/dataManager";
 
 const TrainIDTrainBox = ({ trainID }) => {
   const [train, setTrain] = useState(undefined);
   const [loading, setLoading] = useState(true);
 
+  const dataManager = window.dataManager;
+
   const shortenedTrainID = `${trainID.split("-")[0]}-${trainID.split("-")[2]}`;
   useEffect(() => {
-    fetch(`https://api-v3.amtraker.com/v3/trains/${shortenedTrainID}`)
-      .then((res) => res.json())
+    dataManager
+      .getTrain(shortenedTrainID)
       .then((data) => {
         if (Array.isArray(data) && data.length === 0) {
           console.log("removing train due to invalid data");

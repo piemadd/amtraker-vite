@@ -1,5 +1,5 @@
 import { useNavigate, Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import "./trains.css"; //fuck it we ball
 import Fuse from "fuse.js";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
@@ -21,6 +21,7 @@ const debounce = (func, timeout = 300) => {
 
 const TrainsList = () => {
   const navigate = useNavigate();
+  const dataManager = window.dataManager;
 
   const [loading, setLoading] = useState(true);
   const [trainData, setTrainData] = useState([]);
@@ -29,8 +30,7 @@ const TrainsList = () => {
   const [shitsFucked, setShitsFucked] = useState(false);
 
   useEffect(() => {
-    fetch("https://api-v3.amtraker.com/v3/trains")
-      .then((res) => res.json())
+    dataManager.getTrains()
       .then((data) => {
         console.log("data fetched", data);
         setTrainData(Object.values(data).flat());

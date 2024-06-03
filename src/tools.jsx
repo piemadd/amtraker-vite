@@ -1,4 +1,5 @@
 import { stationMeta } from "./data/stations";
+import DataManager from './components/dataManager/dataManager';
 
 const deleteTrain = (trainNum, trainDate) => {
   // removing saved train
@@ -158,14 +159,14 @@ const initAlwaysTracked = () => {
 };
 
 const autoAddTrains = async (trainArr) => {
-  const req = await fetch("https://api-v3.amtraker.com/v3/ids");
-  const ids = await req.json();
+  const dataManager = window.dataManager;
+  const ids = await dataManager.getIDs();
 
-  const alwaysTracked = localStorage
-    .getItem("alwaysTrackedAmtrakerV3")
+  const alwaysTracked = (localStorage
+    .getItem("alwaysTrackedAmtrakerV3") ?? '')
     .split(",");
 
-  let savedTrains = localStorage.getItem("savedTrainsAmtrakerV3").split(",");
+  let savedTrains = (localStorage.getItem("savedTrainsAmtrakerV3") ?? '').split(",");
 
   ids.forEach((id) => {
     const trainNum = id.split("-")[0];
