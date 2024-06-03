@@ -8,7 +8,7 @@ import stringToHash from "../../components/money/stringToHash";
 const FullTrainsList = () => {
   const navigate = useNavigate();
 
-  const [bgURL, setBGURL] = useState("/content/images/amtraker-bg.webp");
+  const [bgURL, setBGURL] = useState("/content/images/amtraker-back.webp");
   const [bgClass, setBGClass] = useState("bg-focus-in");
 
   useEffect(() => {

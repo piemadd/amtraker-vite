@@ -48,7 +48,7 @@ const TrainsByNumber = () => {
     });
   }, [trainNum, navigate]);
 
-  const [bgURL, setBGURL] = useState("/content/images/amtraker-bg.webp");
+  const [bgURL, setBGURL] = useState("/content/images/amtraker-back.webp");
   const [bgClass, setBGClass] = useState("bg-focus-in");
 
   useEffect(() => {
