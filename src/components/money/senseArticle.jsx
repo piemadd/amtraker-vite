@@ -5,6 +5,8 @@ const SenseBlock = (props) => {
   const { dataAdSlot } = props;
   const [isAdBlocked, setIsadBlocked] = useState(false);
 
+  return null;
+
   useEffect(() => {
     try {
       (window.adsbygoogle = window.adsbygoogle ? window.adsbygoogle : []).push(
