@@ -33,8 +33,7 @@ export class DataManager {
 
   //if the data hasnt been updated within 5 minute or is null, update it
   async checkDataStatusAndUpdate() {
-    if (Object.keys(this._data).length === 0) {
-      console.log('DM-C:', this._id);
+    const runFetch = (async () => {
       const res = await fetch('https://api-v3.amtraker.com/v3/all');
       const data = await res.json();
       this._data = data;
@@ -42,6 +41,18 @@ export class DataManager {
       //i know this is gonna be 1 refresh out of date. fuck you, i don't give a shit
       localStorage.setItem('amtraker_datamanager_v1_data', JSON.stringify(this._data));
       localStorage.setItem('amtraker_datamanager_v1_endpoints', JSON.stringify(this._endpoints));
+    })
+
+    // if we have no data
+    if (Object.keys(this._data).length === 0) {
+      console.log('DM-CND:', this._id);
+      await runFetch(); //run fetch but dont allow a success until we've updated
+    }
+
+    // if data is out of date
+    else if (this._lastUpdated < now - (1000 * 60)) {
+      console.log('DM-COD:', this._id);
+      runFetch(); // return data but allow a success for now
     }
 
     return;
