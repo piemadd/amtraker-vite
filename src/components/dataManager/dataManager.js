@@ -2,6 +2,7 @@ export class DataManager {
   constructor() {
     const now = Date.now();
 
+    this._now = now;
     this._id = (Math.random() + 1).toString(36).substring(7);
     this._data = JSON.parse(localStorage.getItem('amtraker_datamanager_v1_data') ?? '{}');
     this._lastUpdated = localStorage.getItem('amtraker_datamanager_v1_last_updated') ?? 0;
@@ -50,7 +51,7 @@ export class DataManager {
     }
 
     // if data is out of date
-    else if (this._lastUpdated < now - (1000 * 60)) {
+    else if (this._lastUpdated < this._now - (1000 * 60)) {
       console.log('DM-COD:', this._id);
       runFetch(); // return data but allow a success for now
     }
