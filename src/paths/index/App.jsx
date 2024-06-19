@@ -17,17 +17,6 @@ const App = () => {
   const dataManager = window.dataManager;
 
   useEffect(() => {
-    if (!localStorage.getItem("savedTrainsAmtrakerV3")) {
-      localStorage.setItem("savedTrainsAmtrakerV3", "");
-    }
-
-    setSavedTrains(
-      localStorage
-        .getItem("savedTrainsAmtrakerV3")
-        .split(",")
-        .filter((n) => n)
-    );
-
     autoAddTrains().then(() => {
       setSavedTrains(
         localStorage
@@ -248,7 +237,7 @@ const App = () => {
           </Link>
         </section>
         <section className='amtrakerVersion'>
-          <p>Amtraker v3.10.5</p>
+          <p>Amtraker v3.10.6</p>
           <p>&copy; Piero Maddaleni 2024</p>
         </section>
         <SenseBlock key={"sense-block"} dataAdSlot={"3140178047"} />

@@ -35,13 +35,21 @@ export class DataManager {
   //if the data hasnt been updated within 5 minute or is null, update it
   async checkDataStatusAndUpdate() {
     const runFetch = (async () => {
-      const res = await fetch('https://api-v3.amtraker.com/v3/all');
-      const data = await res.json();
-      this._data = data;
+      try {
+        const res = await fetch('https://api-v3.amtraker.com/v3/all', {
+          cache: 'reload',
+          signal: AbortSignal.timeout(5000)
+        });
+        const data = await res.json();
+        this._data = data;
 
-      //i know this is gonna be 1 refresh out of date. fuck you, i don't give a shit
-      localStorage.setItem('amtraker_datamanager_v1_data', JSON.stringify(this._data));
-      localStorage.setItem('amtraker_datamanager_v1_endpoints', JSON.stringify(this._endpoints));
+        //i know this is gonna be 1 refresh out of date. fuck you, i don't give a shit
+        localStorage.setItem('amtraker_datamanager_v1_data', JSON.stringify(this._data));
+        localStorage.setItem('amtraker_datamanager_v1_endpoints', JSON.stringify(this._endpoints));
+        console.log('Initial request succeeded')
+      } catch (e) {
+        console.log('Initial request timed out, using cached data')
+      }
     })
 
     // if we have no data
@@ -53,7 +61,8 @@ export class DataManager {
     // if data is out of date
     else if (this._lastUpdated < this._now - (1000 * 60)) {
       console.log('DM-COD:', this._id);
-      runFetch(); // return data but allow a success for now
+      await runFetch(); // return data but allow a success for now
+      //actually we want to try blocking, at least for now
     }
 
     return;
