@@ -88,9 +88,9 @@ export class DataManager {
       };
     }
 
-    if (!this._data.trains[trainNum]) return []; // train number doesn't exist
+    if (!this._data.trains[trainID]) return []; // train number doesn't exist
     return {
-      [trainNum]: this._data.trains[trainNum]
+      [trainID]: this._data.trains[trainID]
     }
   }
 
