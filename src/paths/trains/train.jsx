@@ -1,4 +1,9 @@
-import { useParams, useNavigate, Link } from "react-router-dom";
+import {
+  useParams,
+  useNavigate,
+  useSearchParams,
+  Link,
+} from "react-router-dom";
 import { useEffect, useState } from "react";
 import ManualStationBox from "../../components/stationBox/manualStationBox";
 import stringToHash from "../../components/money/stringToHash";
@@ -7,11 +12,7 @@ import "./trains.css";
 import SettingsInit from "../index/settingsInit";
 import {
   deleteTrain,
-  hoursAndMinutesUnitl,
-  toHoursAndMinutesLate,
-  colorizedToHoursAndMinutesLate,
   calculateDistanceBetweenCoordinates,
-  presetExponential,
   calculateTimeTilLocation,
   initAlwaysTracked,
   addAlwaysTracked,
@@ -19,21 +20,10 @@ import {
 } from "../../tools";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import SenseBlock from "../../components/money/senseArticle";
-import DataManager from "../../components/dataManager/dataManager.js";
-
-const fullDirections = {
-  N: "North",
-  S: "South",
-  E: "East",
-  W: "West",
-  NE: "Northeast",
-  NW: "Northwest",
-  SE: "Southeast",
-  SW: "Southwest",
-};
 
 const BetterTrainPage = () => {
   const { trainNum, trainDate } = useParams();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const dataManager = window.dataManager;
 
@@ -177,36 +167,45 @@ const BetterTrainPage = () => {
         src={bgURL}
       ></img>
       <div className='trainPage'>
-        <div className='header-trainpage'>
-          <h2
-            onClick={() => {
-              if (history.state.idx && history.state.idx > 0) {
-                navigate(-1);
-              } else {
-                navigate("/", { replace: true }); //fallback
-              }
-            }}
-            className='click'
-          >
-            Back
-          </h2>
-          {navigator.share ? (
+        {!searchParams.has("oembed") ? (
+          <div className='header-trainpage'>
             <h2
               onClick={() => {
-                navigator.share({
-                  title: `Track the Amtrak ${trainData[0].routeName} Train with Amtraker!`,
-                  url: `https://amtraker.com/trains/${trainData[0].trainID
-                    .split("-")
-                    .join("/")}`,
-                });
+                if (history.state.idx && history.state.idx > 0) {
+                  navigate(-1);
+                } else {
+                  navigate("/", { replace: true }); //fallback
+                }
               }}
               className='click'
             >
-              Share Train
+              Back
             </h2>
-          ) : null}
-        </div>
-        <section className='section-trainPage'>
+            {navigator.share ? (
+              <h2
+                onClick={() => {
+                  navigator.share({
+                    title: `Track the Amtrak ${trainData[0].routeName} Train with Amtraker!`,
+                    url: `https://amtraker.com/trains/${trainData[0].trainID
+                      .split("-")
+                      .join("/")}`,
+                  });
+                }}
+                className='click'
+              >
+                Share Train
+              </h2>
+            ) : null}
+          </div>
+        ) : null}
+        <section
+          className='section-trainPage'
+          style={{
+            height: searchParams.has("oembed")
+              ? "calc(100vh - 64px)"
+              : "calc(100vh - 114px)",
+          }}
+        >
           <SettingsInit />
           {!loading ? (
             <>
@@ -227,48 +226,57 @@ const BetterTrainPage = () => {
                       maxWidth={true}
                     />
                   </div>
+                  {!searchParams.has("oembed") ? (
+                    <>
+                      <h2>Manage Train:</h2>
+                      <p
+                        className='click'
+                        style={{
+                          textDecoration: "underline",
+                          marginTop: "-6px",
+                        }}
+                        onClick={() => {
+                          deleteTrain(trainNum, trainDate);
 
-                  <h2>Manage Train:</h2>
-                  <p
-                    className='click'
-                    style={{ textDecoration: "underline", marginTop: "-6px" }}
-                    onClick={() => {
-                      deleteTrain(trainNum, trainDate);
-
-                      if (history.state.idx && history.state.idx > 0) {
-                        navigate(-1);
-                      } else {
-                        navigate("/", { replace: true }); //fallback
-                      }
-                    }}
-                  >
-                    Delete Train
-                  </p>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      gap: "8px",
-                      fontSize: "1.5rem",
-                      fontWeight: "300",
-                    }}
-                  >
-                    <input
-                      type='checkbox'
-                      checked={alwaysTracked}
-                      onChange={(e) => {
-                        setAlwaysTracked(e.target.checked);
-                        if (e.target.checked) {
-                          addAlwaysTracked(trainNum);
-                        } else {
-                          removeAlwaysTracked(trainNum);
-                        }
-                        console.log("always tracked change:", e.target.checked);
-                      }}
-                    />
-                    <label>Always Track Train {trainNum}</label>
-                  </div>
+                          if (history.state.idx && history.state.idx > 0) {
+                            navigate(-1);
+                          } else {
+                            navigate("/", { replace: true }); //fallback
+                          }
+                        }}
+                      >
+                        Delete Train
+                      </p>
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          gap: "8px",
+                          fontSize: "1.5rem",
+                          fontWeight: "300",
+                        }}
+                      >
+                        <input
+                          type='checkbox'
+                          checked={alwaysTracked}
+                          onChange={(e) => {
+                            setAlwaysTracked(e.target.checked);
+                            if (e.target.checked) {
+                              addAlwaysTracked(trainNum);
+                            } else {
+                              removeAlwaysTracked(trainNum);
+                            }
+                            console.log(
+                              "always tracked change:",
+                              e.target.checked
+                            );
+                          }}
+                        />
+                        <label>Always Track Train {trainNum}</label>
+                      </div>
+                    </>
+                  ) : null}
                   {new Date(trainData[0].lastValTS).valueOf() <
                   new Date().valueOf() - 1000 * 60 * 15 ? (
                     <p className='staleTrainWarning'>

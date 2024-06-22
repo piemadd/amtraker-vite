@@ -1,20 +1,25 @@
-import { useParams, useNavigate, Link } from "react-router-dom";
+import {
+  useParams,
+  useNavigate,
+  useSearchParams,
+  Link,
+} from "react-router-dom";
 import { useEffect, useState } from "react";
 import { trainNames } from "../../data/trains";
 import "./trains.css";
 import SettingsInit from "../index/settingsInit";
 import stringToHash from "../../components/money/stringToHash";
-import DataManager from "../../components/dataManager/dataManager";
 
 const TrainsByNumber = () => {
   const { trainNum } = useParams();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const dataManager = window.dataManager;
 
   const [loading, setLoading] = useState(true);
   const [trainData, setTrainData] = useState([]);
   const [selectedTrain, setSelectedTrain] = useState("");
-  const [trainLink, setTrainLink] = useState(`/trains/${trainNum}`);
+  const [trainLink, setTrainLink] = useState(`/trains/${trainNum}${searchParams.has("oembed") ? '?oembed' : ''}`);
 
   useEffect(() => {
     dataManager.getTrain(trainNum).then((data) => {
@@ -33,7 +38,7 @@ const TrainsByNumber = () => {
 
         setTrainData(sorted);
         setSelectedTrain(sorted[0].trainID);
-        setTrainLink(`/trains/${trainNum}/${sorted[0].trainID.split("-")[1]}`);
+        setTrainLink(`/trains/${trainNum}/${sorted[0].trainID.split("-")[1]}${searchParams.has("oembed") ? '?oembed' : ''}`);
 
         if (data[trainNum].length === 1) {
           console.log("only one train, navigating");
@@ -90,7 +95,7 @@ const TrainsByNumber = () => {
                     onChange={(e) => {
                       setSelectedTrain(e.target.value);
                       setTrainLink(
-                        `/trains/${trainNum}/${e.target.value.split("-")[1]}`
+                        `/trains/${trainNum}/${e.target.value.split("-")[1]}${searchParams.has("oembed") ? '?oembed' : ''}`
                       );
                     }}
                   >
@@ -115,22 +120,23 @@ const TrainsByNumber = () => {
                 </>
               ) : (
                 <>
-                  <h3>Track the</h3>
-                  <h2>{trainNames[trainNum]}</h2>
+                  <h2>Train {trainNum}</h2>
                   <h4>
                     No trains with that number are currently tracking. Sorry :(
                   </h4>
-                  <button
-                    onClick={() => {
-                      if (history.state.idx && history.state.idx > 0) {
-                        navigate(-1);
-                      } else {
-                        navigate("/", { replace: true }); //fallback
-                      }
-                    }}
-                  >
-                    Go Back to Home
-                  </button>
+                  {!searchParams.has("oembed") ? (
+                    <button
+                      onClick={() => {
+                        if (history.state.idx && history.state.idx > 0) {
+                          navigate(-1);
+                        } else {
+                          navigate("/", { replace: true }); //fallback
+                        }
+                      }}
+                    >
+                      Go Back to Home
+                    </button>
+                  ) : null}
                 </>
               )}
             </div>
