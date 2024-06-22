@@ -1,5 +1,5 @@
-/trains/:trainNum/:trainDate
-  Link: <https://api.amtraker.com/v3/oembed?url=https%3A%2F%2Famtraker.com%2Ftrains%2F:trainNum%2F:trainDate&format=json>; rel="alternate"; type="application/json+oembed"; title="Amtraker"
+https://amtraker.com//trains/:trainNum
+  OembedTest: <https://api.amtraker.com/v3/oembed?url=https%3A%2F%2Famtraker.com%2Ftrains%2F:trainNum&format=json>; rel="alternate"; type="application/json+oembed"; title="Amtraker"
 
-/trains/:trainNum
-  Link: <https://api.amtraker.com/v3/oembed?url=https%3A%2F%2Famtraker.com%2Ftrains%2F:trainNum&format=json>; rel="alternate"; type="application/json+oembed"; title="Amtraker"
+https://amtraker.com/trains/:trainNum/:trainDate
+  OembedTestDate: <https://api.amtraker.com/v3/oembed?url=https%3A%2F%2Famtraker.com%2Ftrains%2F:trainNum%2F:trainDate&format=json>; rel="alternate"; type="application/json+oembed"; title="Amtraker"
