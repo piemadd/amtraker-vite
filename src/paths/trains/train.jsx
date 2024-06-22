@@ -490,17 +490,19 @@ const BetterTrainPage = () => {
                     This train is not currently tracking. Please try again
                     later. We apologize for the inconvenience.
                   </p>
-                  <button
-                    onClick={() => {
-                      if (history.state.idx && history.state.idx > 0) {
-                        navigate(-1);
-                      } else {
-                        navigate("/", { replace: true }); //fallback
-                      }
-                    }}
-                  >
-                    Go Back
-                  </button>
+                  {!searchParams.has("oembed") ? (
+                    <button
+                      onClick={() => {
+                        if (history.state.idx && history.state.idx > 0) {
+                          navigate(-1);
+                        } else {
+                          navigate("/", { replace: true }); //fallback
+                        }
+                      }}
+                    >
+                      Go Back
+                    </button>
+                  ) : null}
                 </>
               )}
             </>
