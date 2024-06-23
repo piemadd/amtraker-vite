@@ -1,3 +1,5 @@
+import sampleTrain from './sampleTrain.json';
+
 export class DataManager {
   constructor() {
     const now = Date.now();
@@ -74,6 +76,10 @@ export class DataManager {
 
   async getTrain(trainID) {
     //a full ID is passed
+    if (trainID.startsWith('9999')) {
+      return sampleTrain;
+    }
+
     if (trainID.includes('-')) {
       const trainNum = trainID.split('-')[0];
 
