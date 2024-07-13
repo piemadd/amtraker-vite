@@ -2409,13 +2409,13 @@
       "any",
       [
         "==",
-        "routeColor",
-        "#5366c9"
+        "provider",
+        "amtrak"
       ],
       [
         "==",
-        "routeColor",
-        "#a5c9d7_PIERCER"
+        "provider",
+        "via_rail"
       ]
     ],
     "layout": {
@@ -2437,13 +2437,13 @@
       "any",
       [
         "==",
-        "routeColor",
-        "#5366c9"
+        "provider",
+        "amtrak"
       ],
       [
         "==",
-        "routeColor",
-        "#a5c9d7_PIERCER"
+        "provider",
+        "via_rail"
       ]
     ],
     "layout": {
