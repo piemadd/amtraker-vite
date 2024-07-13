@@ -428,7 +428,7 @@ const AmtrakerMap = () => {
                 },
                 transit_lines: {
                   type: "vector",
-                  url: "pmtiles://https://tilealt.piemadd.com/transit.pmtiles",
+                  url: "pmtiles://https://gobbler.transitstat.us/transit.pmtiles",
                   maxzoom: 12,
                 },
               },
