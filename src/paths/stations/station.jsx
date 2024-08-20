@@ -70,14 +70,22 @@ const StationPage = () => {
               {stationData.name} ({stationData.code})&nbsp;
             </div>
             <p>
-              <span className='greyed'>
-                {stationData.address1}{" "}
-                {stationData.address2 !== " " ? stationData.address2 : null}
-                <br />
-                {stationData.city}, {stationData.state} {stationData.zip}
-                <br />
-                {stationData.tz}
-              </span>
+              {stationData.hasAddress ? (
+                <span className='greyed'>
+                  {stationData.address1}{" "}
+                  {stationData.address2 !== " " ? stationData.address2 : null}
+                  <br />
+                  {stationData.city}, {stationData.state} {stationData.zip}
+                  <br />
+                  {stationData.tz}
+                </span>
+              ) : (
+                <span className='greyed'>
+                  Address not available.
+                  <br />
+                  {stationData.tz}
+                </span>
+              )}
             </p>
           </div>
           <h2>Trains</h2>

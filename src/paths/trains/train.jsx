@@ -7,7 +7,6 @@ import {
 import { useEffect, useState } from "react";
 import ManualStationBox from "../../components/stationBox/manualStationBox";
 import stringToHash from "../../components/money/stringToHash";
-import { stationMeta } from "../../data/stations.js";
 import "./trains.css";
 import SettingsInit from "../index/settingsInit";
 import {

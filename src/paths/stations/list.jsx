@@ -163,16 +163,24 @@ const StationsList = () => {
                               {station.name} ({station.code})&nbsp;
                             </div>
                             <p>
-                              <span className='greyed'>
-                                {station.address1}{" "}
-                                {station.address2 !== " "
-                                  ? station.address2
-                                  : null}
-                                <br />
-                                {station.city}, {station.state} {station.zip}
-                                <br />
-                                {station.tz}
-                              </span>
+                              {station.hasAddress ? (
+                                <span className='greyed'>
+                                  {station.address1}{" "}
+                                  {station.address2 !== " "
+                                    ? station.address2
+                                    : null}
+                                  <br />
+                                  {station.city}, {station.state} {station.zip}
+                                  <br />
+                                  {station.tz}
+                                </span>
+                              ) : (
+                                <span className='greyed'>
+                                  Address not available.
+                                  <br />
+                                  {station.tz}
+                                </span>
+                              )}
                             </p>
                           </div>
                         </Link>
@@ -191,16 +199,24 @@ const StationsList = () => {
                             {station.name} ({station.code})&nbsp;
                           </div>
                           <p>
-                            <span className='greyed'>
-                              {station.address1}{" "}
-                              {station.address2 !== " "
-                                ? station.address2
-                                : null}
-                              <br />
-                              {station.city}, {station.state} {station.zip}
-                              <br />
-                              {station.tz}
-                            </span>
+                            {station.hasAddress ? (
+                              <span className='greyed'>
+                                {station.address1}{" "}
+                                {station.address2 !== " "
+                                  ? station.address2
+                                  : null}
+                                <br />
+                                {station.city}, {station.state} {station.zip}
+                                <br />
+                                {station.tz}
+                              </span>
+                            ) : (
+                              <span className='greyed'>
+                                Address not available.
+                                <br />
+                                {station.tz}
+                              </span>
+                            )}
                           </p>
                         </div>
                       </Link>
