@@ -14,6 +14,7 @@
     "@use-gesture/react": "^10.2.24",
     "@vitejs/plugin-react-swc": "^3.0.0",
     "fuse.js": "^6.6.2",
+    "localforage": "^1.10.0",
     "mapbox-gl": "npm:empty-npm-package@^1.0.0",
     "maplibre-gl": "^2.4.0",
     "pmtiles": "^2.7.0",

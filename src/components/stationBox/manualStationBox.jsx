@@ -58,11 +58,17 @@ const ManualStationBox = ({ station, train, loading = false }) => {
       </div>
       <div>
         <p className='greyed'>
-          {station.status === "Departed" ? "Dep" : "Est arr"}
+          {station.status === "Departed"
+            ? "Dep"
+            : station.status === "Enroute"
+            ? "Est arr"
+            : "Est dep"}
         </p>
         &nbsp;
         <p className={`${stationTimelyClass}-text status-text`}>
-          {toHoursAndMinutesLate(dep, schDep)}
+          {station.status === "Enroute"
+            ? toHoursAndMinutesLate(arr, schArr)
+            : toHoursAndMinutesLate(dep, schDep)}
         </p>
       </div>
       {train.origCode !== station.code && station.status === "Enroute" ? (
@@ -102,6 +108,33 @@ const ManualStationBox = ({ station, train, loading = false }) => {
               day: "numeric",
               timeZone: station.tz,
             }).format(dep)}
+          </p>
+        </div>
+      ) : null}
+      {train.destCode !== station.code && station.status === "Station" ? (
+        <div>
+          <p>
+            {new Intl.DateTimeFormat([], {
+              hour: "numeric",
+              minute: "numeric",
+              timeZone: station.tz,
+            }).format(dep)}
+          </p>
+          &nbsp;
+          <p className='greyed'>
+            {": "}
+            {new Intl.DateTimeFormat([], {
+              month: "short",
+              day: "numeric",
+              timeZone: station.tz,
+            }).format(dep)}
+          </p>
+        </div>
+      ) : null}
+      {station.platform.length > 0 ? (
+        <div>
+          <p className='greyed'>
+            Track {station.platform}
           </p>
         </div>
       ) : null}

@@ -1,4 +1,11 @@
 import sampleTrain from './sampleTrain.json';
+import localForage from "localforage";
+
+localForage.config({
+  name: "AmtrakerOffline",
+  storeName: "AmtrakerOfflineStore",
+  version: "3"
+})
 
 export class DataManager {
   constructor() {
@@ -6,8 +13,8 @@ export class DataManager {
 
     this._now = now;
     this._id = (Math.random() + 1).toString(36).substring(7);
-    this._data = JSON.parse(localStorage.getItem('amtraker_datamanager_v1_data') ?? '{}');
-    this._lastUpdated = localStorage.getItem('amtraker_datamanager_v1_last_updated') ?? 0;
+    this._data = localForage.getItem('amtraker_datamanager_v1_data') ?? {};
+    this._lastUpdated = localForage.getItem('amtraker_datamanager_v1_last_updated') ?? 0;
 
     const updateData = () => {
       if (this._lastUpdated < now - (1000 * 60)) { //if the last time we fetched data was more than a minute ago
@@ -25,8 +32,7 @@ export class DataManager {
       }
 
       //i know this is gonna be 1 refresh out of date. fuck you, i don't give a shit
-      localStorage.setItem('amtraker_datamanager_v1_data', JSON.stringify(this._data));
-      localStorage.setItem('amtraker_datamanager_v1_endpoints', JSON.stringify(this._endpoints));
+      localForage.setItem('amtraker_datamanager_v1_data', JSON.stringify(this._data));
     }
 
     setInterval(() => {
@@ -46,8 +52,7 @@ export class DataManager {
         this._data = data;
 
         //i know this is gonna be 1 refresh out of date. fuck you, i don't give a shit
-        localStorage.setItem('amtraker_datamanager_v1_data', JSON.stringify(this._data));
-        localStorage.setItem('amtraker_datamanager_v1_endpoints', JSON.stringify(this._endpoints));
+        localForage.setItem('amtraker_datamanager_v1_data', JSON.stringify(this._data));
         console.log('Initial request succeeded')
       } catch (e) {
         console.log('Initial request timed out, using cached data')

@@ -99,7 +99,7 @@ const ManualTrainBox = ({
         {toHoursAndMinutesLate(arr, schArr)} - {train.velocity.toFixed(1)} mph
       </p>
       <p>
-        Next: {train.eventName} ({train.eventCode})
+        Next: {train.eventName} ({train.eventCode}){currentStation.platform.length > 0 ? ` [Track ${currentStation.platform}]` : null}
       </p>
       {train.statusMsg === "SERVICE DISRUPTION" ? (
         <p>
