@@ -6,6 +6,7 @@ import Map, {
   Popup,
   NavigationControl,
   FullscreenControl,
+  GeolocateControl
   //Source,
 } from "react-map-gl";
 import maplibregl from "maplibre-gl";
@@ -17,12 +18,9 @@ import Fuse from "fuse.js";
 //import mapStyle from "./style.json";
 import mapLayers from "./mapLayers.json";
 import MarkerIcon from "./MarkerIcon.jsx";
-import UserMarker from "./UserMarker.svg";
 import ManualTrainPopup from "../../components/trainBox/maualTrainPopup";
 import ManualStationBox from "../../components/stationBox/manualStationBox";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
-import DataManager from "../../components/dataManager/dataManager.js";
-//import nationalRoute from "./nationalRoute.json";
 
 //adding pmtiles protocol
 let protocol = new pmtiles.Protocol();
@@ -88,10 +86,8 @@ const AmtrakerMap = () => {
   const [allData, setAllData] = useState([]);
   const [showAll, setShowAll] = useState(false);
   const [popupInfo, setPopupInfo] = useState(null);
-  const [foamerMode, setFoamerMode] = useState(false);
   const [results, setResults] = useState([]);
   const [query, updateQuery] = useState("");
-  const [userLocation, setUserLocation] = useState([0, 0]);
   const [windowSize, setWindowSize] = useState([
     window.innerWidth,
     window.innerHeight,
@@ -126,31 +122,12 @@ const AmtrakerMap = () => {
   //const nationalRouteMemo = useMemo(() => nationalRoute, []);
 
   useEffect(() => {
+    /*
     let settings = JSON.parse(localStorage.getItem("amtraker-v3-settings"));
     if (settings) {
-      if (settings.foamerMode) {
-        /*
-        setFoamerMode(settings.foamerMode);
-
-        navigator.geolocation.watchPosition(
-          (pos) => {
-            setUserLocation([pos.coords.latitude, pos.coords.longitude]);
-          },
-          (err) => {
-            console.log(err);
-          },
-          {
-            enableHighAccuracy: true,
-            timeout: 5000,
-          }
-        );
-        */
-      } else {
-        setFoamerMode(false);
-        settings.foamerMode = false;
-      }
       localStorage.setItem("amtraker-v3-settings", JSON.stringify(settings));
     } //else is handled by the settings init
+    */
   }, []);
 
   const savedTrains = useMemo(() => {
@@ -331,12 +308,12 @@ const AmtrakerMap = () => {
                       setResults(
                         e.target.value.length > 0
                           ? fuse
-                              .search(e.target.value)
-                              .map((result, i) => result.item)
+                            .search(e.target.value)
+                            .map((result, i) => result.item)
                           : allData.filter((n) => {
-                              if (showAll) return true;
-                              return savedTrainsShortID.includes(n.trainID);
-                            })
+                            if (showAll) return true;
+                            return savedTrainsShortID.includes(n.trainID);
+                          })
                       )
                     );
                   }}
@@ -344,44 +321,44 @@ const AmtrakerMap = () => {
               )}
               {popupInfo
                 ? popupInfo.stations.map((station, i, arr) => {
-                    return (
-                      <Link
-                        to={`/stations/${station.code}`}
-                        key={`station-${station.code}`}
-                        className='station-link'
-                      >
-                        <ManualStationBox station={station} train={popupInfo} />
-                      </Link>
-                    );
-                  })
+                  return (
+                    <Link
+                      to={`/stations/${station.code}`}
+                      key={`station-${station.code}`}
+                      className='station-link'
+                    >
+                      <ManualStationBox station={station} train={popupInfo} />
+                    </Link>
+                  );
+                })
                 : results
-                    .filter((n) => {
-                      if (showAll) return true;
-                      return savedTrainsShortID.includes(n.trainID);
-                    })
-                    .map((train) => {
-                      return (
-                        <div
-                          style={{
-                            marginRight: "8px",
+                  .filter((n) => {
+                    if (showAll) return true;
+                    return savedTrainsShortID.includes(n.trainID);
+                  })
+                  .map((train) => {
+                    return (
+                      <div
+                        style={{
+                          marginRight: "8px",
+                        }}
+                      >
+                        <ManualTrainBox
+                          train={train}
+                          maxWidth={true}
+                          onClick={() => {
+                            setPopupInfo(train);
+                            if (mapRef.current) {
+                              mapRef.current.getMap().flyTo({
+                                center: [train.lon, train.lat],
+                                duration: 500,
+                              });
+                            }
                           }}
-                        >
-                          <ManualTrainBox
-                            train={train}
-                            maxWidth={true}
-                            onClick={() => {
-                              setPopupInfo(train);
-                              if (mapRef.current) {
-                                mapRef.current.getMap().flyTo({
-                                  center: [train.lon, train.lat],
-                                  duration: 500,
-                                });
-                              }
-                            }}
-                          />
-                        </div>
-                      );
-                    })}
+                        />
+                      </div>
+                    );
+                  })}
             </div>
           ) : null}
           <Map
@@ -451,28 +428,10 @@ const AmtrakerMap = () => {
                 <ManualTrainPopup train={popupInfo} />
               </Popup>
             )}
-
             {markers}
             <NavigationControl visualizePitch={true} />
             <FullscreenControl />
-            {foamerMode ? (
-              <Marker
-                latitude={userLocation[0]}
-                longitude={userLocation[1]}
-                anchor='center'
-                dsadrotationAlignment='map'
-                key={"user-marker"}
-                height={"16px"}
-              >
-                <img
-                  src={UserMarker}
-                  alt='user'
-                  style={{
-                    height: "16px",
-                  }}
-                />
-              </Marker>
-            ) : null}
+            <GeolocateControl />
             <div className='map-over'>
               <div className='attribution'>
                 <a href='https://protomaps.com' target='_blank'>
@@ -492,9 +451,9 @@ const AmtrakerMap = () => {
                     query.length > 0
                       ? fuse.search(query).map((result, i) => result.item)
                       : allData.filter((n) => {
-                          if (!currentShowAll) return true;
-                          return savedTrainsShortID.includes(n.trainID);
-                        })
+                        if (!currentShowAll) return true;
+                        return savedTrainsShortID.includes(n.trainID);
+                      })
                   );
                 }}
               >

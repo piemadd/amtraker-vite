@@ -15,7 +15,7 @@ const dataManager = new DataManager();
 window.dataManager = dataManager;
 
 //paths
-//import App from "./paths/index/App.jsx";
+import App from "./paths/index/App.jsx";
 //import TrainsByNumber from "./paths/trains/num.jsx";
 //import BetterTrainPage from "./paths/trains/train.jsx";
 //import TrainsList from "./paths/trains/list.jsx";
@@ -28,7 +28,7 @@ window.dataManager = dataManager;
 //import AboutPage from "./paths/index/about";
 //import ICookaDaMeatBall from "./paths/index/ICookaDaMeatBall";
 
-const App = React.lazy(() => import("./paths/index/App.jsx"));
+//const App = React.lazy(() => import("./paths/index/App.jsx"));
 const TrainsByNumber = React.lazy(() => import("./paths/trains/num.jsx"));
 const BetterTrainPage = React.lazy(() => import("./paths/trains/train.jsx"));
 const TrainsList = React.lazy(() => import("./paths/trains/list.jsx"));

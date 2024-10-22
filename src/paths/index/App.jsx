@@ -42,9 +42,8 @@ const App = () => {
       //setSavedTrainsObjects([]);
       let savedTranisObjectsTemp = [];
       savedTrains.forEach((trainID, i, arr) => {
-        const shortenedTrainID = `${trainID.split("-")[0]}-${
-          trainID.split("-")[2]
-        }`;
+        const shortenedTrainID = `${trainID.split("-")[0]}-${trainID.split("-")[2]
+          }`;
 
         dataManager
           .getTrain(shortenedTrainID)
@@ -79,7 +78,7 @@ const App = () => {
             if (
               (schDep.getMonth() + 1 !== parseInt(trainID.split("-")[1]) ||
                 schDep.getFullYear().toString().substring(2, 4) !==
-                  trainID.split("-")[3]) &&
+                trainID.split("-")[3]) &&
               !trainID.includes("NaN")
             ) {
               console.log("removing train due to incorrect date");
@@ -142,9 +141,9 @@ const App = () => {
     stringToHash(localStorage.getItem("passphrase")).then((hash) => {
       if (
         hash ==
-          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
+        "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
         hash ==
-          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
+        "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
       ) {
         setBGURL("/content/images/prideflag.jpg");
         setBGClass("bg-focus-in peppino");
@@ -161,8 +160,11 @@ const App = () => {
         src={bgURL}
       ></img>
       <main>
-        <h2 className='welcome-to'>Welcome to</h2>
-        <h1 className='gayTitle'>Amtraker</h1>
+        {/*<h2 className='welcome-to'>Welcome to</h2>*/}
+        <div className="titleArea">
+          <h1 className='gayTitle'>Amtraker</h1>
+          <p className="slogan">3rd Anniversarry!</p>
+        </div>
         <SettingsInit />
         <section id='section-saved'>
           {isStale ? (
@@ -237,8 +239,8 @@ const App = () => {
           </Link>
         </section>
         <section className='amtrakerVersion'>
-          <p>Amtraker v3.12.1</p>
-          <p>&copy; Piero Maddaleni 2024</p>
+          <p>Amtraker v3.12.2</p>
+          <p>&copy; <a href="https://piemadd.com" target="_blank">Piero Maddaleni</a> 2024</p>
         </section>
         <SenseBlock key={"sense-block"} dataAdSlot={"3140178047"} />
       </main>

@@ -2,6 +2,25 @@ root {
   text-align: cetner;
 }
 
+.titleArea {
+  display: block;
+}
+
+.titleArea .slogan {
+  color: #ffffff;
+  text-shadow: 0px 0px 12px #000000;
+  position: relative;
+  width: 0;
+  height: 0;
+  text-wrap: nowrap;
+  top: -105px; /* gayTitle size is 96px */
+  right: -200px;
+  rotate: 20deg;
+  font-size: 125%;
+  font-weight: 500;
+  text-align: center;
+}
+
 .gayTitle {
   background: #ffffff;
   /*
