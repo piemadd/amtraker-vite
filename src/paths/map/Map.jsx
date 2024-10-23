@@ -374,6 +374,7 @@ const AmtrakerMap = () => {
               pitch: 0,
               bearing: 0,
             }}
+            attributionControl={false}
             renderWorldCopies={true}
             mapStyle={{
               zoom: 0,
