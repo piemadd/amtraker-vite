@@ -2431,6 +2431,11 @@
         "==",
         "provider",
         "via_rail"
+      ],
+      [
+        "==",
+        "provider",
+        "brightline"
       ]
     ],
     "layout": {
@@ -2459,6 +2464,11 @@
         "==",
         "provider",
         "via_rail"
+      ],
+      [
+        "==",
+        "provider",
+        "brightline"
       ]
     ],
     "layout": {
