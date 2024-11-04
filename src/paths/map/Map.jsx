@@ -384,6 +384,32 @@ const AmtrakerMap = () => {
                 "https://fonts.transitstat.us/_output/{fontstack}/{range}.pbf",
               sprite: "https://osml.transitstat.us/sprites/osm-liberty",
               layers: mapLayers, //layers("protomaps", "dark"),
+              projection: { "type": "globe" },
+              sky: {
+                "sky-color": "#199EF3",
+                "sky-horizon-blend": 0.5,
+                "horizon-color": "#ffffff",
+                "horizon-fog-blend": 0.5,
+                "fog-color": "#0000ff",
+                "fog-ground-blend": 0.5,
+                "atmosphere-blend": [
+                    "interpolate",
+                    ["linear"],
+                    ["zoom"],
+                    0,
+                    1,
+                    5,
+                    0,
+                    12,
+                    0
+                ]
+            },
+              light: {
+                anchor: "viewport",
+                color: "#88C6FC",
+                intensity: 0,
+                position: [1, 180, 180]
+              },
               bearing: 0,
               sources: {
                 protomaps: {
