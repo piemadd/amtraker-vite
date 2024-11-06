@@ -163,7 +163,7 @@ const App = () => {
         {/*<h2 className='welcome-to'>Welcome to</h2>*/}
         <div className="titleArea">
           <h1 className='gayTitle'>Amtraker</h1>
-          <p className="slogan">Get out and Vote!</p>
+          {/*<p className="slogan">Get out and Vote!</p>*/}
         </div>
         <SettingsInit />
         <section id='section-saved'>
@@ -208,9 +208,6 @@ const App = () => {
           <Link to={"/trains"}>
             <button className='root'>Track a new Train</button>
           </Link>
-          <Link to={"/vote"}>
-            <button className='root'>Vote for Amtrak</button>
-          </Link>
         </div>
         <div className='links'>
           <Link to={"/map"}>
@@ -242,7 +239,7 @@ const App = () => {
           </Link>
         </section>
         <section className='amtrakerVersion'>
-          <p>Amtraker v3.12.6</p>
+          <p>Amtraker v3.12.7</p>
           <p>&copy; <a href="https://piemadd.com" target="_blank">Piero Maddaleni</a> 2024</p>
         </section>
         <SenseBlock key={"sense-block"} dataAdSlot={"3140178047"} />
