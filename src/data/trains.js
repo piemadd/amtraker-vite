@@ -17,6 +17,8 @@ export const trainNames = {
   28: "Empire Builder",
   29: "Capitol Limited",
   30: "Capitol Limited",
+  40: "Floridian",
+  41: "Floridian",
   42: "Pennsylvanian",
   43: "Pennsylvanian",
   48: "Lake Shore Limited",

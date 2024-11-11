@@ -9,9 +9,26 @@ const year = now.getFullYear();
 const month = (now.getMonth() + 1).toString().padStart(2, '0');
 const day = now.getDate().toString().padStart(2, '0');
 
-sitemap.write('<?xml version="1.0" encoding="UTF-8"?>');
-sitemap.write('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
-sitemap.write(`
+(async () => {
+  const trainsRes = await fetch('https://api.amtraker.com/v3/trains');
+  const stationsRes = await fetch('https://api.amtraker.com/v3/stations');
+
+  const trainsData = await trainsRes.json();
+  const stationsData = await stationsRes.json();
+
+  const newTrainsData = {
+    ...trainNames,
+    ...trainsData
+  };
+
+  const newStationsData = {
+    ...stationNames,
+    ...stationsData,
+  }
+
+  sitemap.write('<?xml version="1.0" encoding="UTF-8"?>');
+  sitemap.write('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
+  sitemap.write(`
   <url>
     <loc>https://amtraker.com/</loc>
     <lastmod>${year}-${month}-${day}</lastmod>
@@ -20,23 +37,23 @@ sitemap.write(`
   </url>
 `);
 
-// train names
-/*
-[...new Set(Object.values(trainNames))].forEach((trainName) => {
-  sitemap.write(`
-  <url>
-    <loc>https://amtraker.com/trains/names/${trainName.replaceAll(' ', '%20')}</loc>
-    <lastmod>${year}-${month}-${day}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-`);
-});
-*/
+  // train names
+  /*
+  [...new Set(Object.values(trainNames))].forEach((trainName) => {
+    sitemap.write(`
+    <url>
+      <loc>https://amtraker.com/trains/names/${trainName.replaceAll(' ', '%20')}</loc>
+      <lastmod>${year}-${month}-${day}</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.9</priority>
+    </url>
+  `);
+  });
+  */
 
-// train numbers
-[...new Set(Object.keys(trainNames))].forEach((trainNum) => {
-  sitemap.write(`
+  // train numbers
+  [...new Set(Object.keys(newTrainsData))].forEach((trainNum) => {
+    sitemap.write(`
   <url>
     <loc>https://amtraker.com/trains/${trainNum}</loc>
     <lastmod>${year}-${month}-${day}</lastmod>
@@ -44,11 +61,11 @@ sitemap.write(`
     <priority>0.8</priority>
   </url>
 `);
-});
+  });
 
-// station codes
-[...new Set(Object.keys(stationNames))].forEach((station) => {
-  sitemap.write(`
+  // station codes
+  [...new Set(Object.keys(newStationsData))].forEach((station) => {
+    sitemap.write(`
   <url>
     <loc>https://amtraker.com/stations/${station}</loc>
     <lastmod>${year}-${month}-${day}</lastmod>
@@ -56,10 +73,10 @@ sitemap.write(`
     <priority>0.7</priority>
   </url>
 `);
-});
+  });
 
-// train list
-sitemap.write(`
+  // train list
+  sitemap.write(`
   <url>
     <loc>https://amtraker.com/trains</loc>
     <lastmod>${year}-${month}-${day}</lastmod>
@@ -68,8 +85,8 @@ sitemap.write(`
   </url>
 `);
 
-// station list
-sitemap.write(`
+  // station list
+  sitemap.write(`
   <url>
     <loc>https://amtraker.com/stations</loc>
     <lastmod>${year}-${month}-${day}</lastmod>
@@ -78,8 +95,8 @@ sitemap.write(`
   </url>
 `);
 
-// map
-sitemap.write(`
+  // map
+  sitemap.write(`
   <url>
     <loc>https://amtraker.com/map</loc>
     <lastmod>${year}-${month}-${day}</lastmod>
@@ -88,8 +105,8 @@ sitemap.write(`
   </url>
 `);
 
-// about page
-sitemap.write(`
+  // about page
+  sitemap.write(`
   <url>
     <loc>https://amtraker.com/about</loc>
     <lastmod>${year}-${month}-${day}</lastmod>
@@ -98,11 +115,9 @@ sitemap.write(`
   </url>
 `);
 
-sitemap.write('</urlset>');
-sitemap.end();
-
-
-
+  sitemap.write('</urlset>');
+  sitemap.end();
+})();
 /*
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
