@@ -36,7 +36,7 @@ const FullTrainsList = React.lazy(() => import("./paths/trains/listFull.jsx"));
 const StationsList = React.lazy(() => import("./paths/stations/list.jsx"));
 const StationPage = React.lazy(() => import("./paths/stations/station.jsx"));
 const Settings = React.lazy(() => import("./paths/index/settings.jsx"));
-const Map = React.lazy(() => import("./paths/map/Map.jsx"));
+const Map = React.lazy(() => import("./paths/map/GlobeMap.jsx"));
 const PrivacyPolicy = React.lazy(() => import("./paths/index/privacy"));
 const AboutPage = React.lazy(() => import("./paths/index/about"));
 const ICookaDaMeatBall = React.lazy(() => import("./paths/index/meatball"));
