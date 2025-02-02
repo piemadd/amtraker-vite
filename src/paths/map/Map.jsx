@@ -16,7 +16,7 @@ import * as pmtiles from "pmtiles";
 import Fuse from "fuse.js";
 //import layers from "protomaps-themes-base";
 //import mapStyle from "./style.json";
-import mapLayers from "./mapLayers.json";
+import { layers } from "./mapLayers.json";
 import MarkerIcon from "./MarkerIcon.jsx";
 import ManualTrainPopup from "../../components/trainBox/maualTrainPopup";
 import ManualStationBox from "../../components/stationBox/manualStationBox";
@@ -380,19 +380,18 @@ const AmtrakerMap = () => {
               zoom: 0,
               pitch: 0,
               center: [41.884579601743276, -87.6279871036212],
-              glyphs:
-                "https://fonts.transitstat.us/_output/{fontstack}/{range}.pbf",
-              sprite: "https://osml.transitstat.us/sprites/osm-liberty",
-              layers: mapLayers, //layers("protomaps", "dark"),
+              sprite: "https://protomaps.github.io/basemaps-assets/sprites/v4/dark",
+              glyphs: "https://protomaps.github.io/basemaps-assets/fonts/{fontstack}/{range}.pbf",
+              layers: layers, //layers("protomaps", "dark"),
               bearing: 0,
               sources: {
                 protomaps: {
                   type: "vector",
                   tiles: [
-                    "https://tilea.transitstat.us/tiles/{z}/{x}/{y}.mvt",
-                    "https://tileb.transitstat.us/tiles/{z}/{x}/{y}.mvt",
-                    "https://tilec.transitstat.us/tiles/{z}/{x}/{y}.mvt",
-                    "https://tiled.transitstat.us/tiles/{z}/{x}/{y}.mvt",
+                    "https://v4mapa.transitstat.us/20250127/{z}/{x}/{y}.mvt",
+                    "https://v4mapb.transitstat.us/20250127/{z}/{x}/{y}.mvt",
+                    "https://v4mapc.transitstat.us/20250127/{z}/{x}/{y}.mvt",
+                    "https://v4mapd.transitstat.us/20250127/{z}/{x}/{y}.mvt"
                   ],
                   maxzoom: 15,
                 },
