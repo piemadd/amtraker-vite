@@ -212,7 +212,7 @@
       "source-layer": "water",
       "minzoom": 14,
       "filter": ["in", "kind", "stream"],
-      "paint": {"line-color": "#80deea", "line-width": 0.5}
+      "paint": {"line-color": "rgba(32, 61, 105, 1)", "line-width": 0.5}
     },
     {
       "id": "water_river",
@@ -222,7 +222,7 @@
       "minzoom": 9,
       "filter": ["in", "kind", "river"],
       "paint": {
-        "line-color": "rgba(48, 103, 115, 1)",
+        "line-color": "rgba(32, 61, 105, 1)",
         "line-width": [
           "interpolate",
           ["exponential", 1.6],
