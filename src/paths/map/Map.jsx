@@ -98,7 +98,6 @@ const AmtrakerMap = () => {
   const mapRef = useRef(null);
   const mapContainerRef = useRef(null);
 
-  //773
   const setResultsAndRefreshMap = (showAllState, currentQuery) => {
     const actualNewResults = (currentQuery.length > 0
       ? fuse.search(currentQuery).map((result) => result.item)
@@ -174,6 +173,7 @@ const AmtrakerMap = () => {
         console.log('Initializing map')
         mapRef.current = new maplibregl.Map({
           container: mapContainerRef.current,
+          pixelRatio: Math.max(window.devicePixelRatio, 2),
           style: {
             zoom: 0,
             pitch: 0,
@@ -360,7 +360,7 @@ const AmtrakerMap = () => {
               id: "stations",
               type: "circle",
               source: "stations",
-              minzoom: 5,
+              minzoom: 6,
               layout: {},
               paint: {
                 "circle-pitch-alignment": "map",
@@ -475,7 +475,7 @@ const AmtrakerMap = () => {
               return;
             }
 
-            if (mapRef.current.getZoom() < 5) f = f.filter((n) => n.layer.id == 'trains');
+            if (mapRef.current.getZoom() < 6) f = f.filter((n) => n.layer.id == 'trains');
 
             if (f.length > 1) {
               const popup = new maplibregl.Popup({

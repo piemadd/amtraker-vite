@@ -3,15 +3,23 @@ import ManualTrainPopup from "./trainBox/maualTrainPopup";
 import ManualStationPopup from "./stationBox/maualStationPopup";
 import { Popup } from "maplibre-gl";
 
-const ManualMultiplePopup = ({ items, mapRef, setPopupInfo, sourcePopup }) => {  
+const ManualMultiplePopup = ({ items, mapRef, setPopupInfo, sourcePopup }) => {
+  const finalItems = items.slice(0, 5);
+  const hasTrains = finalItems.find((item) => item.layer.id == 'trains');
+  const hasStations = finalItems.find((item) => item.layer.id == 'stations');
+
+  let titleText = 'Feature';
+  if (hasTrains && !hasStations) titleText = 'Train';
+  if (!hasTrains && hasStations) titleText = 'Station';
+
   return (
     <div className='train-popup'>
       <div className='train-popup__header'>
-        Select a Feature:
+        Select a {titleText}:
       </div>
       <div className='train-popup__info train-popup__updated greyed'></div>
       {
-        items.slice(0, 5).map((item) => {
+        finalItems.map((item) => {
           switch (item.layer.id) {
             case 'trains':
               return (

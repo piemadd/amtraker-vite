@@ -36,17 +36,6 @@ const colorizedToHoursAndMinutesLate = (date1, date2) => {
   return <span className='error'>{res}</span>;
 };
 
-const fullDirections = {
-  N: "North",
-  S: "South",
-  E: "East",
-  W: "West",
-  NE: "Northeast",
-  NW: "Northwest",
-  SE: "Southeast",
-  SW: "Southwest",
-};
-
 const ManualTrainPopup = ({ train, loading = false }) => {
   if (!train) return null;
 
