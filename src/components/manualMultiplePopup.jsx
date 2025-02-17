@@ -110,21 +110,3 @@ const ManualMultiplePopup = ({ items, mapRef, setPopupInfo, sourcePopup }) => {
 };
 
 export default ManualMultiplePopup;
-
-/*
-<div className='train-popup'>
-      <div className='train-popup__header'>{station.name} ({station.code})</div>
-      <div className='train-popup__info train-popup__updated greyed'>
-        {station.tz}
-      </div>
-      <div className='train-popup__info train-popup__updated greyed'>
-        {station.trains.length} Trains Tracking
-      </div>
-
-
-      <div className='train-popup__info'>
-        <a href={`/stations/${station.code}`}>View Trains</a>
-      </div>
-    </div>
-
-*/

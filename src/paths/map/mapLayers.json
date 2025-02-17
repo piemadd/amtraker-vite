@@ -1307,28 +1307,9 @@
       }
     },
     {
-      "id": "transit_lines_under",
+      "id": "via_lines_under",
       "type": "line",
-      "source": "transit_lines",
-      "source-layer": "zcta",
-      "filter": [
-        "any",
-        [
-          "==",
-          "provider",
-          "amtrak"
-        ],
-        [
-          "==",
-          "provider",
-          "via_rail"
-        ],
-        [
-          "==",
-          "provider",
-          "brightline"
-        ]
-      ],
+      "source": "via_lines",
       "layout": {
         "line-join": "round",
         "line-cap": "round"
@@ -1340,37 +1321,71 @@
       }
     },
     {
-      "id": "transit_lines",
+      "id": "via_lines",
       "type": "line",
-      "source": "transit_lines",
-      "source-layer": "zcta",
-      "filter": [
-        "any",
-        [
-          "==",
-          "provider",
-          "amtrak"
-        ],
-        [
-          "==",
-          "provider",
-          "via_rail"
-        ],
-        [
-          "==",
-          "provider",
-          "brightline"
-        ]
-      ],
+      "source": "via_lines",
       "layout": {
         "line-join": "round",
         "line-cap": "round"
       },
       "paint": {
-        "line-color": [
-          "get",
-          "routeColor"
-        ],
+        "line-color": "#FFCB06",
+        "line-opacity": 1,
+        "line-width": 2
+      }
+    },
+    {
+      "id": "amtrak_lines_under",
+      "type": "line",
+      "source": "amtrak_lines",
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "paint": {
+        "line-color": "#222222",
+        "line-opacity": 1,
+        "line-width": 6
+      }
+    },
+    {
+      "id": "amtrak_lines",
+      "type": "line",
+      "source": "amtrak_lines",
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "paint": {
+        "line-color": "#0078b9",
+        "line-opacity": 1,
+        "line-width": 2
+      }
+    },
+    {
+      "id": "brightline_lines_under",
+      "type": "line",
+      "source": "brightline_lines",
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "paint": {
+        "line-color": "#222222",
+        "line-opacity": 1,
+        "line-width": 6
+      }
+    },
+    {
+      "id": "brightline_lines",
+      "type": "line",
+      "source": "brightline_lines",
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "paint": {
+        "line-color": "#F2E205",
         "line-opacity": 1,
         "line-width": 2
       }

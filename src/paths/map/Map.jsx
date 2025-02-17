@@ -3,7 +3,6 @@ import { useNavigate, Link } from "react-router-dom";
 import maplibregl from "maplibre-gl";
 import "./Map.css";
 import "maplibre-gl/dist/maplibre-gl.css";
-import * as pmtiles from "pmtiles";
 import Fuse from "fuse.js";
 //import layers from "protomaps-themes-base";
 //import mapStyle from "./style.json";
@@ -18,18 +17,6 @@ import ManualTrainPopup from "../../components/trainBox/maualTrainPopup";
 import ManualStationPopup from "../../components/stationBox/maualStationPopup.jsx";
 import ManualMultiplePopup from "../../components/manualMultiplePopup.jsx";
 import settingsInit from "../../components/settingsInit.js";
-
-//adding pmtiles protocol
-let protocol = new pmtiles.Protocol();
-maplibregl.addProtocol("pmtiles", protocol.tile);
-
-const nationalRouteStyle = {
-  id: "data",
-  type: "fill",
-  paint: {
-    color: "#ff0000",
-  },
-};
 
 const toHoursAndMinutesLate = (date1, date2) => {
   if (
@@ -221,11 +208,18 @@ const AmtrakerMap = () => {
                 attribution:
                   "Map Data &copy; OpenStreetMap Contributors | &copy; Transitstatus | &copy; Protomaps",
               },
-              transit_lines: {
-                type: "vector",
-                url: "pmtiles://https://gobbler.transitstat.us/transit.pmtiles",
-                maxzoom: 12,
+              via_lines: {
+                type: "geojson",
+                data: "https://gtfs.piemadd.com/data/viarail/shapes/type_2.geojson"
               },
+              amtrak_lines: {
+                type: "geojson",
+                data: "https://gobblerstatic.transitstat.us/additionalShapes/amtrak.json"
+              },
+              brightline_lines: {
+                type: "geojson",
+                data: "https://gtfs.piemadd.com/data/brightline/shapes/type_2.geojson"
+              }
             },
             version: 8,
             metadata: {},

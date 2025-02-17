@@ -12,7 +12,7 @@ const ManualStationPopup = ({ station, loading = false }) => {
         {station.tz}
       </div>
       <div className='train-popup__info train-popup__updated greyed'>
-        {station.trains.length} Trains Tracking
+        {station.trains.length} Train{station.trains.length > 1 ? 's' : ''} Tracking
       </div>
 
 
