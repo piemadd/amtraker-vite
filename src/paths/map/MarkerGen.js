@@ -1,8 +1,9 @@
 const generateMarker = (train) => {
+  const pixelScale = 4;
   const svgTemplate = `
 <svg
-  width='44px'
-  height='48px'
+  width='${44 * pixelScale}px'
+  height='${48 * pixelScale}px'
   viewBox='0 0 176 192'
   fill='none'
   xmlns='http://www.w3.org/2000/svg'
@@ -31,8 +32,8 @@ const generateMarker = (train) => {
 </svg>`
 
   return {
-    imageWidth: 44,
-    imageHeight: 48,
+    imageWidth: 44 * pixelScale,
+    imageHeight: 48 * pixelScale,
     imageText: svgTemplate,
   }
 }

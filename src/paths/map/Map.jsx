@@ -434,7 +434,7 @@ const AmtrakerMap = () => {
                 //converting the image and loading it
                 const img = new Image(imageWidth, imageHeight);
                 img.onload = () => mapRef.current.addImage(train.trainID, img, {
-                  pixelRatio: 1,
+                  pixelRatio: 4,
                 });
                 img.onerror = console.log;
                 img.src = "data:image/svg+xml;base64," + btoa(imageText);
