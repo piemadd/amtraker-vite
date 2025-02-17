@@ -56,10 +56,12 @@ const ManualMultiplePopup = ({ items, mapRef, setPopupInfo, sourcePopup }) => {
                     }
                   }}
                 >
-                  <div>
+                  <div style={{
+                    textWrap: 'nowrap'
+                  }}>
                     <span className="status" style={{
-                      backgroundColor: item.properties.iconColor
-                    }}>{item.properties.trainID}</span> {item.properties.routeName}
+                      backgroundColor: item.properties.iconColor,
+                    }}>{item.properties.trainID.split('-')[0]} ({item.properties.trainID.split('-')[1]})</span> {item.properties.routeName}
                   </div>
                 </div>
               )

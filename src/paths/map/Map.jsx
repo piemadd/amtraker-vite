@@ -251,12 +251,10 @@ const AmtrakerMap = () => {
                 const img = new Image(imageWidth, imageHeight);
                 img.onload = () => {
                   if (mapRef.current.hasImage(train.trainID)) {
-                    mapRef.current.updateImage(train.trainID, img, {
-                      pixelRatio: 1,
-                    });
+                    mapRef.current.updateImage(train.trainID, img);
                   } else {
                     mapRef.current.addImage(train.trainID, img, {
-                      pixelRatio: 1,
+                      pixelRatio: 4,
                     });
                   }
                 }
@@ -476,6 +474,7 @@ const AmtrakerMap = () => {
                 offset: 16,
                 closeButton: true,
                 anchor: "bottom",
+                maxWidth: false,
               })
                 .setLngLat(e.lngLat);
               setPopupInfo({
