@@ -1,10 +1,10 @@
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import stringToHash from "../../components/money/stringToHash";
 
 import "../trains/trains.css"; //fuck it we ball
 import ShortTrainIDTrainBox from "../../components/trainBox/shortTrainIDTrainBox";
-import SettingsInit from "../index/settingsInit";
+import settingsInit from "../../components/settingsInit";
 import SenseBlock from "../../components/money/senseArticle";
 import DataManager from "../../components/dataManager/dataManager";
 
@@ -12,13 +12,13 @@ const StationPage = () => {
   const { stationCode } = useParams();
   const navigate = useNavigate();
   const dataManager = window.dataManager;
+  const appSettings = useMemo(settingsInit, []);
 
   const [loading, setLoading] = useState(true);
   const [stationData, setStationData] = useState([]);
 
   useEffect(() => {
     dataManager.getStation(stationCode).then((data) => {
-      console.log("data fetched", data);
       setStationData(data[stationCode]);
       setLoading(false);
     });
@@ -90,7 +90,6 @@ const StationPage = () => {
           </div>
           <h2>Trains</h2>
           <div className='stations fullStationsList'>
-            <SettingsInit />
             {!loading ? (
               <>
                 {stationData.trains.length > 0 ? (

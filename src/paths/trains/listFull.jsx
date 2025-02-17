@@ -1,7 +1,7 @@
 import { useNavigate, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { trainNames } from "../../data/trains";
-import SettingsInit from "../index/settingsInit";
+import settingsInit from "../../components/settingsInit";
 import "./trains.css"; //fuck it we ball
 import stringToHash from "../../components/money/stringToHash";
 
@@ -49,7 +49,6 @@ const FullTrainsList = () => {
           </h2>
         </div>
         <section className='section-trainPage'>
-          <SettingsInit />
           <p>
             Below is a list of trains intended for crawling purposes by search
             engines and those who prefer to browse a long list of train names

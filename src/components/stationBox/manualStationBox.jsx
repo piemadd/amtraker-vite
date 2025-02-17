@@ -43,13 +43,17 @@ const ManualStationBox = ({ station, train, loading = false }) => {
   if (stationTimely.includes("Late")) stationTimelyClass = "late";
   if (stationTimely.includes("Early")) stationTimelyClass = "early";
 
+  let toUse = arr;
+  if (train.origCode === station.code) toUse = dep;
+  if (train.destCode !== station.code &&
+    (station.status === "Departed" || station.status === "Station")) toUse = dep;
+
   return loading ? (
     <div className={"station-line"}>Loading train...</div>
   ) : (
     <div
-      className={`station-line${
-        train.eventCode === station.code ? " currentStation" : ""
-      }`}
+      className={`station-line${train.eventCode === station.code ? " currentStation" : ""
+        }`}
     >
       <div>
         <h3>
@@ -61,8 +65,8 @@ const ManualStationBox = ({ station, train, loading = false }) => {
           {station.status === "Departed"
             ? "Dep"
             : station.status === "Enroute"
-            ? "Est arr"
-            : "Est dep"}
+              ? "Est arr"
+              : "Est dep"}
         </p>
         &nbsp;
         <p className={`${stationTimelyClass}-text status-text`}>
@@ -71,14 +75,13 @@ const ManualStationBox = ({ station, train, loading = false }) => {
             : toHoursAndMinutesLate(dep, schDep)}
         </p>
       </div>
-      {train.origCode !== station.code && station.status === "Enroute" ? (
         <div>
           <p className='enroute'>
             {new Intl.DateTimeFormat([], {
               hour: "numeric",
               minute: "numeric",
               timeZone: station.tz,
-            }).format(arr)}
+            }).format(toUse)}
           </p>
           &nbsp;
           <p className='greyed enroute'>
@@ -87,50 +90,9 @@ const ManualStationBox = ({ station, train, loading = false }) => {
               month: "short",
               day: "numeric",
               timeZone: station.tz,
-            }).format(arr)}
+            }).format(toUse)}
           </p>
         </div>
-      ) : null}
-      {train.destCode !== station.code && station.status === "Departed" ? (
-        <div>
-          <p>
-            {new Intl.DateTimeFormat([], {
-              hour: "numeric",
-              minute: "numeric",
-              timeZone: station.tz,
-            }).format(dep)}
-          </p>
-          &nbsp;
-          <p className='greyed'>
-            {": "}
-            {new Intl.DateTimeFormat([], {
-              month: "short",
-              day: "numeric",
-              timeZone: station.tz,
-            }).format(dep)}
-          </p>
-        </div>
-      ) : null}
-      {train.destCode !== station.code && station.status === "Station" ? (
-        <div>
-          <p>
-            {new Intl.DateTimeFormat([], {
-              hour: "numeric",
-              minute: "numeric",
-              timeZone: station.tz,
-            }).format(dep)}
-          </p>
-          &nbsp;
-          <p className='greyed'>
-            {": "}
-            {new Intl.DateTimeFormat([], {
-              month: "short",
-              day: "numeric",
-              timeZone: station.tz,
-            }).format(dep)}
-          </p>
-        </div>
-      ) : null}
       {station.platform.length > 0 ? (
         <div>
           <p className='greyed'>

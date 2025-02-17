@@ -1,8 +1,8 @@
 import "./App.css";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useMemo } from "react";
 import stringToHash from "../../components/money/stringToHash";
 import { Link } from "react-router-dom";
-import SettingsInit from "./settingsInit.jsx";
+import settingsInit from "../../components/settingsInit";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import SenseBlock from "../../components/money/senseArticle";
 import { autoAddTrains } from "../../tools";
@@ -15,6 +15,7 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const [shitsFucked, setShitsFucked] = useState(false);
   const dataManager = window.dataManager;
+  const appSettings = useMemo(settingsInit, []);
 
   useEffect(() => {
     autoAddTrains().then(() => {
@@ -165,7 +166,6 @@ const App = () => {
           <h1 className='gayTitle'>Amtraker</h1>
           {/*<p className="slogan">Get out and Vote!</p>*/}
         </div>
-        <SettingsInit />
         <section id='section-saved'>
           {isStale ? (
             <div className='stale'>
@@ -239,7 +239,7 @@ const App = () => {
           </Link>
         </section>
         <section className='amtrakerVersion'>
-          <p>Amtraker v3.12.8</p>
+          <p>Amtraker Beta 3.13.0 Build 3</p>
           <p>&copy; <a href="https://piemadd.com" target="_blank">Piero Maddaleni</a> 2024</p>
         </section>
         <SenseBlock key={"sense-block"} dataAdSlot={"3140178047"} />

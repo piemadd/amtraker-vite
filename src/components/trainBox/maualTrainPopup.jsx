@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 const toHoursAndMinutesLate = (date1, date2) => {
   if (
     date1.toString() === "Invalid Date" ||
@@ -60,7 +58,9 @@ const ManualTrainPopup = ({ train, loading = false }) => {
     <div>Loading train...</div>
   ) : (
     <div className='train-popup'>
-      <div className='train-popup__header'>{train.routeName}</div>
+      <div className='train-popup__header' style={{
+        paddingRight: '16px'
+      }}>{train.routeName}</div>
       {train.statusMsg === "SERVICE DISRUPTION" ? (
         <div className='train-popup__header'>Service Disruption</div>
       ) : null}
@@ -96,9 +96,7 @@ const ManualTrainPopup = ({ train, loading = false }) => {
         ETA
       </div>
       <div className='train-popup__info'>
-        <Link to={`/trains/${train.trainID.split("-").join("/")}`}>
-          View More
-        </Link>
+        <a href={`/trains/${train.trainID.split("-").join("/")}`}>View More</a>
       </div>
     </div>
   );
