@@ -41,7 +41,7 @@ const ManualMultiplePopup = ({ items, mapRef, setPopupInfo, sourcePopup }) => {
                       mapRef,
                       <ManualTrainPopup train={train} />,
                       new Popup({
-                        offset: 32,
+                        offset: 16,
                         closeButton: true,
                         anchor: "bottom",
                       })
@@ -51,7 +51,7 @@ const ManualMultiplePopup = ({ items, mapRef, setPopupInfo, sourcePopup }) => {
                       mapRef.current.flyTo({
                         center: [train.lon, train.lat],
                         duration: 500,
-                        zoom: 6
+                        zoom: Math.max(mapRef.current.getZoom(), 6)
                       });
                     }
                   }}
@@ -92,7 +92,7 @@ const ManualMultiplePopup = ({ items, mapRef, setPopupInfo, sourcePopup }) => {
                       mapRef.current.flyTo({
                         center: [station.lon, station.lat],
                         duration: 500,
-                        zoom: 6
+                        zoom: Math.max(mapRef.current.getZoom(), 6)
                       });
                     }
                   }}

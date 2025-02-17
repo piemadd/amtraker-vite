@@ -168,7 +168,7 @@ const AmtrakerMap = () => {
             glyphs: glyphs,
             sprite: sprite,
             layers: layers,
-            projection: { "type": appSettings.mapView ?? 'globe' },
+            projection: { "type": appSettings.mapView ?? 'mercator' },
             sky: {
               "sky-color": "#193af3",
               "sky-horizon-blend": 0.5,
@@ -508,7 +508,7 @@ const AmtrakerMap = () => {
                   mapRef,
                   <ManualTrainPopup train={train} />,
                   new maplibregl.Popup({
-                    offset: 32,
+                    offset: 16,
                     closeButton: true,
                     anchor: "bottom",
                   })
@@ -696,7 +696,7 @@ const AmtrakerMap = () => {
                                 mapRef,
                                 <ManualTrainPopup train={train} />,
                                 new maplibregl.Popup({
-                                  offset: 32,
+                                  offset: 16,
                                   closeButton: true,
                                   anchor: "bottom",
                                 })
@@ -737,7 +737,7 @@ const AmtrakerMap = () => {
                             mapRef,
                             <ManualTrainPopup train={train} />,
                             new maplibregl.Popup({
-                              offset: 32,
+                              offset: 16,
                               closeButton: true,
                               anchor: "bottom",
                             })
@@ -747,7 +747,7 @@ const AmtrakerMap = () => {
                             mapRef.current.flyTo({
                               center: [train.lon, train.lat],
                               duration: 500,
-                              zoom: 6
+                              zoom: Math.max(mapRef.current.getZoom(), 6)
                             });
                           }
                         }}

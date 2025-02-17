@@ -73,8 +73,8 @@ const Settings = () => {
             Whether you'd like the map to use a Globe projection or the traditional Web Mercator (flat) projection.
           </p>
           <select value={currentSettings.mapView} onChange={(e) => handleSettingsUpdate('mapView', e.target.value)}>
-            <option value='globe'>Globe</option>
             <option value='mercator'>Web Mercator</option>
+            <option value='globe'>Globe</option>
             {/*<option value='vertical-perspective'>Vertical Perspective</option>*/}
             {/* disabled due to high lag and glitching at higher zoom levels from building extrusions */}
           </select>

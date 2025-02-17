@@ -11,7 +11,7 @@ const settingsInit = () => {
           },
           foamerMode: false,
           viewAllTrains: false,
-          mapView: 'globe',
+          mapView: 'mercator',
         })
       );
       console.log('set settings')
@@ -26,7 +26,7 @@ const settingsInit = () => {
       settings.theme = { from: "dark" };
     if (!settings.foamerMode) settings.foamerMode = false;
     if (!settings.viewAllTrains) settings.viewAllTrains = false;
-    if (!settings.mapView) settings.mapView = 'globe';
+    if (!settings.mapView) settings.mapView = 'mercator';
   }
   localStorage.setItem("amtraker-v3-settings", JSON.stringify(settings));
   console.log('settings initialized!')

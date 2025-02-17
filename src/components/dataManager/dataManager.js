@@ -29,7 +29,7 @@ export class DataManager {
       console.log('DM-T:', this._lastUpdated, now, now - (1000 * 60))
       if (this._lastUpdated < now - (1000 * 60)) { //if the last time we fetched data was more than a minute ago
         console.log('DM-R:', this._id);
-        fetch('https://api-v3.amtraker.com/v3/all', {
+        fetch('https://api.amtraker.com/v3/all', {
           cache: 'reload'
         })
           .then((res) => res.json())
@@ -59,11 +59,8 @@ export class DataManager {
   async checkDataStatusAndUpdate() {
     const runFetch = (async () => {
       try {
-        this._data = await localForage.getItem('amtraker_datamanager_v1_data');
-        this._lastUpdated = await localForage.getItem('amtraker_datamanager_v1_last_updated');
-
         if (!this._lastUpdated || !this._data || this._lastUpdated < Date.now() - (1000 * 60)) {
-          const res = await fetch('https://api-v3.amtraker.com/v3/all', {
+          const res = await fetch('https://api.amtraker.com/v3/all', {
             cache: 'reload',
             signal: AbortSignal.timeout(5000)
           });
@@ -75,6 +72,8 @@ export class DataManager {
         console.log('Initial request succeeded')
         }
       } catch (e) {
+        this._data = await localForage.getItem('amtraker_datamanager_v1_data');
+        this._lastUpdated = await localForage.getItem('amtraker_datamanager_v1_last_updated');
         console.log('Initial request timed out, using cached data')
       }
     })

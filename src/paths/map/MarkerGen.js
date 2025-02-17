@@ -1,10 +1,12 @@
 const generateMarker = (train) => {
-  const pixelScale = 4;
+  const additionalWidth = (train.trainNumRaw.toString().length * 32) + (train.trainID.split('-')[1].length * 8);
+  const sizeMultiplier = 1.25;
+
   const svgTemplate = `
 <svg
-  width='${44 * pixelScale}px'
-  height='${48 * pixelScale}px'
-  viewBox='0 0 176 192'
+  width='${(176 + additionalWidth) * sizeMultiplier}px'
+  height='${96 * sizeMultiplier}px'
+  viewBox='0 0 ${176 + additionalWidth} 96'
   fill='none'
   xmlns='http://www.w3.org/2000/svg'
 >
@@ -12,28 +14,26 @@ const generateMarker = (train) => {
     <rect
       x='0'
       y='0'
-      width='176'
-      height='192'
+      width='${176 + additionalWidth}'
+      height='96'
       rx='16'
       fill='black'
     />
     <rect
       x='8'
       y='8'
-      width='160'
-      height='176'
+      width='${160 + additionalWidth}'
+      height='80'
       rx='10'
       fill='${train.iconColor}'
     />
-    <line x1="0" y1="96" x2="176" y2="96" style="stroke:black;stroke-width:8" />
-    <text x="88" y="72" fill="white" xml:space="preserve" style="white-space: pre" font-family="monospace" font-size="60" letter-spacing="0em" text-anchor="middle">${train.trainNumRaw}</text>
-    <text x="88" y="164" fill="white" xml:space="preserve" style="white-space: pre" font-family="monospace" font-size="60" letter-spacing="0em" text-anchor="middle">${train.providerShort}</text>
+    <text x="${88 + (additionalWidth / 2)}" y="68" fill="white" xml:space="preserve" style="white-space: pre" font-family="monospace" font-size="60" letter-spacing="0em" text-anchor="middle"><tspan font-size="40">${train.providerShort.substring(0, 1)}</tspan>${train.trainNumRaw}<tspan font-size="40">(${train.trainID.split('-')[1]})</tspan></text>
     </g>
 </svg>`
 
   return {
-    imageWidth: 44 * pixelScale,
-    imageHeight: 48 * pixelScale,
+    imageWidth: (176 + additionalWidth) * sizeMultiplier,
+    imageHeight: 96 * sizeMultiplier,
     imageText: svgTemplate,
   }
 }
