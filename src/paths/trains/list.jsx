@@ -1,9 +1,9 @@
 import { useNavigate, Link } from "react-router-dom";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useMemo } from "react";
 import "./trains.css"; //fuck it we ball
 import Fuse from "fuse.js";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
-import SettingsInit from "../index/settingsInit";
+import settingsInit from "../../components/settingsInit";
 import stringToHash from "../../components/money/stringToHash";
 import SenseBlock from "../../components/money/senseArticle";
 
@@ -22,6 +22,7 @@ const debounce = (func, timeout = 300) => {
 const TrainsList = () => {
   const navigate = useNavigate();
   const dataManager = window.dataManager;
+  const appSettings = useMemo(settingsInit, []);
 
   const [loading, setLoading] = useState(true);
   const [trainData, setTrainData] = useState([]);
@@ -32,7 +33,6 @@ const TrainsList = () => {
   useEffect(() => {
     dataManager.getTrains()
       .then((data) => {
-        console.log("data fetched", data);
         setTrainData(Object.values(data).flat());
         setResults(Object.values(data).flat());
 
@@ -110,7 +110,6 @@ const TrainsList = () => {
           ) : null}
         </div>
         <section className='section-trainPage'>
-          <SettingsInit />
           <input
             id='searchbox'
             type='text'

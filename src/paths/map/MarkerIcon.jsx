@@ -7,7 +7,6 @@ const colors = {
 
 const MarkerIcon = ({ num, trainTimely, trainState, direction }) => {
   const trainNum = num ? num.toString() : "NULL";
-  const trainDirection = direction ? direction : "none";
 
   let trainColor = "#212529";
 

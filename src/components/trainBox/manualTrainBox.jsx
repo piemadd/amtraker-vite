@@ -32,7 +32,12 @@ const ManualTrainBox = ({
   maxWidth = false,
   width = null,
   onClick = null,
+  overrideEventCode = null
 }) => {
+  if (overrideEventCode) {
+    train.eventCode = overrideEventCode
+  }
+
   if (train.eventCode == "CBN") {
     const stationCodes = train.stations.map((station) => station.code);
     if (stationCodes.indexOf("NFS") < stationCodes.indexOf("NFL")) {
@@ -47,7 +52,6 @@ const ManualTrainBox = ({
   );
 
   if (!currentStation) {
-    console.log(train);
     return null;
   }
 

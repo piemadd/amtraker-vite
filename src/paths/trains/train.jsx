@@ -4,11 +4,11 @@ import {
   useSearchParams,
   Link,
 } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import ManualStationBox from "../../components/stationBox/manualStationBox";
 import stringToHash from "../../components/money/stringToHash";
 import "./trains.css";
-import SettingsInit from "../index/settingsInit";
+import settingsInit from "../../components/settingsInit";
 import {
   deleteTrain,
   calculateDistanceBetweenCoordinates,
@@ -25,6 +25,7 @@ const BetterTrainPage = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const dataManager = window.dataManager;
+  const appSettings = useMemo(settingsInit, []);
 
   const [loading, setLoading] = useState(true);
   const [trainData, setTrainData] = useState([]);
@@ -37,7 +38,6 @@ const BetterTrainPage = () => {
   useEffect(() => {
     console.log("sending request");
     dataManager.getTrain(`${trainNum}-${trainDate}`).then((data) => {
-      console.log("data fetched", data);
       setLoading(false);
       if (Array.isArray(data) && Object.keys(data).length === 0) {
         console.log("is not valid");
@@ -205,7 +205,6 @@ const BetterTrainPage = () => {
               : "calc(100vh - 114px)",
           }}
         >
-          <SettingsInit />
           {!loading ? (
             <>
               {trainData.length > 0 ? (
