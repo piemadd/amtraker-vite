@@ -80,7 +80,7 @@ main section {
   text-align: center;
   gap: 4px;
   background-color: rgba(0, 0, 0, 0.5);
-  padding: 8px 20px 20px 20px;
+  padding: 8px 12px 12px 12px;
   border: 1px solid #777;
   border-radius: 8px;
   margin: 0 16px;
@@ -97,7 +97,7 @@ main section.section-new div button {
 main section div.savedTrains {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
   margin-top: 4px;
 }
 

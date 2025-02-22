@@ -11,6 +11,7 @@ const App = () => {
   const [savedTrains, setSavedTrains] = useState([]);
   const [isStale, setIsStale] = useState(false);
   const [timeSinceLastUpdate, setTimeSinceLastUpdate] = useState(0);
+  const [siteLastFetched, setSiteLastFetched] = useState(0);
   const [savedTrainsObjects, setSavedTrainsObjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [shitsFucked, setShitsFucked] = useState(false);
@@ -132,6 +133,7 @@ const App = () => {
             return null;
           });
       });
+      setSiteLastFetched(Date.now())
     });
   }, [savedTrains]);
 
@@ -160,6 +162,20 @@ const App = () => {
         className={bgClass}
         src={bgURL}
       ></img>
+      <button
+        className='root'
+        style={{
+          bottom: '8px',
+          right: '8px',
+          position: 'absolute',
+          fontSize: '24px',
+          width: '48px',
+          height: '48px',
+          textAlign: 'center',
+          lineHeight: '0px'
+        }}
+        onClick={() => setSavedTrains([...savedTrains])}
+      >⟳</button>
       <main>
         {/*<h2 className='welcome-to'>Welcome to</h2>*/}
         <div className="titleArea">
@@ -191,13 +207,15 @@ const App = () => {
               fontSize: "1.2rem",
             }}
           >
-            Track a Saved Train
+            Saved Trains
           </h2>
           <div className='savedTrains'>
             {loading ? (
               <div className='loading'>Loading...</div>
             ) : savedTrainsObjects.length > 0 ? (
-              savedTrainsObjects
+              <>{savedTrainsObjects}
+                <p>Data Last Fetched at: {new Date(siteLastFetched).toLocaleTimeString()}</p>
+              </>
             ) : (
               <div>No Saved Trains</div>
             )}
@@ -239,7 +257,7 @@ const App = () => {
           </Link>
         </section>
         <section className='amtrakerVersion'>
-          <p>Amtraker Beta 3.13.0 Build 10</p>
+          <p>Amtraker Beta 3.13.0 Build 11</p>
           <p>&copy; <a href="https://piemadd.com" target="_blank">Piero Maddaleni</a> 2025</p>
         </section>
         <SenseBlock key={"sense-block"} dataAdSlot={"3140178047"} />

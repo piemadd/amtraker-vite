@@ -1,27 +1,42 @@
 import { stationMeta } from "./data/stations";
-import DataManager from './components/dataManager/dataManager';
 
-const deleteTrain = (trainNum, trainDate) => {
-  // removing saved train
-  const savedTrains = localStorage
-    .getItem("savedTrainsAmtrakerV3")
-    .split(",")
+const manageSavedTrain = (trainNum, trainDate, state) => {
+  let currentSaved = localStorage
+    .getItem('savedTrainsAmtrakerV3')
+    .split(',')
     .filter((n) => n);
 
-  localStorage.setItem(
-    "savedTrainsAmtrakerV3",
-    savedTrains
-      .filter((element) => {
-        if (
-          element.split("-")[0] === trainNum &&
-          element.split("-")[2] === trainDate
-        ) {
-          return false;
-        }
+  window.dataManager.getIDs().then((validIDs) => {
+    if (state) {
+      const longTrainID = validIDs.find((element) =>
+        element.split("-")[0] == trainNum &&
+        element.split("-")[2] == trainDate
+      );
 
-        return true;
-      })
-      .join(",")
+      if (longTrainID) currentSaved.push(longTrainID);
+    } else {
+      currentSaved = currentSaved.filter((element) => !(
+        element.split("-")[0] == trainNum &&
+        element.split("-")[2] == trainDate
+      ));
+    };
+
+    localStorage
+      .setItem('savedTrainsAmtrakerV3',
+        currentSaved.join(',')
+      );
+  });
+};
+
+const getSavedTrain = (trainNum, trainDate) => {
+  let currentSaved = localStorage
+    .getItem('savedTrainsAmtrakerV3')
+    .split(',')
+    .filter((n) => n);
+
+  return currentSaved.some((element) =>
+    element.split("-")[0] == trainNum &&
+    element.split("-")[2] == trainDate
   );
 };
 
@@ -209,7 +224,6 @@ const removeAlwaysTracked = (trainNum) => {
 };
 
 export {
-  deleteTrain,
   hoursAndMinutesUnitl,
   toHoursAndMinutesLate,
   colorizedToHoursAndMinutesLate,
@@ -220,4 +234,6 @@ export {
   addAlwaysTracked,
   removeAlwaysTracked,
   autoAddTrains,
+  manageSavedTrain,
+  getSavedTrain,
 };
