@@ -55,9 +55,7 @@ const ManualTrainBox = ({
     return null;
   }
 
-  const schArr = new Date(
-    currentStation.schArr ?? currentStation.schDep ?? null
-  );
+  const schArr = new Date(currentStation.schArr ?? currentStation.schDep ?? null);
   const arr = new Date(currentStation.arr ?? currentStation.dep ?? null);
 
   let trainTimely = "On Time";
@@ -67,8 +65,6 @@ const ManualTrainBox = ({
   if (!schArr || !arr) trainTimely = "No Data";
   if (train.eventCode === train.destCode && currentStation.status !== "Enroute")
     trainTimely = "Complete";
-
-  const trainTimelyClass = trainTimely.toLowerCase().split(" ").join("-");
 
   return loading ? (
     <div
@@ -86,25 +82,52 @@ const ManualTrainBox = ({
       onClick={onClick}
     >
       <div>
-        <span className={`${trainTimelyClass} status`}>{train.trainNum}</span>{" "}
-        {train.routeName}{" "}
-        <span className={`${trainTimelyClass} status`}>{trainTimely}</span>
+        <span
+          className='status'
+          style={{
+            backgroundColor: train.iconColor,
+            textWrap: 'nowrap',
+          }}
+        >{train.trainNum} ({train.trainID.split('-')[1]})</span>&nbsp;
+        {train.routeName}
+        {
+          overrideEventCode ? null :
+            <>
+              &nbsp;
+              <span
+                className="status"
+                style={{
+                  backgroundColor: train.iconColor,
+                  textWrap: 'nowrap',
+                }}
+              >{trainTimely}</span>
+            </>
+        }
       </div>
-      <p>
-        {new Intl.DateTimeFormat([], {
-          month: "short",
-          day: "numeric",
-        }).format(
-          new Date(train.stations[0].dep ?? train.stations[0].schDep ?? null)
-        )}{" "}
-        - {train.origCode} to {train.destCode}
-      </p>
+      <p>{train.origCode} to {train.destCode}</p>
       <p>
         {toHoursAndMinutesLate(arr, schArr)} - {train.velocity.toFixed(1)} mph
       </p>
-      <p>
-        Next: {train.eventName} ({train.eventCode}){currentStation.platform.length > 0 ? ` [Track ${currentStation.platform}]` : null}
-      </p>
+      {
+        overrideEventCode ?
+          <>
+            <p><b>{currentStation.code} ETA:</b> {new Intl.DateTimeFormat([], {
+              hour: "numeric",
+              minute: "numeric",
+              timeZone: currentStation.tz,
+            }).format(arr)}&nbsp;:&nbsp;
+              {new Intl.DateTimeFormat([], {
+                month: "short",
+                day: "numeric",
+                timeZone: currentStation.tz,
+              }).format(arr)}
+            </p>
+            {currentStation.platform.length > 0 ? <p>[Track {currentStation.platform}]</p> : null}
+          </>
+          : <p>
+            Next: {train.eventName} ({train.eventCode}){currentStation.platform.length > 0 ? ` [Track ${currentStation.platform}]` : null}
+          </p>
+      }
       {train.statusMsg === "SERVICE DISRUPTION" ? (
         <p>
           <b>Service Disruption</b>

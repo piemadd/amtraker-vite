@@ -119,12 +119,14 @@ button.root,
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-button {
+button, .click {
   cursor: pointer;
 }
 
-.click {
-  cursor: pointer;
+input[type=checkbox]
+{
+  transform: scale(1.5);
+  margin-right: 8px;
 }
 
 a {

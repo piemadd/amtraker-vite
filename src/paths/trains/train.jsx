@@ -160,6 +160,7 @@ const BetterTrainPage = () => {
                           gap: "8px",
                           fontSize: "1.5rem",
                           fontWeight: "300",
+                          marginLeft: '8px',
                         }}
                       >
                         <input
@@ -184,6 +185,7 @@ const BetterTrainPage = () => {
                           gap: "8px",
                           fontSize: "1.5rem",
                           fontWeight: "300",
+                          marginLeft: '8px',
                         }}
                       >
                         <input

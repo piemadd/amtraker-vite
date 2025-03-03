@@ -245,7 +245,7 @@ td {
   display: flex;
   flex-direction: column;
   flex: wrap;
-  gap: 6px;
+  gap: 4px;
 }
 
 .train-popup__header {

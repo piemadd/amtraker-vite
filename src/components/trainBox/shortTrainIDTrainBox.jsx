@@ -1,7 +1,7 @@
 import ManualTrainBox from "./manualTrainBox";
 import { useState, useEffect } from "react";
 
-const ShortTrainIDTrainBox = ({ trainID, onClick = null, maxWidth = null }) => {
+const ShortTrainIDTrainBox = ({ trainID, onClick = null, maxWidth = null, overrideEventCode = false }) => {
   const [train, setTrain] = useState(undefined);
   const [loading, setLoading] = useState(true);
 
@@ -29,7 +29,7 @@ const ShortTrainIDTrainBox = ({ trainID, onClick = null, maxWidth = null }) => {
   //not sure what this is for tbh, should be covered above
   if (train === undefined) return null;
 
-  return <ManualTrainBox train={train} loading={loading} onClick={onClick} maxWidth={maxWidth}/>;
+  return <ManualTrainBox train={train} loading={loading} onClick={onClick} maxWidth={maxWidth} overrideEventCode={overrideEventCode}/>;
 };
 
 export default ShortTrainIDTrainBox;

@@ -3,10 +3,9 @@ import { useEffect, useState, useMemo } from "react";
 import stringToHash from "../../components/money/stringToHash";
 
 import "../trains/trains.css"; //fuck it we ball
+import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import ShortTrainIDTrainBox from "../../components/trainBox/shortTrainIDTrainBox";
 import settingsInit from "../../components/settingsInit";
-import SenseBlock from "../../components/money/senseArticle";
-import DataManager from "../../components/dataManager/dataManager";
 
 const StationPage = () => {
   const { stationCode } = useParams();
@@ -16,6 +15,7 @@ const StationPage = () => {
 
   const [loading, setLoading] = useState(true);
   const [stationData, setStationData] = useState([]);
+  const [onlyShowUpcoming, setOnlyShowUpcoming] = useState(false);
 
   useEffect(() => {
     dataManager.getStation(stationCode).then((data) => {
@@ -31,9 +31,9 @@ const StationPage = () => {
     stringToHash(localStorage.getItem("passphrase")).then((hash) => {
       if (
         hash ==
-          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
+        "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
         hash ==
-          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
+        "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
       ) {
         setBGURL("/content/images/prideflag.jpg");
         setBGClass("bg-focus-in peppino");
@@ -88,45 +88,80 @@ const StationPage = () => {
               )}
             </p>
           </div>
-          <h2>Trains</h2>
+          <h2 style={{marginTop: '0px'}}>Trains</h2>
+          <div
+                  className="train-box train-box-max-width"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '8px',
+                    fontSize: '1.5rem',
+                    fontWeight: '300',
+                    width: 'calc(100% - 8px)',
+                  }}>
+                  <input type="checkbox" onChange={(e) => {
+                    console.log(e.target.checked)
+                    setOnlyShowUpcoming(e.target.checked)
+                  }}/>
+                  <label><b>Only Show Upcoming</b></label>
+                </div>
           <div className='stations fullStationsList'>
             {!loading ? (
               <>
                 {stationData.trains.length > 0 ? (
-                  stationData.trains.map((trainID, i, arr) => {
-                    console.log("train index", i);
-                    if (
-                      (i % 10 === 0 ||
-                        (i == arr.length - 1 && arr.length < 10)) &&
-                      i !== 0
-                    ) {
-                      return (
-                        <div key={`with-terra-banner-${i}`}>
-                          <Link
-                            to={`/trains/${trainID.split("-").join("/")}`}
-                            key={`train-${trainID}`}
-                            className='station-link'
-                          >
-                            <ShortTrainIDTrainBox trainID={trainID} />
-                          </Link>
-                          <SenseBlock
-                            key={`sense-list-${i}`}
-                            dataAdSlot={"2090024099"}
-                          />
-                        </div>
-                      );
-                    } else {
+                  stationData.trains.map((trainID) => dataManager.getTrainSync(trainID, true))
+                    .filter((train) => {
+                      if (onlyShowUpcoming) {
+                        const trainThisStation = train.stations.find((station) => station.code == stationCode);
+
+                        if (!trainThisStation) return true; // still include, but it will be sorted downwards later
+
+                        if (trainThisStation.status != "Enroute") return false;
+                      }
+
+                      return true;
+                    })
+                    .sort((trainA, trainB) => {
+                      if (onlyShowUpcoming) {
+                        // getting the stations
+                        const trainAThisStation = trainA.stations.find((station) => station.code == stationCode);
+                        const trainBThisStation = trainB.stations.find((station) => station.code == stationCode);
+
+                        // managing edge cases
+                        if (!trainAThisStation && !trainBThisStation) return trainB.trainID - trainA.trainID; // by train ID
+                        if (!trainAThisStation) return 1; // prioritize B
+                        if (!trainBThisStation) return -1; // prioritize A
+
+                        //getting time stamps
+                        const trainAThisStationTime = new Date(trainAThisStation.arr ?? trainAThisStation.dep);
+                        const trainBThisStationTime = new Date(trainBThisStation.arr ?? trainBThisStation.dep);
+
+                        // more edge cases
+                        if (!trainAThisStationTime && !trainBThisStationTime) return trainB.trainID - trainA.trainID; // by train ID
+                        if (!trainAThisStationTime) return 1; // prioritize B
+                        if (!trainBThisStationTime) return -1; // prioritize A
+
+                        return trainAThisStationTime.valueOf() - trainBThisStationTime.valueOf();
+                      }
+
+                      return trainB.trainID - trainA.trainID;
+                    })
+                    .map((train) => {
                       return (
                         <Link
-                          to={`/trains/${trainID.split("-").join("/")}`}
-                          key={`train-${trainID}`}
+                          to={`/trains/${train.trainID.split("-").join("/")}`}
+                          key={`train-${train.trainID}`}
                           className='station-link'
                         >
-                          <ShortTrainIDTrainBox trainID={trainID} />
+                          <ManualTrainBox
+                            train={train}
+                            maxWidth={true}
+                            overrideEventCode={stationCode}
+                          />
                         </Link>
                       );
-                    }
-                  })
+                    })
                 ) : (
                   <div className='station-box'>
                     <p>No trains active for this station</p>
@@ -146,3 +181,13 @@ const StationPage = () => {
 };
 
 export default StationPage;
+
+/*
+<Link
+                          to={`/trains/${trainID.split("-").join("/")}`}
+                          key={`train-${trainID}`}
+                          className='station-link'
+                        >
+                          <ShortTrainIDTrainBox trainID={trainID} overrideEventCode={stationCode} />
+                        </Link>
+*/

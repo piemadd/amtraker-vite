@@ -4,11 +4,11 @@
   "sources": {
     "protomaps": {
       "type": "vector",
-      "url": "https://v4mapa.amtraker.com/20250127.json"
+      "url": "https://v4mapa.piemadd.com/20250127.json"
     }
   },
-  "sprite": "https://basemaps-assets.amtraker.com/sprites/v4/dark",
-  "glyphs": "https://basemaps-assets.amtraker.com/fonts/{fontstack}/{range}.pbf",
+  "sprite": "https://basemaps-assets.transitstat.us/sprites/v4/dark",
+  "glyphs": "https://basemaps-assets.transitstat.us/fonts/{fontstack}/{range}.pbf",
   "layers": [
     {
       "id": "background",

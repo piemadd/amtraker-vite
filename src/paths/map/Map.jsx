@@ -73,6 +73,7 @@ const AmtrakerMap = () => {
   const [popupInfo, setPopupInfo] = useState(null);
   const [results, setResults] = useState([]);
   const [query, updateQuery] = useState("");
+  const [onlyShowUpcoming, setOnlyShowUpcoming] = useState(false);
   const [windowSize, setWindowSize] = useState([
     window.innerWidth,
     window.innerHeight,
@@ -150,434 +151,444 @@ const AmtrakerMap = () => {
 
   //map initialization
   useEffect(() => {
-    (async () => {
-      try {
-        if (mapRef.current) {
-          console.log("Map already initialized, not doing that again")
-          return;
-        }
+    try {
+      if (mapRef.current) {
+        console.log("Map already initialized, not doing that again")
+        return;
+      }
 
-        console.log('Initializing map')
-        mapRef.current = new maplibregl.Map({
-          container: mapContainerRef.current,
-          pixelRatio: Math.max(window.devicePixelRatio, 2),
-          style: {
-            zoom: 0,
-            pitch: 0,
-            center: [-97.84139698274907, 41.81914579981135],
-            glyphs: glyphs,
-            sprite: sprite,
-            layers: layers,
-            projection: { "type": appSettings.mapView ?? 'mercator' },
-            sky: {
-              "sky-color": "#193af3",
-              "sky-horizon-blend": 0.5,
-              "horizon-color": "#193af3",
-              "horizon-fog-blend": 0.5,
-              "fog-color": "#ffffff",
-              "fog-ground-blend": 0.5,
-              "atmosphere-blend": [
-                "interpolate",
-                ["linear"],
-                ["zoom"],
-                0,
-                0.2,
-                5,
-                0,
-                12,
-                0
-              ]
-            },
-            light: {
-              anchor: "viewport",
-              color: "#88C6FC",
-              intensity: 0,
-              position: [1, 180, 180]
-            },
-            bearing: 0,
-            sources: {
-              protomaps: {
-                type: "vector",
-                tiles: [
-                  "https://v4mapa.transitstat.us/20250127/{z}/{x}/{y}.mvt",
-                  "https://v4mapb.transitstat.us/20250127/{z}/{x}/{y}.mvt",
-                  "https://v4mapc.transitstat.us/20250127/{z}/{x}/{y}.mvt",
-                  "https://v4mapd.transitstat.us/20250127/{z}/{x}/{y}.mvt"
-                ],
-                maxzoom: 15,
-                attribution:
-                  "Map Data &copy; OpenStreetMap Contributors | &copy; Transitstatus | &copy; Protomaps",
-              },
-              via_lines: {
-                type: "geojson",
-                data: "https://gtfs.piemadd.com/data/viarail/shapes/type_2.geojson"
-              },
-              amtrak_lines: {
-                type: "geojson",
-                data: "https://gobblerstatic.transitstat.us/additionalShapes/amtrak.json"
-              },
-              brightline_lines: {
-                type: "geojson",
-                data: "https://gtfs.piemadd.com/data/brightline/shapes/type_2.geojson"
-              }
-            },
-            version: 8,
-            metadata: {},
-          },
+      console.log('Initializing map')
+      mapRef.current = new maplibregl.Map({
+        container: mapContainerRef.current,
+        pixelRatio: Math.max(window.devicePixelRatio, 2),
+        style: {
+          zoom: 0,
+          pitch: 0,
           center: [-97.84139698274907, 41.81914579981135],
-          zoom: 3,
-          maxZoom: 20,
-        });
-
-        mapRef.current.on("load", async () => {
-          // fetching data on an interval
-          setInterval(() => {
-            // trains
-            dataManager.getTrains().then((data) => {
-              if (Object.keys(data).length === 0) {
-                setShitsFucked(true);
-              } else {
-                setShitsFucked(false);
-              }
-
-              setAllData(Object.values(data).flat());
-              fuse.setCollection(Object.values(data).flat());
-
-              //generating the icons for the trains
-              Object.values(data).flat().forEach((train) => {
-                const { imageWidth, imageHeight, imageText } = generateMarker(train);
-
-                //converting the image and loading it
-                const img = new Image(imageWidth, imageHeight);
-                img.onload = () => {
-                  if (mapRef.current.hasImage(train.trainID)) {
-                    mapRef.current.updateImage(train.trainID, img);
-                  } else {
-                    mapRef.current.addImage(train.trainID, img, {
-                      pixelRatio: 4,
-                    });
-                  }
-                }
-                img.onerror = console.log;
-                img.src = "data:image/svg+xml;base64," + btoa(imageText);
-              });
-
-              mapRef.current.getSource("trains").setData({
-                type: "FeatureCollection",
-                features: Object.values(data).flat().map((train) => {
-                  return {
-                    type: "Feature",
-                    id: '',
-                    properties: {
-                      ...train,
-                      id: train.trainID,
-                    },
-                    geometry: {
-                      type: "Point",
-                      coordinates: [train.lon, train.lat],
-                    },
-                  }
-                }),
-              });
-            });
-
-            //stations
-            dataManager.getStations().then((data) => {
-              if (Object.keys(data).length === 0) {
-                setShitsFucked(true);
-              } else {
-                setShitsFucked(false);
-              }
-
-              setStationsData(Object.values(data));
-
-              mapRef.current.getSource("stations").setData({
-                type: "FeatureCollection",
-                features: Object.values(data).map((station) => {
-                  return {
-                    type: "Feature",
-                    id: station.code,
-                    properties: {
-                      ...station,
-                      id: station.code,
-                    },
-                    geometry: {
-                      type: "Point",
-                      coordinates: [station.lon, station.lat],
-                    },
-                  }
-                }),
-              });
-            });
-          }, 30000); // every 30 seconds, update
-
-          //initial data fetch
-          //starting with stations so theyre on the bottom
-          dataManager.getStations().then((data) => {
-            if (Object.keys(data).length === 0) {
-              setShitsFucked(true);
-            }
-
-            const allStations = Object.values(data);
-
-            setStationsData(allStations);
-
-            //adding data to the map
-            mapRef.current.addSource("stations", {
+          glyphs: glyphs,
+          sprite: sprite,
+          layers: layers,
+          projection: { "type": appSettings.mapView ?? 'mercator' },
+          sky: {
+            "sky-color": "#193af3",
+            "sky-horizon-blend": 0.5,
+            "horizon-color": "#193af3",
+            "horizon-fog-blend": 0.5,
+            "fog-color": "#ffffff",
+            "fog-ground-blend": 0.5,
+            "atmosphere-blend": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              0,
+              0.2,
+              5,
+              0,
+              12,
+              0
+            ]
+          },
+          light: {
+            anchor: "viewport",
+            color: "#88C6FC",
+            intensity: 0,
+            position: [1, 180, 180]
+          },
+          bearing: 0,
+          sources: {
+            via_lines: {
               type: "geojson",
-              data: {
-                type: "FeatureCollection",
-                features: allStations.map((station) => {
-                  return {
-                    type: "Feature",
-                    id: station.code,
-                    properties: {
-                      ...station,
-                      id: station.code,
-                      //routeColor: train.lineColor,
-                      //lineCode: train.lineCode,
-                      //heading: train.heading,
-                    },
-                    geometry: {
-                      type: "Point",
-                      coordinates: [station.lon, station.lat],
-                    },
-                  }
-                }),
-              },
-            });
+              data: "https://gtfs.piemadd.com/data/viarail/shapes/type_2.geojson"
+            },
+            amtrak_lines: {
+              type: "geojson",
+              data: "https://gobblerstatic.transitstat.us/additionalShapes/amtrak.json"
+            },
+            brightline_lines: {
+              type: "geojson",
+              data: "https://gtfs.piemadd.com/data/brightline/shapes/type_2.geojson"
+            },
+            protomaps: {
+              type: "vector",
+              tiles: [
+                "https://v4mapa.amtraker.com/20250127/{z}/{x}/{y}.mvt",
+                "https://v4mapb.amtraker.com/20250127/{z}/{x}/{y}.mvt",
+                "https://v4mapc.amtraker.com/20250127/{z}/{x}/{y}.mvt",
+                "https://v4mapd.amtraker.com/20250127/{z}/{x}/{y}.mvt"
+              ],
+              maxzoom: 15,
+            }
+          },
+          version: 8,
+          metadata: {},
+        },
+        attributionControl: false,
+        center: [-97.84139698274907, 41.81914579981135],
+        zoom: 3,
+        maxZoom: 20,
+      });
+      window.mapRef = mapRef.current;
 
-            //adding the stations layer
-            mapRef.current.addLayer({
-              id: "stations",
-              type: "circle",
-              source: "stations",
-              minzoom: 6,
-              layout: {},
-              paint: {
-                "circle-pitch-alignment": "map",
-                "circle-radius": 6,
-                "circle-stroke-width": 2,
-                "circle-color": "#ffffff",
-                "circle-stroke-color": "#000000",
-              },
-            });
+      // fetching data on an interval
+      setInterval(() => {
+        // trains
+        dataManager.getTrains().then((data) => {
+          if (Object.keys(data).length === 0) {
+            setShitsFucked(true);
+          } else {
+            setShitsFucked(false);
+          }
 
-            mapRef.current.addLayer({
-              id: "stations_label",
-              type: "symbol",
-              source: "stations",
-              minzoom: 7,
-              layout: {
-                "text-field": ["get", "code"],
-                "text-font": ["Noto Sans Regular"],
-                "text-offset": [0, 1.25],
-                "text-allow-overlap": true,
-              },
-              paint: {
-                "text-color": "#ffffff",
-                "text-halo-color": "#000000",
-                "text-halo-width": 1,
-              },
-            });
+          setAllData(Object.values(data).flat());
+          fuse.setCollection(Object.values(data).flat());
 
+          //generating the icons for the trains
+          Object.values(data).flat().forEach((train) => {
+            const { imageWidth, imageHeight, imageText } = generateMarker(train);
 
-
-            //now getting the trains after the stations are added so they go on top
-            dataManager.getTrains().then((data) => {
-              if (Object.keys(data).length === 0) {
-                setShitsFucked(true);
-              }
-
-              const allTrains = Object.values(data).flat();
-
-              setAllData(allTrains);
-              setResults(allTrains);
-
-              //adding data to the map
-              mapRef.current.addSource("trains", {
-                type: "geojson",
-                data: {
-                  type: "FeatureCollection",
-                  features: allTrains.map((train) => {
-                    return {
-                      type: "Feature",
-                      id: train.trainID,
-                      properties: {
-                        ...train,
-                        id: train.trainID,
-                        //routeColor: train.lineColor,
-                        //lineCode: train.lineCode,
-                        //heading: train.heading,
-                      },
-                      geometry: {
-                        type: "Point",
-                        coordinates: [train.lon, train.lat],
-                      },
-                    }
-                  }),
-                },
-              });
-
-              //generating the icons for the trains
-              allTrains.forEach((train) => {
-                const { imageWidth, imageHeight, imageText } = generateMarker(train);
-
-                //converting the image and loading it
-                const img = new Image(imageWidth, imageHeight);
-                img.onload = () => mapRef.current.addImage(train.trainID, img, {
+            //converting the image and loading it
+            const img = new Image(imageWidth, imageHeight);
+            img.onload = () => {
+              if (mapRef.current.hasImage(train.trainID)) {
+                mapRef.current.updateImage(train.trainID, img);
+              } else {
+                mapRef.current.addImage(train.trainID, img, {
                   pixelRatio: 4,
                 });
-                img.onerror = console.log;
-                img.src = "data:image/svg+xml;base64," + btoa(imageText);
-              });
-
-              //adding the trains layer
-              mapRef.current.addLayer({
-                id: "trains",
-                type: "symbol",
-                source: "trains",
-                layout: {
-                  "icon-image": ["get", "trainID"],
-                  //"icon-rotation-alignment": "map",
-                  "icon-size": 1,
-                  "icon-allow-overlap": true,
-                },
-                paint: {},
-                filter: savedTrains.length == 0 ?
-                  ["any", true] :
-                  ["any", ...allTrains
-                    .filter((n) => savedTrainsShortID.includes(n.trainID))
-                    .map((n) => [
-                      "==",
-                      "trainID",
-                      n.trainID
-                    ])]
-              });
-            });
+              }
+            }
+            img.onerror = console.log;
+            img.src = "data:image/svg+xml;base64," + btoa(imageText);
           });
 
-          mapRef.current.on("click", (e) => {
-            let f = mapRef.current.queryRenderedFeatures(e.point, {
-              layers: ["trains", "stations"],
+          mapRef.current.getSource("trains").setData({
+            type: "FeatureCollection",
+            features: Object.values(data).flat().map((train) => {
+              return {
+                type: "Feature",
+                id: '',
+                properties: {
+                  ...train,
+                  id: train.trainID,
+                },
+                geometry: {
+                  type: "Point",
+                  coordinates: [train.lon, train.lat],
+                },
+              }
+            }),
+          });
+        });
+
+        //stations
+        dataManager.getStations().then((data) => {
+          if (Object.keys(data).length === 0) {
+            setShitsFucked(true);
+          } else {
+            setShitsFucked(false);
+          }
+
+          setStationsData(Object.values(data));
+
+          mapRef.current.getSource("stations").setData({
+            type: "FeatureCollection",
+            features: Object.values(data).map((station) => {
+              return {
+                type: "Feature",
+                id: station.code,
+                properties: {
+                  ...station,
+                  id: station.code,
+                },
+                geometry: {
+                  type: "Point",
+                  coordinates: [station.lon, station.lat],
+                },
+              }
+            }),
+          });
+        });
+      }, 30000); // every 30 seconds, update
+
+      //initial data fetch
+      //starting with stations so theyre on the bottom
+      dataManager.getStations().then((data) => {
+        if (Object.keys(data).length === 0) {
+          setShitsFucked(true);
+        }
+
+        const allStations = Object.values(data);
+
+        setStationsData(allStations);
+
+        mapRef.current.on("load", () => {
+          //adding data to the map
+          mapRef.current.addSource("stations", {
+            type: "geojson",
+            data: {
+              type: "FeatureCollection",
+              features: allStations.map((station) => {
+                return {
+                  type: "Feature",
+                  id: station.code,
+                  properties: {
+                    ...station,
+                    id: station.code,
+                    //routeColor: train.lineColor,
+                    //lineCode: train.lineCode,
+                    //heading: train.heading,
+                  },
+                  geometry: {
+                    type: "Point",
+                    coordinates: [station.lon, station.lat],
+                  },
+                }
+              }),
+            },
+          });
+
+          //adding the stations layer
+          mapRef.current.addLayer({
+            id: "stations",
+            type: "circle",
+            source: "stations",
+            minzoom: 6,
+            layout: {},
+            paint: {
+              "circle-pitch-alignment": "map",
+              "circle-radius": 6,
+              "circle-stroke-width": 2,
+              "circle-color": "#ffffff",
+              "circle-stroke-color": "#000000",
+            },
+          });
+
+          mapRef.current.addLayer({
+            id: "stations_label",
+            type: "symbol",
+            source: "stations",
+            minzoom: 7,
+            layout: {
+              "text-field": ["get", "code"],
+              "text-font": ["Noto Sans Regular"],
+              "text-offset": [0, 1.25],
+              "text-allow-overlap": true,
+            },
+            paint: {
+              "text-color": "#ffffff",
+              "text-halo-color": "#000000",
+              "text-halo-width": 1,
+            },
+          }, mapRef.current.getLayer('trains')?.id);
+        });
+      });
+
+      dataManager.getTrains().then((data) => {
+        if (Object.keys(data).length === 0) {
+          setShitsFucked(true);
+        }
+
+        const allTrains = Object.values(data).flat();
+
+        setAllData(allTrains);
+        setResults(allTrains);
+
+        mapRef.current.on("load", () => {
+          //adding data to the map
+          mapRef.current.addSource("trains", {
+            type: "geojson",
+            data: {
+              type: "FeatureCollection",
+              features: allTrains.map((train) => {
+                return {
+                  type: "Feature",
+                  id: train.trainID,
+                  properties: {
+                    ...train,
+                    id: train.trainID,
+                    //routeColor: train.lineColor,
+                    //lineCode: train.lineCode,
+                    //heading: train.heading,
+                  },
+                  geometry: {
+                    type: "Point",
+                    coordinates: [train.lon, train.lat],
+                  },
+                }
+              }),
+            },
+          });
+
+          //generating the icons for the trains
+          allTrains.forEach((train) => {
+            const { imageWidth, imageHeight, imageText } = generateMarker(train);
+
+            //converting the image and loading it
+            const img = new Image(imageWidth, imageHeight);
+            img.onload = () => mapRef.current.addImage(train.trainID, img, {
+              pixelRatio: 4,
             });
+            img.onerror = console.log;
+            img.src = "data:image/svg+xml;base64," + btoa(imageText);
+          });
 
-            if (f.length === 0) {
-              setPopupInfo(null);
-              return;
-            }
+          //adding the trains layer
+          mapRef.current.addLayer({
+            id: "trains",
+            type: "symbol",
+            source: "trains",
+            layout: {
+              "icon-image": ["get", "trainID"],
+              //"icon-rotation-alignment": "map",
+              "icon-size": 1,
+              "icon-allow-overlap": true,
+            },
+            paint: {},
+            filter: savedTrains.length == 0 ?
+              ["any", true] :
+              ["any", ...allTrains
+                .filter((n) => savedTrainsShortID.includes(n.trainID))
+                .map((n) => [
+                  "==",
+                  "trainID",
+                  n.trainID
+                ])]
+          });
+        });
+      });
 
-            if (mapRef.current.getZoom() < 6) f = f.filter((n) => n.layer.id == 'trains');
+      mapRef.current.on("load", async () => {
+        mapRef.current.on("click", (e) => {
+          let f = mapRef.current.queryRenderedFeatures(e.point, {
+            layers: ["trains", "stations"],
+          });
 
-            if (f.length > 1) {
-              const popup = new maplibregl.Popup({
-                offset: 16,
-                closeButton: true,
-                anchor: "bottom",
-                maxWidth: false,
-              })
-                .setLngLat(e.lngLat);
-              setPopupInfo({
-                arrayType: 'popup',
-                features: f,
-              });
+          if (f.length === 0) {
+            setPopupInfo(null);
+            return;
+          }
+
+          if (mapRef.current.getZoom() < 6) f = f.filter((n) => n.layer.id == 'trains');
+
+          if (f.length > 1) {
+            const popup = new maplibregl.Popup({
+              offset: 16,
+              closeButton: true,
+              anchor: "bottom",
+              maxWidth: false,
+            })
+              .setLngLat(e.lngLat);
+
+            const finalItems = f.slice(0, 5);
+            const hasTrains = finalItems.find((item) => item.layer.id == 'trains');
+            const hasStations = finalItems.find((item) => item.layer.id == 'stations');
+
+            let titleText = 'Feature';
+            if (hasTrains && !hasStations) titleText = 'Train';
+            if (!hasTrains && hasStations) titleText = 'Station';
+
+            setPopupInfo({
+              arrayType: 'popup',
+              titleText,
+              finalItems,
+              sourcePopup: popup,
+            });
+            activatePopup(
+              mapRef,
+              <ManualMultiplePopup
+                finalItems={finalItems}
+                mapRef={mapRef}
+                setPopupInfo={setPopupInfo}
+                sourcePopup={popup}
+              />,
+              popup
+            )
+            return;
+          }
+
+          const feature = f[0];
+
+          switch (feature.layer.id) {
+            case 'trains':
+              const train = {
+                ...feature.properties,
+                stations: JSON.parse(feature.properties.stations)
+              };
+              setPopupInfo(train)
               activatePopup(
                 mapRef,
-                <ManualMultiplePopup
-                  items={f}
-                  mapRef={mapRef}
-                  setPopupInfo={setPopupInfo}
-                  sourcePopup={popup}
-                />,
-                popup
+                <ManualTrainPopup train={train} />,
+                new maplibregl.Popup({
+                  offset: 16,
+                  closeButton: true,
+                  anchor: "bottom",
+                })
+                  .setLngLat(feature.geometry.coordinates)
               )
-              return;
-            }
-
-            const feature = f[0];
-
-            switch (feature.layer.id) {
-              case 'trains':
-                const train = {
-                  ...feature.properties,
-                  stations: JSON.parse(feature.properties.stations)
-                };
-                setPopupInfo(train)
-                activatePopup(
-                  mapRef,
-                  <ManualTrainPopup train={train} />,
-                  new maplibregl.Popup({
-                    offset: 16,
-                    closeButton: true,
-                    anchor: "bottom",
-                  })
-                    .setLngLat(feature.geometry.coordinates)
-                )
-                break;
-              case 'stations':
-                const station = {
-                  ...feature.properties,
-                  trains: JSON.parse(feature.properties.trains)
-                }
-                setPopupInfo(station)
-                activatePopup(
-                  mapRef,
-                  <ManualStationPopup station={station} />,
-                  new maplibregl.Popup({
-                    offset: 12,
-                    closeButton: true,
-                    anchor: "bottom",
-                  })
-                    .setLngLat(feature.geometry.coordinates)
-                )
-                break;
-            }
-          });
-
-          mapRef.current.on("mouseenter", "trains", () => {
-            mapRef.current.getCanvas().style.cursor = "pointer";
-          });
-
-          mapRef.current.on("mouseleave", "trains", () => {
-            mapRef.current.getCanvas().style.cursor = "";
-          });
-
-          mapRef.current.on("mouseenter", "stations", () => {
-            mapRef.current.getCanvas().style.cursor = "pointer";
-          });
-
-          mapRef.current.on("mouseleave", "stations", () => {
-            mapRef.current.getCanvas().style.cursor = "";
-          });
-
-          mapRef.current.on("moveend", () => {
-            console.log(
-              `Map moved to ${mapRef.current.getCenter()} with zoom ${mapRef.current.getZoom()}`
-            );
-          });
-
-          mapRef.current.addControl(
-            new maplibregl.NavigationControl({
-              visualizePitch: true,
-            }),
-            "top-right"
-          );
-          mapRef.current.addControl(new maplibregl.FullscreenControl());
-          mapRef.current.addControl(
-            new maplibregl.GeolocateControl({
-              positionOptions: {
-                enableHighAccuracy: true,
-              },
-              trackUserLocation: true,
-            })
-          );
-
-          console.log("Map initialized");
+              break;
+            case 'stations':
+              const station = {
+                ...feature.properties,
+                trains: JSON.parse(feature.properties.trains)
+              }
+              setPopupInfo(station)
+              activatePopup(
+                mapRef,
+                <ManualStationPopup station={station} />,
+                new maplibregl.Popup({
+                  offset: 12,
+                  closeButton: true,
+                  anchor: "bottom",
+                })
+                  .setLngLat(feature.geometry.coordinates)
+              )
+              break;
+          }
         });
-      } catch (e) {
-        console.log("Error initializing map", e);
-      }
-    })();
+
+        mapRef.current.on("mouseenter", "trains", () => {
+          mapRef.current.getCanvas().style.cursor = "pointer";
+        });
+
+        mapRef.current.on("mouseleave", "trains", () => {
+          mapRef.current.getCanvas().style.cursor = "";
+        });
+
+        mapRef.current.on("mouseenter", "stations", () => {
+          mapRef.current.getCanvas().style.cursor = "pointer";
+        });
+
+        mapRef.current.on("mouseleave", "stations", () => {
+          mapRef.current.getCanvas().style.cursor = "";
+        });
+
+        mapRef.current.on("moveend", () => {
+          console.log(
+            `Map moved to ${mapRef.current.getCenter()} with zoom ${mapRef.current.getZoom()}`
+          );
+        });
+
+        mapRef.current.addControl(
+          new maplibregl.NavigationControl({
+            visualizePitch: true,
+          }),
+          "top-right"
+        );
+        mapRef.current.addControl(new maplibregl.FullscreenControl());
+        mapRef.current.addControl(
+          new maplibregl.GeolocateControl({
+            positionOptions: {
+              enableHighAccuracy: true,
+            },
+            trackUserLocation: true,
+          })
+        );
+
+        console.log("Map initialized");
+      });
+    } catch (e) {
+      console.log("Error initializing map", e);
+    }
   }, []);
 
   return (
@@ -636,6 +647,109 @@ const AmtrakerMap = () => {
                   }}
                 />
               ) : null}
+              {popupInfo && popupInfo.arrayType == 'popup' ? (
+                <div
+                  style={{
+                    marginRight: "8px",
+                    display: "flex",
+                    flexDirection: 'column',
+                    gap: "4px"
+                  }}
+                >
+                  <div className="train-box train-box-max-width">
+                    <div className="train-popup__header">Select a {popupInfo.titleText}:</div>
+                  </div>
+                  {
+                    popupInfo.finalItems.map((item) => {
+                      switch (item.layer.id) {
+                        case 'trains':
+                          return (
+                            <div
+                              key={item.properties.trainID}
+                              className="train-box train-box-max-width"
+                              style={{
+                                cursor: 'pointer'
+                              }}
+                              onClick={(e) => {
+                                const train = {
+                                  ...item.properties,
+                                  stations: JSON.parse(item.properties.stations)
+                                };
+
+                                setPopupInfo(train);
+                                popupInfo.sourcePopup.remove();
+                                activatePopup(
+                                  mapRef,
+                                  <ManualTrainPopup train={train} />,
+                                  new maplibregl.Popup({
+                                    offset: 16,
+                                    closeButton: true,
+                                    anchor: "bottom",
+                                  })
+                                    .setLngLat([train.lon, train.lat])
+                                )
+                                if (mapRef.current) {
+                                  mapRef.current.flyTo({
+                                    center: [train.lon, train.lat],
+                                    duration: 500,
+                                    zoom: Math.max(mapRef.current.getZoom(), 6)
+                                  });
+                                }
+                              }}
+                            >
+                              <div style={{
+                                textWrap: 'nowrap'
+                              }}>
+                                <span className="status" style={{
+                                  backgroundColor: item.properties.iconColor,
+                                }}>{item.properties.trainID.split('-')[0]} ({item.properties.trainID.split('-')[1]})</span> {item.properties.routeName}
+                              </div>
+                            </div>
+                          )
+                        case 'stations':
+                          return (
+                            <div
+                              key={item.properties.code}
+                              className="train-box train-box-max-width"
+                              style={{
+                                cursor: 'pointer'
+                              }}
+                              onClick={(e) => {
+                                const station = {
+                                  ...item.properties,
+                                  trains: JSON.parse(item.properties.trains)
+                                }
+                                setPopupInfo(station);
+                                popupInfo.sourcePopup.remove();
+                                activatePopup(
+                                  mapRef,
+                                  <ManualStationPopup station={station} />,
+                                  new maplibregl.Popup({
+                                    offset: 12,
+                                    closeButton: true,
+                                    anchor: "bottom",
+                                  })
+                                    .setLngLat([station.lon, station.lat])
+                                );
+                                if (mapRef.current) {
+                                  mapRef.current.flyTo({
+                                    center: [station.lon, station.lat],
+                                    duration: 500,
+                                    zoom: Math.max(mapRef.current.getZoom(), 6)
+                                  });
+                                }
+                              }}
+                            >
+                              <div>
+                                <span className="status">{item.properties.code}</span> {item.properties.name}
+                              </div>
+                            </div>
+                          )
+                      }
+                    })
+                  }
+                </div>
+              ) : null}
               {popupInfo && popupInfo.trainNum ? (
                 <div
                   style={{
@@ -666,23 +780,79 @@ const AmtrakerMap = () => {
                 );
               })
                 : null}
+              {popupInfo && popupInfo.code ?
+                <div
+                  className="train-box train-box-max-width"
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '8px',
+                    fontSize: '1.5rem',
+                    fontWeight: '300',
+                    width: 'calc(100% - 8px)',
+                  }}>
+                  <input type="checkbox" onChange={(e) => {
+                    console.log(e.target.checked)
+                    setOnlyShowUpcoming(e.target.checked)
+                  }}/>
+                  <label><b>Only Show Upcoming</b></label>
+                </div> : null}
               {popupInfo && popupInfo.code ? popupInfo.trains
-                .map((trainID) => {
+                .map((trainID) => dataManager.getTrainSync(trainID, true))
+                .filter((train) => {
+                  if (onlyShowUpcoming) {
+                    const trainThisStation = train.stations.find((station) => station.code == popupInfo.code);
+
+                    if (!trainThisStation) return true; // still include, but it will be sorted downwards later
+
+                    if (trainThisStation.status != "Enroute") return false;
+                  }
+
+                  return true;
+                })
+                .sort((trainA, trainB) => {
+                  if (onlyShowUpcoming) {
+                    // getting the stations
+                    const trainAThisStation = trainA.stations.find((station) => station.code == popupInfo.code);
+                    const trainBThisStation = trainB.stations.find((station) => station.code == popupInfo.code);
+
+                    // managing edge cases
+                    if (!trainAThisStation && !trainBThisStation) return trainB.trainID - trainA.trainID; // by train ID
+                    if (!trainAThisStation) return 1; // prioritize B
+                    if (!trainBThisStation) return -1; // prioritize A
+
+                    //getting time stamps
+                    const trainAThisStationTime = new Date(trainAThisStation.arr ?? trainAThisStation.dep);
+                    const trainBThisStationTime = new Date(trainBThisStation.arr ?? trainBThisStation.dep);
+
+                    // more edge cases
+                    if (!trainAThisStationTime && !trainBThisStationTime) return trainB.trainID - trainA.trainID; // by train ID
+                    if (!trainAThisStationTime) return 1; // prioritize B
+                    if (!trainBThisStationTime) return -1; // prioritize A
+
+                    return trainAThisStationTime.valueOf() - trainBThisStationTime.valueOf();
+                  }
+
+                  return trainB.trainID - trainA.trainID;
+                })
+                .map((train) => {
                   return (
                     <div
                       style={{
                         marginRight: "8px",
                       }}
+                      key={train.trainID}
                     >
-                      <ShortTrainIDTrainBox
-                        trainID={trainID}
+                      <ManualTrainBox
+                        train={train}
                         maxWidth={true}
                         onClick={() => {
-                          dataManager.getTrain(trainID)
+                          dataManager.getTrain(train.trainID)
                             .then((trainData) => {
                               if (Array.isArray(trainData)) return; //no data
 
-                              const train = trainData[trainID.split('-')[0]][0];
+                              const train = trainData[train.trainID.split('-')[0]][0];
 
                               if (!savedTrainsShortID.includes(train.trainID)) {
                                 mapRef.current.setFilter('trains', ["any", true]);
@@ -710,6 +880,7 @@ const AmtrakerMap = () => {
                               }
                             })
                         }}
+                        overrideEventCode={popupInfo.code}
                       />
                     </div>
                   );
@@ -726,6 +897,7 @@ const AmtrakerMap = () => {
                       style={{
                         marginRight: "8px",
                       }}
+                      key={train.trainID}
                     >
                       <ManualTrainBox
                         train={train}

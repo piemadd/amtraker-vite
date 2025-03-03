@@ -69,7 +69,7 @@ export class DataManager {
           this._lastUpdated = Date.now();
 
           localForage.setItem('amtraker_datamanager_v1_data', JSON.stringify(this._data));
-        console.log('Initial request succeeded')
+          console.log('Initial request succeeded')
         }
       } catch (e) {
         this._data = await localForage.getItem('amtraker_datamanager_v1_data');
@@ -99,16 +99,16 @@ export class DataManager {
     return this._data.trains;
   }
 
-  async getTrain(trainID) {
+  getTrainSync(trainID, justObject = false) {
     console.log('DM: Specific Train')
     //a full ID is passed
-    if (trainID == '9999') {
-      return sampleTrain;
-    } else 
+    if (trainID == '9999') return sampleTrain;
 
     if (trainID.includes('-')) {
-      if (trainID == '9999-21') return {"9999": [sampleTrain['9999'][0]]};
-      if (trainID == '9999-22') return {"9999": [sampleTrain['9999'][1]]};
+      if (trainID == '9999-21') return { "9999": [sampleTrain['9999'][0]] };
+      if (trainID == '9999-22') return { "9999": [sampleTrain['9999'][1]] };
+      if (trainID == '9999-21' && justObject) return sampleTrain['9999'][0];
+      if (trainID == '9999-22' && justObject) return sampleTrain['9999'][1];
 
       const trainNum = trainID.split('-')[0];
 
@@ -118,15 +118,18 @@ export class DataManager {
 
       if (train === undefined) return []; // train number exists, but not this specific id
 
-      return {
-        [trainNum]: [train]
-      };
+      if (justObject) return train;
+      return { [trainNum]: [train] };
     }
 
     if (!this._data.trains[trainID]) return []; // train number doesn't exist
     return {
       [trainID]: this._data.trains[trainID]
     }
+  }
+
+  async getTrain(trainID, justObject = false) {
+    return this.getTrainSync(trainID, justObject);
   }
 
   async getStations() {

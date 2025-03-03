@@ -2,7 +2,7 @@ import ManualTrainBox from "./manualTrainBox";
 import { useState, useEffect } from "react";
 import DataManager from "../dataManager/dataManager";
 
-const TrainIDTrainBox = ({ trainID }) => {
+const TrainIDTrainBox = ({ trainID, overrideEventCode = false }) => {
   const [train, setTrain] = useState(undefined);
   const [loading, setLoading] = useState(true);
 
@@ -83,7 +83,7 @@ const TrainIDTrainBox = ({ trainID }) => {
   //not sure what this is for tbh, should be covered above
   if (train === undefined) return null;
 
-  return <ManualTrainBox train={train} loading={loading} />;
+  return <ManualTrainBox train={train} loading={loading} overrideEventCode={overrideEventCode} />;
 };
 
 export default TrainIDTrainBox;
