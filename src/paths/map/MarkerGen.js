@@ -37,8 +37,6 @@ const generateMarker = (train) => {
     </g>
 </svg>`
 
-  console.log(svgTemplate)
-
   return {
     imageWidth: calculatedWidth * sizeMultiplier,
     imageHeight: 96 * sizeMultiplier,

@@ -4,7 +4,7 @@
   "sources": {
     "protomaps": {
       "type": "vector",
-      "url": "https://v4mapa.amtraker.com/20250127.json"
+      "url": "https://v4map.amtraker.com/20250127.json"
     }
   },
   "sprite": "https://basemaps-assets.amtraker.com/sprites/v4/dark",
@@ -1307,85 +1307,70 @@
       }
     },
     {
-      "id": "via_lines_under",
+      "id": "transit_lines_under",
       "type": "line",
-      "source": "via_lines",
+      "source": "transit_lines",
+      "source-layer": "zcta",
+      "filter": [
+        "any",
+        [
+          "==",
+          "provider",
+          "amtrak"
+        ],
+        [
+          "==",
+          "provider",
+          "via_rail"
+        ],
+        [
+          "==",
+          "provider",
+          "brightline"
+        ]
+      ],
       "layout": {
         "line-join": "round",
         "line-cap": "round"
       },
       "paint": {
-        "line-color": "#111111",
+        "line-color": "#222222",
         "line-opacity": 1,
         "line-width": 6
       }
     },
     {
-      "id": "amtrak_lines_under",
+      "id": "transit_lines",
       "type": "line",
-      "source": "amtrak_lines",
+      "source": "transit_lines",
+      "source-layer": "zcta",
+      "filter": [
+        "any",
+        [
+          "==",
+          "provider",
+          "amtrak"
+        ],
+        [
+          "==",
+          "provider",
+          "via_rail"
+        ],
+        [
+          "==",
+          "provider",
+          "brightline"
+        ]
+      ],
       "layout": {
         "line-join": "round",
         "line-cap": "round"
       },
       "paint": {
-        "line-color": "#111111",
-        "line-opacity": 1,
-        "line-width": 6
-      }
-    },
-    {
-      "id": "brightline_lines_under",
-      "type": "line",
-      "source": "brightline_lines",
-      "layout": {
-        "line-join": "round",
-        "line-cap": "round"
-      },
-      "paint": {
-        "line-color": "#111111",
-        "line-opacity": 1,
-        "line-width": 6
-      }
-    },
-    {
-      "id": "via_lines",
-      "type": "line",
-      "source": "via_lines",
-      "layout": {
-        "line-join": "round",
-        "line-cap": "round"
-      },
-      "paint": {
-        "line-color": "#FFCB06",
-        "line-opacity": 1,
-        "line-width": 2
-      }
-    },
-    {
-      "id": "amtrak_lines",
-      "type": "line",
-      "source": "amtrak_lines",
-      "layout": {
-        "line-join": "round",
-        "line-cap": "round"
-      },
-      "paint": {
-        "line-color": "#0578f2",
-        "line-opacity": 1,
-        "line-width": 2
-      }
-    },
-    {
-      "id": "brightline_lines",
-      "type": "line",
-      "source": "brightline_lines",
-      "layout": {
-        "line-join": "round",
-        "line-cap": "round"
-      },
-      "paint": {
-        "line-color": "#F2E205",
+        "line-color": [
+          "get",
+          "routeColor"
+        ],
         "line-opacity": 1,
         "line-width": 2
       }

@@ -59,7 +59,7 @@ export class DataManager {
   async checkDataStatusAndUpdate() {
     const runFetch = (async () => {
       try {
-        if (!this._lastUpdated || !this._data || this._lastUpdated < Date.now() - (1000 * 60)) {
+        if (!this._lastUpdated || !this._data || this._lastUpdated < Date.now() - (1000 * 60 * 5)) {
           const res = await fetch('https://api.amtraker.com/v3/all', {
             cache: 'reload',
             signal: AbortSignal.timeout(5000)

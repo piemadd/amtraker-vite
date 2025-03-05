@@ -1,4 +1,5 @@
-import React, { createContext } from "react";
+import { scan } from "react-scan";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
@@ -8,6 +9,10 @@ import ErrorPage from "./error.jsx";
 import LoadingPage from "./loading";
 import DataManager from "./components/dataManager/dataManager.js";
 //import * as serviceWorkerRegistration from "./serviceWorkerRegistration.js";
+
+scan({
+  enabled: false,
+});
 
 
 console.log(`DM-N: ${JSON.stringify(window.dataManager)}`)

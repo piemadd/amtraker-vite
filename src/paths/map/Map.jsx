@@ -113,19 +113,21 @@ const AmtrakerMap = () => {
       debounce(setWindowSize([window.innerWidth, window.innerHeight]));
     });
   }, []);
-
-  const fuse = new Fuse(allData, {
-    keys: [
-      "routeName",
-      "trainNum",
-      "trainID",
-      "stations.name",
-      "stations.code",
-      "stations.city",
-      "stations.zip",
-    ],
-    includeScore: true,
-  });
+  
+  const fuse = useMemo(() => {
+    return new Fuse(allData, {
+      keys: [
+        "routeName",
+        "trainNum",
+        "trainID",
+        "stations.name",
+        "stations.code",
+        "stations.city",
+        "stations.zip",
+      ],
+      includeScore: true,
+    });
+  }, []);
 
   const savedTrains = useMemo(() => {
     if (!localStorage.getItem("savedTrainsAmtrakerV3")) {
@@ -196,17 +198,15 @@ const AmtrakerMap = () => {
           },
           bearing: 0,
           sources: {
-            via_lines: {
-              type: "geojson",
-              data: "https://gtfs.piemadd.com/data/viarail/shapes/type_2.geojson"
-            },
-            amtrak_lines: {
-              type: "geojson",
-              data: "https://gobblerstatic.transitstat.us/additionalShapes/amtrak.json"
-            },
-            brightline_lines: {
-              type: "geojson",
-              data: "https://gtfs.piemadd.com/data/brightline/shapes/type_2.geojson"
+            transit_lines: {
+              type: 'vector',
+              tiles: [
+                "https://v4mapa.amtraker.com/amtraker/{z}/{x}/{y}.mvt",
+                "https://v4mapb.amtraker.com/amtraker/{z}/{x}/{y}.mvt",
+                "https://v4mapc.amtraker.com/amtraker/{z}/{x}/{y}.mvt",
+                "https://v4mapd.amtraker.com/amtraker/{z}/{x}/{y}.mvt"
+              ],
+              maxzoom: 12,
             },
             protomaps: {
               type: "vector",
@@ -795,7 +795,7 @@ const AmtrakerMap = () => {
                   <input type="checkbox" onChange={(e) => {
                     console.log(e.target.checked)
                     setOnlyShowUpcoming(e.target.checked)
-                  }}/>
+                  }} />
                   <label><b>Only Show Upcoming</b></label>
                 </div> : null}
               {popupInfo && popupInfo.code ? popupInfo.trains
