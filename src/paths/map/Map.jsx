@@ -79,6 +79,7 @@ const AmtrakerMap = () => {
     window.innerHeight,
   ]);
   const [shitsFucked, setShitsFucked] = useState(false);
+  const [dataStale, setDataStale] = useState({ avgLastUpdate: 0, activeTrains: 999, stale: false });
   const navigate = useNavigate();
   const dataManager = window.dataManager;
   const appSettings = useMemo(settingsInit, []);
@@ -113,7 +114,7 @@ const AmtrakerMap = () => {
       debounce(setWindowSize([window.innerWidth, window.innerHeight]));
     });
   }, []);
-  
+
   const fuse = useMemo(() => {
     return new Fuse(allData, {
       keys: [
@@ -231,12 +232,17 @@ const AmtrakerMap = () => {
 
       // fetching data on an interval
       setInterval(() => {
+        // resetting
+        setShitsFucked(false);
+
+        // stale data + shits fucked
+        dataManager.getShitsFucked().then((shitsFucked) => setShitsFucked(shitsFucked));
+        dataManager.getStaleData().then((stale) => setDataStale(stale));
+
         // trains
         dataManager.getTrains().then((data) => {
           if (Object.keys(data).length === 0) {
             setShitsFucked(true);
-          } else {
-            setShitsFucked(false);
           }
 
           setAllData(Object.values(data).flat());
@@ -284,8 +290,6 @@ const AmtrakerMap = () => {
         dataManager.getStations().then((data) => {
           if (Object.keys(data).length === 0) {
             setShitsFucked(true);
-          } else {
-            setShitsFucked(false);
           }
 
           setStationsData(Object.values(data));
@@ -311,6 +315,10 @@ const AmtrakerMap = () => {
       }, 30000); // every 30 seconds, update
 
       //initial data fetch
+      // stale data + shits fucked
+      dataManager.getShitsFucked().then((shitsFucked) => setShitsFucked(shitsFucked));
+      dataManager.getStaleData().then((stale) => setDataStale(stale));
+
       //starting with stations so theyre on the bottom
       dataManager.getStations().then((data) => {
         if (Object.keys(data).length === 0) {
@@ -583,6 +591,18 @@ const AmtrakerMap = () => {
             trackUserLocation: true,
           })
         );
+        mapRef.current.addControl(new maplibregl.AttributionControl({
+          customAttribution: [
+            '<a href="https://github.com/protomaps/basemaps" target="_blank">Protomaps</a>',
+            '<a href="https://openstreetmap.org" target="_blank">© OpenStreetMap contributors</a>',
+            '<a href="https://overturemaps.org" target="_blank">© Overture Maps Foundation</a>',
+            '<a href="https://geodata.bts.gov/datasets/usdot::amtrak-routes/about" target="_blank">USDOT BTS</a>',
+            '<span>Amtrak</span>',
+            '<a href="http://feed.gobrightline.com/" target="_blank">© Brightline</a>',
+            '<a href="https://www.viarail.ca/en/developer-resources" target="_blank">© VIA Rail</a>',
+            '<a href="https://developer.njtransit.com/terms/" target="_blank">© NJT</a>',
+          ].join(' | '),
+        }));
 
         console.log("Map initialized");
       });
@@ -612,6 +632,8 @@ const AmtrakerMap = () => {
               The Amtrak API seems to be having issues currently! Please try
               again later...
             </p>
+          ) : dataStale.stale ? (
+            <p>Warning: Data is stale. Trains were last updated on average {Math.floor(dataStale.avgLastUpdate / 60000)} minutes ago.</p>
           ) : null}
           {navigator.share ? (
             <h2
@@ -939,15 +961,11 @@ const AmtrakerMap = () => {
             }}
           >
             <div className='map-over'>
+              {/*
               <div className='attribution'>
-                <a href='https://protomaps.com' target='_blank'>
-                  &copy; Protomaps Tiles
-                </a>
-                {" | "}
-                <a href='https://openstreetmap.org/copyright' target='_blank'>
-                  &copy; OpenStreetMap
-                </a>
+                <Link to={"/about#mapdata"}>Map Data Attribution and Copyright</Link>
               </div>
+              */}
               <button
                 className='settings'
                 onClick={() => {
@@ -965,7 +983,5 @@ const AmtrakerMap = () => {
     </>
   );
 };
-
-//'<a href="https://protomaps.com">Protomaps</a> © <a href="https://openstreetmap.org">OpenStreetMap</a>'
 
 export default AmtrakerMap;

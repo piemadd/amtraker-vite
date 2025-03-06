@@ -25,6 +25,8 @@ const BetterTrainPage = () => {
   const navigate = useNavigate();
   const dataManager = window.dataManager;
   const appSettings = useMemo(settingsInit, []);
+  const lastPage = useMemo(() => new URL(document.URL).searchParams.get('from'), []);
+  console.log(lastPage)
 
   const [loading, setLoading] = useState(true);
   const [trainData, setTrainData] = useState([]);
@@ -95,7 +97,7 @@ const BetterTrainPage = () => {
           <div className='header-trainpage'>
             <h2
               onClick={() => {
-                if (history.state.idx && history.state.idx > 0) {
+                if ((history.state.idx && history.state.idx > 0) || lastPage) {
                   navigate(-1);
                 } else {
                   navigate("/", { replace: true }); //fallback
@@ -275,7 +277,7 @@ const BetterTrainPage = () => {
                   {!searchParams.has("oembed") ? (
                     <button
                       onClick={() => {
-                        if (history.state.idx && history.state.idx > 0) {
+                        if ((history.state.idx && history.state.idx > 0) || lastPage) {
                           navigate(-1);
                         } else {
                           navigate("/", { replace: true }); //fallback

@@ -85,7 +85,7 @@ const ManualTrainPopup = ({ train, loading = false }) => {
         ETA
       </div>
       <div className='train-popup__info'>
-        <a href={`/trains/${train.trainID.split("-").join("/")}`}>View More</a>
+        <a href={`/trains/${train.trainID.split("-").join("/")}?from=/map`}>View More</a>
       </div>
     </div>
   );

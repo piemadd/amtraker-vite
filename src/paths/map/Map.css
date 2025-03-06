@@ -57,22 +57,6 @@ path {
   background-color: #333 !important;
 }
 
-details {
-  z-index: 10;
-  position: absolute;
-  color: var(--fg-primary);
-  background-color: var(--bg-secondary);
-  margin: 16px;
-  padding: 8px 12px;
-}
-
-details > summary {
-  font-size: 1.5em;
-  font-weight: 400;
-  user-select: none;
-  cursor: pointer;
-}
-
 .mapboxgl-ctrl-group,
 .maplibregl-ctrl-group {
   background-color: #444 !important;
@@ -91,6 +75,11 @@ details > summary {
 .maplibregl-ctrl button:hover {
   background-color: #555 !important;
   border-radius: 4px !important;
+}
+
+.maplibregl-ctrl-attrib-inner, .maplibregl-ctrl-attrib a {
+  color: #000 !important;
+  text-decoration: none;
 }
 
 .mapboxgl-ctrl button.mapboxgl-ctrl-zoom-in .mapboxgl-ctrl-icon,
