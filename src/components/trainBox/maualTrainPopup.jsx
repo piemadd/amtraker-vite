@@ -76,13 +76,14 @@ const ManualTrainPopup = ({ train, loading = false }) => {
         to {currentStation.code}
       </div>
       <div className='train-popup__info train-popup__updated greyed'>
-        {new Date(
+        Estimated: {new Date(
           currentStation.arr ?? currentStation.dep ?? null
         ).toLocaleTimeString([], {
           hour: "numeric",
           minute: "numeric",
-        })}{" "}
-        ETA
+          timeZoneName: "short",
+          timeZone: currentStation.tz
+        })}
       </div>
       <div className='train-popup__info'>
         <a href={`/trains/${train.trainID.split("-").join("/")}?from=/map`}>View More</a>
