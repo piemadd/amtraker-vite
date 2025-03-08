@@ -1,40 +1,4 @@
-const toHoursAndMinutesLate = (date1, date2) => {
-  if (
-    date1.toString() === "Invalid Date" ||
-    date2.toString() === "Invalid Date"
-  )
-    return "Unknown (Estimate Error)";
-
-  const diff = date1.valueOf() - date2.valueOf();
-
-  if (Math.abs(diff) > 1000 * 60 * 60 * 24) return "Unknown (Schedule Error)";
-
-  const hours = Math.floor(Math.abs(diff) / 1000 / 60 / 60);
-  const minutes = Math.floor((Math.abs(diff) / 1000 / 60 / 60 - hours) * 60);
-
-  // creating the text
-  let amount = `${Math.abs(hours)}h ${Math.abs(minutes)}m`;
-  if (hours === 0) amount = `${Math.abs(minutes)}m`;
-  if (minutes === 0) amount = `${Math.abs(hours)}h`;
-
-  //on time
-  if (diff === 0) return "On Time";
-
-  //late or early
-  return diff > 0 ? `${amount} late` : `${amount} early`;
-};
-
-const colorizedToHoursAndMinutesLate = (date1, date2) => {
-  const res = toHoursAndMinutesLate(date1, date2);
-
-  if (res === "Estimate Error") return <span className='late-text'>{res}</span>;
-  if (res === "Schedule Error") return <span className='late-text'>{res}</span>;
-  if (res === "On Time") return <span className='on-time-text'>{res}</span>;
-  if (res.includes("late")) return <span className='late-text'>{res}</span>;
-  if (res.includes("early")) return <span className='early-text'>{res}</span>;
-
-  return <span className='error'>{res}</span>;
-};
+import { toHoursAndMinutesLate } from "../../tools";
 
 const ManualTrainPopup = ({ train, loading = false }) => {
   if (!train) return null;
@@ -69,10 +33,13 @@ const ManualTrainPopup = ({ train, loading = false }) => {
         }).format(new Date(train.lastValTS))}
       </div>
       <div className='train-popup__info'>
-        {colorizedToHoursAndMinutesLate(
-          new Date(currentStation.arr ?? currentStation.dep ?? null),
-          new Date(currentStation.schArr ?? currentStation.schDep ?? null)
-        )}{" "}
+        <span className='status-text' style={{
+          color: currentStation.stopIconColor != '#212529' ? currentStation.stopIconColor : '#bbb',
+        }}>
+          {currentStation.status === "Enroute"
+            ? toHoursAndMinutesLate(new Date(currentStation.arr), new Date(currentStation.schArr))
+            : toHoursAndMinutesLate(new Date(currentStation.dep), new Date(currentStation.schDep))}
+        </span>{" "}
         to {currentStation.code}
       </div>
       <div className='train-popup__info train-popup__updated greyed'>

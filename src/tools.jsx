@@ -80,18 +80,6 @@ const toHoursAndMinutesLate = (date1, date2) => {
   return diff > 0 ? `${amount} late` : `${amount} early`;
 };
 
-const colorizedToHoursAndMinutesLate = (date1, date2) => {
-  const res = toHoursAndMinutesLate(date1, date2);
-
-  if (res === "Estimate Error") return <span className='late-text'>{res}</span>;
-  if (res === "Schedule Error") return <span className='late-text'>{res}</span>;
-  if (res === "On Time") return <span className='on-time-text'>{res}</span>;
-  if (res.includes("late")) return <span className='late-text'>{res}</span>;
-  if (res.includes("early")) return <span className='early-text'>{res}</span>;
-
-  return <span className='error'>{res}</span>;
-};
-
 const calculateDistanceBetweenCoordinates = (lat1, lon1, lat2, lon2) => {
   const R = 6371e3; // metres
   const φ1 = (lat1 * Math.PI) / 180; // φ, λ in radians
@@ -226,7 +214,6 @@ const removeAlwaysTracked = (trainNum) => {
 export {
   hoursAndMinutesUnitl,
   toHoursAndMinutesLate,
-  colorizedToHoursAndMinutesLate,
   calculateDistanceBetweenCoordinates,
   presetExponential,
   calculateTimeTilLocation,

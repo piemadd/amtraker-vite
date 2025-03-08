@@ -4,12 +4,9 @@ import maplibregl from "maplibre-gl";
 import "./Map.css";
 import "maplibre-gl/dist/maplibre-gl.css";
 import Fuse from "fuse.js";
-//import layers from "protomaps-themes-base";
-//import mapStyle from "./style.json";
 import { layers, sprite, glyphs } from "./mapLayers.json";
 import ManualStationBox from "../../components/stationBox/manualStationBox";
 import ManualStationBoxIndependent from "../../components/stationBox/manualStationBoxIndependent.jsx";
-import ShortTrainIDTrainBox from "../../components/trainBox/shortTrainIDTrainBox.jsx";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import generateMarker from "./MarkerGen.js";
 import activatePopup from "./PopupActivation.js";
@@ -17,44 +14,6 @@ import ManualTrainPopup from "../../components/trainBox/maualTrainPopup";
 import ManualStationPopup from "../../components/stationBox/maualStationPopup.jsx";
 import ManualMultiplePopup from "../../components/manualMultiplePopup.jsx";
 import settingsInit from "../../components/settingsInit.js";
-
-const toHoursAndMinutesLate = (date1, date2) => {
-  if (
-    date1.toString() === "Invalid Date" ||
-    date2.toString() === "Invalid Date"
-  )
-    return "Estimate Error";
-
-  const diff = date1.valueOf() - date2.valueOf();
-
-  if (Math.abs(diff) > 1000 * 60 * 60 * 24) return "Schedule Error";
-
-  const hours = Math.floor(Math.abs(diff) / 1000 / 60 / 60);
-  const minutes = Math.floor((Math.abs(diff) / 1000 / 60 / 60 - hours) * 60);
-
-  // creating the text
-  let amount = `${Math.abs(hours)}h ${Math.abs(minutes)}m`;
-  if (hours === 0) amount = `${Math.abs(minutes)}m`;
-  if (minutes === 0) amount = `${Math.abs(hours)}h`;
-
-  //on time
-  if (diff === 0) return "On Time";
-
-  //late or early
-  return diff > 0 ? `${amount} late` : `${amount} early`;
-};
-
-const colorizedToHoursAndMinutesLate = (date1, date2) => {
-  const res = toHoursAndMinutesLate(date1, date2);
-
-  if (res === "Estimate Error") return <span className='late-text'>{res}</span>;
-  if (res === "Schedule Error") return <span className='late-text'>{res}</span>;
-  if (res === "On Time") return <span className='on-time-text'>{res}</span>;
-  if (res.includes("late")) return <span className='late-text'>{res}</span>;
-  if (res.includes("early")) return <span className='early-text'>{res}</span>;
-
-  return <span className='error'>{res}</span>;
-};
 
 const debounce = (func, timeout = 300) => {
   let timer;
@@ -874,18 +833,18 @@ const AmtrakerMap = () => {
                             .then((trainData) => {
                               if (Array.isArray(trainData)) return; //no data
 
-                              const train = trainData[train.trainID.split('-')[0]][0];
+                              const thisTrain = trainData[train.trainID.split('-')[0]][0];
 
-                              if (!savedTrainsShortID.includes(train.trainID)) {
+                              if (!savedTrainsShortID.includes(thisTrain.trainID)) {
                                 mapRef.current.setFilter('trains', ["any", true]);
                                 setResults(allData);
                                 setShowAll(true);
                               }
 
-                              setPopupInfo(train);
+                              setPopupInfo(thisTrain);
                               activatePopup(
                                 mapRef,
-                                <ManualTrainPopup train={train} />,
+                                <ManualTrainPopup train={thisTrain} />,
                                 new maplibregl.Popup({
                                   offset: 16,
                                   closeButton: true,
