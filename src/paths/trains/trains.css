@@ -113,7 +113,7 @@
 
 .status-text,
 .on-time-text {
-  color: #1864ab !important;
+  color: #1864ab;
   font-weight: 500;
   text-decoration: dotted underline;
 }

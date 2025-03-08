@@ -37,12 +37,6 @@ const ManualStationBox = ({ station, train, loading = false }) => {
   if (schArr.valueOf() < arr.valueOf()) trainTimely = "Late";
   if (!schArr || !arr) trainTimely = "No Data";
 
-  let stationTimelyClass = "on-time";
-  const stationTimely = toHoursAndMinutesLate(dep, schDep);
-
-  if (stationTimely.includes("Late")) stationTimelyClass = "late";
-  if (stationTimely.includes("Early")) stationTimelyClass = "early";
-
   let toUse = arr;
   if (train.origCode === station.code) toUse = dep;
   if (train.destCode !== station.code &&
@@ -69,30 +63,34 @@ const ManualStationBox = ({ station, train, loading = false }) => {
               : "Est dep"}
         </p>
         &nbsp;
-        <p className={`${stationTimelyClass}-text status-text`}>
+        <p className='status-text' style={{
+          color: station.stopIconColor != '#212529' ? station.stopIconColor : '#bbb',
+          //backgroundColor: station.stopIconColor == '#212529' ? '#ffffff' : null,
+          //textShadow: station.stopIconColor == '#212529' ? '0px 0px 3px #fff' : null,
+        }}>
           {station.status === "Enroute"
             ? toHoursAndMinutesLate(arr, schArr)
             : toHoursAndMinutesLate(dep, schDep)}
         </p>
       </div>
-        <div>
-          <p className='enroute'>
-            {new Intl.DateTimeFormat([], {
-              hour: "numeric",
-              minute: "numeric",
-              timeZone: station.tz,
-            }).format(toUse)}
-          </p>
-          &nbsp;
-          <p className='greyed enroute'>
-            {": "}
-            {new Intl.DateTimeFormat([], {
-              month: "short",
-              day: "numeric",
-              timeZone: station.tz,
-            }).format(toUse)}
-          </p>
-        </div>
+      <div>
+        <p className='enroute'>
+          {new Intl.DateTimeFormat([], {
+            hour: "numeric",
+            minute: "numeric",
+            timeZone: station.tz,
+          }).format(toUse)}
+        </p>
+        &nbsp;
+        <p className='greyed enroute'>
+          {": "}
+          {new Intl.DateTimeFormat([], {
+            month: "short",
+            day: "numeric",
+            timeZone: station.tz,
+          }).format(toUse)}
+        </p>
+      </div>
       {station.platform.length > 0 ? (
         <div>
           <p className='greyed'>
