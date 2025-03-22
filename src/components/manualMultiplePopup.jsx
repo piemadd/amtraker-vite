@@ -60,7 +60,7 @@ const ManualMultiplePopup = ({ finalItems, mapRef, setPopupInfo, sourcePopup }) 
                   }}>
                     <span className="status" style={{
                       backgroundColor: item.properties.iconColor,
-                    }}>{item.properties.trainID.split('-')[0]} ({item.properties.trainID.split('-')[1]})</span> {item.properties.routeName}
+                    }}>{item.properties.trainID.split('-')[0]}{!item.properties.onlyOfTrainNum ? ` (${item.properties.trainID.split('-')[1]})` : ''}</span> {item.properties.routeName}
                   </div>
                 </div>
               )

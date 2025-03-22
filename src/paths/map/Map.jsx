@@ -207,17 +207,9 @@ const AmtrakerMap = () => {
           setAllData(Object.values(data).flat());
           fuse.setCollection(Object.values(data).flat());
 
-          let numberOfTrainsPerNumber = {};
-          const allTrainsNew = Object.values(data).flat();
-
-          allTrainsNew.forEach((train) => {
-            if (!numberOfTrainsPerNumber[train.trainNum]) numberOfTrainsPerNumber[train.trainNum] = 0;
-            numberOfTrainsPerNumber[train.trainNum]++;
-          })
-
           //generating the icons for the trains
-          allTrainsNew.forEach((train) => {
-            const { imageWidth, imageHeight, imageText } = generateMarker(train, numberOfTrainsPerNumber);
+          Object.values(data).flat().forEach((train) => {
+            const { imageWidth, imageHeight, imageText } = generateMarker(train);
 
             //converting the image and loading it
             const img = new Image(imageWidth, imageHeight);
@@ -363,17 +355,10 @@ const AmtrakerMap = () => {
           setShitsFucked(true);
         }
 
-        let numberOfTrainsPerNumber = {};
-
         const allTrains = Object.values(data).flat();
 
         setAllData(allTrains);
         setResults(allTrains);
-
-        allTrains.forEach((train) => {
-          if (!numberOfTrainsPerNumber[train.trainNum]) numberOfTrainsPerNumber[train.trainNum] = 0;
-          numberOfTrainsPerNumber[train.trainNum]++;
-        })
 
         mapRef.current.on("load", () => {
           //adding data to the map
@@ -403,7 +388,7 @@ const AmtrakerMap = () => {
 
           //generating the icons for the trains
           allTrains.forEach((train) => {
-            const { imageWidth, imageHeight, imageText } = generateMarker(train, numberOfTrainsPerNumber);
+            const { imageWidth, imageHeight, imageText } = generateMarker(train);
 
             //converting the image and loading it
             const img = new Image(imageWidth, imageHeight);
@@ -698,7 +683,7 @@ const AmtrakerMap = () => {
                               }}>
                                 <span className="status" style={{
                                   backgroundColor: item.properties.iconColor,
-                                }}>{item.properties.trainID.split('-')[0]} ({item.properties.trainID.split('-')[1]})</span> {item.properties.routeName}
+                                }}>{item.properties.trainID.split('-')[0]}{!item.properties.onlyOfTrainNum ? ` (${item.properties.trainID.split('-')[1]})` : ''}</span> {item.properties.routeName}
                               </div>
                             </div>
                           )

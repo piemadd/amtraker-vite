@@ -63,7 +63,7 @@ const ManualTrainBox = ({
             backgroundColor: train.iconColor,
             textWrap: 'nowrap',
           }}
-        >{train.trainNum} ({train.trainID.split('-')[1]})</span>&nbsp;
+        >{train.trainNum}{!train.onlyOfTrainNum ? ` (${train.trainID.split('-')[1]})` : ''}</span>&nbsp;
         {train.routeName}
         {
           overrideEventCode ? null :

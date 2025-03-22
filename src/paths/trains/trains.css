@@ -34,6 +34,7 @@
 
 .train-box div:first-child span:first-child {
   font-weight: 600 !important;
+  text-shadow: black 0 0 10px;
 }
 
 .station-box {
@@ -109,6 +110,7 @@
   padding: 2px 8px;
   border-radius: 8px;
   background-color: #1864ab;
+  text-shadow: black 0 0 10px;
 }
 
 .status-text,

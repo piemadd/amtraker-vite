@@ -29,8 +29,8 @@ const manageSavedTrain = (trainNum, trainDate, state) => {
 };
 
 const getSavedTrain = (trainNum, trainDate) => {
-  let currentSaved = localStorage
-    .getItem('savedTrainsAmtrakerV3')
+  let currentSaved = 
+    (localStorage.getItem('savedTrainsAmtrakerV3') ?? '')
     .split(',')
     .filter((n) => n);
 

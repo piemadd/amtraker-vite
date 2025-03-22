@@ -1,8 +1,6 @@
-const generateMarker = (train, numberOfTrainsPerNumber) => {
+const generateMarker = (train) => {
   const sizeMultiplier = 1.25;
-  const needLastNum = numberOfTrainsPerNumber[train.trainNum] > 1;
-  
-  console.log(numberOfTrainsPerNumber[train.trainNum]);
+  const needLastNum = !train.onlyOfTrainNum;
 
   const calculatedWidth = 
     24 + // first letter length
