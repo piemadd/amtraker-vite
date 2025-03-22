@@ -118,6 +118,7 @@
   color: #1864ab;
   font-weight: 500;
   text-decoration: dotted underline;
+  text-shadow: black 0 0 8px;
 }
 
 .early {
