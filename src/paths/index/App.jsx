@@ -257,7 +257,7 @@ const App = () => {
           </Link>
         </section>
         <section className='amtrakerVersion'>
-          <p>Amtraker Beta 3.13.0 Build 19</p>
+          <p>Amtraker Beta 3.13.0 Build 20</p>
           <p>&copy; <a href="https://piemadd.com" target="_blank">Piero Maddaleni</a> 2025</p>
         </section>
         <SenseBlock key={"sense-block"} dataAdSlot={"3140178047"} />

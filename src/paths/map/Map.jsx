@@ -207,9 +207,17 @@ const AmtrakerMap = () => {
           setAllData(Object.values(data).flat());
           fuse.setCollection(Object.values(data).flat());
 
+          let numberOfTrainsPerNumber = {};
+          const allTrainsNew = Object.values(data).flat();
+
+          allTrainsNew.forEach((train) => {
+            if (!numberOfTrainsPerNumber[train.trainNum]) numberOfTrainsPerNumber[train.trainNum] = 0;
+            numberOfTrainsPerNumber[train.trainNum]++;
+          })
+
           //generating the icons for the trains
-          Object.values(data).flat().forEach((train) => {
-            const { imageWidth, imageHeight, imageText } = generateMarker(train);
+          allTrainsNew.forEach((train) => {
+            const { imageWidth, imageHeight, imageText } = generateMarker(train, numberOfTrainsPerNumber);
 
             //converting the image and loading it
             const img = new Image(imageWidth, imageHeight);
@@ -355,10 +363,17 @@ const AmtrakerMap = () => {
           setShitsFucked(true);
         }
 
+        let numberOfTrainsPerNumber = {};
+
         const allTrains = Object.values(data).flat();
 
         setAllData(allTrains);
         setResults(allTrains);
+
+        allTrains.forEach((train) => {
+          if (!numberOfTrainsPerNumber[train.trainNum]) numberOfTrainsPerNumber[train.trainNum] = 0;
+          numberOfTrainsPerNumber[train.trainNum]++;
+        })
 
         mapRef.current.on("load", () => {
           //adding data to the map
@@ -388,7 +403,7 @@ const AmtrakerMap = () => {
 
           //generating the icons for the trains
           allTrains.forEach((train) => {
-            const { imageWidth, imageHeight, imageText } = generateMarker(train);
+            const { imageWidth, imageHeight, imageText } = generateMarker(train, numberOfTrainsPerNumber);
 
             //converting the image and loading it
             const img = new Image(imageWidth, imageHeight);
