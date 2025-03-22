@@ -1,8 +1,7 @@
 import { stationMeta } from "./data/stations";
 
 const manageSavedTrain = (trainNum, trainDate, state) => {
-  let currentSaved = localStorage
-    .getItem('savedTrainsAmtrakerV3')
+  let currentSaved = (localStorage.getItem('savedTrainsAmtrakerV3') ?? '')
     .split(',')
     .filter((n) => n);
 
@@ -188,8 +187,7 @@ const autoAddTrains = async (trainArr) => {
 };
 
 const addAlwaysTracked = (trainNum) => {
-  const alwaysTracked = localStorage
-    .getItem("alwaysTrackedAmtrakerV3")
+  const alwaysTracked = (localStorage.getItem("alwaysTrackedAmtrakerV3") ?? '')
     .split(",");
   if (alwaysTracked.includes(trainNum)) return;
   alwaysTracked.push(trainNum);
@@ -200,8 +198,7 @@ const addAlwaysTracked = (trainNum) => {
 };
 
 const removeAlwaysTracked = (trainNum) => {
-  const alwaysTracked = localStorage
-    .getItem("alwaysTrackedAmtrakerV3")
+  const alwaysTracked = (localStorage.getItem("alwaysTrackedAmtrakerV3") ?? '')
     .split(",");
   if (!alwaysTracked.includes(trainNum)) return;
   alwaysTracked.splice(alwaysTracked.indexOf(trainNum), 1);
