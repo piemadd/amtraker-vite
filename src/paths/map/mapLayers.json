@@ -1684,7 +1684,7 @@
       "source": "protomaps",
       "source-layer": "roads",
       "minzoom": 15,
-      "filter": ["in", "kind", "minor_road", "other", "path"],
+      "filter": ["in", "kind", "minor_road_REMOVE_TO_RENDER", "other_REMOVE_TO_RENDER", "path_REMOVE_TO_RENDER"],
       "layout": {
         "symbol-sort-key": ["get", "min_zoom"],
         "symbol-placement": "line",
@@ -2602,7 +2602,7 @@
       "source": "protomaps",
       "source-layer": "roads",
       "minzoom": 11,
-      "filter": ["in", "kind", "highway", "major_road"],
+      "filter": ["in", "kind", "highway_REMOVE_TO_RENDER", "major_road_REMOVE_TO_RENDER"],
       "layout": {
         "symbol-sort-key": ["get", "min_zoom"],
         "symbol-placement": "line",
@@ -2904,7 +2904,7 @@
       "type": "symbol",
       "source": "protomaps",
       "source-layer": "places",
-      "filter": ["==", "kind", "neighbourhood"],
+      "filter": ["==", "kind", "neighbourhood_REMOVE_TO_RENDER"],
       "layout": {
         "symbol-sort-key": ["get", "min_zoom"],
         "text-field": [
@@ -3231,7 +3231,11 @@
       "type": "symbol",
       "source": "protomaps",
       "source-layer": "places",
-      "filter": ["==", "kind", "locality"],
+      "filter": [
+        "all", 
+        ["==", "kind", "locality"],
+        [">=", "population_rank", 8]
+      ],
       "layout": {
         "icon-image": ["step", ["zoom"], "townspot", 8, ""],
         "icon-size": 0.7,

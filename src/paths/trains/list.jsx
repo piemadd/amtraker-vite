@@ -26,6 +26,7 @@ const TrainsList = () => {
 
   const [loading, setLoading] = useState(true);
   const [trainData, setTrainData] = useState([]);
+  const [allIDs, setAllIDs] = useState([]);
   const [results, setResults] = useState([]);
   const [query, updateQuery] = useState("");
   const [shitsFucked, setShitsFucked] = useState(false);
@@ -33,15 +34,18 @@ const TrainsList = () => {
   useEffect(() => {
     dataManager.getTrains()
       .then((data) => {
-        setTrainData(Object.values(data).flat());
-        setResults(Object.values(data).flat());
+        const allDataNew = Object.values(data).flat();
+
+        setTrainData(allDataNew);
+        setResults(allDataNew);
+        setAllIDs([
+          ...allDataNew.map((train) => train.trainID),
+          ...allDataNew.map((train) => train.trainNum),
+        ]);
 
         if (Object.keys(data).length === 0) {
           setShitsFucked(true);
         }
-
-        //setTrainData(Object.values(ErrorData).flat());
-        //setResults(Object.values(ErrorData).flat());
 
         setLoading(false);
       });
@@ -59,6 +63,25 @@ const TrainsList = () => {
     ],
     includeScore: true,
   });
+
+  const setSearchResults = (currentQuery) => {
+    let actualNewResults = [];
+
+    if (currentQuery.length == 0) {
+      actualNewResults = trainData;
+    } else if (allIDs.includes(currentQuery)) {
+      const isAnID = currentQuery.split('-').length > 1;
+      actualNewResults = trainData.filter((train) => {
+        if (train.trainID == currentQuery) return true;
+        if (train.trainNum == currentQuery && !isAnID) return true;
+        return false;
+      });
+    } else {
+      actualNewResults = fuse.search(currentQuery).map((result) => result.item);
+    };
+
+    setResults(actualNewResults);
+  }
 
   const [bgURL, setBGURL] = useState("/content/images/amtraker-back.webp");
   const [bgClass, setBGClass] = useState("bg-focus-in");
@@ -118,11 +141,7 @@ const TrainsList = () => {
             onChange={(e) => {
               updateQuery(e.target.value);
               debounce(
-                setResults(
-                  e.target.value.length > 0
-                    ? fuse.search(e.target.value).map((result) => result.item)
-                    : trainData
-                )
+                setSearchResults(e.target.value)
               );
             }}
           />

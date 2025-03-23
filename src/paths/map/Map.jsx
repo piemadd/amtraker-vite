@@ -68,8 +68,6 @@ const AmtrakerMap = () => {
       return savedTrainsShortID.includes(n.trainID);
     });
 
-    console.log(currentQuery, actualNewResults.length)
-
     const finalFilter = showAllState && currentQuery.length == 0 ? // either adding a filter to filter by saved train ids or to allow all trains to be displayed
       ["any", true] :
       ["any", ...actualNewResults
@@ -359,7 +357,11 @@ const AmtrakerMap = () => {
             source: "stations",
             minzoom: 7,
             layout: {
-              "text-field": ["get", "code"],
+              "text-field": ['step', ['zoom'],
+                ['get', 'code'],
+                9,
+                ["concat", ["get", "name"], " (", ["get", "code"], ")"]
+              ],
               "text-font": ["Noto Sans Regular"],
               "text-offset": [0, 1.25],
               "text-allow-overlap": true,
