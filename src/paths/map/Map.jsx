@@ -27,6 +27,7 @@ const debounce = (func, timeout = 300) => {
 
 const AmtrakerMap = () => {
   const [allData, setAllData] = useState([]);
+  const [allIDs, setAllIDs] = useState([]);
   const [stationsData, setStationsData] = useState([]);
   const [showAll, setShowAll] = useState(false);
   const [popupInfo, setPopupInfo] = useState(null);
@@ -47,12 +48,27 @@ const AmtrakerMap = () => {
   const mapContainerRef = useRef(null);
 
   const setResultsAndRefreshMap = (showAllState, currentQuery) => {
-    const actualNewResults = (currentQuery.length > 0
-      ? fuse.search(currentQuery).map((result) => result.item)
-      : allData).filter((n) => {
-        if (showAllState) return true;
-        return savedTrainsShortID.includes(n.trainID);
+    let actualNewResults = [];
+
+    if (currentQuery.length == 0) {
+      actualNewResults = allData;
+    } else if (allIDs.includes(currentQuery)) {
+      const isAnID = currentQuery.split('-').length > 1;
+      actualNewResults = allData.filter((train) => {
+        if (train.trainID == currentQuery) return true;
+        if (train.trainNum == currentQuery && !isAnID) return true;
+        return false;
       });
+    } else {
+      actualNewResults = fuse.search(currentQuery).map((result) => result.item);
+    };
+
+    actualNewResults = actualNewResults.filter((n) => {
+      if (showAllState) return true;
+      return savedTrainsShortID.includes(n.trainID);
+    });
+
+    console.log(currentQuery, actualNewResults.length)
 
     const finalFilter = showAllState && currentQuery.length == 0 ? // either adding a filter to filter by saved train ids or to allow all trains to be displayed
       ["any", true] :
@@ -65,6 +81,7 @@ const AmtrakerMap = () => {
 
     setResults(actualNewResults);
 
+    // this sometimes errors if someone searches before the map is all there but it doesnt really matter
     mapRef.current.setFilter('trains', finalFilter);
   }
 
@@ -204,11 +221,17 @@ const AmtrakerMap = () => {
             setShitsFucked(true);
           }
 
-          setAllData(Object.values(data).flat());
-          fuse.setCollection(Object.values(data).flat());
+          const allDataNew = Object.values(data).flat();
+
+          setAllData(allDataNew);
+          setAllIDs([
+            ...allDataNew.map((train) => train.trainID),
+            ...allDataNew.map((train) => train.trainNum),
+          ]);
+          fuse.setCollection(allDataNew);
 
           //generating the icons for the trains
-          Object.values(data).flat().forEach((train) => {
+          allDataNew.forEach((train) => {
             const { imageWidth, imageHeight, imageText } = generateMarker(train);
 
             //converting the image and loading it
@@ -357,8 +380,15 @@ const AmtrakerMap = () => {
 
         const allTrains = Object.values(data).flat();
 
+        console.log(allTrains[0].trainID)
+
         setAllData(allTrains);
         setResults(allTrains);
+        setAllIDs([
+          ...allTrains.map((train) => train.trainID),
+          ...allTrains.map((train) => train.trainNum),
+        ]);
+        if (fuse) fuse.setCollection(allTrains);
 
         mapRef.current.on("load", () => {
           //adding data to the map
