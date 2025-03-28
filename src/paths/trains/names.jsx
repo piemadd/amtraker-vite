@@ -1,15 +1,15 @@
 import { useParams, Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { trainNames } from "../../data/trains";
 import "./trains.css";
 import { useEffect } from "react";
-import SettingsInit from "../index/settingsInit";
+import settingsInit from "../../components/settingsInit";
 import stringToHash from "../../components/money/stringToHash";
-import DataManager from "../../components/dataManager/dataManager";
 
 const TrainsByName = () => {
   const { trainName } = useParams();
   const dataManager = window.dataManager;
+  const appSettings = useMemo(settingsInit, []);
 
   const trainNums = Object.keys(trainNames)
     .filter((trainNum) => trainNames[trainNum] === trainName)
@@ -43,9 +43,9 @@ const TrainsByName = () => {
     stringToHash(localStorage.getItem("passphrase")).then((hash) => {
       if (
         hash ==
-          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
+        "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
         hash ==
-          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
+        "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
       ) {
         setBGURL("/content/images/prideflag.jpg");
         setBGClass("bg-focus-in peppino");
@@ -62,7 +62,6 @@ const TrainsByName = () => {
         src={bgURL}
       ></img>
       <main>
-        <SettingsInit />
         <section className='section-new'>
           <div>
             <h3>Track the</h3>

@@ -42,6 +42,10 @@ path {
   background-color: #111 !important;
 }
 
+.maplibregl-popup-tip {
+  border-top-color: #111 !important;
+}
+
 .mapboxgl-popup-close-button,
 .maplibregl-popup-close-button {
   background-color: #222 !important;
@@ -51,22 +55,6 @@ path {
 .mapboxgl-popup-close-button:hover,
 .maplibregl-popup-close-button:hover {
   background-color: #333 !important;
-}
-
-details {
-  z-index: 10;
-  position: absolute;
-  color: var(--fg-primary);
-  background-color: var(--bg-secondary);
-  margin: 16px;
-  padding: 8px 12px;
-}
-
-details > summary {
-  font-size: 1.5em;
-  font-weight: 400;
-  user-select: none;
-  cursor: pointer;
 }
 
 .mapboxgl-ctrl-group,
@@ -87,6 +75,11 @@ details > summary {
 .maplibregl-ctrl button:hover {
   background-color: #555 !important;
   border-radius: 4px !important;
+}
+
+.maplibregl-ctrl-attrib-inner, .maplibregl-ctrl-attrib a {
+  color: #000 !important;
+  text-decoration: none;
 }
 
 .mapboxgl-ctrl button.mapboxgl-ctrl-zoom-in .mapboxgl-ctrl-icon,
@@ -110,6 +103,10 @@ details > summary {
 
 .mapboxgl-ctrl button.mapboxgl-ctrl-shrink .mapboxgl-ctrl-icon, .maplibregl-ctrl button.maplibregl-ctrl-shrink .maplibregl-ctrl-icon {
   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='29' height='29' viewBox='0 0 29 29' xmlns='http://www.w3.org/2000/svg' fill='%23aaa'%3E%3Cpath d='M18.5 16c-1.75 0-2.5.75-2.5 2.5V24h1l1.5-3 5.5 4 1-1-4-5.5 3-1.5v-1h-5.5zM13 18.5c0-1.75-.75-2.5-2.5-2.5H5v1l3 1.5L4 24l1 1 5.5-4 1.5 3h1v-5.5zm3-8c0 1.75.75 2.5 2.5 2.5H24v-1l-3-1.5L25 5l-1-1-5.5 4L17 5h-1v5.5zM10.5 13c1.75 0 2.5-.75 2.5-2.5V5h-1l-1.5 3L5 4 4 5l4 5.5L5 12v1h5.5z'/%3E%3C/svg%3E") !important;
+}
+
+.maplibregl-ctrl button.maplibregl-ctrl-geolocate .maplibregl-ctrl-icon {
+	background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='29' height='29' fill='%23fff' viewBox='0 0 20 20'%3E%3Cpath d='M10 4C9 4 9 5 9 5v.1A5 5 0 0 0 5.1 9H5s-1 0-1 1 1 1 1 1h.1A5 5 0 0 0 9 14.9v.1s0 1 1 1 1-1 1-1v-.1a5 5 0 0 0 3.9-3.9h.1s1 0 1-1-1-1-1-1h-.1A5 5 0 0 0 11 5.1V5s0-1-1-1m0 2.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 1 1 0-7'/%3E%3Ccircle cx='10' cy='10' r='2'/%3E%3C/svg%3E") !important;
 }
 
 .map-over > div, .map-over > button {

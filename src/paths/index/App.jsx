@@ -1,8 +1,8 @@
 import "./App.css";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useMemo } from "react";
 import stringToHash from "../../components/money/stringToHash";
 import { Link } from "react-router-dom";
-import SettingsInit from "./settingsInit.jsx";
+import settingsInit from "../../components/settingsInit";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import SenseBlock from "../../components/money/senseArticle";
 import { autoAddTrains } from "../../tools";
@@ -11,10 +11,12 @@ const App = () => {
   const [savedTrains, setSavedTrains] = useState([]);
   const [isStale, setIsStale] = useState(false);
   const [timeSinceLastUpdate, setTimeSinceLastUpdate] = useState(0);
+  const [siteLastFetched, setSiteLastFetched] = useState(0);
   const [savedTrainsObjects, setSavedTrainsObjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [shitsFucked, setShitsFucked] = useState(false);
   const dataManager = window.dataManager;
+  const appSettings = useMemo(settingsInit, []);
 
   useEffect(() => {
     autoAddTrains().then(() => {
@@ -131,6 +133,7 @@ const App = () => {
             return null;
           });
       });
+      setSiteLastFetched(Date.now())
     });
   }, [savedTrains]);
 
@@ -159,13 +162,26 @@ const App = () => {
         className={bgClass}
         src={bgURL}
       ></img>
+      <button
+        className='root'
+        style={{
+          bottom: '8px',
+          right: '8px',
+          position: 'absolute',
+          fontSize: '24px',
+          width: '48px',
+          height: '48px',
+          textAlign: 'center',
+          lineHeight: '0px'
+        }}
+        onClick={() => setSavedTrains([...savedTrains])}
+      >⟳</button>
       <main>
         {/*<h2 className='welcome-to'>Welcome to</h2>*/}
         <div className="titleArea">
           <h1 className='gayTitle'>Amtraker</h1>
           {/*<p className="slogan">Get out and Vote!</p>*/}
         </div>
-        <SettingsInit />
         <section id='section-saved'>
           {isStale ? (
             <div className='stale'>
@@ -191,13 +207,15 @@ const App = () => {
               fontSize: "1.2rem",
             }}
           >
-            Track a Saved Train
+            Saved Trains
           </h2>
           <div className='savedTrains'>
             {loading ? (
               <div className='loading'>Loading...</div>
             ) : savedTrainsObjects.length > 0 ? (
-              savedTrainsObjects
+              <>{savedTrainsObjects}
+                <p>Data Last Fetched at: {new Date(siteLastFetched).toLocaleTimeString()}</p>
+              </>
             ) : (
               <div>No Saved Trains</div>
             )}
@@ -239,8 +257,8 @@ const App = () => {
           </Link>
         </section>
         <section className='amtrakerVersion'>
-          <p>Amtraker v3.12.8</p>
-          <p>&copy; <a href="https://piemadd.com" target="_blank">Piero Maddaleni</a> 2024</p>
+          <p>Amtraker Beta 3.13.0 Build 24</p>
+          <p>&copy; <a href="https://piemadd.com" target="_blank">Piero Maddaleni</a> 2025</p>
         </section>
         <SenseBlock key={"sense-block"} dataAdSlot={"3140178047"} />
       </main>

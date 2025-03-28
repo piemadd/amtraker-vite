@@ -3,553 +3,6 @@
     {
       "routeName": "Empire Builder",
       "trainNum": "9999",
-      "trainID": "9999-22",
-      "lat": 47.59890561643562,
-      "lon": -122.33001489149925,
-      "trainTimely": "NaN Minutes Early",
-      "stations": [
-        {
-          "name": "Seattle King Street",
-          "code": "SEA",
-          "tz": "America/Los_Angeles",
-          "bus": false,
-          "schArr": "2024-06-22T16:55:00-07:00",
-          "schDep": "2024-06-22T16:55:00-07:00",
-          "arr": "2024-06-22T16:55:00-07:00",
-          "dep": "2024-06-22T16:55:00-07:00",
-          "arrCmnt": "NaN Minutes Early",
-          "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "Edmonds",
-          "code": "EDM",
-          "tz": "America/Los_Angeles",
-          "bus": false,
-          "schArr": "2024-06-22T17:27:00-07:00",
-          "schDep": "2024-06-22T17:27:00-07:00",
-          "arr": "2024-06-22T17:27:00-07:00",
-          "dep": "2024-06-22T17:27:00-07:00",
-          "arrCmnt": "NaN Minutes Early",
-          "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "Everett",
-          "code": "EVR",
-          "tz": "America/Los_Angeles",
-          "bus": false,
-          "schArr": "2024-06-22T17:55:00-07:00",
-          "schDep": "2024-06-22T17:55:00-07:00",
-          "arr": "2024-06-22T17:55:00-07:00",
-          "dep": "2024-06-22T17:55:00-07:00",
-          "arrCmnt": "NaN Minutes Early",
-          "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "Leavenworth",
-          "code": "LWA",
-          "tz": "America/Los_Angeles",
-          "bus": false,
-          "schArr": "2024-06-22T20:17:00-07:00",
-          "schDep": "2024-06-22T20:17:00-07:00",
-          "arr": "2024-06-22T20:22:00-07:00",
-          "dep": "2024-06-22T20:22:00-07:00",
-          "arrCmnt": "NaN Minutes Early",
-          "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "Wenatchee",
-          "code": "WEN",
-          "tz": "America/Los_Angeles",
-          "bus": false,
-          "schArr": "2024-06-22T20:51:00-07:00",
-          "schDep": "2024-06-22T20:57:00-07:00",
-          "arr": "2024-06-22T21:01:00-07:00",
-          "dep": "2024-06-22T21:01:00-07:00",
-          "arrCmnt": "10 Minutes Late",
-          "depCmnt": "10 Minutes Late",
-          "status": "Enroute"
-        },
-        {
-          "name": "Ephrata",
-          "code": "EPH",
-          "tz": "America/Los_Angeles",
-          "bus": false,
-          "schArr": "2024-06-22T21:58:00-07:00",
-          "schDep": "2024-06-22T21:58:00-07:00",
-          "arr": "2024-06-22T22:03:00-07:00",
-          "dep": "2024-06-22T22:03:00-07:00",
-          "arrCmnt": "NaN Minutes Early",
-          "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "Spokane",
-          "code": "SPK",
-          "tz": "America/Los_Angeles",
-          "bus": false,
-          "schArr": "2024-06-23T00:37:00-07:00",
-          "schDep": "2024-06-23T01:15:00-07:00",
-          "arr": "2024-06-23T00:37:00-07:00",
-          "dep": "2024-06-23T00:37:00-07:00",
-          "arrCmnt": "0 Minutes Early",
-          "depCmnt": "0 Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "Sandpoint",
-          "code": "SPT",
-          "tz": "America/Los_Angeles",
-          "bus": false,
-          "schArr": "2024-06-23T02:20:00-07:00",
-          "schDep": "2024-06-23T02:20:00-07:00",
-          "arr": "2024-06-23T02:23:00-07:00",
-          "dep": "2024-06-23T02:23:00-07:00",
-          "arrCmnt": "NaN Minutes Early",
-          "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "Libby",
-          "code": "LIB",
-          "tz": "America/Denver",
-          "bus": false,
-          "schArr": "2024-06-23T05:11:00-06:00",
-          "schDep": "2024-06-23T05:11:00-06:00",
-          "arr": "2024-06-23T05:12:00-06:00",
-          "dep": "2024-06-23T05:12:00-06:00",
-          "arrCmnt": "NaN Minutes Early",
-          "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "Whitefish",
-          "code": "WFH",
-          "tz": "America/Denver",
-          "bus": false,
-          "schArr": "2024-06-23T07:11:00-06:00",
-          "schDep": "2024-06-23T07:26:00-06:00",
-          "arr": "2024-06-23T07:11:00-06:00",
-          "dep": "2024-06-23T07:11:00-06:00",
-          "arrCmnt": "0 Minutes Early",
-          "depCmnt": "0 Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "West Glacier",
-          "code": "WGL",
-          "tz": "America/Denver",
-          "bus": false,
-          "schArr": "2024-06-23T07:57:00-06:00",
-          "schDep": "2024-06-23T07:57:00-06:00",
-          "arr": "2024-06-23T07:57:00-06:00",
-          "dep": "2024-06-23T07:57:00-06:00",
-          "arrCmnt": "NaN Minutes Early",
-          "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "Essex",
-          "code": "ESM",
-          "tz": "America/Denver",
-          "bus": false,
-          "schArr": "2024-06-23T08:37:00-06:00",
-          "schDep": "2024-06-23T08:37:00-06:00",
-          "arr": "2024-06-23T08:37:00-06:00",
-          "dep": "2024-06-23T08:37:00-06:00",
-          "arrCmnt": "NaN Minutes Early",
-          "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "East Glacier Park",
-          "code": "GPK",
-          "tz": "America/Denver",
-          "bus": false,
-          "schArr": "2024-06-23T09:36:00-06:00",
-          "schDep": "2024-06-23T09:36:00-06:00",
-          "arr": "2024-06-23T09:36:00-06:00",
-          "dep": "2024-06-23T09:36:00-06:00",
-          "arrCmnt": "NaN Minutes Early",
-          "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "Cut Bank",
-          "code": "CUT",
-          "tz": "America/Denver",
-          "bus": false,
-          "schArr": "2024-06-23T10:27:00-06:00",
-          "schDep": "2024-06-23T10:27:00-06:00",
-          "arr": "2024-06-23T10:27:00-06:00",
-          "dep": "2024-06-23T10:27:00-06:00",
-          "arrCmnt": "NaN Minutes Early",
-          "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "Shelby",
-          "code": "SBY",
-          "tz": "America/Denver",
-          "bus": false,
-          "schArr": "2024-06-23T11:20:00-06:00",
-          "schDep": "2024-06-23T11:28:00-06:00",
-          "arr": "2024-06-23T11:20:00-06:00",
-          "dep": "2024-06-23T11:20:00-06:00",
-          "arrCmnt": "0 Minutes Early",
-          "depCmnt": "0 Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "Havre",
-          "code": "HAV",
-          "tz": "America/Denver",
-          "bus": false,
-          "schArr": "2024-06-23T13:05:00-06:00",
-          "schDep": "2024-06-23T13:24:00-06:00",
-          "arr": "2024-06-23T13:05:00-06:00",
-          "dep": "2024-06-23T13:05:00-06:00",
-          "arrCmnt": "0 Minutes Early",
-          "depCmnt": "0 Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "Malta",
-          "code": "MAL",
-          "tz": "America/Denver",
-          "bus": false,
-          "schArr": "2024-06-23T14:43:00-06:00",
-          "schDep": "2024-06-23T14:43:00-06:00",
-          "arr": "2024-06-23T14:43:00-06:00",
-          "dep": "2024-06-23T14:43:00-06:00",
-          "arrCmnt": "NaN Minutes Early",
-          "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "Glasgow",
-          "code": "GGW",
-          "tz": "America/Denver",
-          "bus": false,
-          "schArr": "2024-06-23T15:44:00-06:00",
-          "schDep": "2024-06-23T15:44:00-06:00",
-          "arr": "2024-06-23T15:44:00-06:00",
-          "dep": "2024-06-23T15:44:00-06:00",
-          "arrCmnt": "NaN Minutes Early",
-          "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "Wolf Point",
-          "code": "WPT",
-          "tz": "America/Denver",
-          "bus": false,
-          "schArr": "2024-06-23T16:32:00-06:00",
-          "schDep": "2024-06-23T16:32:00-06:00",
-          "arr": "2024-06-23T16:32:00-06:00",
-          "dep": "2024-06-23T16:32:00-06:00",
-          "arrCmnt": "NaN Minutes Early",
-          "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "Williston",
-          "code": "WTN",
-          "tz": "America/Chicago",
-          "bus": false,
-          "schArr": "2024-06-23T19:21:00-05:00",
-          "schDep": "2024-06-23T19:21:00-05:00",
-          "arr": "2024-06-23T19:21:00-05:00",
-          "dep": "2024-06-23T19:21:00-05:00",
-          "arrCmnt": "NaN Minutes Early",
-          "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "Stanley",
-          "code": "STN",
-          "tz": "America/Chicago",
-          "bus": false,
-          "schArr": "2024-06-23T20:22:00-05:00",
-          "schDep": "2024-06-23T20:22:00-05:00",
-          "arr": "2024-06-23T20:23:00-05:00",
-          "dep": "2024-06-23T20:23:00-05:00",
-          "arrCmnt": "NaN Minutes Early",
-          "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "Minot",
-          "code": "MOT",
-          "tz": "America/Chicago",
-          "bus": false,
-          "schArr": "2024-06-23T22:08:00-05:00",
-          "schDep": "2024-06-23T22:53:00-05:00",
-          "arr": "2024-06-23T22:08:00-05:00",
-          "dep": "2024-06-23T22:08:00-05:00",
-          "arrCmnt": "0 Minutes Early",
-          "depCmnt": "0 Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "Rugby",
-          "code": "RUG",
-          "tz": "America/Chicago",
-          "bus": false,
-          "schArr": "2024-06-23T23:49:00-05:00",
-          "schDep": "2024-06-23T23:49:00-05:00",
-          "arr": "2024-06-23T23:49:00-05:00",
-          "dep": "2024-06-23T23:49:00-05:00",
-          "arrCmnt": "NaN Minutes Early",
-          "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "Devils Lake",
-          "code": "DVL",
-          "tz": "America/Chicago",
-          "bus": false,
-          "schArr": "2024-06-24T00:44:00-05:00",
-          "schDep": "2024-06-24T00:44:00-05:00",
-          "arr": "2024-06-24T00:44:00-05:00",
-          "dep": "2024-06-24T00:44:00-05:00",
-          "arrCmnt": "NaN Minutes Early",
-          "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "Grand Forks",
-          "code": "GFK",
-          "tz": "America/Chicago",
-          "bus": false,
-          "schArr": "2024-06-24T02:10:00-05:00",
-          "schDep": "2024-06-24T02:10:00-05:00",
-          "arr": "2024-06-24T02:10:00-05:00",
-          "dep": "2024-06-24T02:10:00-05:00",
-          "arrCmnt": "NaN Minutes Early",
-          "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "Fargo",
-          "code": "FAR",
-          "tz": "America/Chicago",
-          "bus": false,
-          "schArr": "2024-06-24T03:21:00-05:00",
-          "schDep": "2024-06-24T03:29:00-05:00",
-          "arr": "2024-06-24T03:22:00-05:00",
-          "dep": "2024-06-24T03:22:00-05:00",
-          "arrCmnt": "On Time",
-          "depCmnt": "On Time",
-          "status": "Enroute"
-        },
-        {
-          "name": "Detroit Lakes",
-          "code": "DLK",
-          "tz": "America/Chicago",
-          "bus": false,
-          "schArr": "2024-06-24T04:27:00-05:00",
-          "schDep": "2024-06-24T04:27:00-05:00",
-          "arr": "2024-06-24T04:27:00-05:00",
-          "dep": "2024-06-24T04:27:00-05:00",
-          "arrCmnt": "NaN Minutes Early",
-          "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "Staples",
-          "code": "SPL",
-          "tz": "America/Chicago",
-          "bus": false,
-          "schArr": "2024-06-24T05:27:00-05:00",
-          "schDep": "2024-06-24T05:27:00-05:00",
-          "arr": "2024-06-24T05:27:00-05:00",
-          "dep": "2024-06-24T05:27:00-05:00",
-          "arrCmnt": "NaN Minutes Early",
-          "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "St. Cloud",
-          "code": "SCD",
-          "tz": "America/Chicago",
-          "bus": false,
-          "schArr": "2024-06-24T06:32:00-05:00",
-          "schDep": "2024-06-24T06:32:00-05:00",
-          "arr": "2024-06-24T06:32:00-05:00",
-          "dep": "2024-06-24T06:32:00-05:00",
-          "arrCmnt": "NaN Minutes Early",
-          "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "St. Paul - Minneapolis Union",
-          "code": "MSP",
-          "tz": "America/Chicago",
-          "bus": false,
-          "schArr": "2024-06-24T08:33:00-05:00",
-          "schDep": "2024-06-24T08:50:00-05:00",
-          "arr": "2024-06-24T08:33:00-05:00",
-          "dep": "2024-06-24T08:33:00-05:00",
-          "arrCmnt": "0 Minutes Early",
-          "depCmnt": "0 Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "Red Wing",
-          "code": "RDW",
-          "tz": "America/Chicago",
-          "bus": false,
-          "schArr": "2024-06-24T09:44:00-05:00",
-          "schDep": "2024-06-24T09:44:00-05:00",
-          "arr": "2024-06-24T09:44:00-05:00",
-          "dep": "2024-06-24T09:44:00-05:00",
-          "arrCmnt": "NaN Minutes Early",
-          "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "Winona",
-          "code": "WIN",
-          "tz": "America/Chicago",
-          "bus": false,
-          "schArr": "2024-06-24T10:54:00-05:00",
-          "schDep": "2024-06-24T11:01:00-05:00",
-          "arr": "2024-06-24T10:54:00-05:00",
-          "dep": "2024-06-24T10:54:00-05:00",
-          "arrCmnt": "0 Minutes Early",
-          "depCmnt": "0 Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "La Crosse",
-          "code": "LSE",
-          "tz": "America/Chicago",
-          "bus": false,
-          "schArr": "2024-06-24T11:37:00-05:00",
-          "schDep": "2024-06-24T11:37:00-05:00",
-          "arr": "2024-06-24T11:37:00-05:00",
-          "dep": "2024-06-24T11:37:00-05:00",
-          "arrCmnt": "NaN Minutes Early",
-          "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "Tomah",
-          "code": "TOH",
-          "tz": "America/Chicago",
-          "bus": false,
-          "schArr": "2024-06-24T12:16:00-05:00",
-          "schDep": "2024-06-24T12:16:00-05:00",
-          "arr": "2024-06-24T12:16:00-05:00",
-          "dep": "2024-06-24T12:16:00-05:00",
-          "arrCmnt": "NaN Minutes Early",
-          "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "Wisconsin Dells",
-          "code": "WDL",
-          "tz": "America/Chicago",
-          "bus": false,
-          "schArr": "2024-06-24T12:58:00-05:00",
-          "schDep": "2024-06-24T12:58:00-05:00",
-          "arr": "2024-06-24T12:58:00-05:00",
-          "dep": "2024-06-24T12:58:00-05:00",
-          "arrCmnt": "NaN Minutes Early",
-          "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "Portage",
-          "code": "POG",
-          "tz": "America/Chicago",
-          "bus": false,
-          "schArr": "2024-06-24T13:17:00-05:00",
-          "schDep": "2024-06-24T13:17:00-05:00",
-          "arr": "2024-06-24T13:17:00-05:00",
-          "dep": "2024-06-24T13:17:00-05:00",
-          "arrCmnt": "NaN Minutes Early",
-          "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "Columbus",
-          "code": "CBS",
-          "tz": "America/Chicago",
-          "bus": false,
-          "schArr": "2024-06-24T13:47:00-05:00",
-          "schDep": "2024-06-24T13:47:00-05:00",
-          "arr": "2024-06-24T13:47:00-05:00",
-          "dep": "2024-06-24T13:47:00-05:00",
-          "arrCmnt": "NaN Minutes Early",
-          "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "Milwaukee",
-          "code": "MKE",
-          "tz": "America/Chicago",
-          "bus": false,
-          "schArr": "2024-06-24T14:57:00-05:00",
-          "schDep": "2024-06-24T15:05:00-05:00",
-          "arr": "2024-06-24T14:53:00-05:00",
-          "dep": "2024-06-24T14:53:00-05:00",
-          "arrCmnt": "4 Minutes Early",
-          "depCmnt": "4 Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "Glenview",
-          "code": "GLN",
-          "tz": "America/Chicago",
-          "bus": false,
-          "schArr": "2024-06-24T16:12:00-05:00",
-          "schDep": "2024-06-24T16:12:00-05:00",
-          "arr": "2024-06-24T15:54:00-05:00",
-          "dep": "2024-06-24T15:54:00-05:00",
-          "arrCmnt": "NaN Minutes Early",
-          "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
-        },
-        {
-          "name": "Chicago Union",
-          "code": "CHI",
-          "tz": "America/Chicago",
-          "bus": false,
-          "schArr": "2024-06-24T16:45:00-05:00",
-          "schDep": "2024-06-24T16:45:00-05:00",
-          "arr": "2024-06-24T16:22:00-05:00",
-          "dep": "2024-06-24T16:22:00-05:00",
-          "arrCmnt": "23 Minutes Early",
-          "depCmnt": "23 Minutes Early",
-          "status": "Enroute"
-        }
-      ],
-      "heading": "N",
-      "eventCode": "SEA",
-      "eventTZ": "America/Los_Angeles",
-      "eventName": "Seattle King Street",
-      "origCode": "SEA",
-      "originTZ": "America/Los_Angeles",
-      "origName": "Seattle King Street",
-      "destCode": "CHI",
-      "destTZ": "America/Chicago",
-      "destName": "Chicago Union",
-      "trainState": "Predeparture",
-      "velocity": 0,
-      "statusMsg": " ",
-      "createdAt": "2024-06-22T19:26:06-04:00",
-      "updatedAt": "2024-06-22T19:26:06-04:00",
-      "lastValTS": "2024-06-22T16:40:00-07:00",
-      "objectID": 38
-    },
-    {
-      "routeName": "Empire Builder",
-      "trainNum": "9999",
       "trainID": "9999-21",
       "lat": 48.14907822186553,
       "lon": -104.48401247543605,
@@ -566,7 +19,8 @@
           "dep": "2024-06-21T16:55:00-07:00",
           "arrCmnt": "0 Minutes Early",
           "depCmnt": "0 Minutes Early",
-          "status": "Departed"
+          "status": "Departed",
+          "platform": ""
         },
         {
           "name": "Edmonds",
@@ -579,7 +33,8 @@
           "dep": "2024-06-21T17:27:00-07:00",
           "arrCmnt": "5 Minutes Early",
           "depCmnt": "0 Minutes Early",
-          "status": "Departed"
+          "status": "Departed",
+          "platform": ""
         },
         {
           "name": "Everett",
@@ -592,7 +47,8 @@
           "dep": "2024-06-21T18:04:00-07:00",
           "arrCmnt": "6 Minutes Late",
           "depCmnt": "9 Minutes Late",
-          "status": "Departed"
+          "status": "Departed",
+          "platform": ""
         },
         {
           "name": "Leavenworth",
@@ -605,7 +61,8 @@
           "dep": "2024-06-21T21:27:00-07:00",
           "arrCmnt": "1 Hours, 5 Minutes Late",
           "depCmnt": "1 Hours, 10 Minutes Late",
-          "status": "Departed"
+          "status": "Departed",
+          "platform": ""
         },
         {
           "name": "Wenatchee",
@@ -618,7 +75,8 @@
           "dep": "2024-06-21T22:07:00-07:00",
           "arrCmnt": "1 Hours, 8 Minutes Late",
           "depCmnt": "1 Hours, 10 Minutes Late",
-          "status": "Departed"
+          "status": "Departed",
+          "platform": ""
         },
         {
           "name": "Ephrata",
@@ -631,7 +89,8 @@
           "dep": "2024-06-21T23:12:00-07:00",
           "arrCmnt": "1 Hours, 13 Minutes Late",
           "depCmnt": "1 Hours, 14 Minutes Late",
-          "status": "Departed"
+          "status": "Departed",
+          "platform": ""
         },
         {
           "name": "Spokane",
@@ -644,7 +103,8 @@
           "dep": "2024-06-22T01:58:00-07:00",
           "arrCmnt": "47 Minutes Late",
           "depCmnt": "43 Minutes Late",
-          "status": "Departed"
+          "status": "Departed",
+          "platform": ""
         },
         {
           "name": "Sandpoint",
@@ -657,7 +117,8 @@
           "dep": "2024-06-22T03:15:00-07:00",
           "arrCmnt": "46 Minutes Late",
           "depCmnt": "55 Minutes Late",
-          "status": "Departed"
+          "status": "Departed",
+          "platform": ""
         },
         {
           "name": "Libby",
@@ -670,7 +131,8 @@
           "dep": "2024-06-22T06:05:00-06:00",
           "arrCmnt": "49 Minutes Late",
           "depCmnt": "54 Minutes Late",
-          "status": "Departed"
+          "status": "Departed",
+          "platform": ""
         },
         {
           "name": "Whitefish",
@@ -683,7 +145,8 @@
           "dep": "2024-06-22T08:02:00-06:00",
           "arrCmnt": "33 Minutes Late",
           "depCmnt": "36 Minutes Late",
-          "status": "Departed"
+          "status": "Departed",
+          "platform": ""
         },
         {
           "name": "West Glacier",
@@ -696,7 +159,8 @@
           "dep": "2024-06-22T08:37:00-06:00",
           "arrCmnt": "35 Minutes Late",
           "depCmnt": "40 Minutes Late",
-          "status": "Departed"
+          "status": "Departed",
+          "platform": ""
         },
         {
           "name": "Essex",
@@ -709,7 +173,8 @@
           "dep": "2024-06-22T09:12:00-06:00",
           "arrCmnt": "35 Minutes Late",
           "depCmnt": "35 Minutes Late",
-          "status": "Departed"
+          "status": "Departed",
+          "platform": ""
         },
         {
           "name": "East Glacier Park",
@@ -722,7 +187,8 @@
           "dep": "2024-06-22T10:16:00-06:00",
           "arrCmnt": "29 Minutes Late",
           "depCmnt": "40 Minutes Late",
-          "status": "Departed"
+          "status": "Departed",
+          "platform": ""
         },
         {
           "name": "Cut Bank",
@@ -735,7 +201,8 @@
           "dep": "2024-06-22T11:04:00-06:00",
           "arrCmnt": "35 Minutes Late",
           "depCmnt": "37 Minutes Late",
-          "status": "Departed"
+          "status": "Departed",
+          "platform": ""
         },
         {
           "name": "Shelby",
@@ -748,7 +215,8 @@
           "dep": "2024-06-22T11:38:00-06:00",
           "arrCmnt": "10 Minutes Late",
           "depCmnt": "10 Minutes Late",
-          "status": "Departed"
+          "status": "Departed",
+          "platform": ""
         },
         {
           "name": "Havre",
@@ -761,7 +229,8 @@
           "dep": "2024-06-22T13:35:00-06:00",
           "arrCmnt": "15 Minutes Late",
           "depCmnt": "11 Minutes Late",
-          "status": "Departed"
+          "status": "Departed",
+          "platform": ""
         },
         {
           "name": "Malta",
@@ -774,7 +243,8 @@
           "dep": "2024-06-22T14:51:00-06:00",
           "arrCmnt": "7 Minutes Late",
           "depCmnt": "8 Minutes Late",
-          "status": "Departed"
+          "status": "Departed",
+          "platform": ""
         },
         {
           "name": "Glasgow",
@@ -787,7 +257,8 @@
           "dep": "2024-06-22T15:47:00-06:00",
           "arrCmnt": "On Time",
           "depCmnt": "On Time",
-          "status": "Departed"
+          "status": "Departed",
+          "platform": ""
         },
         {
           "name": "Wolf Point",
@@ -800,7 +271,8 @@
           "dep": "2024-06-22T16:47:00-06:00",
           "arrCmnt": "13 Minutes Late",
           "depCmnt": "15 Minutes Late",
-          "status": "Departed"
+          "status": "Departed",
+          "platform": ""
         },
         {
           "name": "Williston",
@@ -813,7 +285,8 @@
           "dep": "2024-06-22T19:37:00-05:00",
           "arrCmnt": "NaN Minutes Early",
           "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
+          "status": "Enroute",
+          "platform": ""
         },
         {
           "name": "Stanley",
@@ -826,7 +299,8 @@
           "dep": "2024-06-22T20:39:00-05:00",
           "arrCmnt": "NaN Minutes Early",
           "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
+          "status": "Enroute",
+          "platform": ""
         },
         {
           "name": "Minot",
@@ -839,7 +313,8 @@
           "dep": "2024-06-22T22:08:00-05:00",
           "arrCmnt": "0 Minutes Early",
           "depCmnt": "0 Minutes Early",
-          "status": "Enroute"
+          "status": "Enroute",
+          "platform": ""
         },
         {
           "name": "Rugby",
@@ -852,7 +327,8 @@
           "dep": "2024-06-22T23:49:00-05:00",
           "arrCmnt": "NaN Minutes Early",
           "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
+          "status": "Enroute",
+          "platform": ""
         },
         {
           "name": "Devils Lake",
@@ -865,7 +341,8 @@
           "dep": "2024-06-23T00:44:00-05:00",
           "arrCmnt": "NaN Minutes Early",
           "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
+          "status": "Enroute",
+          "platform": ""
         },
         {
           "name": "Grand Forks",
@@ -878,7 +355,8 @@
           "dep": "2024-06-23T02:10:00-05:00",
           "arrCmnt": "NaN Minutes Early",
           "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
+          "status": "Enroute",
+          "platform": ""
         },
         {
           "name": "Fargo",
@@ -891,7 +369,8 @@
           "dep": "2024-06-23T03:22:00-05:00",
           "arrCmnt": "On Time",
           "depCmnt": "On Time",
-          "status": "Enroute"
+          "status": "Enroute",
+          "platform": ""
         },
         {
           "name": "Detroit Lakes",
@@ -904,7 +383,8 @@
           "dep": "2024-06-23T04:27:00-05:00",
           "arrCmnt": "NaN Minutes Early",
           "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
+          "status": "Enroute",
+          "platform": ""
         },
         {
           "name": "Staples",
@@ -917,7 +397,8 @@
           "dep": "2024-06-23T05:27:00-05:00",
           "arrCmnt": "NaN Minutes Early",
           "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
+          "status": "Enroute",
+          "platform": ""
         },
         {
           "name": "St. Cloud",
@@ -930,7 +411,8 @@
           "dep": "2024-06-23T06:32:00-05:00",
           "arrCmnt": "NaN Minutes Early",
           "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
+          "status": "Enroute",
+          "platform": ""
         },
         {
           "name": "St. Paul - Minneapolis Union",
@@ -943,7 +425,8 @@
           "dep": "2024-06-23T08:33:00-05:00",
           "arrCmnt": "0 Minutes Early",
           "depCmnt": "0 Minutes Early",
-          "status": "Enroute"
+          "status": "Enroute",
+          "platform": ""
         },
         {
           "name": "Red Wing",
@@ -956,7 +439,8 @@
           "dep": "2024-06-23T09:44:00-05:00",
           "arrCmnt": "NaN Minutes Early",
           "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
+          "status": "Enroute",
+          "platform": ""
         },
         {
           "name": "Winona",
@@ -969,7 +453,8 @@
           "dep": "2024-06-23T10:54:00-05:00",
           "arrCmnt": "0 Minutes Early",
           "depCmnt": "0 Minutes Early",
-          "status": "Enroute"
+          "status": "Enroute",
+          "platform": ""
         },
         {
           "name": "La Crosse",
@@ -982,7 +467,8 @@
           "dep": "2024-06-23T11:37:00-05:00",
           "arrCmnt": "NaN Minutes Early",
           "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
+          "status": "Enroute",
+          "platform": ""
         },
         {
           "name": "Tomah",
@@ -995,7 +481,8 @@
           "dep": "2024-06-23T12:16:00-05:00",
           "arrCmnt": "NaN Minutes Early",
           "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
+          "status": "Enroute",
+          "platform": ""
         },
         {
           "name": "Wisconsin Dells",
@@ -1008,7 +495,8 @@
           "dep": "2024-06-23T12:58:00-05:00",
           "arrCmnt": "NaN Minutes Early",
           "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
+          "status": "Enroute",
+          "platform": ""
         },
         {
           "name": "Portage",
@@ -1021,7 +509,8 @@
           "dep": "2024-06-23T13:17:00-05:00",
           "arrCmnt": "NaN Minutes Early",
           "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
+          "status": "Enroute",
+          "platform": ""
         },
         {
           "name": "Columbus",
@@ -1034,7 +523,8 @@
           "dep": "2024-06-23T13:47:00-05:00",
           "arrCmnt": "NaN Minutes Early",
           "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
+          "status": "Enroute",
+          "platform": ""
         },
         {
           "name": "Milwaukee",
@@ -1047,7 +537,8 @@
           "dep": "2024-06-23T14:53:00-05:00",
           "arrCmnt": "4 Minutes Early",
           "depCmnt": "4 Minutes Early",
-          "status": "Enroute"
+          "status": "Enroute",
+          "platform": ""
         },
         {
           "name": "Glenview",
@@ -1060,7 +551,8 @@
           "dep": "2024-06-23T15:54:00-05:00",
           "arrCmnt": "NaN Minutes Early",
           "depCmnt": "NaN Minutes Early",
-          "status": "Enroute"
+          "status": "Enroute",
+          "platform": ""
         },
         {
           "name": "Chicago Union",
@@ -1073,7 +565,8 @@
           "dep": "2024-06-23T16:22:00-05:00",
           "arrCmnt": "23 Minutes Early",
           "depCmnt": "23 Minutes Early",
-          "status": "Enroute"
+          "status": "Enroute",
+          "platform": ""
         }
       ],
       "heading": "E",
@@ -1093,6 +586,593 @@
       "updatedAt": "2024-06-22T19:59:23-04:00",
       "lastValTS": "2024-06-22T18:55:45-05:00",
       "objectID": 509
+    },
+    {
+      "routeName": "Empire Builder",
+      "trainNum": "9999",
+      "trainID": "9999-22",
+      "lat": 47.59890561643562,
+      "lon": -122.33001489149925,
+      "trainTimely": "NaN Minutes Early",
+      "stations": [
+        {
+          "name": "Seattle King Street",
+          "code": "SEA",
+          "tz": "America/Los_Angeles",
+          "bus": false,
+          "schArr": "2024-06-22T16:55:00-07:00",
+          "schDep": "2024-06-22T16:55:00-07:00",
+          "arr": "2024-06-22T16:55:00-07:00",
+          "dep": "2024-06-22T16:55:00-07:00",
+          "arrCmnt": "NaN Minutes Early",
+          "depCmnt": "NaN Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Edmonds",
+          "code": "EDM",
+          "tz": "America/Los_Angeles",
+          "bus": false,
+          "schArr": "2024-06-22T17:27:00-07:00",
+          "schDep": "2024-06-22T17:27:00-07:00",
+          "arr": "2024-06-22T17:27:00-07:00",
+          "dep": "2024-06-22T17:27:00-07:00",
+          "arrCmnt": "NaN Minutes Early",
+          "depCmnt": "NaN Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Everett",
+          "code": "EVR",
+          "tz": "America/Los_Angeles",
+          "bus": false,
+          "schArr": "2024-06-22T17:55:00-07:00",
+          "schDep": "2024-06-22T17:55:00-07:00",
+          "arr": "2024-06-22T17:55:00-07:00",
+          "dep": "2024-06-22T17:55:00-07:00",
+          "arrCmnt": "NaN Minutes Early",
+          "depCmnt": "NaN Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Leavenworth",
+          "code": "LWA",
+          "tz": "America/Los_Angeles",
+          "bus": false,
+          "schArr": "2024-06-22T20:17:00-07:00",
+          "schDep": "2024-06-22T20:17:00-07:00",
+          "arr": "2024-06-22T20:22:00-07:00",
+          "dep": "2024-06-22T20:22:00-07:00",
+          "arrCmnt": "NaN Minutes Early",
+          "depCmnt": "NaN Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Wenatchee",
+          "code": "WEN",
+          "tz": "America/Los_Angeles",
+          "bus": false,
+          "schArr": "2024-06-22T20:51:00-07:00",
+          "schDep": "2024-06-22T20:57:00-07:00",
+          "arr": "2024-06-22T21:01:00-07:00",
+          "dep": "2024-06-22T21:01:00-07:00",
+          "arrCmnt": "10 Minutes Late",
+          "depCmnt": "10 Minutes Late",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Ephrata",
+          "code": "EPH",
+          "tz": "America/Los_Angeles",
+          "bus": false,
+          "schArr": "2024-06-22T21:58:00-07:00",
+          "schDep": "2024-06-22T21:58:00-07:00",
+          "arr": "2024-06-22T22:03:00-07:00",
+          "dep": "2024-06-22T22:03:00-07:00",
+          "arrCmnt": "NaN Minutes Early",
+          "depCmnt": "NaN Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Spokane",
+          "code": "SPK",
+          "tz": "America/Los_Angeles",
+          "bus": false,
+          "schArr": "2024-06-23T00:37:00-07:00",
+          "schDep": "2024-06-23T01:15:00-07:00",
+          "arr": "2024-06-23T00:37:00-07:00",
+          "dep": "2024-06-23T00:37:00-07:00",
+          "arrCmnt": "0 Minutes Early",
+          "depCmnt": "0 Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Sandpoint",
+          "code": "SPT",
+          "tz": "America/Los_Angeles",
+          "bus": false,
+          "schArr": "2024-06-23T02:20:00-07:00",
+          "schDep": "2024-06-23T02:20:00-07:00",
+          "arr": "2024-06-23T02:23:00-07:00",
+          "dep": "2024-06-23T02:23:00-07:00",
+          "arrCmnt": "NaN Minutes Early",
+          "depCmnt": "NaN Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Libby",
+          "code": "LIB",
+          "tz": "America/Denver",
+          "bus": false,
+          "schArr": "2024-06-23T05:11:00-06:00",
+          "schDep": "2024-06-23T05:11:00-06:00",
+          "arr": "2024-06-23T05:12:00-06:00",
+          "dep": "2024-06-23T05:12:00-06:00",
+          "arrCmnt": "NaN Minutes Early",
+          "depCmnt": "NaN Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Whitefish",
+          "code": "WFH",
+          "tz": "America/Denver",
+          "bus": false,
+          "schArr": "2024-06-23T07:11:00-06:00",
+          "schDep": "2024-06-23T07:26:00-06:00",
+          "arr": "2024-06-23T07:11:00-06:00",
+          "dep": "2024-06-23T07:11:00-06:00",
+          "arrCmnt": "0 Minutes Early",
+          "depCmnt": "0 Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "West Glacier",
+          "code": "WGL",
+          "tz": "America/Denver",
+          "bus": false,
+          "schArr": "2024-06-23T07:57:00-06:00",
+          "schDep": "2024-06-23T07:57:00-06:00",
+          "arr": "2024-06-23T07:57:00-06:00",
+          "dep": "2024-06-23T07:57:00-06:00",
+          "arrCmnt": "NaN Minutes Early",
+          "depCmnt": "NaN Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Essex",
+          "code": "ESM",
+          "tz": "America/Denver",
+          "bus": false,
+          "schArr": "2024-06-23T08:37:00-06:00",
+          "schDep": "2024-06-23T08:37:00-06:00",
+          "arr": "2024-06-23T08:37:00-06:00",
+          "dep": "2024-06-23T08:37:00-06:00",
+          "arrCmnt": "NaN Minutes Early",
+          "depCmnt": "NaN Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "East Glacier Park",
+          "code": "GPK",
+          "tz": "America/Denver",
+          "bus": false,
+          "schArr": "2024-06-23T09:36:00-06:00",
+          "schDep": "2024-06-23T09:36:00-06:00",
+          "arr": "2024-06-23T09:36:00-06:00",
+          "dep": "2024-06-23T09:36:00-06:00",
+          "arrCmnt": "NaN Minutes Early",
+          "depCmnt": "NaN Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Cut Bank",
+          "code": "CUT",
+          "tz": "America/Denver",
+          "bus": false,
+          "schArr": "2024-06-23T10:27:00-06:00",
+          "schDep": "2024-06-23T10:27:00-06:00",
+          "arr": "2024-06-23T10:27:00-06:00",
+          "dep": "2024-06-23T10:27:00-06:00",
+          "arrCmnt": "NaN Minutes Early",
+          "depCmnt": "NaN Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Shelby",
+          "code": "SBY",
+          "tz": "America/Denver",
+          "bus": false,
+          "schArr": "2024-06-23T11:20:00-06:00",
+          "schDep": "2024-06-23T11:28:00-06:00",
+          "arr": "2024-06-23T11:20:00-06:00",
+          "dep": "2024-06-23T11:20:00-06:00",
+          "arrCmnt": "0 Minutes Early",
+          "depCmnt": "0 Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Havre",
+          "code": "HAV",
+          "tz": "America/Denver",
+          "bus": false,
+          "schArr": "2024-06-23T13:05:00-06:00",
+          "schDep": "2024-06-23T13:24:00-06:00",
+          "arr": "2024-06-23T13:05:00-06:00",
+          "dep": "2024-06-23T13:05:00-06:00",
+          "arrCmnt": "0 Minutes Early",
+          "depCmnt": "0 Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Malta",
+          "code": "MAL",
+          "tz": "America/Denver",
+          "bus": false,
+          "schArr": "2024-06-23T14:43:00-06:00",
+          "schDep": "2024-06-23T14:43:00-06:00",
+          "arr": "2024-06-23T14:43:00-06:00",
+          "dep": "2024-06-23T14:43:00-06:00",
+          "arrCmnt": "NaN Minutes Early",
+          "depCmnt": "NaN Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Glasgow",
+          "code": "GGW",
+          "tz": "America/Denver",
+          "bus": false,
+          "schArr": "2024-06-23T15:44:00-06:00",
+          "schDep": "2024-06-23T15:44:00-06:00",
+          "arr": "2024-06-23T15:44:00-06:00",
+          "dep": "2024-06-23T15:44:00-06:00",
+          "arrCmnt": "NaN Minutes Early",
+          "depCmnt": "NaN Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Wolf Point",
+          "code": "WPT",
+          "tz": "America/Denver",
+          "bus": false,
+          "schArr": "2024-06-23T16:32:00-06:00",
+          "schDep": "2024-06-23T16:32:00-06:00",
+          "arr": "2024-06-23T16:32:00-06:00",
+          "dep": "2024-06-23T16:32:00-06:00",
+          "arrCmnt": "NaN Minutes Early",
+          "depCmnt": "NaN Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Williston",
+          "code": "WTN",
+          "tz": "America/Chicago",
+          "bus": false,
+          "schArr": "2024-06-23T19:21:00-05:00",
+          "schDep": "2024-06-23T19:21:00-05:00",
+          "arr": "2024-06-23T19:21:00-05:00",
+          "dep": "2024-06-23T19:21:00-05:00",
+          "arrCmnt": "NaN Minutes Early",
+          "depCmnt": "NaN Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Stanley",
+          "code": "STN",
+          "tz": "America/Chicago",
+          "bus": false,
+          "schArr": "2024-06-23T20:22:00-05:00",
+          "schDep": "2024-06-23T20:22:00-05:00",
+          "arr": "2024-06-23T20:23:00-05:00",
+          "dep": "2024-06-23T20:23:00-05:00",
+          "arrCmnt": "NaN Minutes Early",
+          "depCmnt": "NaN Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Minot",
+          "code": "MOT",
+          "tz": "America/Chicago",
+          "bus": false,
+          "schArr": "2024-06-23T22:08:00-05:00",
+          "schDep": "2024-06-23T22:53:00-05:00",
+          "arr": "2024-06-23T22:08:00-05:00",
+          "dep": "2024-06-23T22:08:00-05:00",
+          "arrCmnt": "0 Minutes Early",
+          "depCmnt": "0 Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Rugby",
+          "code": "RUG",
+          "tz": "America/Chicago",
+          "bus": false,
+          "schArr": "2024-06-23T23:49:00-05:00",
+          "schDep": "2024-06-23T23:49:00-05:00",
+          "arr": "2024-06-23T23:49:00-05:00",
+          "dep": "2024-06-23T23:49:00-05:00",
+          "arrCmnt": "NaN Minutes Early",
+          "depCmnt": "NaN Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Devils Lake",
+          "code": "DVL",
+          "tz": "America/Chicago",
+          "bus": false,
+          "schArr": "2024-06-24T00:44:00-05:00",
+          "schDep": "2024-06-24T00:44:00-05:00",
+          "arr": "2024-06-24T00:44:00-05:00",
+          "dep": "2024-06-24T00:44:00-05:00",
+          "arrCmnt": "NaN Minutes Early",
+          "depCmnt": "NaN Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Grand Forks",
+          "code": "GFK",
+          "tz": "America/Chicago",
+          "bus": false,
+          "schArr": "2024-06-24T02:10:00-05:00",
+          "schDep": "2024-06-24T02:10:00-05:00",
+          "arr": "2024-06-24T02:10:00-05:00",
+          "dep": "2024-06-24T02:10:00-05:00",
+          "arrCmnt": "NaN Minutes Early",
+          "depCmnt": "NaN Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Fargo",
+          "code": "FAR",
+          "tz": "America/Chicago",
+          "bus": false,
+          "schArr": "2024-06-24T03:21:00-05:00",
+          "schDep": "2024-06-24T03:29:00-05:00",
+          "arr": "2024-06-24T03:22:00-05:00",
+          "dep": "2024-06-24T03:22:00-05:00",
+          "arrCmnt": "On Time",
+          "depCmnt": "On Time",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Detroit Lakes",
+          "code": "DLK",
+          "tz": "America/Chicago",
+          "bus": false,
+          "schArr": "2024-06-24T04:27:00-05:00",
+          "schDep": "2024-06-24T04:27:00-05:00",
+          "arr": "2024-06-24T04:27:00-05:00",
+          "dep": "2024-06-24T04:27:00-05:00",
+          "arrCmnt": "NaN Minutes Early",
+          "depCmnt": "NaN Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Staples",
+          "code": "SPL",
+          "tz": "America/Chicago",
+          "bus": false,
+          "schArr": "2024-06-24T05:27:00-05:00",
+          "schDep": "2024-06-24T05:27:00-05:00",
+          "arr": "2024-06-24T05:27:00-05:00",
+          "dep": "2024-06-24T05:27:00-05:00",
+          "arrCmnt": "NaN Minutes Early",
+          "depCmnt": "NaN Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "St. Cloud",
+          "code": "SCD",
+          "tz": "America/Chicago",
+          "bus": false,
+          "schArr": "2024-06-24T06:32:00-05:00",
+          "schDep": "2024-06-24T06:32:00-05:00",
+          "arr": "2024-06-24T06:32:00-05:00",
+          "dep": "2024-06-24T06:32:00-05:00",
+          "arrCmnt": "NaN Minutes Early",
+          "depCmnt": "NaN Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "St. Paul - Minneapolis Union",
+          "code": "MSP",
+          "tz": "America/Chicago",
+          "bus": false,
+          "schArr": "2024-06-24T08:33:00-05:00",
+          "schDep": "2024-06-24T08:50:00-05:00",
+          "arr": "2024-06-24T08:33:00-05:00",
+          "dep": "2024-06-24T08:33:00-05:00",
+          "arrCmnt": "0 Minutes Early",
+          "depCmnt": "0 Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Red Wing",
+          "code": "RDW",
+          "tz": "America/Chicago",
+          "bus": false,
+          "schArr": "2024-06-24T09:44:00-05:00",
+          "schDep": "2024-06-24T09:44:00-05:00",
+          "arr": "2024-06-24T09:44:00-05:00",
+          "dep": "2024-06-24T09:44:00-05:00",
+          "arrCmnt": "NaN Minutes Early",
+          "depCmnt": "NaN Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Winona",
+          "code": "WIN",
+          "tz": "America/Chicago",
+          "bus": false,
+          "schArr": "2024-06-24T10:54:00-05:00",
+          "schDep": "2024-06-24T11:01:00-05:00",
+          "arr": "2024-06-24T10:54:00-05:00",
+          "dep": "2024-06-24T10:54:00-05:00",
+          "arrCmnt": "0 Minutes Early",
+          "depCmnt": "0 Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "La Crosse",
+          "code": "LSE",
+          "tz": "America/Chicago",
+          "bus": false,
+          "schArr": "2024-06-24T11:37:00-05:00",
+          "schDep": "2024-06-24T11:37:00-05:00",
+          "arr": "2024-06-24T11:37:00-05:00",
+          "dep": "2024-06-24T11:37:00-05:00",
+          "arrCmnt": "NaN Minutes Early",
+          "depCmnt": "NaN Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Tomah",
+          "code": "TOH",
+          "tz": "America/Chicago",
+          "bus": false,
+          "schArr": "2024-06-24T12:16:00-05:00",
+          "schDep": "2024-06-24T12:16:00-05:00",
+          "arr": "2024-06-24T12:16:00-05:00",
+          "dep": "2024-06-24T12:16:00-05:00",
+          "arrCmnt": "NaN Minutes Early",
+          "depCmnt": "NaN Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Wisconsin Dells",
+          "code": "WDL",
+          "tz": "America/Chicago",
+          "bus": false,
+          "schArr": "2024-06-24T12:58:00-05:00",
+          "schDep": "2024-06-24T12:58:00-05:00",
+          "arr": "2024-06-24T12:58:00-05:00",
+          "dep": "2024-06-24T12:58:00-05:00",
+          "arrCmnt": "NaN Minutes Early",
+          "depCmnt": "NaN Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Portage",
+          "code": "POG",
+          "tz": "America/Chicago",
+          "bus": false,
+          "schArr": "2024-06-24T13:17:00-05:00",
+          "schDep": "2024-06-24T13:17:00-05:00",
+          "arr": "2024-06-24T13:17:00-05:00",
+          "dep": "2024-06-24T13:17:00-05:00",
+          "arrCmnt": "NaN Minutes Early",
+          "depCmnt": "NaN Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Columbus",
+          "code": "CBS",
+          "tz": "America/Chicago",
+          "bus": false,
+          "schArr": "2024-06-24T13:47:00-05:00",
+          "schDep": "2024-06-24T13:47:00-05:00",
+          "arr": "2024-06-24T13:47:00-05:00",
+          "dep": "2024-06-24T13:47:00-05:00",
+          "arrCmnt": "NaN Minutes Early",
+          "depCmnt": "NaN Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Milwaukee",
+          "code": "MKE",
+          "tz": "America/Chicago",
+          "bus": false,
+          "schArr": "2024-06-24T14:57:00-05:00",
+          "schDep": "2024-06-24T15:05:00-05:00",
+          "arr": "2024-06-24T14:53:00-05:00",
+          "dep": "2024-06-24T14:53:00-05:00",
+          "arrCmnt": "4 Minutes Early",
+          "depCmnt": "4 Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Glenview",
+          "code": "GLN",
+          "tz": "America/Chicago",
+          "bus": false,
+          "schArr": "2024-06-24T16:12:00-05:00",
+          "schDep": "2024-06-24T16:12:00-05:00",
+          "arr": "2024-06-24T15:54:00-05:00",
+          "dep": "2024-06-24T15:54:00-05:00",
+          "arrCmnt": "NaN Minutes Early",
+          "depCmnt": "NaN Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        },
+        {
+          "name": "Chicago Union",
+          "code": "CHI",
+          "tz": "America/Chicago",
+          "bus": false,
+          "schArr": "2024-06-24T16:45:00-05:00",
+          "schDep": "2024-06-24T16:45:00-05:00",
+          "arr": "2024-06-24T16:22:00-05:00",
+          "dep": "2024-06-24T16:22:00-05:00",
+          "arrCmnt": "23 Minutes Early",
+          "depCmnt": "23 Minutes Early",
+          "status": "Enroute",
+          "platform": ""
+        }
+      ],
+      "heading": "N",
+      "eventCode": "SEA",
+      "eventTZ": "America/Los_Angeles",
+      "eventName": "Seattle King Street",
+      "origCode": "SEA",
+      "originTZ": "America/Los_Angeles",
+      "origName": "Seattle King Street",
+      "destCode": "CHI",
+      "destTZ": "America/Chicago",
+      "destName": "Chicago Union",
+      "trainState": "Predeparture",
+      "velocity": 0,
+      "statusMsg": " ",
+      "createdAt": "2024-06-22T19:26:06-04:00",
+      "updatedAt": "2024-06-22T19:26:06-04:00",
+      "lastValTS": "2024-06-22T16:40:00-07:00",
+      "objectID": 38
     }
   ]
 }

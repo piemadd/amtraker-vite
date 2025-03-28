@@ -15,12 +15,11 @@
     "@vitejs/plugin-react-swc": "^3.0.0",
     "fuse.js": "7.0.0",
     "localforage": "^1.10.0",
-    "maplibre-gl": "4.7.1",
+    "maplibre-gl": "5.1.0",
     "pmtiles": "3.2.0",
     "protomaps-themes-base": "^1.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-map-gl": "7.1.7",
     "react-router-dom": "^6.26.2",
     "vite": "^4.0.0",
     "vite-plugin-pwa": "^0.14.4"

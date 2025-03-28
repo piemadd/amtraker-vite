@@ -1,8 +1,7 @@
 import ManualTrainBox from "./manualTrainBox";
 import { useState, useEffect } from "react";
-import DataManager from "../dataManager/dataManager";
 
-const ShortTrainIDTrainBox = ({ trainID }) => {
+const ShortTrainIDTrainBox = ({ trainID, onClick = null, maxWidth = null, overrideEventCode = false }) => {
   const [train, setTrain] = useState(undefined);
   const [loading, setLoading] = useState(true);
 
@@ -10,10 +9,9 @@ const ShortTrainIDTrainBox = ({ trainID }) => {
 
   useEffect(() => {
     dataManager
-      .getTrains()
+      .getTrain(trainID)
       .then((data) => {
         setLoading(false);
-        console.log("data fetched", data);
 
         if (Array.isArray(data) && data.length === 0) {
           throw new Error("Train data not valid");
@@ -31,7 +29,7 @@ const ShortTrainIDTrainBox = ({ trainID }) => {
   //not sure what this is for tbh, should be covered above
   if (train === undefined) return null;
 
-  return <ManualTrainBox train={train} loading={loading} />;
+  return <ManualTrainBox train={train} loading={loading} onClick={onClick} maxWidth={maxWidth} overrideEventCode={overrideEventCode}/>;
 };
 
 export default ShortTrainIDTrainBox;

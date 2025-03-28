@@ -1,27 +1,41 @@
 import { stationMeta } from "./data/stations";
-import DataManager from './components/dataManager/dataManager';
 
-const deleteTrain = (trainNum, trainDate) => {
-  // removing saved train
-  const savedTrains = localStorage
-    .getItem("savedTrainsAmtrakerV3")
-    .split(",")
+const manageSavedTrain = (trainNum, trainDate, state) => {
+  let currentSaved = (localStorage.getItem('savedTrainsAmtrakerV3') ?? '')
+    .split(',')
     .filter((n) => n);
 
-  localStorage.setItem(
-    "savedTrainsAmtrakerV3",
-    savedTrains
-      .filter((element) => {
-        if (
-          element.split("-")[0] === trainNum &&
-          element.split("-")[2] === trainDate
-        ) {
-          return false;
-        }
+  window.dataManager.getIDs().then((validIDs) => {
+    if (state) {
+      const longTrainID = validIDs.find((element) =>
+        element.split("-")[0] == trainNum &&
+        element.split("-")[2] == trainDate
+      );
 
-        return true;
-      })
-      .join(",")
+      if (longTrainID) currentSaved.push(longTrainID);
+    } else {
+      currentSaved = currentSaved.filter((element) => !(
+        element.split("-")[0] == trainNum &&
+        element.split("-")[2] == trainDate
+      ));
+    };
+
+    localStorage
+      .setItem('savedTrainsAmtrakerV3',
+        currentSaved.join(',')
+      );
+  });
+};
+
+const getSavedTrain = (trainNum, trainDate) => {
+  let currentSaved = 
+    (localStorage.getItem('savedTrainsAmtrakerV3') ?? '')
+    .split(',')
+    .filter((n) => n);
+
+  return currentSaved.some((element) =>
+    element.split("-")[0] == trainNum &&
+    element.split("-")[2] == trainDate
   );
 };
 
@@ -63,18 +77,6 @@ const toHoursAndMinutesLate = (date1, date2) => {
 
   //late or early
   return diff > 0 ? `${amount} late` : `${amount} early`;
-};
-
-const colorizedToHoursAndMinutesLate = (date1, date2) => {
-  const res = toHoursAndMinutesLate(date1, date2);
-
-  if (res === "Estimate Error") return <span className='late-text'>{res}</span>;
-  if (res === "Schedule Error") return <span className='late-text'>{res}</span>;
-  if (res === "On Time") return <span className='on-time-text'>{res}</span>;
-  if (res.includes("late")) return <span className='late-text'>{res}</span>;
-  if (res.includes("early")) return <span className='early-text'>{res}</span>;
-
-  return <span className='error'>{res}</span>;
 };
 
 const calculateDistanceBetweenCoordinates = (lat1, lon1, lat2, lon2) => {
@@ -185,8 +187,7 @@ const autoAddTrains = async (trainArr) => {
 };
 
 const addAlwaysTracked = (trainNum) => {
-  const alwaysTracked = localStorage
-    .getItem("alwaysTrackedAmtrakerV3")
+  const alwaysTracked = (localStorage.getItem("alwaysTrackedAmtrakerV3") ?? '')
     .split(",");
   if (alwaysTracked.includes(trainNum)) return;
   alwaysTracked.push(trainNum);
@@ -197,8 +198,7 @@ const addAlwaysTracked = (trainNum) => {
 };
 
 const removeAlwaysTracked = (trainNum) => {
-  const alwaysTracked = localStorage
-    .getItem("alwaysTrackedAmtrakerV3")
+  const alwaysTracked = (localStorage.getItem("alwaysTrackedAmtrakerV3") ?? '')
     .split(",");
   if (!alwaysTracked.includes(trainNum)) return;
   alwaysTracked.splice(alwaysTracked.indexOf(trainNum), 1);
@@ -209,10 +209,8 @@ const removeAlwaysTracked = (trainNum) => {
 };
 
 export {
-  deleteTrain,
   hoursAndMinutesUnitl,
   toHoursAndMinutesLate,
-  colorizedToHoursAndMinutesLate,
   calculateDistanceBetweenCoordinates,
   presetExponential,
   calculateTimeTilLocation,
@@ -220,4 +218,6 @@ export {
   addAlwaysTracked,
   removeAlwaysTracked,
   autoAddTrains,
+  manageSavedTrain,
+  getSavedTrain,
 };
