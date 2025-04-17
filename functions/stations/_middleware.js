@@ -7,6 +7,12 @@ class ElementHandler {
   }
 }
 
+class RemoveElement {
+  element(element) {
+    element.remove();
+  }
+}
+
 export async function onRequest(context) {
   const { request, next } = context
   const res = await next()
@@ -40,10 +46,11 @@ export async function onRequest(context) {
     <meta property="og:image:width" content="1200" />
   `
 
-  const rewriter = new HTMLRewriter();
-  
-  rewriter.replace(/<meta\s+property="(\w|:)+"\s+content=".+"\s+\/>/, '');
-  rewriter.on('head', new ElementHandler(ogtag)).transform(res);
-
-  return rewriter;
+  return new HTMLRewriter()
+    .on('meta[property="og:url"]', new RemoveElement())
+    .on('meta[property="og:type"]', new RemoveElement())
+    .on('meta[property="og:title"]', new RemoveElement())
+    .on('meta[property="og:description"]', new RemoveElement())
+    .on('head', new ElementHandler(ogtag))
+    .transform(res);
 }
