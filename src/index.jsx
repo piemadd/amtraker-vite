@@ -9,7 +9,6 @@ import LoadingPage from "./loading";
 import DataManager from "./components/dataManager/dataManager.js";
 //import * as serviceWorkerRegistration from "./serviceWorkerRegistration.js";
 
-
 console.log(`DM-N: ${JSON.stringify(window.dataManager)}`)
 const dataManager = new DataManager();
 window.dataManager = dataManager;
