@@ -18,13 +18,10 @@ export async function onRequest(context) {
   let code = pathname.split('/').at(-1);
   let ogtag
 
-  console.log(code)
-  console.log(pathname)
-
-  const infoRes = await fetch(`http://api.amtraker.com/v3/station/${code}`);
+  const infoRes = await fetch(`http://api.amtraker.com/v3/stations/${code}`);
   const infoDataRaw = await infoRes.text();
 
-  console.log(infoDataRaw)
+  if (infoDataRaw == 'Not founds') return res; // doesnt exist
 
   const infoData = JSON.parse(infoDataRaw);
 
