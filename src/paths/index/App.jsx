@@ -220,6 +220,18 @@ const App = () => {
         </div>
 
         <section className='footer'>
+        <p style={{
+          fontWeight: '400',
+          textShadow: '0px 0px 4px #0704b5'
+        }}>
+            <a
+              href='https://beta.amtraker.com/'
+              target='blank'
+            >
+              v3.13 Beta
+            </a>
+          </p>
+          {/*
           <p>
             <a
               href='https://docs.google.com/forms/d/e/1FAIpQLSfLfypJxtK62zBakCzo23y-WKFZj_TjbX5pKGZ08gxOeBatkg/viewform?usp=sf_link'
@@ -228,6 +240,7 @@ const App = () => {
               Feedback
             </a>
           </p>
+          */}
           <Link to='/about'>
             <p>About</p>
           </Link>
@@ -239,7 +252,7 @@ const App = () => {
           </Link>
         </section>
         <section className='amtrakerVersion'>
-          <p>Amtraker v3.12.8</p>
+          <p>Amtraker v3.13.9</p>
           <p>&copy; <a href="https://piemadd.com" target="_blank">Piero Maddaleni</a> 2024</p>
         </section>
         <SenseBlock key={"sense-block"} dataAdSlot={"3140178047"} />
