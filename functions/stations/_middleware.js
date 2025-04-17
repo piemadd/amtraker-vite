@@ -12,13 +12,21 @@ export async function onRequest(context) {
   const res = await next()
   const { searchParams, pathname } = new URL(request.url)
 
-  if (!(pathname.startsWith('/stations'))) return res; // nah
+  if (!pathname.startsWith('/stations')) return res; // not entirely sure how we got here tbh
+  if (pathname.endsWith('stations')) return res; // no station specified
 
   let code = pathname.split('/').at(-1);
   let ogtag
 
+  console.log(code)
+  console.log(pathname)
+
   const infoRes = await fetch(`http://api.amtraker.com/v3/station/${code}`);
-  const infoData = await infoRes.json();
+  const infoDataRaw = await infoRes.text();
+
+  console.log(infoDataRaw)
+
+  const infoData = JSON.parse(infoDataRaw);
 
   if (Array.isArray(infoData) && infoData.length == 0) return res; // doesnt exist
 
