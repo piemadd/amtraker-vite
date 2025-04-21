@@ -99,7 +99,8 @@ const StationPage = () => {
                     gap: '8px',
                     fontSize: '1.5rem',
                     fontWeight: '300',
-                    width: 'calc(100% - 8px)',
+                    width: 'calc(100% - 26px)',
+                    maxWidth: '380px'
                   }}>
                   <input type="checkbox" onChange={(e) => {
                     console.log(e.target.checked)

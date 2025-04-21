@@ -34,4 +34,13 @@ const settingsInit = () => {
   return settings;
 };
 
+export const settingsDefaultState = {
+  theme: {
+    from: "dark",
+  },
+  foamerMode: false,
+  viewAllTrains: false,
+  mapView: 'mercator',
+};
+
 export default settingsInit;

@@ -135,6 +135,10 @@ const AmtrakerMap = () => {
       }
 
       console.log('Initializing map')
+
+      // increased workers count test for faster globe loading
+      if (appSettings.mapView == 'globe') maplibregl.setWorkerCount(Math.max(Math.min(Math.floor((navigator.hardwareConcurrency ?? 1) / 2), 3), 1));
+
       mapRef.current = new maplibregl.Map({
         container: mapContainerRef.current,
         pixelRatio: Math.max(window.devicePixelRatio, 2),

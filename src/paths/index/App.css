@@ -123,6 +123,11 @@ button, .click {
   cursor: pointer;
 }
 
+.mutliButton {
+  display: flex;
+  gap: 4px;
+}
+
 input[type=checkbox]
 {
   transform: scale(1.5);

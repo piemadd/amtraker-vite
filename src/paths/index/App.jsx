@@ -224,7 +224,7 @@ const App = () => {
         <h3 className='split'>or</h3>
         <div className='links'>
           <Link to={"/trains"}>
-            <button className='root'>Track a new Train</button>
+            <button className='root'>Trains List</button>
           </Link>
         </div>
         <div className='links'>
@@ -233,7 +233,7 @@ const App = () => {
           </Link>
 
           <Link to={"/stations"}>
-            <button className='root'>Full Stations List</button>
+            <button className='root'>Stations List</button>
           </Link>
         </div>
 
@@ -257,7 +257,7 @@ const App = () => {
           </Link>
         </section>
         <section className='amtrakerVersion'>
-          <p>Amtraker 3.13.0 RC1</p>
+          <p>Amtraker 3.13.0 RC2</p>
           <p>&copy; <a href="https://piemadd.com" target="_blank">Piero Maddaleni</a> 2025</p>
         </section>
         <SenseBlock key={"sense-block"} dataAdSlot={"3140178047"} />
