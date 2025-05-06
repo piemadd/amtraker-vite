@@ -57,8 +57,7 @@
   border-radius: 4px;
   padding: 0px 8px;
   transition-duration: 100ms;
-  width: calc(100% - 18px);
-
+  width: 100%;
 }
 
 .station-line > div {
@@ -154,7 +153,6 @@ div.trainPage div.header-trainpage {
   display: flex;
   flex-direction: row;
   text-align: center;
-  padding: 0 32px;
   align-items: center;
   justify-content: space-between;
   left: 0;
@@ -294,4 +292,10 @@ td {
 .train-box-max-width {
   width: 100%;
   max-width: 380px;
+}
+
+.multiButtonHolder {
+  display: flex;
+  padding-right: 4px;
+  gap: 4px;
 }

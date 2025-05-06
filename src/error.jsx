@@ -59,7 +59,7 @@ export default function ErrorPage() {
           <i>
             Current path: {window.location.href}
             <br />
-            Current version: 3.13.0 RC2
+            Current version: 3.13.0 RC3
             <br />
             Current date and time (UTC): {new Date().toUTCString()}
             <br />
@@ -85,7 +85,7 @@ export default function ErrorPage() {
           <i>
             Current path: {window.location.href}
             <br />
-            Current version: 3.13.0 RC2
+            Current version: 3.13.0 RC3
             <br />
             Current date and time (UTC): {new Date().toUTCString()}
             <br />

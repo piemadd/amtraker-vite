@@ -14,6 +14,8 @@ import ManualTrainPopup from "../../components/trainBox/maualTrainPopup";
 import ManualStationPopup from "../../components/stationBox/maualStationPopup.jsx";
 import ManualMultiplePopup from "../../components/manualMultiplePopup.jsx";
 import settingsInit from "../../components/settingsInit.js";
+import ShareButton from "../../components/buttons/shareButton.jsx";
+import BaseButton from "../../components/buttons/baseButton.jsx";
 
 const debounce = (func, timeout = 300) => {
   let timer;
@@ -234,7 +236,7 @@ const AmtrakerMap = () => {
 
           //generating the icons for the trains
           allDataNew.forEach((train) => {
-            const { imageWidth, imageHeight, imageText } = generateMarker(train);
+            const { imageWidth, imageHeight, imageText } = generateMarker(train);            
 
             //converting the image and loading it
             const img = new Image(imageWidth, imageHeight);
@@ -619,6 +621,7 @@ const AmtrakerMap = () => {
               }
             }}
             className='click noselect'
+            style={{ paddingLeft: '32px' }}
           >
             Back
           </h2>
@@ -630,19 +633,22 @@ const AmtrakerMap = () => {
           ) : dataStale.stale ? (
             <p>Warning: Data is stale. Trains were last updated on average {Math.floor(dataStale.avgLastUpdate / 60000)} minutes ago.</p>
           ) : null}
-          {navigator.share ? (
-            <h2
-              onClick={() => {
-                navigator.share({
-                  title: "Amtraker Map",
-                  url: "https://amtraker.com/map",
-                });
+          <div className="multiButtonHolder">
+            <ShareButton navigatorOptions={{
+              title: "Amtraker Map",
+              url: "https://amtraker.com/map",
+            }} />
+            <BaseButton 
+              symbol="?"
+              onClick={() => window.location.href = '/about#faq-map-icons-colors'}
+              otherCssStyles={{
+                height: '75%',
+                fontSize: '20px',
+                lineHeight: '20px',
+                paddingTop: 'calc(0.5em - 2px)'
               }}
-              className='click'
-            >
-              Share
-            </h2>
-          ) : null}
+            />
+          </div>
         </div>
         <div className='mapHolder'>
           {windowSize[0] > 800 ? (

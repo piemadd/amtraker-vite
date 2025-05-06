@@ -2,7 +2,7 @@ const generateMarker = (train) => {
   const sizeMultiplier = 1.25;
   const needLastNum = !train.onlyOfTrainNum;
 
-  const calculatedWidth = 
+  const calculatedWidth =
     24 + // first letter length
     train.trainNumRaw.toString().length * 36 + // train number length
     (needLastNum ? (train.trainID.split('-')[1].length * 24) + 48 : 0) + // train date length (second part of id) + parenthesis (24px per char),

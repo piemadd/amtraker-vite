@@ -61,6 +61,7 @@ const StationPage = () => {
               }
             }}
             className='click'
+            style={{ paddingLeft: '32px' }}
           >
             Back
           </h2>
@@ -155,6 +156,9 @@ const StationPage = () => {
                           to={`/trains/${train.trainID.split("-").join("/")}`}
                           key={`train-${train.trainID}`}
                           className='station-link'
+                          style={{
+                            width: 'calc(100% - 26px)'
+                          }}
                         >
                           <ManualTrainBox
                             train={train}
@@ -183,13 +187,3 @@ const StationPage = () => {
 };
 
 export default StationPage;
-
-/*
-<Link
-                          to={`/trains/${trainID.split("-").join("/")}`}
-                          key={`train-${trainID}`}
-                          className='station-link'
-                        >
-                          <ShortTrainIDTrainBox trainID={trainID} overrideEventCode={stationCode} />
-                        </Link>
-*/

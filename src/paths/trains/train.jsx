@@ -18,6 +18,7 @@ import {
 } from "../../tools";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import SenseBlock from "../../components/money/senseArticle";
+import ShareButton from "../../components/buttons/shareButton";
 
 const BetterTrainPage = () => {
   const { trainNum, trainDate } = useParams();
@@ -104,24 +105,18 @@ const BetterTrainPage = () => {
                 }
               }}
               className='click'
+              style={{ paddingLeft: '32px' }}
             >
               Back
             </h2>
-            {navigator.share ? (
-              <h2
-                onClick={() => {
-                  navigator.share({
-                    title: `Track the Amtrak ${trainData[0].routeName} Train with Amtraker!`,
-                    url: `https://amtraker.com/trains/${trainData[0].trainID
-                      .split("-")
-                      .join("/")}`,
-                  });
-                }}
-                className='click'
-              >
-                Share Train
-              </h2>
-            ) : null}
+            <div className="multiButtonHolder">
+              <ShareButton navigatorOptions={{
+                title: `Track the Amtrak ${trainData[0]?.routeName} Train with Amtraker!`,
+                url: `https://amtraker.com/trains/${trainData[0]?.trainID
+                  .split("-")
+                  .join("/")}`,
+              }} />
+            </div>
           </div>
         ) : null}
         <section
@@ -239,6 +234,9 @@ const BetterTrainPage = () => {
                               to={`/stations/${station.code}`}
                               key={`station-${station.code}`}
                               className='station-link'
+                              style={{
+                                width: 'calc(100% - 18px)'
+                              }}
                             >
                               <ManualStationBox
                                 station={station}
@@ -257,6 +255,9 @@ const BetterTrainPage = () => {
                             to={`/stations/${station.code}`}
                             key={`station-${station.code}`}
                             className='station-link'
+                            style={{
+                              width: 'calc(100% - 18px)'
+                            }}
                           >
                             <ManualStationBox
                               station={station}

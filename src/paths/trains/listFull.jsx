@@ -44,6 +44,7 @@ const FullTrainsList = () => {
               }
             }}
             className='click'
+            style={{ paddingLeft: '32px' }}
           >
             Back
           </h2>
