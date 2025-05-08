@@ -238,18 +238,6 @@ const App = () => {
         </div>
 
         <section className='footer'>
-        <p style={{
-          fontWeight: '400',
-          textShadow: '0px 0px 4px #0704b5'
-        }}>
-            <a
-              href='https://beta.amtraker.com/'
-              target='blank'
-            >
-              v3.13 Beta
-            </a>
-          </p>
-          {/*
           <p>
             <a
               href='https://docs.google.com/forms/d/e/1FAIpQLSfLfypJxtK62zBakCzo23y-WKFZj_TjbX5pKGZ08gxOeBatkg/viewform?usp=sf_link'
@@ -258,7 +246,6 @@ const App = () => {
               Feedback
             </a>
           </p>
-          */}
           <Link to='/about'>
             <p>About</p>
           </Link>
