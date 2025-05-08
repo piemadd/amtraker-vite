@@ -6,6 +6,7 @@ import "../trains/trains.css"; //fuck it we ball
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import ShortTrainIDTrainBox from "../../components/trainBox/shortTrainIDTrainBox";
 import settingsInit from "../../components/settingsInit";
+import ShareButton from "../../components/buttons/shareButton";
 
 const StationPage = () => {
   const { stationCode } = useParams();
@@ -65,6 +66,12 @@ const StationPage = () => {
           >
             Back
           </h2>
+          <div className="multiButtonHolder">
+              <ShareButton navigatorOptions={{
+                title: `Track trains at ${stationData.name} (${stationData.code} with Amtraker!`,
+                url: `https://amtraker.com/stations/${stationData.code}`,
+              }} />
+            </div>
         </div>
         <section className='section-trainPage'>
           <div className='station-box'>

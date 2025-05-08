@@ -111,7 +111,7 @@ const BetterTrainPage = () => {
             </h2>
             <div className="multiButtonHolder">
               <ShareButton navigatorOptions={{
-                title: `Track the Amtrak ${trainData[0]?.routeName} Train with Amtraker!`,
+                title: `Track the ${trainData[0]?.provider} ${trainData[0]?.routeName} Train with Amtraker!`,
                 url: `https://amtraker.com/trains/${trainData[0]?.trainID
                   .split("-")
                   .join("/")}`,

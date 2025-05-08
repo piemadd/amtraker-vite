@@ -128,6 +128,95 @@ const AmtrakerMap = () => {
     return savedTrains.map((n) => `${n.split("-")[0]}-${n.split("-")[2]}`);
   }, [savedTrains]);
 
+  const updateAllData = () => {
+    // resetting
+    setShitsFucked(false);
+
+    // stale data + shits fucked
+    dataManager.getShitsFucked().then((shitsFucked) => setShitsFucked(shitsFucked));
+    dataManager.getStaleData().then((stale) => setDataStale(stale));
+
+    // trains
+    dataManager.getTrains().then((data) => {
+      if (Object.keys(data).length === 0) {
+        setShitsFucked(true);
+      }
+
+      const allDataNew = Object.values(data).flat();
+
+      setAllData(allDataNew);
+      setAllIDs([
+        ...allDataNew.map((train) => train.trainID),
+        ...allDataNew.map((train) => train.trainNum),
+      ]);
+      fuse.setCollection(allDataNew);
+
+      //generating the icons for the trains
+      allDataNew.forEach((train) => {
+        const { imageWidth, imageHeight, imageText } = generateMarker(train);
+
+        //converting the image and loading it
+        const img = new Image(imageWidth, imageHeight);
+        img.onload = () => {
+          if (mapRef.current.hasImage(train.trainID)) {
+            mapRef.current.updateImage(train.trainID, img);
+          } else {
+            mapRef.current.addImage(train.trainID, img, {
+              pixelRatio: 4,
+            });
+          }
+        }
+        img.onerror = console.log;
+        img.src = "data:image/svg+xml;base64," + btoa(imageText);
+      });
+
+      mapRef.current.getSource("trains").setData({
+        type: "FeatureCollection",
+        features: Object.values(data).flat().map((train) => {
+          return {
+            type: "Feature",
+            id: '',
+            properties: {
+              ...train,
+              id: train.trainID,
+            },
+            geometry: {
+              type: "Point",
+              coordinates: [train.lon, train.lat],
+            },
+          }
+        }),
+      });
+    });
+
+    //stations
+    dataManager.getStations().then((data) => {
+      if (Object.keys(data).length === 0) {
+        setShitsFucked(true);
+      }
+
+      setStationsData(Object.values(data));
+
+      mapRef.current.getSource("stations").setData({
+        type: "FeatureCollection",
+        features: Object.values(data).map((station) => {
+          return {
+            type: "Feature",
+            id: station.code,
+            properties: {
+              ...station,
+              id: station.code,
+            },
+            geometry: {
+              type: "Point",
+              coordinates: [station.lon, station.lat],
+            },
+          }
+        }),
+      });
+    });
+  };
+
   //map initialization
   useEffect(() => {
     try {
@@ -211,94 +300,7 @@ const AmtrakerMap = () => {
       window.mapRef = mapRef.current;
 
       // fetching data on an interval
-      setInterval(() => {
-        // resetting
-        setShitsFucked(false);
-
-        // stale data + shits fucked
-        dataManager.getShitsFucked().then((shitsFucked) => setShitsFucked(shitsFucked));
-        dataManager.getStaleData().then((stale) => setDataStale(stale));
-
-        // trains
-        dataManager.getTrains().then((data) => {
-          if (Object.keys(data).length === 0) {
-            setShitsFucked(true);
-          }
-
-          const allDataNew = Object.values(data).flat();
-
-          setAllData(allDataNew);
-          setAllIDs([
-            ...allDataNew.map((train) => train.trainID),
-            ...allDataNew.map((train) => train.trainNum),
-          ]);
-          fuse.setCollection(allDataNew);
-
-          //generating the icons for the trains
-          allDataNew.forEach((train) => {
-            const { imageWidth, imageHeight, imageText } = generateMarker(train);            
-
-            //converting the image and loading it
-            const img = new Image(imageWidth, imageHeight);
-            img.onload = () => {
-              if (mapRef.current.hasImage(train.trainID)) {
-                mapRef.current.updateImage(train.trainID, img);
-              } else {
-                mapRef.current.addImage(train.trainID, img, {
-                  pixelRatio: 4,
-                });
-              }
-            }
-            img.onerror = console.log;
-            img.src = "data:image/svg+xml;base64," + btoa(imageText);
-          });
-
-          mapRef.current.getSource("trains").setData({
-            type: "FeatureCollection",
-            features: Object.values(data).flat().map((train) => {
-              return {
-                type: "Feature",
-                id: '',
-                properties: {
-                  ...train,
-                  id: train.trainID,
-                },
-                geometry: {
-                  type: "Point",
-                  coordinates: [train.lon, train.lat],
-                },
-              }
-            }),
-          });
-        });
-
-        //stations
-        dataManager.getStations().then((data) => {
-          if (Object.keys(data).length === 0) {
-            setShitsFucked(true);
-          }
-
-          setStationsData(Object.values(data));
-
-          mapRef.current.getSource("stations").setData({
-            type: "FeatureCollection",
-            features: Object.values(data).map((station) => {
-              return {
-                type: "Feature",
-                id: station.code,
-                properties: {
-                  ...station,
-                  id: station.code,
-                },
-                geometry: {
-                  type: "Point",
-                  coordinates: [station.lon, station.lat],
-                },
-              }
-            }),
-          });
-        });
-      }, 30000); // every 30 seconds, update
+      setInterval(updateAllData, 30000); // every 30 seconds, update
 
       //initial data fetch
       // stale data + shits fucked
@@ -634,13 +636,23 @@ const AmtrakerMap = () => {
             <p>Warning: Data is stale. Trains were last updated on average {Math.floor(dataStale.avgLastUpdate / 60000)} minutes ago.</p>
           ) : null}
           <div className="multiButtonHolder">
+            <BaseButton
+              symbol="?"
+              onClick={() => navigate('/about#faq-map-icons-colors')}
+              otherCssStyles={{
+                height: '75%',
+                fontSize: '20px',
+                lineHeight: '20px',
+                paddingTop: 'calc(0.5em - 2px)'
+              }}
+            />
             <ShareButton navigatorOptions={{
               title: "Amtraker Map",
               url: "https://amtraker.com/map",
             }} />
-            <BaseButton 
-              symbol="?"
-              onClick={() => window.location.href = '/about#faq-map-icons-colors'}
+            <BaseButton
+              symbol="⟳"
+              onClick={() => debounce(updateAllData)}
               otherCssStyles={{
                 height: '75%',
                 fontSize: '20px',
