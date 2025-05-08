@@ -1,9 +1,9 @@
 import { useNavigate, Link } from "react-router-dom";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useMemo } from "react";
 import "./trains.css"; //fuck it we ball
 import Fuse from "fuse.js";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
-import SettingsInit from "../index/settingsInit";
+import settingsInit from "../../components/settingsInit";
 import stringToHash from "../../components/money/stringToHash";
 import SenseBlock from "../../components/money/senseArticle";
 
@@ -22,26 +22,33 @@ const debounce = (func, timeout = 300) => {
 const TrainsList = () => {
   const navigate = useNavigate();
   const dataManager = window.dataManager;
+  const appSettings = useMemo(settingsInit, []);
 
   const [loading, setLoading] = useState(true);
   const [trainData, setTrainData] = useState([]);
+  const [trainDataFull, setTrainDataFull] = useState([]);
+  const [allIDs, setAllIDs] = useState([]);
   const [results, setResults] = useState([]);
   const [query, updateQuery] = useState("");
+  const [agencyFilter, setAgencyFilter] = useState("All");
   const [shitsFucked, setShitsFucked] = useState(false);
 
   useEffect(() => {
     dataManager.getTrains()
       .then((data) => {
-        console.log("data fetched", data);
-        setTrainData(Object.values(data).flat());
-        setResults(Object.values(data).flat());
+        const allDataNew = Object.values(data).flat();
+
+        setTrainDataFull(allDataNew);
+        setTrainData(allDataNew);
+        setResults(allDataNew);
+        setAllIDs([
+          ...allDataNew.map((train) => train.trainID),
+          ...allDataNew.map((train) => train.trainNum),
+        ]);
 
         if (Object.keys(data).length === 0) {
           setShitsFucked(true);
         }
-
-        //setTrainData(Object.values(ErrorData).flat());
-        //setResults(Object.values(ErrorData).flat());
 
         setLoading(false);
       });
@@ -60,6 +67,33 @@ const TrainsList = () => {
     includeScore: true,
   });
 
+  const setSearchResults = (currentQuery, agencyFilterString) => {
+    let actualNewResults = trainDataFull.filter((train) => {
+      if (agencyFilterString == 'All') return true;
+      if (agencyFilterString == 'Amtrak' && !train.trainID.startsWith('v') && !train.trainID.startsWith('b')) return true;
+      if (agencyFilterString == 'Via' && train.trainID.startsWith('v')) return true;
+      if (agencyFilterString == 'Brightline' && train.trainID.startsWith('b')) return true;
+      return false;
+    });
+
+    if (currentQuery.length == 0) {
+      // do nothing
+    } else if (allIDs.includes(currentQuery)) {
+      const isAnID = currentQuery.split('-').length > 1;
+      actualNewResults = actualNewResults.filter((train) => {
+        if (train.trainID == currentQuery) return true;
+        if (train.trainNum == currentQuery && !isAnID) return true;
+        return false;
+      });
+    } else {
+      fuse.setCollection(actualNewResults);
+      actualNewResults = fuse.search(currentQuery).map((result) => result.item);
+    };
+
+    console.log(actualNewResults)
+    setResults(actualNewResults);
+  };
+
   const [bgURL, setBGURL] = useState("/content/images/amtraker-back.webp");
   const [bgClass, setBGClass] = useState("bg-focus-in");
 
@@ -67,9 +101,9 @@ const TrainsList = () => {
     stringToHash(localStorage.getItem("passphrase")).then((hash) => {
       if (
         hash ==
-          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
+        "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
         hash ==
-          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
+        "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
       ) {
         setBGURL("/content/images/prideflag.jpg");
         setBGClass("bg-focus-in peppino");
@@ -96,6 +130,7 @@ const TrainsList = () => {
               }
             }}
             className='click'
+            style={{ paddingLeft: '32px' }}
           >
             Back
           </h2>
@@ -110,7 +145,6 @@ const TrainsList = () => {
           ) : null}
         </div>
         <section className='section-trainPage'>
-          <SettingsInit />
           <input
             id='searchbox'
             type='text'
@@ -118,15 +152,28 @@ const TrainsList = () => {
             placeholder='Search for a train'
             onChange={(e) => {
               updateQuery(e.target.value);
-              debounce(
-                setResults(
-                  e.target.value.length > 0
-                    ? fuse.search(e.target.value).map((result) => result.item)
-                    : trainData
-                )
-              );
+              debounce(setSearchResults(e.target.value, agencyFilter));
             }}
           />
+          <div className="mutliButton">
+            {
+              ['All', 'Amtrak', 'Via', 'Brightline'].map((key) => {
+                return <button
+                  key={key}
+                  style={{
+                    backgroundColor: agencyFilter == key ? 'rgba(255, 255, 255, 0.25)' : null,
+                  }}
+                  onClick={(e) => {
+                    console.log(e.target)
+                    setAgencyFilter(e.target.innerText);
+                    debounce(setSearchResults(query, e.target.innerText));
+                  }}
+                >
+                  {key}
+                </button>
+              })
+            }
+          </div>
           <div className='stations fullTrainsList'>
             {!loading ? (
               <>

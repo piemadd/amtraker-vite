@@ -34,6 +34,7 @@
 
 .train-box div:first-child span:first-child {
   font-weight: 600 !important;
+  text-shadow: black 0 0 10px;
 }
 
 .station-box {
@@ -44,7 +45,8 @@
   border-radius: 4px;
   padding: 6px 12px;
   transition-duration: 100ms;
-  max-width: 395px;
+  max-width: 380px;
+  width: calc(100% - 26px);
 }
 
 .station-line {
@@ -109,13 +111,15 @@
   padding: 2px 8px;
   border-radius: 8px;
   background-color: #1864ab;
+  text-shadow: black 0 0 10px;
 }
 
 .status-text,
 .on-time-text {
-  color: #1864ab !important;
+  color: #1864ab;
   font-weight: 500;
   text-decoration: dotted underline;
+  text-shadow: black 0 0 8px;
 }
 
 .early {
@@ -149,7 +153,6 @@ div.trainPage div.header-trainpage {
   display: flex;
   flex-direction: row;
   text-align: center;
-  padding: 0 32px;
   align-items: center;
   justify-content: space-between;
   left: 0;
@@ -177,11 +180,15 @@ div.trainPage section.section-trainPage {
 }
 
 div.trainPage section.section-trainPage div.stations {
-  width: calc(100% - 18px);
-  max-width: 380px;
+  width: 100%;
+  max-width: 400px;
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+div.fullStationsList {
+  width: calc(100% - 26px);
 }
 
 table,
@@ -233,7 +240,8 @@ td {
 }
 
 #searchbox {
-  margin-bottom: 12px;
+  width: calc(100% - 22px);
+  max-width: 358px;
 }
 
 .maplibregl-popup-content, .mapboxgl-popup-content {
@@ -245,7 +253,7 @@ td {
   display: flex;
   flex-direction: column;
   flex: wrap;
-  gap: 6px;
+  gap: 4px;
 }
 
 .train-popup__header {
@@ -284,4 +292,10 @@ td {
 .train-box-max-width {
   width: 100%;
   max-width: 380px;
+}
+
+.multiButtonHolder {
+  display: flex;
+  padding-right: 4px;
+  gap: 4px;
 }

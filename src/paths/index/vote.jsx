@@ -40,6 +40,7 @@ const VotePage = () => {
               }
             }}
             className='click'
+            style={{ paddingLeft: '32px' }}
           >
             Back
           </h2>

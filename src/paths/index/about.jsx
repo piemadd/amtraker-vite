@@ -11,14 +11,20 @@ const AboutPage = () => {
     stringToHash(localStorage.getItem("passphrase")).then((hash) => {
       if (
         hash ==
-          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
+        "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
         hash ==
-          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
+        "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
       ) {
         setBGURL("/content/images/prideflag.jpg");
         setBGClass("bg-focus-in peppino");
       }
     });
+  }, []);
+
+  useEffect(() => {
+    const scrollingToItem = document.getElementById(window.location.hash.replace('#', ''));
+    if (!scrollingToItem) return;
+    scrollingToItem.scrollIntoView({behavior: 'smooth'});
   }, []);
 
   return (
@@ -40,6 +46,7 @@ const AboutPage = () => {
               }
             }}
             className='click'
+            style={{ paddingLeft: '32px' }}
           >
             Back
           </h2>
@@ -96,11 +103,8 @@ const AboutPage = () => {
                   >
                     Google Play
                   </a>{" "}
-                  to install the App. If you're using an iPhone, open Amtraker
-                  in Safari, press the share button (box with an arrow pointing
-                  up), and press "Add to home screen". Then, you should be able
-                  to press "Add" in the top right, which will "install" Amtraker
-                  on your iPhone. I do plan on bringing Amtraker to the App
+                  to install the App. If you're using an iPhone, make sure you have Amtraker
+                  open in Safari, and then follow these instructions from the Apple website: <a href="https://support.apple.com/guide/iphone/bookmark-a-website-iph42ab2f3a7/ios#:~:text=to%20your%20Home-,screen,-You%20can%20add" target="blank">link</a> (look for "Add a website icon to your Home Screen"). I do plan on bringing Amtraker to the App
                   store in the future, but this is all I can provide for iOS
                   users for now.
                 </li>
@@ -145,6 +149,192 @@ const AboutPage = () => {
                   tracker, but not on Amtraker, please{" "}
                   <a href='mailto:hi@amtraker.com'>email me</a> and I'll look as
                   soon as I can.
+                </li>
+              </ul>
+            </li>
+            <li id='faq-map-icons-colors'>
+              <h3>What do the train icons/colors mean?</h3>
+              <ul>
+                <li>The colors of the icons are broken down into two categories: active and inactive trains. </li>
+                <li>
+                  Any train that has not yet departed its initial terminal, has arrived at its final station, or has been cancelled is inactive and will be dark grey, as shown below.
+                  <br />
+                  <svg
+                    width='130px'
+                    height='60px'
+                    viewBox='0 0 208 96'
+                    fill='none'
+                    xmlns='http://www.w3.org/2000/svg'
+                  >
+                    <g>
+                      <rect
+                        x='0'
+                        y='0'
+                        width='208'
+                        height='96'
+                        rx='16'
+                        fill='black'
+                      />
+                      <rect
+                        x='8'
+                        y='8'
+                        width='192'
+                        height='80'
+                        rx='10'
+                        fill='#212529'
+                      />
+                      <text
+                        x="104"
+                        y="68"
+                        fill="white"
+                        xmlSpace="preserve"
+                        style={{
+                          whiteSpace: 'pre'
+                        }}
+                        fontFamily="monospace"
+                        fontSize="60"
+                        letterSpacing="0em"
+                        textAnchor="middle"><tspan fontSize="40">A</tspan>41<tspan fontSize="40">(5)</tspan></text>
+                    </g>
+                  </svg>
+                </li>
+                <li>
+                  Otherwise, the shade of the train depends on how late it is, from a green for 0% late, to a an orange for 25% late, and a bright red for 100% late, with these percentegaes being of a predetermined threshold (see below) depending on the route length and type.
+                  <ul>
+                    <li>Green (0%) HSV(132&deg;, 69%, 54%):
+                      <br />
+                      <svg
+                        width='130px'
+                        height='60px'
+                        viewBox='0 0 208 96'
+                        fill='none'
+                        xmlns='http://www.w3.org/2000/svg'
+                      >
+                        <g>
+                          <rect
+                            x='0'
+                            y='0'
+                            width='208'
+                            height='96'
+                            rx='16'
+                            fill='black'
+                          />
+                          <rect
+                            x='8'
+                            y='8'
+                            width='192'
+                            height='80'
+                            rx='10'
+                            fill='#2b8a3e'
+                          />
+                          <text
+                            x="104"
+                            y="68"
+                            fill="white"
+                            xmlSpace="preserve"
+                            style={{
+                              whiteSpace: 'pre'
+                            }}
+                            fontFamily="monospace"
+                            fontSize="60"
+                            letterSpacing="0em"
+                            textAnchor="middle"><tspan fontSize="40">A</tspan>41<tspan fontSize="40">(5)</tspan></text>
+                        </g>
+                      </svg>
+                    </li>
+                    <li>Orange (25%) HSV(35&deg;, 93%, 54%):
+                      <br />
+                      <svg
+                        width='130px'
+                        height='60px'
+                        viewBox='0 0 208 96'
+                        fill='none'
+                        xmlns='http://www.w3.org/2000/svg'
+                      >
+                        <g>
+                          <rect
+                            x='0'
+                            y='0'
+                            width='208'
+                            height='96'
+                            rx='16'
+                            fill='black'
+                          />
+                          <rect
+                            x='8'
+                            y='8'
+                            width='192'
+                            height='80'
+                            rx='10'
+                            fill='#8a540a'
+                          />
+                          <text
+                            x="104"
+                            y="68"
+                            fill="white"
+                            xmlSpace="preserve"
+                            style={{
+                              whiteSpace: 'pre'
+                            }}
+                            fontFamily="monospace"
+                            fontSize="60"
+                            letterSpacing="0em"
+                            textAnchor="middle"><tspan fontSize="40">A</tspan>41<tspan fontSize="40">(5)</tspan></text>
+                        </g>
+                      </svg>
+                    </li>
+                    <li>Red (100%) HSV(-12&deg;, 94%, 78%):
+                      <br />
+                      <svg
+                        width='130px'
+                        height='60px'
+                        viewBox='0 0 208 96'
+                        fill='none'
+                        xmlns='http://www.w3.org/2000/svg'
+                      >
+                        <g>
+                          <rect
+                            x='0'
+                            y='0'
+                            width='208'
+                            height='96'
+                            rx='16'
+                            fill='black'
+                          />
+                          <rect
+                            x='8'
+                            y='8'
+                            width='192'
+                            height='80'
+                            rx='10'
+                            fill='#c70c31'
+                          />
+                          <text
+                            x="104"
+                            y="68"
+                            fill="white"
+                            xmlSpace="preserve"
+                            style={{
+                              whiteSpace: 'pre'
+                            }}
+                            fontFamily="monospace"
+                            fontSize="60"
+                            letterSpacing="0em"
+                            textAnchor="middle"><tspan fontSize="40">A</tspan>41<tspan fontSize="40">(5)</tspan></text>
+                        </g>
+                      </svg>
+                    </li>
+                    <li>To help differentiate the colors for those with deuteranopia and protanopia, I have made the saturation and brightness of the colors go up with the percentage, so while not perfect, there should be some level of differentation between the hues. If you have any feedback/ideas for how I can improve this, please let me know.</li>
+                  </ul>
+                </li>
+                <li>For each route, the maximum lateness threshold largely depends on what type of route it is and who is operating said train.
+                  <ul>
+                    <li>All Via Corridor, Acela, Brightline, and any Amtrak trains &lt;250mi: 60min / 1hr</li>
+                    <li>Amtrak trains 250mi - 349mi: 90min / 1.5hr</li>
+                    <li>Amtrak trains 350mi - 449mi: 120min / 2hr</li>
+                    <li>Amtrak trains 450mi+: 150min / 2.5hr</li>
+                    <li>Any other Via Trains: 360min / 6hr</li>
+                  </ul>
                 </li>
               </ul>
             </li>

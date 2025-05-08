@@ -4,10 +4,10 @@ import {
   useSearchParams,
   Link,
 } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { trainNames } from "../../data/trains";
 import "./trains.css";
-import SettingsInit from "../index/settingsInit";
+import settingsInit from "../../components/settingsInit";
 import stringToHash from "../../components/money/stringToHash";
 
 const TrainsByNumber = () => {
@@ -15,6 +15,7 @@ const TrainsByNumber = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const dataManager = window.dataManager;
+  const appSettings = useMemo(settingsInit, []);
 
   const [loading, setLoading] = useState(true);
   const [trainData, setTrainData] = useState([]);
@@ -23,7 +24,6 @@ const TrainsByNumber = () => {
 
   useEffect(() => {
     dataManager.getTrain(trainNum).then((data) => {
-      console.log("data fetched", data);
       setLoading(false);
       if (Array.isArray(data) && Object.keys(data).length === 0) {
         console.log("is not valid");
@@ -79,7 +79,6 @@ const TrainsByNumber = () => {
         src={bgURL}
       ></img>
       <main>
-        <SettingsInit />
         <section className='section-new'>
           {!loading ? (
             <div>

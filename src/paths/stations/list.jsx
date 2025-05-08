@@ -1,8 +1,8 @@
 import { useNavigate, Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import "../trains/trains.css"; //fuck it we ball
 import Fuse from "fuse.js";
-import SettingsInit from "../index/settingsInit";
+import settingsInit from "../../components/settingsInit";
 import stringToHash from "../../components/money/stringToHash";
 import SenseBlock from "../../components/money/senseArticle";
 import DataManager from "../../components/dataManager/dataManager";
@@ -27,6 +27,7 @@ const StationsList = () => {
   const [shitsFucked, setShitsFucked] = useState(false);
 
   const dataManger = window.dataManager;
+  const appSettings = useMemo(settingsInit, []);
 
   useEffect(() => {
     dataManger.getStations().then((data) => {
@@ -34,7 +35,6 @@ const StationsList = () => {
         setShitsFucked(true);
       }
 
-      console.log("data fetched", data);
       setStationData(
         Object.values(data)
           .map((n) => {
@@ -98,6 +98,7 @@ const StationsList = () => {
               }
             }}
             className='click'
+            style={{ paddingLeft: '32px' }}
           >
             Back
           </h2>
@@ -112,7 +113,6 @@ const StationsList = () => {
           ) : null}
         </div>
         <section className='section-trainPage'>
-          <SettingsInit />
           <input
             id='searchbox'
             type='text'
