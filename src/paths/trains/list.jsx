@@ -180,7 +180,7 @@ const TrainsList = () => {
                 {results.map((train, i) => {
                   if (i % 10 === 0 && i !== 0) {
                     return (
-                      <div key={`with-terra-banner-${i}`}>
+                      <>
                         <SenseBlock
                           key={`sense-list-${i}`}
                           dataAdSlot={"2090024099"}
@@ -193,7 +193,7 @@ const TrainsList = () => {
                         >
                           <ManualTrainBox train={train} />
                         </Link>
-                      </div>
+                      </>
                     );
                   } else {
                     return (

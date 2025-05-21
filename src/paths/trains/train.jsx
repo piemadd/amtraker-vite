@@ -229,7 +229,7 @@ const BetterTrainPage = () => {
                         i !== 0
                       ) {
                         return (
-                          <div key={`with-terra-banner-${i}`}>
+                          <>
                             <Link
                               to={`/stations/${station.code}`}
                               key={`station-${station.code}`}
@@ -247,7 +247,7 @@ const BetterTrainPage = () => {
                               key={`sense-list-${i}`}
                               dataAdSlot={"2090024099"}
                             />
-                          </div>
+                          </>
                         );
                       } else {
                         return (

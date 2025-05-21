@@ -147,7 +147,7 @@ const StationsList = () => {
 
                   if (i % 10 === 0 && i !== 0) {
                     return (
-                      <div key={`with-terra-banner-${i}`}>
+                      <>
                         <SenseBlock
                           key={`sense-list-${i}`}
                           dataAdSlot={"2090024099"}
@@ -184,7 +184,7 @@ const StationsList = () => {
                             </p>
                           </div>
                         </Link>
-                      </div>
+                      </>
                     );
                   } else {
                     return (
