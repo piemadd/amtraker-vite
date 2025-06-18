@@ -60,14 +60,14 @@
   width: 100%;
 }
 
-.station-line > div {
+.station-line>div {
   display: flex;
   flex-wrap: wrap;
   margin-top: -8px;
   width: 100%;
 }
 
-.station-line > div:first-child {
+.station-line>div:first-child {
   margin-top: 0px;
 }
 
@@ -208,10 +208,15 @@ td {
   margin-top: -0.25em;
 }
 
-.section-trainPage h2 {
+.section-trainPage h2,
+.section-trainPage summary {
   font-size: 2rem;
   font-weight: 500;
   margin-top: -0.25em;
+}
+
+.section-trainPage summary {
+  margin-bottom: -0.25em;
 }
 
 .section-trainPage ul li {
@@ -244,7 +249,8 @@ td {
   max-width: 358px;
 }
 
-.maplibregl-popup-content, .mapboxgl-popup-content {
+.maplibregl-popup-content,
+.mapboxgl-popup-content {
   width: 100%;
 }
 
@@ -266,12 +272,12 @@ td {
   font-weight: 400;
 }
 
-.train-popup__info > span {
+.train-popup__info>span {
   font-size: 1.4rem;
   font-style: italic;
 }
 
-.train-popup__info > a {
+.train-popup__info>a {
   text-decoration: underline;
 }
 
@@ -286,7 +292,7 @@ td {
 
 .staleTrainWarning {
   font-weight: 500;
-  color:rgb(231, 39, 39);
+  color: rgb(231, 39, 39);
 }
 
 .train-box-max-width {

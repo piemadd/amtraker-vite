@@ -242,7 +242,7 @@ const AboutPage = () => {
                         </g>
                       </svg>
                     </li>
-                    <li>Orange (25%) HSV(35&deg;, 93%, 54%):
+                    <li>Orange (25%) HSV(35&deg;, 93%, 78%):
                       <br />
                       <svg
                         width='130px'
@@ -266,7 +266,7 @@ const AboutPage = () => {
                             width='192'
                             height='80'
                             rx='10'
-                            fill='#8a540a'
+                            fill='#c77a0e'
                           />
                           <text
                             x="104"

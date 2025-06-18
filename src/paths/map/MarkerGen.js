@@ -36,7 +36,7 @@ const generateMarker = (train) => {
     <text
       x="${calculatedWidth / 2}"
       y="68"
-      fill="white"
+      fill="${train.textColor}"
       xml:space="preserve"
       style="white-space: pre"
       font-family="monospace"

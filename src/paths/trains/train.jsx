@@ -146,6 +146,22 @@ const BetterTrainPage = () => {
                       maxWidth={true}
                     />
                   </div>
+                  {
+                    trainData[0].alerts.length > 0 ? (
+                      <details className="train-box train-box-max-width" style={{
+                        marginTop: '-4px',
+                        marginBottom: '4px',
+                      }}>
+                        <summary>Alerts</summary>
+                        <ul>
+                        {
+                          trainData[0].alerts.map((alert) => {
+                            return <li>{alert.message}</li>
+                          })
+                        }
+                        </ul>
+                      </details>
+                    ) : null}
                   {!searchParams.has("oembed") ? (
                     <>
                       <h2>Manage Train:</h2>
@@ -219,6 +235,7 @@ const BetterTrainPage = () => {
                       }).format(new Date(trainData[0].lastValTS))}
                     </p>
                   ) : null}
+
 
                   <h2>Stations</h2>
                   <div className='stations'>

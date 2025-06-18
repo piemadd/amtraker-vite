@@ -48,7 +48,7 @@ export class DataManager {
 
       //i know this is gonna be 1 refresh out of date. fuck you, i don't give a shit
       localForage.setItem('amtraker_datamanager_v1_data', JSON.stringify(this._data));
-    }
+    };
 
     setInterval(() => {
       updateData();

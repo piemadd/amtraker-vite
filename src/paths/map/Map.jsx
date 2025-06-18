@@ -390,8 +390,6 @@ const AmtrakerMap = () => {
 
         const allTrains = Object.values(data).flat();
 
-        console.log(allTrains[0].trainID)
-
         setAllData(allTrains);
         setResults(allTrains);
         setAllIDs([
@@ -519,8 +517,10 @@ const AmtrakerMap = () => {
             case 'trains':
               const train = {
                 ...feature.properties,
-                stations: JSON.parse(feature.properties.stations)
+                stations: JSON.parse(feature.properties.stations),
+                alerts: JSON.parse(feature.properties.alerts),
               };
+
               setPopupInfo(train)
               activatePopup(
                 mapRef,
@@ -708,7 +708,8 @@ const AmtrakerMap = () => {
                               onClick={(e) => {
                                 const train = {
                                   ...item.properties,
-                                  stations: JSON.parse(item.properties.stations)
+                                  stations: JSON.parse(item.properties.stations),
+                                  alerts: JSON.parse(item.properties.alerts),
                                 };
 
                                 setPopupInfo(train);
@@ -792,6 +793,23 @@ const AmtrakerMap = () => {
                   }}
                 >
                   <ManualTrainBox train={popupInfo} maxWidth={true} />
+                  {popupInfo.alerts && popupInfo.alerts.length > 0 ? (
+                    <details className="train-box train-box-max-width mapalerts" style={{
+                      marginTop: '4px',
+                      marginBottom: '0px',
+                    }}>
+                      <summary>Alerts</summary>
+                      <ul style={{
+                        marginLeft: '24px'
+                      }}>
+                        {
+                          popupInfo.alerts.map((alert, i) => {
+                            return <li key={i}>{alert.message}</li>
+                          })
+                        }
+                      </ul>
+                    </details>
+                  ) : null}
                 </div>
               ) : null}
               {popupInfo && popupInfo.code ? (

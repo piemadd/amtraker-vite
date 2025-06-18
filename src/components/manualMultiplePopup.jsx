@@ -31,7 +31,8 @@ const ManualMultiplePopup = ({ finalItems, mapRef, setPopupInfo, sourcePopup }) 
                   onClick={(e) => {
                     const train = {
                       ...item.properties,
-                      stations: JSON.parse(item.properties.stations)
+                      stations: JSON.parse(item.properties.stations),
+                      alerts: JSON.parse(item.properties.alerts)
                     };
 
                     setPopupInfo(train);
