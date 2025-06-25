@@ -192,6 +192,7 @@ const App = () => {
               </p>
             </div>
           ) : null}
+          {/* }
           {shitsFucked ? (
             <div className='stale'>
               <p>
@@ -201,6 +202,13 @@ const App = () => {
               </p>
             </div>
           ) : null}
+          { */ }
+          <div className='stale'>
+              <p>
+                <span className='stale-text'>Warning:</span>
+                Our server host is having intermittent traffic issues. We are working to migrate our services and apologize for any issues.
+              </p>
+            </div>
           <h2
             style={{
               fontWeight: 500,

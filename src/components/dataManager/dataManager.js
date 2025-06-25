@@ -72,7 +72,11 @@ export class DataManager {
           console.log('Initial request succeeded')
         }
       } catch (e) {
-        this._data = await localForage.getItem('amtraker_datamanager_v1_data');
+        let tempData = await localForage.getItem('amtraker_datamanager_v1_data');
+
+        if (!tempData) tempData = '{"trains":{},"stations":{},"ids":[],"shitsFucked":true,"staleData":{"avgLastUpdate":9999999,"activeTrains":1,"stale":true}}';
+
+        this._data = JSON.parse(tempData);
         this._lastUpdated = await localForage.getItem('amtraker_datamanager_v1_last_updated');
         console.log('Initial request timed out, using cached data')
       }
@@ -149,6 +153,9 @@ export class DataManager {
 
   async getIDs() {
     console.log('DM: IDs')
+
+    console.log(this._data)
+
     return this._data.ids;
   }
 
