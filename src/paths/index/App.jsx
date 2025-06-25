@@ -192,23 +192,20 @@ const App = () => {
               </p>
             </div>
           ) : null}
-          {/* }
           {shitsFucked ? (
             <div className='stale'>
               <p>
-                <span className='stale-text'>Warning:</span>
-                The Amtrak API seems to be having issues currently! Please try
-                again later...
+                <span className='stale-text'>Warning:</span> The Amtrak API seems to be having issues currently! Please try again later...
               </p>
             </div>
           ) : null}
-          { */ }
+          {/*}
           <div className='stale'>
-              <p>
-                <span className='stale-text'>Warning:</span>
-                Our server host is having intermittent traffic issues. We are working to migrate our services and apologize for any issues.
-              </p>
-            </div>
+            <p>
+              <span className='stale-text'>Warning:</span> Our server host is having intermittent traffic issues. We are working to migrate our services and apologize for any issues.
+            </p>
+          </div>
+          */}
           <h2
             style={{
               fontWeight: 500,
