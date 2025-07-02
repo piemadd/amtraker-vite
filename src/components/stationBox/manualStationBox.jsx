@@ -13,10 +13,12 @@ const ManualStationBox = ({ station, train, loading = false }) => {
   if (schArr.valueOf() < arr.valueOf()) trainTimely = "Late";
   if (!schArr || !arr) trainTimely = "No Data";
 
-  let toUse = arr;
-  if (train.origCode === station.code) toUse = dep;
-  if (train.destCode !== station.code &&
-    (station.status === "Departed" || station.status === "Station")) toUse = dep;
+
+  let toUseTime = 0; // 0 is dep only, 1 is both, 2 is arr only
+  if (train.destCode == station.code) toUseTime = 2; // the only use of arr only
+  else if (train.origCode == station.code) toUseTime = 0;
+  else if (arr.valueOf() != dep.valueOf() || station.status == "Station") toUseTime = 1;
+  else toUseTime = 0;
 
   return loading ? (
     <div className={"station-line"}>Loading train...</div>
@@ -31,14 +33,6 @@ const ManualStationBox = ({ station, train, loading = false }) => {
         </h3>
       </div>
       <div>
-        <p className='greyed'>
-          {station.status === "Departed"
-            ? "Dep"
-            : station.status === "Enroute"
-              ? "Est arr"
-              : "Est dep"}
-        </p>
-        &nbsp;
         <p className='status-text' style={{
           color: station.stopIconColor != '#212529' ? station.stopIconColor : '#bbb',
         }}>
@@ -46,25 +40,46 @@ const ManualStationBox = ({ station, train, loading = false }) => {
             ? toHoursAndMinutesLate(arr, schArr)
             : toHoursAndMinutesLate(dep, schDep)}
         </p>
-      </div>
-      <div>
-        <p className='enroute'>
-          {new Intl.DateTimeFormat([], {
-            hour: "numeric",
-            minute: "numeric",
-            timeZone: station.tz,
-          }).format(toUse)}
-        </p>
         &nbsp;
-        <p className='greyed enroute'>
+        <p className='greyed'>
           {": "}
           {new Intl.DateTimeFormat([], {
             month: "short",
             day: "numeric",
             timeZone: station.tz,
-          }).format(toUse)}
+          }).format(toUseTime <= 2 ? dep : arr)}
         </p>
       </div>
+      {toUseTime >= 1 ? (
+        <div>
+          <p className='greyed'>
+            {station.status === "Enroute" ? "Est arr" : "Arr"}:
+          </p>
+          &nbsp;
+          <p className=''>
+            {new Intl.DateTimeFormat([], {
+              hour: "numeric",
+              minute: "numeric",
+              timeZone: station.tz,
+            }).format(arr)}
+          </p>
+        </div>
+      ) : null}
+      {toUseTime <= 1 ? (
+        <div>
+          <p className='greyed'>
+            {station.status === "Departed" ? "Dep" : "Est Dep"}:
+          </p>
+          &nbsp;
+          <p className=''>
+            {new Intl.DateTimeFormat([], {
+              hour: "numeric",
+              minute: "numeric",
+              timeZone: station.tz,
+            }).format(dep)}
+          </p>
+        </div>
+      ) : null}
       {station.platform.length > 0 ? (
         <div>
           <p className='greyed'>
