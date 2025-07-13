@@ -55,8 +55,8 @@ const hoursAndMinutesUnitl = (date) => {
 
 const toHoursAndMinutesLate = (date1, date2) => {
   if (
-    date1.toString() === "Invalid Date" ||
-    date2.toString() === "Invalid Date"
+    date1.toString() == "Invalid Date" ||
+    date2.toString() == "Invalid Date"
   )
     return "Unknown (Estimate Error)";
 

@@ -187,6 +187,18 @@ div.trainPage section.section-trainPage div.stations {
   gap: 8px;
 }
 
+.trainsLeaderboard {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  gap: 4px;
+}
+
+.leaderboardTitle, .leaderboardElement {
+  background-color: #00000099;
+  padding: 4px 8px;
+}
+
 div.fullStationsList {
   width: calc(100% - 26px);
 }
