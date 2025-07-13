@@ -94,7 +94,7 @@ const calculateColorInRange = (minutesLate, maxMinutesLate) => {
 
 const providerColors = {
   'Via': '#FFDB00',
-  'Brightline': 'FFCC00',
+  'Brightline': '#FFCC00',
   'Amtrak': '#18567D',
 };
 
@@ -199,15 +199,9 @@ const TrainsLeaderboard = () => {
                       msLate
                     }
                   })
-                  .sort((a, b) => {
-                    console.log(a.msLate, b.msLate, b.msLate - a.msLate)
-                    return b.msLate - a.msLate
-                  })
+                  .sort((a, b) => b.msLate - a.msLate)
                   .map((train, i, arr) => {
-
-                    //console.log(train)
-
-                    const posColor = calculateColorInRange((arr.length - i) / 2, arr.length)
+                    const posColor = calculateColorInRange((-i * 4) / (arr.length * 3) + 1, 1)
 
                     return <>
                       <div
