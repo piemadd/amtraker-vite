@@ -30,6 +30,7 @@ const debounce = (func, timeout = 300) => {
 const AmtrakerMap = () => {
   const [allData, setAllData] = useState([]);
   const [allIDs, setAllIDs] = useState([]);
+  const [allNames, setAllNames] = useState([]);
   const [stationsData, setStationsData] = useState([]);
   const [showAll, setShowAll] = useState(false);
   const [popupInfo, setPopupInfo] = useState(null);
@@ -61,6 +62,8 @@ const AmtrakerMap = () => {
         if (train.trainNum == currentQuery && !isAnID) return true;
         return false;
       });
+    } else if (allNames.includes(currentQuery)) {
+      actualNewResults = allData.filter((train) => train.routeName == currentQuery);
     } else {
       actualNewResults = fuse.search(currentQuery).map((result) => result.item);
     };
@@ -149,6 +152,7 @@ const AmtrakerMap = () => {
         ...allDataNew.map((train) => train.trainID),
         ...allDataNew.map((train) => train.trainNum),
       ]);
+      setAllNames(allDataNew.map((train) => train.routeName));
       fuse.setCollection(allDataNew);
 
       //generating the icons for the trains
@@ -396,6 +400,7 @@ const AmtrakerMap = () => {
           ...allTrains.map((train) => train.trainID),
           ...allTrains.map((train) => train.trainNum),
         ]);
+        setAllNames(allTrains.map((train) => train.routeName));
         if (fuse) fuse.setCollection(allTrains);
 
         mapRef.current.on("load", () => {

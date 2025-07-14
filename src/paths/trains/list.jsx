@@ -28,6 +28,7 @@ const TrainsList = () => {
   const [trainData, setTrainData] = useState([]);
   const [trainDataFull, setTrainDataFull] = useState([]);
   const [allIDs, setAllIDs] = useState([]);
+  const [allNames, setAllNames] = useState([]); 
   const [results, setResults] = useState([]);
   const [query, updateQuery] = useState("");
   const [agencyFilter, setAgencyFilter] = useState("All");
@@ -45,6 +46,7 @@ const TrainsList = () => {
           ...allDataNew.map((train) => train.trainID),
           ...allDataNew.map((train) => train.trainNum),
         ]);
+        setAllNames(allDataNew.map((train) => train.routeName));
 
         if (Object.keys(data).length === 0) {
           setShitsFucked(true);
@@ -85,12 +87,13 @@ const TrainsList = () => {
         if (train.trainNum == currentQuery && !isAnID) return true;
         return false;
       });
+    } else if (allNames.includes(currentQuery)) {
+      actualNewResults = actualNewResults.filter((train) => train.routeName == currentQuery);
     } else {
       fuse.setCollection(actualNewResults);
       actualNewResults = fuse.search(currentQuery).map((result) => result.item);
     };
-
-    console.log(actualNewResults)
+    
     setResults(actualNewResults);
   };
 
