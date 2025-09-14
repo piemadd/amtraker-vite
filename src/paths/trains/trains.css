@@ -145,7 +145,7 @@
 
 div.trainPage {
   width: 100%;
-  height: 100dvh;
+  height: 100svh;
 }
 
 div.trainPage div.header-trainpage {
@@ -175,7 +175,7 @@ div.trainPage section.section-trainPage {
   align-items: flex-start;
   margin: 16px;
   padding: 16px;
-  height: calc(100dvh - 114px);
+  height: calc(100svh - 114px);
   overflow-y: scroll;
 }
 
