@@ -121,8 +121,8 @@ const BetterTrainPage = () => {
           className='section-trainPage'
           style={{
             height: searchParams.has("oembed")
-              ? "calc(100vh - 64px)"
-              : "calc(100vh - 114px)",
+              ? "calc(100dvh - 64px)"
+              : "calc(100dvh - 114px)",
           }}
         >
           {!loading ? (
