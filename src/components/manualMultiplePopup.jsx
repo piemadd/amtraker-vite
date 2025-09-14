@@ -1,5 +1,5 @@
 import activatePopup from "../paths/map/PopupActivation";
-import ManualTrainPopup from "./trainBox/maualTrainPopup";
+import ManualTrainPopup from "./trainBox/manualTrainPopup";
 import ManualStationPopup from "./stationBox/maualStationPopup";
 import { Popup } from "maplibre-gl";
 

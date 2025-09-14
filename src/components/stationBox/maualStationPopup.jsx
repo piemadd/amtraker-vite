@@ -17,7 +17,7 @@ const ManualStationPopup = ({ station, loading = false }) => {
 
 
       <div className='train-popup__info'>
-        <a href={`/stations/${station.code}?from=/map`}>View Trains</a>
+        <a href={`#redirect_to:/stations/${station.code}`}>View Trains</a>
       </div>
     </div>
   );

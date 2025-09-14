@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo, useRef } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import maplibregl from "maplibre-gl";
 import "./Map.css";
 import "maplibre-gl/dist/maplibre-gl.css";
@@ -10,7 +10,7 @@ import ManualStationBoxIndependent from "../../components/stationBox/manualStati
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import generateMarker from "./MarkerGen.js";
 import activatePopup from "./PopupActivation.js";
-import ManualTrainPopup from "../../components/trainBox/maualTrainPopup";
+import ManualTrainPopup from "../../components/trainBox/manualTrainPopup";
 import ManualStationPopup from "../../components/stationBox/maualStationPopup.jsx";
 import ManualMultiplePopup from "../../components/manualMultiplePopup.jsx";
 import settingsInit from "../../components/settingsInit.js";
@@ -44,6 +44,7 @@ const AmtrakerMap = () => {
   const [shitsFucked, setShitsFucked] = useState(false);
   const [dataStale, setDataStale] = useState({ avgLastUpdate: 0, activeTrains: 999, stale: false });
   const navigate = useNavigate();
+  const location = useLocation();
   const dataManager = window.dataManager;
   const appSettings = useMemo(settingsInit, []);
 
@@ -88,6 +89,20 @@ const AmtrakerMap = () => {
     mapRef.current.setFilter('trains', finalFilter);
   }
 
+  // navigating popup links
+  // i was originally using straight a + hrefs, but safari didnt like it for some reason?
+  // fuck you webkit
+  useEffect(() => {
+    if (location.hash && location.hash.length > 0) {
+      if (location.hash.startsWith('#redirect_to')) {
+        console.log('Redirecting due to map click:', location.hash.replace('#redirect_to:', ''));
+        navigate('#', { replace: true });
+        navigate(location.hash.replace('#redirect_to:', ''));
+      }
+    };
+  }, [location]);
+
+  // resizing the map
   useEffect(() => {
     addEventListener("resize", (event) => {
       debounce(setWindowSize([window.innerWidth, window.innerHeight]));
@@ -621,6 +636,12 @@ const AmtrakerMap = () => {
         <div className='header-trainpage'>
           <h2
             onClick={() => {
+              if (query.length > 0) {
+                updateQuery("");
+                setResultsAndRefreshMap(showAll, "");
+                return;
+              }
+
               if (history.state.idx && history.state.idx > 0) {
                 navigate(-1);
               } else {
@@ -630,7 +651,7 @@ const AmtrakerMap = () => {
             className='click noselect'
             style={{ paddingLeft: '32px' }}
           >
-            Back
+            {query.length > 0 ? "Clear Search" : "Back"}
           </h2>
           {shitsFucked ? (
             <p>
