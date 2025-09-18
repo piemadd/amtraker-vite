@@ -199,11 +199,13 @@ const App = () => {
               </p>
             </div>
           ) : null}
+          {/*}
           <div className='stale'>
             <p>
               <span className='stale-text'>Warning:</span> Our server host is having traffic issues. While our services are largely unaffected, longer loading times can be expected.
             </p>
           </div>
+          */}
           <h2
             style={{
               fontWeight: 500,
