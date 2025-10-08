@@ -136,6 +136,13 @@ export class DataManager {
     return this.getTrainSync(trainID, justObject);
   }
 
+  getTrainExists(trainID) {
+    const train = this.getTrainSync(trainID);
+
+    if (Array.isArray(train)) return false;
+    return true;
+  }
+
   async getStations() {
     console.log('DM: All Stops')
     return this._data.stations;

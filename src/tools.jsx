@@ -7,16 +7,17 @@ const manageSavedTrain = (trainNum, trainDate, state) => {
 
   window.dataManager.getIDs().then((validIDs) => {
     if (state) {
+      
       const longTrainID = validIDs.find((element) =>
         element.split("-")[0] == trainNum &&
-        element.split("-")[2] == trainDate
+        element.split("-")[2] == Number(trainDate)
       );
 
       if (longTrainID) currentSaved.push(longTrainID);
     } else {
       currentSaved = currentSaved.filter((element) => !(
         element.split("-")[0] == trainNum &&
-        element.split("-")[2] == trainDate
+        element.split("-")[2] == Number(trainDate)
       ));
     };
 
@@ -35,7 +36,7 @@ const getSavedTrain = (trainNum, trainDate) => {
 
   return currentSaved.some((element) =>
     element.split("-")[0] == trainNum &&
-    element.split("-")[2] == trainDate
+    element.split("-")[2] == Number(trainDate)
   );
 };
 

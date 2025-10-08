@@ -132,7 +132,7 @@ const AmtrakerMap = () => {
     const trains = localStorage
       .getItem("savedTrainsAmtrakerV3")
       .split(",")
-      .filter((n) => n);
+      .filter((n) => window.dataManager.getTrainExists(n));
 
     if (trains.length === 0) {
       setShowAll(true);

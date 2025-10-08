@@ -7,11 +7,14 @@ import "./paths/trains/trains.css";
 import ErrorPage from "./error.jsx";
 import LoadingPage from "./loading";
 import DataManager from "./components/dataManager/dataManager.js";
+import { initAlwaysTracked } from "./tools.jsx";
 //import * as serviceWorkerRegistration from "./serviceWorkerRegistration.js";
 
 console.log(`DM-N: ${JSON.stringify(window.dataManager)}`)
 const dataManager = new DataManager();
 window.dataManager = dataManager;
+
+initAlwaysTracked();
 
 //paths
 import App from "./paths/index/App.jsx";
