@@ -195,7 +195,7 @@
       "source": "protomaps",
       "source-layer": "landuse",
       "filter": ["any", ["in", "kind", "runway", "taxiway"]],
-      "paint": {"fill-color": "#e9e9ed"}
+      "paint": {"fill-color": "#4D4D4D"}
     },
     {
       "id": "water",
