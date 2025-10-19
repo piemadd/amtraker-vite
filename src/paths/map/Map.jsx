@@ -260,7 +260,7 @@ const AmtrakerMap = () => {
           sprite: sprite,
           layers: layers,
           projection: { "type": appSettings.mapView ?? 'mercator' },
-          sky: {
+          /*sky: {
             "sky-color": "#193af3",
             "sky-horizon-blend": 0.5,
             "horizon-color": "#193af3",
@@ -284,7 +284,7 @@ const AmtrakerMap = () => {
             color: "#88C6FC",
             intensity: 0,
             position: [1, 180, 180]
-          },
+          },*/
           bearing: 0,
           sources: {
             transit_lines: {
@@ -300,13 +300,27 @@ const AmtrakerMap = () => {
             protomaps: {
               type: "vector",
               tiles: [
-                "https://v4mapa.amtraker.com/20250127/{z}/{x}/{y}.mvt",
-                "https://v4mapb.amtraker.com/20250127/{z}/{x}/{y}.mvt",
-                "https://v4mapc.amtraker.com/20250127/{z}/{x}/{y}.mvt",
-                "https://v4mapd.amtraker.com/20250127/{z}/{x}/{y}.mvt"
+                "https://v4mapa.amtraker.com/20251018/{z}/{x}/{y}.mvt",
+                "https://v4mapb.amtraker.com/20251018/{z}/{x}/{y}.mvt",
+                "https://v4mapc.amtraker.com/20251018/{z}/{x}/{y}.mvt",
+                "https://v4mapd.amtraker.com/20251018/{z}/{x}/{y}.mvt"
               ],
               maxzoom: 15,
-            }
+            },
+            stations: {
+              type: "geojson",
+              data: {
+                type: "FeatureCollection",
+                features: []
+              },
+            },
+            trains: {
+              type: "geojson",
+              data: {
+                type: "FeatureCollection",
+                features: [],
+              },
+            },
           },
           version: 8,
           metadata: {},
@@ -338,67 +352,26 @@ const AmtrakerMap = () => {
 
         mapRef.current.on("load", () => {
           //adding data to the map
-          mapRef.current.addSource("stations", {
-            type: "geojson",
-            data: {
-              type: "FeatureCollection",
-              features: allStations.map((station) => {
-                return {
-                  type: "Feature",
+          mapRef.current.getSource('stations').setData({
+            type: "FeatureCollection",
+            features: allStations.map((station) => {
+              return {
+                type: "Feature",
+                id: station.code,
+                properties: {
+                  ...station,
                   id: station.code,
-                  properties: {
-                    ...station,
-                    id: station.code,
-                    //routeColor: train.lineColor,
-                    //lineCode: train.lineCode,
-                    //heading: train.heading,
-                  },
-                  geometry: {
-                    type: "Point",
-                    coordinates: [station.lon, station.lat],
-                  },
-                }
-              }),
-            },
+                  //routeColor: train.lineColor,
+                  //lineCode: train.lineCode,
+                  //heading: train.heading,
+                },
+                geometry: {
+                  type: "Point",
+                  coordinates: [station.lon, station.lat],
+                },
+              }
+            }),
           });
-
-          //adding the stations layer
-          mapRef.current.addLayer({
-            id: "stations",
-            type: "circle",
-            source: "stations",
-            minzoom: 6,
-            layout: {},
-            paint: {
-              "circle-pitch-alignment": "map",
-              "circle-radius": 6,
-              "circle-stroke-width": 2,
-              "circle-color": "#ffffff",
-              "circle-stroke-color": "#000000",
-            },
-          });
-
-          mapRef.current.addLayer({
-            id: "stations_label",
-            type: "symbol",
-            source: "stations",
-            minzoom: 7,
-            layout: {
-              "text-field": ['step', ['zoom'],
-                ['get', 'code'],
-                9,
-                ["concat", ["get", "name"], " (", ["get", "code"], ")"]
-              ],
-              "text-font": ["Noto Sans Regular"],
-              "text-offset": [0, 1.25],
-              "text-allow-overlap": true,
-            },
-            paint: {
-              "text-color": "#ffffff",
-              "text-halo-color": "#000000",
-              "text-halo-width": 1,
-            },
-          }, mapRef.current.getLayer('trains')?.id);
         });
       });
 
@@ -420,28 +393,25 @@ const AmtrakerMap = () => {
 
         mapRef.current.on("load", () => {
           //adding data to the map
-          mapRef.current.addSource("trains", {
-            type: "geojson",
-            data: {
-              type: "FeatureCollection",
-              features: allTrains.map((train) => {
-                return {
-                  type: "Feature",
+          mapRef.current.getSource('trains').setData({
+            type: "FeatureCollection",
+            features: allTrains.map((train) => {
+              return {
+                type: "Feature",
+                id: train.trainID,
+                properties: {
+                  ...train,
                   id: train.trainID,
-                  properties: {
-                    ...train,
-                    id: train.trainID,
-                    //routeColor: train.lineColor,
-                    //lineCode: train.lineCode,
-                    //heading: train.heading,
-                  },
-                  geometry: {
-                    type: "Point",
-                    coordinates: [train.lon, train.lat],
-                  },
-                }
-              }),
-            },
+                  //routeColor: train.lineColor,
+                  //lineCode: train.lineCode,
+                  //heading: train.heading,
+                },
+                geometry: {
+                  type: "Point",
+                  coordinates: [train.lon, train.lat],
+                },
+              }
+            }),
           });
 
           //generating the icons for the trains
