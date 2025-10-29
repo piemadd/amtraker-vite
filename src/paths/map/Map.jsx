@@ -333,7 +333,7 @@ const AmtrakerMap = () => {
       window.mapRef = mapRef.current;
 
       // fetching data on an interval
-      setInterval(updateAllData, 30000); // every 30 seconds, update
+      setInterval(updateAllData, 10000); // every 30 seconds, update
 
       //initial data fetch
       // stale data + shits fucked
