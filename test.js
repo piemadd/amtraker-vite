@@ -1,4 +1,4 @@
-fetch('https://api.amtraker.com/v3/trains')
+fetch('https://api-beta.amtraker.com/v3/trains')
   .then(res => res.json())
   .then(data => {
     const updatedTimes = Object.values(data).flat().filter((train) => train.provider == 'Amtrak').map((train) => new Date(train.lastValTS).valueOf());

@@ -10,8 +10,8 @@ const month = (now.getMonth() + 1).toString().padStart(2, '0');
 const day = now.getDate().toString().padStart(2, '0');
 
 (async () => {
-  const trainsRes = await fetch('https://api.amtraker.com/v3/trains');
-  const stationsRes = await fetch('https://api.amtraker.com/v3/stations');
+  const trainsRes = await fetch('https://api-beta.amtraker.com/v3/trains');
+  const stationsRes = await fetch('https://api-beta.amtraker.com/v3/stations');
 
   const trainsData = await trainsRes.json();
   const stationsData = await stationsRes.json();
