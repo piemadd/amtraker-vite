@@ -1558,37 +1558,6 @@
       }
     },
     {
-      "id": "roads_rail",
-      "type": "line",
-      "source": "protomaps",
-      "source-layer": "roads",
-      "filter": [
-        "==",
-        "kind",
-        "rail"
-      ],
-      "paint": {
-        "line-opacity": 1,
-        "line-color": "rgba(68, 68, 68, 1)",
-        "line-width": [
-          "interpolate",
-          [
-            "exponential",
-            1.6
-          ],
-          [
-            "zoom"
-          ],
-          3,
-          0.15,
-          6,
-          0.15,
-          18,
-          5
-        ]
-      }
-    },
-    {
       "id": "boundaries_country",
       "type": "line",
       "source": "protomaps",
@@ -6652,29 +6621,42 @@
         "fill-extrusion-opacity": 1
       }
     },
+        {
+      "id": "roads_rail",
+      "type": "line",
+      "source": "protomaps",
+      "source-layer": "roads",
+      "filter": [
+        "==",
+        "kind",
+        "rail"
+      ],
+      "paint": {
+        "line-opacity": 1,
+        "line-color": "#505050",
+        "line-width": [
+          "interpolate",
+          [
+            "exponential",
+            1.6
+          ],
+          [
+            "zoom"
+          ],
+          3,
+          0.15,
+          6,
+          0.15,
+          18,
+          5
+        ]
+      }
+    },
     {
       "id": "transit_lines_under",
       "type": "line",
       "source": "transit_lines",
       "source-layer": "zcta",
-      "filter": [
-        "any",
-        [
-          "==",
-          "provider",
-          "amtrak"
-        ],
-        [
-          "==",
-          "provider",
-          "via_rail"
-        ],
-        [
-          "==",
-          "provider",
-          "brightline"
-        ]
-      ],
       "layout": {
         "line-join": "round",
         "line-cap": "round"
@@ -6690,24 +6672,6 @@
       "type": "line",
       "source": "transit_lines",
       "source-layer": "zcta",
-      "filter": [
-        "any",
-        [
-          "==",
-          "provider",
-          "amtrak"
-        ],
-        [
-          "==",
-          "provider",
-          "via_rail"
-        ],
-        [
-          "==",
-          "provider",
-          "brightline"
-        ]
-      ],
       "layout": {
         "line-join": "round",
         "line-cap": "round"
