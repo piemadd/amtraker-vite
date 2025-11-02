@@ -454,7 +454,12 @@ const AmtrakerMap = () => {
 
       mapRef.current.on("load", async () => {
         mapRef.current.on("click", (e) => {
-          let f = mapRef.current.queryRenderedFeatures(e.point, {
+          const bbox = [
+            [e.point.x - 4, e.point.y - 4], // southwest
+            [e.point.x + 4, e.point.y + 4], // northeast
+          ];
+
+          let f = mapRef.current.queryRenderedFeatures(bbox, {
             layers: ["trains", "stations"],
           });
 
