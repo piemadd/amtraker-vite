@@ -143,6 +143,13 @@ export class DataManager {
     return true;
   }
 
+  getTrainExistsLongID(longTrainID) {
+    const splitLongTrainID = longTrainID.split('-');
+    const trainID = `${splitLongTrainID[0]}-${splitLongTrainID[2]}`;
+
+    return this.getTrainExists(trainID);
+  }
+
   async getStations() {
     console.log('DM: All Stops')
     return this._data.stations;

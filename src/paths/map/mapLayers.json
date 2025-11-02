@@ -6621,7 +6621,7 @@
         "fill-extrusion-opacity": 1
       }
     },
-        {
+    {
       "id": "roads_rail",
       "type": "line",
       "source": "protomaps",

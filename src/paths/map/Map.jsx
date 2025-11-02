@@ -132,7 +132,7 @@ const AmtrakerMap = () => {
     const trains = localStorage
       .getItem("savedTrainsAmtrakerV3")
       .split(",")
-      .filter((n) => window.dataManager.getTrainExists(n));
+      .filter((n) => window.dataManager.getTrainExistsLongID(n));
 
     if (trains.length === 0) {
       setShowAll(true);
@@ -851,7 +851,7 @@ const AmtrakerMap = () => {
                 .map((trainID) => dataManager.getTrainSync(trainID, true))
                 .filter((train) => {
                   if (onlyShowUpcoming) {
-                    const trainThisStation = train.stations.find((station) => station.code == popupInfo.code);
+                    const trainThisStation = train.stations[train.stations.map((station) => station.code).indexOf(popupInfo.code)];
 
                     if (!trainThisStation) return true; // still include, but it will be sorted downwards later
 
