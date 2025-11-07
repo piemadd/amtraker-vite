@@ -3,7 +3,7 @@ import ManualTrainPopup from "./trainBox/manualTrainPopup";
 import ManualStationPopup from "./stationBox/maualStationPopup";
 import { Popup } from "maplibre-gl";
 
-const ManualMultiplePopup = ({ finalItems, mapRef, setPopupInfo, sourcePopup }) => {
+const ManualMultiplePopup = ({ finalItems, mapRef, setPopupInfo, sourcePopup, showLink = true, idLinkType = null }) => {
   const hasTrains = finalItems.find((item) => item.layer.id == 'trains');
   const hasStations = finalItems.find((item) => item.layer.id == 'stations');
 
@@ -39,7 +39,7 @@ const ManualMultiplePopup = ({ finalItems, mapRef, setPopupInfo, sourcePopup }) 
                     sourcePopup.remove();
                     activatePopup(
                       mapRef,
-                      <ManualTrainPopup train={train} />,
+                      <ManualTrainPopup train={train} showLink={showLink} idLink={idLinkType == 'train'} />,
                       new Popup({
                         offset: 16,
                         closeButton: true,
@@ -82,7 +82,7 @@ const ManualMultiplePopup = ({ finalItems, mapRef, setPopupInfo, sourcePopup }) 
                     sourcePopup.remove();
                     activatePopup(
                       mapRef,
-                      <ManualStationPopup station={station} />,
+                      <ManualStationPopup station={station} showLink={showLink} idLink={idLinkType == 'station'} />,
                       new Popup({
                         offset: 12,
                         closeButton: true,

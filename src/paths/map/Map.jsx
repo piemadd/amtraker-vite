@@ -177,10 +177,16 @@ const AmtrakerMap = () => {
         //converting the image and loading it
         const img = new Image(imageWidth, imageHeight);
         img.onload = () => {
-          if (mapRef.current.hasImage(train.trainID)) {
-            mapRef.current.updateImage(train.trainID, img);
-          } else {
-            mapRef.current.addImage(train.trainID, img, {
+          try {
+            if (mapRef.current.hasImage(train.trainID)) {
+              mapRef.current.updateImage(train.trainID, img);
+            } else {
+              mapRef.current.addImage(train.trainID, img, {
+                pixelRatio: 4,
+              });
+            }
+          } catch (e) { // different sized image
+            mapRef.current.removeImage(train.trainID); mapRef.current.addImage(train.trainID, img, {
               pixelRatio: 4,
             });
           }
@@ -825,6 +831,7 @@ const AmtrakerMap = () => {
               {popupInfo && popupInfo.trainNum ? popupInfo.stations.map((station, i, arr) => {
                 return (
                   <Link
+                    id={station.code}
                     to={`/stations/${station.code}`}
                     key={`station-${station.code}`}
                     className='station-link'

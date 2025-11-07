@@ -1,4 +1,4 @@
-const ManualStationPopup = ({ station, loading = false }) => {
+const ManualStationPopup = ({ station, loading = false, showLink = true, idLink = false }) => {
   if (!station) return null;
 
   return loading ? (
@@ -15,10 +15,11 @@ const ManualStationPopup = ({ station, loading = false }) => {
         {station.trains.length} Train{station.trains.length > 1 ? 's' : ''} Tracking
       </div>
 
-
-      <div className='train-popup__info'>
-        <a href={`#redirect_to:/stations/${station.code}`}>View Trains</a>
-      </div>
+      {showLink ?
+        <div className='train-popup__info'>
+          <a href={!idLink ? `#redirect_to:/stations/${station.code}` : `#${station.code}`}>{!idLink ? 'View Trains' : 'Scroll to Stop'}</a>
+        </div> :
+        null}
     </div>
   );
 };

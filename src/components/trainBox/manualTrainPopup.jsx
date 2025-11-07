@@ -1,6 +1,6 @@
 import { toHoursAndMinutesLate } from "../../tools";
 
-const ManualTrainPopup = ({ train }) => {
+const ManualTrainPopup = ({ train, showLink = true, idLink = false}) => {
   if (!train) return null;
 
   const currentStation = train.stations.find(
@@ -49,9 +49,11 @@ const ManualTrainPopup = ({ train }) => {
         timeZone: currentStation.tz
       })}
     </div>
-    <div className='train-popup__info'>
-      <a href={`#redirect_to:/trains/${train.trainID.split("-").join("/")}`}>View More</a>
-    </div>
+    {showLink ?
+      <div className='train-popup__info'>
+        <a href={!idLink ? `#redirect_to:/trains/${train.trainID.split("-").join("/")}` : `#${train.trainID}`}>{!idLink ? 'View More' : 'Scroll to Train'}</a>
+      </div>
+      : null}
   </div>
 };
 

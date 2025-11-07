@@ -28,6 +28,7 @@ const StationsList = React.lazy(() => import("./paths/stations/list.jsx"));
 const StationPage = React.lazy(() => import("./paths/stations/station.jsx"));
 const Settings = React.lazy(() => import("./paths/index/settings.jsx"));
 const Map = React.lazy(() => import("./paths/map/Map.jsx"));
+const MiniMapHolderTest = React.lazy(() => import("./components/mapping/miniMapHolderTest.jsx"));
 const PrivacyPolicy = React.lazy(() => import("./paths/index/privacy"));
 const AboutPage = React.lazy(() => import("./paths/index/about"));
 const VotePage = React.lazy(() => import("./paths/index/vote.jsx"));
@@ -42,6 +43,11 @@ const router = createBrowserRouter([
   {
     path: "/map",
     element: <Map />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/map/miniholdertest",
+    element: <MiniMapHolderTest />,
     errorElement: <ErrorPage />,
   },
   {
