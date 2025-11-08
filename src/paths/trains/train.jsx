@@ -158,9 +158,11 @@ const BetterTrainPage = () => {
                     </div>
                     {
                       trainData[0].alerts.length > 0 ? (
-                        <details className="train-box train-box-max-width" style={{
+                        <details className="train-box" style={{
                           marginTop: '-4px',
                           marginBottom: '4px',
+                          width: 'calc(100% - 26px)',
+                          maxWidth: '380px'
                         }}>
                           <summary>Alerts</summary>
                           <ul>

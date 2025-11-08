@@ -828,18 +828,31 @@ const AmtrakerMap = () => {
                   <ManualStationBoxIndependent station={popupInfo} maxWidth={true} />
                 </div>
               ) : null}
-              {popupInfo && popupInfo.trainNum ? popupInfo.stations.map((station, i, arr) => {
-                return (
-                  <Link
-                    id={station.code}
-                    to={`/stations/${station.code}`}
-                    key={`station-${station.code}`}
-                    className='station-link'
-                  >
-                    <ManualStationBox station={station} train={popupInfo} />
-                  </Link>
-                );
-              })
+              {popupInfo && popupInfo.trainNum ?
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '4px',
+                  width: 'calc(100% + 18px)',
+                  height: '100%',
+                  overflowY: 'scroll',
+                                  }}>
+                  {popupInfo.stations.map((station, i, arr) => {
+                    return (
+                      <Link
+                        id={station.code}
+                        to={`/stations/${station.code}`}
+                        key={`station-${station.code}`}
+                        className='station-link'
+                        style={{
+                          width: 'calc(100% - 18px)'
+                        }}
+                      >
+                        <ManualStationBox station={station} train={popupInfo} />
+                      </Link>
+                    );
+                  })}
+                </div>
                 : null}
               {popupInfo && popupInfo.code ?
                 <div
