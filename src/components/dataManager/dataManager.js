@@ -52,7 +52,7 @@ export class DataManager {
 
     setInterval(() => {
       updateData();
-    }, 10000) //every 30 seconds, refresh
+    }, 15000) //every 15 seconds, refresh
   }
 
   //if the data hasnt been updated within 5 minute or is null, update it
