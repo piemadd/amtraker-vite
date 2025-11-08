@@ -1,7 +1,7 @@
 /trains/:trainNum/:trainDate
-  Link: <https://api-beta.amtraker.com/v3/oembed?url=https://amtraker.com/trains/:trainNum/:trainDate&format=json>; rel="alternate"; type="application/json+oembed"; title="Amtraker"
-  Link: <https://api-beta.amtraker.com/v3/oembed?url=https://amtraker.com/trains/:trainNum/:trainDate&format=xml>; rel="alternate"; type="text/xml+oembed"; title="Amtraker"
+  Link: <https://api.amtraker.com/v3/oembed?url=https://amtraker.com/trains/:trainNum/:trainDate&format=json>; rel="alternate"; type="application/json+oembed"; title="Amtraker"
+  Link: <https://api.amtraker.com/v3/oembed?url=https://amtraker.com/trains/:trainNum/:trainDate&format=xml>; rel="alternate"; type="text/xml+oembed"; title="Amtraker"
 
 /trains/:trainNum
-  Link: <https://api-beta.amtraker.com/v3/oembed?url=https://amtraker.com/trains/:trainNum&format=json>; rel="alternate"; type="application/json+oembed"; title="Amtraker"
-  Link: <https://api-beta.amtraker.com/v3/oembed?url=https://amtraker.com/trains/:trainNum&format=xml>; rel="alternate"; type="text/xml+oembed"; title="Amtraker"
+  Link: <https://api.amtraker.com/v3/oembed?url=https://amtraker.com/trains/:trainNum&format=json>; rel="alternate"; type="application/json+oembed"; title="Amtraker"
+  Link: <https://api.amtraker.com/v3/oembed?url=https://amtraker.com/trains/:trainNum&format=xml>; rel="alternate"; type="text/xml+oembed"; title="Amtraker"

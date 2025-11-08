@@ -29,7 +29,7 @@ export class DataManager {
       console.log('DM-T:', this._lastUpdated, now, now - (1000 * 60))
       if (this._lastUpdated < now - (1000 * 60)) { //if the last time we fetched data was more than a minute ago
         console.log('DM-R:', this._id);
-        fetch('https://api-beta.amtraker.com/v3/all', {
+        fetch('https://api.amtraker.com/v3/all', {
           cache: 'reload'
         })
           .then((res) => res.json())
@@ -60,7 +60,7 @@ export class DataManager {
     const runFetch = (async () => {
       try {
         if (!this._lastUpdated || !this._data || this._lastUpdated < Date.now() - (1000 * 60 * 5)) {
-          const res = await fetch('https://api-beta.amtraker.com/v3/all', {
+          const res = await fetch('https://api.amtraker.com/v3/all', {
             cache: 'reload',
             signal: AbortSignal.timeout(5000)
           });

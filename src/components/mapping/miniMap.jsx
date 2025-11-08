@@ -323,9 +323,9 @@ const MiniMap = ({ filteredTrainIDs = [], filteredStationCodes = [], zoomToTrain
                         { filter: 'brightness(1.5)', backgroundColor: '#555' }
                       ],
                       {
-                        duration: 250,
+                        duration: 200,
                         easing: 'ease-in-out',
-                        iterations: 2, // in and out
+                        iterations: 4, // in and out
                         direction: 'alternate'
                       }
                     );
@@ -360,9 +360,9 @@ const MiniMap = ({ filteredTrainIDs = [], filteredStationCodes = [], zoomToTrain
                     { filter: 'brightness(1.5)', backgroundColor: '#555' }
                   ],
                   {
-                    duration: 250,
+                    duration: 200,
                     easing: 'ease-in-out',
-                    iterations: 2, // in and out
+                    iterations: 4, // in and out
                     direction: 'alternate'
                   }
                 );
@@ -394,9 +394,9 @@ const MiniMap = ({ filteredTrainIDs = [], filteredStationCodes = [], zoomToTrain
                     { filter: 'brightness(1.5)', backgroundColor: '#555' }
                   ],
                   {
-                    duration: 250,
+                    duration: 200,
                     easing: 'ease-in-out',
-                    iterations: 2, // in and out
+                    iterations: 4, // in and out
                     direction: 'alternate'
                   }
                 );

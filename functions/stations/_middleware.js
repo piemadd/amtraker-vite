@@ -24,7 +24,7 @@ export async function onRequest(context) {
   let code = pathname.split('/').at(-1);
   let ogtag
 
-  const infoRes = await fetch(`http://api-beta.amtraker.com/v3/stations/${code}`);
+  const infoRes = await fetch(`http://api.amtraker.com/v3/stations/${code}`);
   const infoDataRaw = await infoRes.text();
 
   if (infoDataRaw == 'Not found') return res; // doesnt exist
