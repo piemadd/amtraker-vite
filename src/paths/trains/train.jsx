@@ -38,6 +38,7 @@ const BetterTrainPage = () => {
     dataManager.getTrain(`${trainNum}-${trainDate}`).then((data) => {
       if (Array.isArray(data) && Object.keys(data).length === 0) {
         console.log("is not valid");
+        navigate(`/trains/${trainNum}`, { replace: true });
       } else {
         console.log("is valid");
         setFilteredTrainIDs([data[trainNum][0].trainID]);
@@ -147,7 +148,7 @@ const BetterTrainPage = () => {
                         alignItems: "left",
                         justifyContent: "left",
                         width: "100%",
-                        marginBottom: "8px",
+                        marginBottom: "2px",
                       }}
                     >
                       <ManualTrainBox
@@ -156,25 +157,24 @@ const BetterTrainPage = () => {
                         maxWidth={true}
                       />
                     </div>
-                    {
-                      trainData[0].alerts.length > 0 ? (
-                        <details className="train-box" style={{
-                          marginTop: '-4px',
-                          marginBottom: '4px',
-                          width: 'calc(100% - 26px)',
-                          maxWidth: '380px'
-                        }}>
-                          <summary>Alerts</summary>
-                          <ul>
-                            {
-                              trainData[0].alerts.map((alert) => {
-                                return <li>{alert.message}</li>
-                              })
-                            }
-                          </ul>
-                        </details>
-                      ) : null}
                     <div className="trainInnerContentScroll">
+                      {
+                        trainData[0].alerts.length > 0 ? (
+                          <details className="train-box" style={{
+                            marginBottom: '4px',
+                            width: 'calc(100% - 26px)',
+                            maxWidth: '380px'
+                          }}>
+                            <summary>Alerts</summary>
+                            <ul>
+                              {
+                                trainData[0].alerts.map((alert) => {
+                                  return <li>{alert.message}</li>
+                                })
+                              }
+                            </ul>
+                          </details>
+                        ) : null}
                       {!searchParams.has("oembed") ? (
                         <>
                           <h2>Manage Train:</h2>
