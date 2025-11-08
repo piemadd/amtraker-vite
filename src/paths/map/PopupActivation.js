@@ -1,4 +1,3 @@
-import { Popup } from 'maplibre-gl';
 import { createRoot } from 'react-dom/client';
 import { flushSync } from 'react-dom';
 

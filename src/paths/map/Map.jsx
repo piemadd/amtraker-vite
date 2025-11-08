@@ -132,7 +132,7 @@ const AmtrakerMap = () => {
     const trains = localStorage
       .getItem("savedTrainsAmtrakerV3")
       .split(",")
-      .filter((n) => window.dataManager.getTrainExists(n));
+      .filter((n) => window.dataManager.getTrainExistsLongID(n));
 
     if (trains.length === 0) {
       setShowAll(true);
@@ -177,10 +177,16 @@ const AmtrakerMap = () => {
         //converting the image and loading it
         const img = new Image(imageWidth, imageHeight);
         img.onload = () => {
-          if (mapRef.current.hasImage(train.trainID)) {
-            mapRef.current.updateImage(train.trainID, img);
-          } else {
-            mapRef.current.addImage(train.trainID, img, {
+          try {
+            if (mapRef.current.hasImage(train.trainID)) {
+              mapRef.current.updateImage(train.trainID, img);
+            } else {
+              mapRef.current.addImage(train.trainID, img, {
+                pixelRatio: 4,
+              });
+            }
+          } catch (e) { // different sized image
+            mapRef.current.removeImage(train.trainID); mapRef.current.addImage(train.trainID, img, {
               pixelRatio: 4,
             });
           }
@@ -333,7 +339,7 @@ const AmtrakerMap = () => {
       window.mapRef = mapRef.current;
 
       // fetching data on an interval
-      setInterval(updateAllData, 30000); // every 30 seconds, update
+      setInterval(updateAllData, 10000); // every 30 seconds, update
 
       //initial data fetch
       // stale data + shits fucked
@@ -454,7 +460,12 @@ const AmtrakerMap = () => {
 
       mapRef.current.on("load", async () => {
         mapRef.current.on("click", (e) => {
-          let f = mapRef.current.queryRenderedFeatures(e.point, {
+          const bbox = [
+            [e.point.x - 4, e.point.y - 4], // southwest
+            [e.point.x + 4, e.point.y + 4], // northeast
+          ];
+
+          let f = mapRef.current.queryRenderedFeatures(bbox, {
             layers: ["trains", "stations"],
           });
 
@@ -817,17 +828,31 @@ const AmtrakerMap = () => {
                   <ManualStationBoxIndependent station={popupInfo} maxWidth={true} />
                 </div>
               ) : null}
-              {popupInfo && popupInfo.trainNum ? popupInfo.stations.map((station, i, arr) => {
-                return (
-                  <Link
-                    to={`/stations/${station.code}`}
-                    key={`station-${station.code}`}
-                    className='station-link'
-                  >
-                    <ManualStationBox station={station} train={popupInfo} />
-                  </Link>
-                );
-              })
+              {popupInfo && popupInfo.trainNum ?
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '4px',
+                  width: 'calc(100% + 18px)',
+                  height: '100%',
+                  overflowY: 'scroll',
+                                  }}>
+                  {popupInfo.stations.map((station, i, arr) => {
+                    return (
+                      <Link
+                        id={station.code}
+                        to={`/stations/${station.code}`}
+                        key={`station-${station.code}`}
+                        className='station-link'
+                        style={{
+                          width: 'calc(100% - 18px)'
+                        }}
+                      >
+                        <ManualStationBox station={station} train={popupInfo} />
+                      </Link>
+                    );
+                  })}
+                </div>
                 : null}
               {popupInfo && popupInfo.code ?
                 <div
@@ -851,7 +876,7 @@ const AmtrakerMap = () => {
                 .map((trainID) => dataManager.getTrainSync(trainID, true))
                 .filter((train) => {
                   if (onlyShowUpcoming) {
-                    const trainThisStation = train.stations.find((station) => station.code == popupInfo.code);
+                    const trainThisStation = train.stations[train.stations.map((station) => station.code).indexOf(popupInfo.code)];
 
                     if (!trainThisStation) return true; // still include, but it will be sorted downwards later
 

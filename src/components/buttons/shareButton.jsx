@@ -1,12 +1,14 @@
 import BaseButton from "./baseButton";
 
 const ShareButton = ({ navigatorOptions }) => {
-  //if (!navigator.share || !navigatorOptions) return null;
+  if (!navigatorOptions || (!navigator.share && !navigator.clipboard )) return null;
 
-  return <BaseButton 
+  return <BaseButton
     symbol="⌲"
     onClick={() => {
-      navigator.share(navigatorOptions);
+      if (navigator.share) navigator.share(navigatorOptions);
+      else if (navigator.clipboard) navigator.clipboard.writeText(navigatorOptions.url);
+      else return;
     }}
     otherCssStyles={{
       height: '75%',

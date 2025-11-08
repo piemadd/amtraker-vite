@@ -17,8 +17,8 @@ import {
   manageSavedTrain,
 } from "../../tools";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
-import SenseBlock from "../../components/money/senseArticle";
 import ShareButton from "../../components/buttons/shareButton";
+import MiniMap from "../../components/mapping/miniMap";
 
 const BetterTrainPage = () => {
   const { trainNum, trainDate } = useParams();
@@ -26,21 +26,25 @@ const BetterTrainPage = () => {
   const navigate = useNavigate();
   const dataManager = window.dataManager;
   const appSettings = useMemo(settingsInit, []);
-  
   const [loading, setLoading] = useState(true);
   const [trainData, setTrainData] = useState([]);
   const [isSaved, setIsSaved] = useState(false);
   const [alwaysTracked, setAlwaysTracked] = useState(false);
+  const [filteredTrainIDs, setFilteredTrainIDs] = useState([]);
+  const [filteredStationCodes, setFilteredStationCodes] = useState([]);
 
   useEffect(() => {
     console.log("sending request");
     dataManager.getTrain(`${trainNum}-${trainDate}`).then((data) => {
-      setLoading(false);
       if (Array.isArray(data) && Object.keys(data).length === 0) {
         console.log("is not valid");
+        navigate(`/trains/${trainNum}`, { replace: true });
       } else {
         console.log("is valid");
+        setFilteredTrainIDs([data[trainNum][0].trainID]);
+        setFilteredStationCodes(data[trainNum][0].stations.map((station) => station.code));
         setTrainData(data[trainNum]);
+        setLoading(false);
       }
     });
   }, [trainNum, trainDate]);
@@ -117,137 +121,141 @@ const BetterTrainPage = () => {
             </div>
           </div>
         ) : null}
-        <section
-          className='section-trainPage'
+        <div
+          className="multiSectionHolder"
           style={{
             height: searchParams.has("oembed")
               ? "calc(100svh - 64px)"
               : "calc(100svh - 114px)",
-          }}
-        >
-          {!loading ? (
-            <>
-              {trainData.length > 0 ? (
-                <>
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "left",
-                      justifyContent: "left",
-                      width: "100%",
-                      marginBottom: "8px",
-                    }}
-                  >
-                    <ManualTrainBox
-                      train={trainData[0]}
-                      loading={false}
-                      maxWidth={true}
-                    />
-                  </div>
-                  {
-                    trainData[0].alerts.length > 0 ? (
-                      <details className="train-box train-box-max-width" style={{
-                        marginTop: '-4px',
-                        marginBottom: '4px',
-                      }}>
-                        <summary>Alerts</summary>
-                        <ul>
-                        {
-                          trainData[0].alerts.map((alert) => {
-                            return <li>{alert.message}</li>
-                          })
-                        }
-                        </ul>
-                      </details>
-                    ) : null}
-                  {!searchParams.has("oembed") ? (
-                    <>
-                      <h2>Manage Train:</h2>
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          gap: "8px",
-                          fontSize: "1.5rem",
-                          fontWeight: "300",
-                          marginLeft: '8px',
-                        }}
-                      >
-                        <input
-                          type='checkbox'
-                          checked={isSaved}
-                          onChange={(e) => {
-                            setIsSaved(e.target.checked);
-                            manageSavedTrain(trainNum, trainDate, e.target.checked);
-                            console.log(
-                              "saved change:",
-                              e.target.checked
-                            );
-                          }}
-                        />
-                        <label>Save Train {trainNum} ({trainDate})</label>
-                      </div>
-                      <div
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          gap: "8px",
-                          fontSize: "1.5rem",
-                          fontWeight: "300",
-                          marginLeft: '8px',
-                        }}
-                      >
-                        <input
-                          type='checkbox'
-                          checked={alwaysTracked}
-                          onChange={(e) => {
-                            setAlwaysTracked(e.target.checked);
-                            if (e.target.checked) {
-                              addAlwaysTracked(trainNum);
-                            } else {
-                              removeAlwaysTracked(trainNum);
-                            }
-                            console.log(
-                              "always tracked change:",
-                              e.target.checked
-                            );
-                          }}
-                        />
-                        <label>Save Every Train {trainNum}</label>
-                      </div>
-                    </>
-                  ) : null}
-                  {new Date(trainData[0].lastValTS).valueOf() <
-                    new Date().valueOf() - 1000 * 60 * 15 ? (
-                    <p className='staleTrainWarning'>
-                      WARNING: THIS TRAIN'S DATA IS STALE! Data feed has not
-                      been updated since{" "}
-                      {new Intl.DateTimeFormat([], {
-                        hour: "numeric",
-                        minute: "numeric",
-                        month: "short",
-                        day: "numeric",
-                        timeZoneName: "short",
-                      }).format(new Date(trainData[0].lastValTS))}
-                    </p>
-                  ) : null}
-
-
-                  <h2>Stations</h2>
-                  <div className='stations'>
-                    {trainData[0].stations.map((station, i, arr) => {
-                      if (
-                        (i % 10 === 0 ||
-                          (i == arr.length - 1 && arr.length < 10)) &&
-                        i !== 0
-                      ) {
-                        return (
-                          <>
+          }}>
+          <section
+            className='section-trainPage'
+            style={{
+              height: searchParams.has("oembed")
+                ? "calc(100svh - 64px)"
+                : "calc(100svh - 114px)",
+              minWidth: '300px',
+              maxWidth: window.innerWidth >= 900 ? '398px' : null, // only setting max size if we have the map
+            }}
+          >
+            {!loading ? (
+              <>
+                {trainData.length > 0 ? (
+                  <>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "left",
+                        justifyContent: "left",
+                        width: "100%",
+                        marginBottom: "2px",
+                      }}
+                    >
+                      <ManualTrainBox
+                        train={trainData[0]}
+                        loading={false}
+                        maxWidth={true}
+                      />
+                    </div>
+                    <div className="trainInnerContentScroll">
+                      {
+                        trainData[0].alerts.length > 0 ? (
+                          <details className="train-box" style={{
+                            marginBottom: '4px',
+                            width: 'calc(100% - 26px)',
+                            maxWidth: '380px'
+                          }}>
+                            <summary>Alerts</summary>
+                            <ul>
+                              {
+                                trainData[0].alerts.map((alert) => {
+                                  return <li>{alert.message}</li>
+                                })
+                              }
+                            </ul>
+                          </details>
+                        ) : null}
+                      {!searchParams.has("oembed") ? (
+                        <>
+                          <h2>Manage Train:</h2>
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "flex-start",
+                              gap: "8px",
+                              fontSize: "1.5rem",
+                              fontWeight: "300",
+                              marginLeft: '8px',
+                            }}
+                          >
+                            <input
+                              type='checkbox'
+                              checked={isSaved}
+                              onChange={(e) => {
+                                setIsSaved(e.target.checked);
+                                manageSavedTrain(trainNum, trainDate, e.target.checked);
+                                console.log(
+                                  "saved change:",
+                                  e.target.checked
+                                );
+                              }}
+                            />
+                            <label>Save Train {trainNum} ({trainDate})</label>
+                          </div>
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "flex-start",
+                              gap: "8px",
+                              fontSize: "1.5rem",
+                              fontWeight: "300",
+                              marginLeft: '8px',
+                            }}
+                          >
+                            <input
+                              type='checkbox'
+                              checked={alwaysTracked}
+                              onChange={(e) => {
+                                setAlwaysTracked(e.target.checked);
+                                if (e.target.checked) {
+                                  addAlwaysTracked(trainNum);
+                                } else {
+                                  removeAlwaysTracked(trainNum);
+                                }
+                                console.log(
+                                  "always tracked change:",
+                                  e.target.checked
+                                );
+                              }}
+                            />
+                            <label>Save Every Train {trainNum}</label>
+                          </div>
+                        </>
+                      ) : null}
+                      {new Date(trainData[0].lastValTS).valueOf() <
+                        new Date().valueOf() - 1000 * 60 * 15 ? (
+                        <p className='staleTrainWarning'>
+                          WARNING: THIS TRAIN'S DATA IS STALE! Data feed has not
+                          been updated since{" "}
+                          {new Intl.DateTimeFormat([], {
+                            hour: "numeric",
+                            minute: "numeric",
+                            month: "short",
+                            day: "numeric",
+                            timeZoneName: "short",
+                          }).format(new Date(trainData[0].lastValTS))}
+                        </p>
+                      ) : null}
+                      <h2>Stations</h2>
+                      <div className='stations'>
+                        {trainData[0].stations.map((station, i, arr) => {
+                          return (
                             <Link
                               to={`/stations/${station.code}`}
                               key={`station-${station.code}`}
+                              id={station.code}
                               className='station-link'
                               style={{
                                 width: 'calc(100% - 18px)'
@@ -258,58 +266,57 @@ const BetterTrainPage = () => {
                                 train={trainData[0]}
                               />
                             </Link>
-                            <SenseBlock
-                              key={`sense-list-${i}`}
-                              dataAdSlot={"2090024099"}
-                            />
-                          </>
-                        );
-                      } else {
-                        return (
-                          <Link
-                            to={`/stations/${station.code}`}
-                            key={`station-${station.code}`}
-                            className='station-link'
-                            style={{
-                              width: 'calc(100% - 18px)'
-                            }}
-                          >
-                            <ManualStationBox
-                              station={station}
-                              train={trainData[0]}
-                            />
-                          </Link>
-                        );
-                      }
-                    })}
-                  </div>
-                </>
-              ) : (
-                <>
-                  <p>
-                    This train is not currently tracking. Please try again
-                    later. We apologize for the inconvenience.
-                  </p>
-                  {!searchParams.has("oembed") ? (
-                    <button
-                      onClick={() => {
-                        if ((history.state.idx && history.state.idx > 0)) {
-                          navigate(-1);
-                        } else {
-                          navigate("/", { replace: true }); //fallback
-                        }
-                      }}
-                    >
-                      Go Back
-                    </button>
-                  ) : null}
-                </>
-              )}
-            </>
-          ) : (
-            <p>Loading train...</p>
-          )}
-        </section>
+                          )
+                        })}
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <p>
+                      This train is not currently tracking. Please try again
+                      later. We apologize for the inconvenience.
+                    </p>
+                    {!searchParams.has("oembed") ? (
+                      <button
+                        onClick={() => {
+                          if ((history.state.idx && history.state.idx > 0)) {
+                            navigate(-1);
+                          } else {
+                            navigate("/", { replace: true }); //fallback
+                          }
+                        }}
+                      >
+                        Go Back
+                      </button>
+                    ) : null}
+                  </>
+                )}
+              </>
+            ) : (
+              <p>Loading train...</p>
+            )}
+          </section>
+          {window.innerWidth >= 900 && !loading ?
+            <section
+              className='section-trainPage'
+              style={{
+                height: searchParams.has("oembed")
+                  ? "calc(100svh - 32px)"
+                  : "calc(100svh - 82px)",
+                padding: 0,
+                borderColor: '#444',
+              }}
+            >
+              <MiniMap
+                filteredTrainIDs={filteredTrainIDs}
+                filteredStationCodes={filteredStationCodes}
+                zoomToTrains={true}
+
+              //idLinkType={'station'}
+              />
+            </section> : null}
+        </div>
       </div>
     </>
   );

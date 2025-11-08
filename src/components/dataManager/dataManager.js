@@ -52,7 +52,7 @@ export class DataManager {
 
     setInterval(() => {
       updateData();
-    }, 30000) //every 30 seconds, refresh
+    }, 15000) //every 15 seconds, refresh
   }
 
   //if the data hasnt been updated within 5 minute or is null, update it
@@ -141,6 +141,13 @@ export class DataManager {
 
     if (Array.isArray(train)) return false;
     return true;
+  }
+
+  getTrainExistsLongID(longTrainID) {
+    const splitLongTrainID = longTrainID.split('-');
+    const trainID = `${splitLongTrainID[0]}-${splitLongTrainID[2]}`;
+
+    return this.getTrainExists(trainID);
   }
 
   async getStations() {

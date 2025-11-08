@@ -22,7 +22,7 @@ const ManualTrainBox = ({
     }
   }
 
-  const currentStation = train.stations.find(
+  const currentStation = train.stations?.find(
     (station) => station.code === train.eventCode
   );
 

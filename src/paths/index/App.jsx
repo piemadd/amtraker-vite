@@ -182,7 +182,7 @@ const App = () => {
           <h1 className='gayTitle'>Amtraker</h1>
           {/*<p className="slogan">Get out and Vote!</p>*/}
         </div>
-        <section id='section-saved'>
+        <section id='section-saved' className="section-border">
           {isStale ? (
             <div className='stale'>
               <p>
@@ -242,7 +242,7 @@ const App = () => {
           </Link>
         </div>
 
-        <section className='footer'>
+        <section className='footer section-border'>
           <p>
             <a
               href='https://docs.google.com/forms/d/e/1FAIpQLSfLfypJxtK62zBakCzo23y-WKFZj_TjbX5pKGZ08gxOeBatkg/viewform?usp=sf_link'
@@ -261,8 +261,8 @@ const App = () => {
             <p>Privacy Policy</p>
           </Link>
         </section>
-        <section className='amtrakerVersion'>
-          <p>Amtraker v3.14.8</p>
+        <section className='amtrakerVersion section-border'>
+          <p>Amtraker v3.15</p>
           <p>&copy; <a href="https://piemadd.com" target="_blank">Piero Maddaleni</a> 2025</p>
         </section>
         <SenseBlock key={"sense-block"} dataAdSlot={"3140178047"} />
