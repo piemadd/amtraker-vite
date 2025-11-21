@@ -7,6 +7,9 @@ localForage.config({
   version: "3"
 })
 
+const URL_TO_USE = 'https://api.amtraker.com/v3/all';
+//const URL_TO_USE = 'http://localhost:3001/v3/all';
+
 export class DataManager {
   constructor() {
 
@@ -29,7 +32,7 @@ export class DataManager {
       console.log('DM-T:', this._lastUpdated, now, now - (1000 * 60))
       if (this._lastUpdated < now - (1000 * 60)) { //if the last time we fetched data was more than a minute ago
         console.log('DM-R:', this._id);
-        fetch('https://api.amtraker.com/v3/all', {
+        fetch(URL_TO_USE, {
           cache: 'reload'
         })
           .then((res) => res.json())
@@ -60,7 +63,7 @@ export class DataManager {
     const runFetch = (async () => {
       try {
         if (!this._lastUpdated || !this._data || this._lastUpdated < Date.now() - (1000 * 60 * 5)) {
-          const res = await fetch('https://api.amtraker.com/v3/all', {
+          const res = await fetch(URL_TO_USE, {
             cache: 'reload',
             signal: AbortSignal.timeout(5000)
           });
