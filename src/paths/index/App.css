@@ -203,29 +203,6 @@ section.section-settings select {
   margin-top: 4px;
 }
 
-.terrabanner {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  border: #777 1px solid;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 4px;
-  border-radius: 4px;
-}
-
-.terrabanner:nth-child(2) {
-  margin-bottom: 0px;
-}
-
-.terrabanner-actually::before {
-  content: "Advertisement";
-  text-align: center;
-  font-size: 1.5em;
-  font-weight: 400;
-}
-
 .bnr-threehundredtimestwofifty {
   min-width: 250px !important;
   max-width: 400px !important;

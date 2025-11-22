@@ -5,7 +5,6 @@ import Fuse from "fuse.js";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import settingsInit from "../../components/settingsInit";
 import stringToHash from "../../components/money/stringToHash";
-import SenseBlock from "../../components/money/senseArticle";
 
 //import ErrorData from "../../data/error.json";
 
@@ -28,7 +27,7 @@ const TrainsList = () => {
   const [trainData, setTrainData] = useState([]);
   const [trainDataFull, setTrainDataFull] = useState([]);
   const [allIDs, setAllIDs] = useState([]);
-  const [allNames, setAllNames] = useState([]); 
+  const [allNames, setAllNames] = useState([]);
   const [results, setResults] = useState([]);
   const [query, updateQuery] = useState("");
   const [agencyFilter, setAgencyFilter] = useState("All");
@@ -93,7 +92,7 @@ const TrainsList = () => {
       fuse.setCollection(actualNewResults);
       actualNewResults = fuse.search(currentQuery).map((result) => result.item);
     };
-    
+
     setResults(actualNewResults);
   };
 
@@ -181,35 +180,16 @@ const TrainsList = () => {
             {!loading ? (
               <>
                 {results.map((train, i) => {
-                  if (i % 10 === 0 && i !== 0) {
-                    return (
-                      <>
-                        <SenseBlock
-                          key={`sense-list-${i}`}
-                          dataAdSlot={"2090024099"}
-                        />
-                        <Link
-                          to={`/trains/${train.trainID.replace("-", "/")}`}
-                          key={`train-${train.trainID}`}
-                          replace={true}
-                          className='station-link'
-                        >
-                          <ManualTrainBox train={train} />
-                        </Link>
-                      </>
-                    );
-                  } else {
-                    return (
-                      <Link
-                        to={`/trains/${train.trainID.replace("-", "/")}`}
-                        key={`train-${train.trainID}`}
-                        replace={true}
-                        className='station-link'
-                      >
-                        <ManualTrainBox train={train} />
-                      </Link>
-                    );
-                  }
+                  return (
+                    <Link
+                      to={`/trains/${train.trainID.replace("-", "/")}`}
+                      key={`train-${train.trainID}`}
+                      replace={true}
+                      className='station-link'
+                    >
+                      <ManualTrainBox train={train} />
+                    </Link>
+                  )
                 })}
               </>
             ) : (

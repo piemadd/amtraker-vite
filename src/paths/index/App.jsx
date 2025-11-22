@@ -4,7 +4,6 @@ import stringToHash from "../../components/money/stringToHash";
 import { Link } from "react-router-dom";
 import settingsInit from "../../components/settingsInit";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
-import SenseBlock from "../../components/money/senseArticle";
 import { autoAddTrains } from "../../tools";
 
 const App = () => {
@@ -265,7 +264,6 @@ const App = () => {
           <p>Amtraker v3.15</p>
           <p>&copy; <a href="https://piemadd.com" target="_blank">Piero Maddaleni</a> 2025</p>
         </section>
-        <SenseBlock key={"sense-block"} dataAdSlot={"3140178047"} />
       </main>
     </>
   );

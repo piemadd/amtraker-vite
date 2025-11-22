@@ -4,7 +4,6 @@ import "./trains.css"; //fuck it we ball
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import settingsInit from "../../components/settingsInit";
 import stringToHash from "../../components/money/stringToHash";
-import SenseBlock from "../../components/money/senseArticle";
 import { toHoursAndMinutesLate } from "../../tools";
 
 // calculateIconColor.ts in amtraker-v3
