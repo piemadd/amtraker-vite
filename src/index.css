@@ -90,7 +90,7 @@ body,
   }
 }
 
-#background {
+#background, #backgroundNew {
   object-fit: cover;
   z-index: -1;
   position: fixed;
