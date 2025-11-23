@@ -149,7 +149,7 @@ const TrainsLeaderboard = () => {
       <img
         id='background'
         alt='Amtrak network map.'
-        className={bgClass}
+        className={bgClass + ' terrabanner'}
         src={bgURL}
       ></img>
       <div className='trainPage'>
