@@ -56,6 +56,12 @@ const TrainsByName = () => {
   return (
     <>
       <img
+        id='backgroundNew'
+        alt='Map of Australia.'
+        className={'bg-focus-in peppino'}
+        src={'/content/images/waow.png'}
+      ></img>
+      <img
         id='background'
         alt='Amtrak network map.'
         className={bgClass + ' terrabanner'}

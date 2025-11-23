@@ -11,7 +11,7 @@ const Settings = () => {
 
   const initialSettings = useMemo(settingsInit, []);
   const [currentSettings, setCurrentSettings] = useState(initialSettings);
-  
+
   const handleSettingsUpdate = (key, value) => {
     const newSettings = {
       ...currentSettings,
@@ -41,6 +41,12 @@ const Settings = () => {
 
   return (
     <>
+      <img
+        id='backgroundNew'
+        alt='Map of Australia.'
+        className={'bg-focus-in peppino'}
+        src={'/content/images/waow.png'}
+      ></img>
       <img
         id='background'
         alt='Amtrak network map.'

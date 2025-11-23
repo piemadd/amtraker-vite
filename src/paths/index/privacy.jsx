@@ -12,9 +12,9 @@ const PrivacyPolicy = () => {
     stringToHash(localStorage.getItem("passphrase")).then((hash) => {
       if (
         hash ==
-          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
+        "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
         hash ==
-          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
+        "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
       ) {
         setBGURL("/content/images/prideflag.jpg");
         setBGClass("bg-focus-in peppino");
@@ -24,6 +24,12 @@ const PrivacyPolicy = () => {
 
   return (
     <>
+      <img
+        id='backgroundNew'
+        alt='Map of Australia.'
+        className={'bg-focus-in peppino'}
+        src={'/content/images/waow.png'}
+      ></img>
       <img
         id='background'
         alt='Amtrak network map.'

@@ -24,11 +24,17 @@ const AboutPage = () => {
   useEffect(() => {
     const scrollingToItem = document.getElementById(window.location.hash.replace('#', ''));
     if (!scrollingToItem) return;
-    scrollingToItem.scrollIntoView({behavior: 'smooth'});
+    scrollingToItem.scrollIntoView({ behavior: 'smooth' });
   }, []);
 
   return (
     <>
+      <img
+        id='backgroundNew'
+        alt='Map of Australia.'
+        className={'bg-focus-in peppino'}
+        src={'/content/images/waow.png'}
+      ></img>
       <img
         id='background'
         alt='Amtrak network map.'
