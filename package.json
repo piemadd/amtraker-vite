@@ -12,7 +12,7 @@
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.9",
     "@use-gesture/react": "^10.2.24",
-    "@vitejs/plugin-react-swc": "^3.0.0",
+    "@vitejs/plugin-react-swc": "^3.11.0",
     "fuse.js": "7.0.0",
     "localforage": "^1.10.0",
     "maplibre-gl": "5.1.0",
