@@ -248,7 +248,9 @@ const App = () => {
             <button className='root'>Live Map</button>
           </Link>
 
-          <button disabled className='root disabledButton'>Amtraker Atlas</button>
+          <Link to={"/atlas"}>
+            <button className='root'>Amtraker Atlas</button>
+          </Link>
         </div>
 
         <section className='footer section-border'>
