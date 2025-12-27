@@ -236,15 +236,17 @@ const App = () => {
           <Link to={"/trains"}>
             <button className='root'>Trains List</button>
           </Link>
+
+          <Link to={"/stations"}>
+            <button className='root'>Stations List</button>
+          </Link>
         </div>
         <div className='links'>
           <Link to={"/map"}>
             <button className='root'>View the Map</button>
           </Link>
 
-          <Link to={"/stations"}>
-            <button className='root'>Stations List</button>
-          </Link>
+          <button disabled className='root disabledButton'>Amtraker Atlas</button>
         </div>
 
         <section className='footer section-border'>
