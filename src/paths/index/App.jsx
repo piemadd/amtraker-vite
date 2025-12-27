@@ -183,10 +183,12 @@ const App = () => {
       >⟳</button>
       <main>
         {/*<h2 className='welcome-to'>Welcome to</h2>*/}
+        {/*}
         <div className="titleArea">
           <h1 className='gayTitle'>Amtraker</h1>
-          {/*<p className="slogan">Get out and Vote!</p>*/}
+        <p className="slogan">Happy holidays!</p>
         </div>
+        */}
         <section id='section-saved' className="section-border">
           {isStale ? (
             <div className='stale'>
@@ -236,15 +238,17 @@ const App = () => {
           <Link to={"/trains"}>
             <button className='root'>Trains List</button>
           </Link>
-        </div>
-        <div className='links'>
-          <Link to={"/map"}>
-            <button className='root'>View the Map</button>
-          </Link>
 
           <Link to={"/stations"}>
             <button className='root'>Stations List</button>
           </Link>
+        </div>
+        <div className='links'>
+          <Link to={"/map"}>
+            <button className='root'>Live Map</button>
+          </Link>
+
+          <button disabled className='root disabledButton'>Amtraker Atlas</button>
         </div>
 
         <section className='footer section-border'>

@@ -8,7 +8,7 @@ root {
 
 .titleArea .slogan {
   color: #ffffff;
-  text-shadow: 0px 0px 12px #000000;
+  text-shadow: #000000 1px 0 4px;
   position: relative;
   width: 0;
   height: 0;
@@ -22,11 +22,48 @@ root {
   text-align: center;
 }
 
+.disabledButton {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.currentlyClickedButton {
+  box-shadow: 0 0 0 0 rgba(255, 255, 255, 255);
+  background-color: #222 !important;
+  opacity: 0.9;
+}
+
+table.atlas_tripsList {
+  border-collapse: collapse;
+  border: 1px solid rgb(255, 255, 255);
+  font-family: sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+
+table.atlas_tripsList thead {
+  background-color: #000000a9;
+}
+
+table.atlas_tripsList th,
+table.atlas_tripsList td {
+  border: 1px solid rgb(160 160 160);
+  padding: 8px 10px;
+}
+
+table.atlas_tripsList>tbody>tr:nth-of-type(even) {
+  background-color: #00000055;
+}
+
 .gayTitle {
   background: #ffffff;
 
   /*
   background: linear-gradient(105deg, rgba(226, 32, 22, 1) 11.5%, rgba(242, 137, 23, 1) 11.5%, rgba(242, 137, 23, 1) 18.5%, rgba(239, 229, 36, 1) 18.5%, rgba(239, 229, 36, 1) 25.5%, rgba(120, 184, 42, 1) 25.5%, rgba(120, 184, 42, 1) 32.5%, rgba(44, 88, 164, 1) 32.5%, rgba(44, 88, 164, 1) 39.5%, rgba(109, 35, 128, 1) 39.5%, rgba(109, 35, 128, 1) 46.5%, rgba(0, 0, 0, 1) 46.5%, rgba(0, 0, 0, 1) 53.5%, rgba(148, 85, 22, 1) 53.5%, rgba(148, 85, 22, 1) 60.5%, rgba(123, 204, 229, 1) 60.5%, rgba(123, 204, 229, 1) 67.5%, rgba(244, 174, 200, 1) 67.5%, rgba(244, 174, 200, 1) 74.5%, rgba(255, 255, 255, 1) 74.5%, rgba(255, 255, 255, 1) 81.5%, rgba(253, 216, 23, 1) 81.5%, rgba(253, 216, 23, 1) 88.5%, rgba(102, 51, 139, 1) 88.5%);
+  */
+
+  /*
+  background: repeating-linear-gradient(135deg, rgb(185, 0, 12), rgb(185, 0, 12) 10px, rgb(255, 255, 255) 10px, rgb(255, 255, 255) 20px);
   */
 
   filter: drop-shadow(0px 0px 2px #000000);
