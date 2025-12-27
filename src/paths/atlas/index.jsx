@@ -11,7 +11,9 @@ const AtlasIndex = () => {
 
   const [bgURL, setBGURL] = useState("/content/images/amtraker-back.webp");
   const [bgClass, setBGClass] = useState("bg-focus-in");
-  const [tripsPageNumber, setTripsPageNumber] = useState(1);
+  const [authUpdatedAt, setAuthUpdatedAt] = useState(0);
+  
+  console.log(authUpdatedAt)
 
   if (pb.authStore.isValid) {
     return (
@@ -76,6 +78,7 @@ const AtlasIndex = () => {
           <p>Amtraker Atlas allows you to track your Amtrak, Brightline, and VIA rail trips, similar to Flighty Passport with flights.</p>
           <button className='root' onClick={async () => {
             await pb.collection('users').authWithOAuth2({ provider: 'google' });
+            setAuthUpdatedAt(Date.now());
           }}>Login With Google</button>
         </section>
       </div>
