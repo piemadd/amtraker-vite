@@ -5,6 +5,7 @@ const AtlasNav = ({ currentRoute = null }) => {
 
   return <>
   <h1>Atlas</h1>
+  <label style={{maxWidth: '500px'}}>Atlas is still early in development and more features will be added over time, please be patient.</label>
     <div className='links' style={{
       marginBottom: '8px'
     }}>

@@ -1,21 +1,7 @@
 import { useState, useEffect } from 'react';
+import { hoursMinutesDaysDuration } from './common';
 
-const hoursMinutesDaysDuration = (durationMinutesRaw = 0) => {
-  const minutes = durationMinutesRaw;
-  const hours = Math.floor(minutes / 60);
-  const days = Math.floor(hours / 24);
-
-  let finalString = '';
-
-  if (minutes < 1 && hours < 1) return '0m';
-  if (days > 0) finalString += `${days}d `;
-  if (hours % 24 > 0 || days > 0) finalString += `${hours % 24}h `;
-  if (minutes % 60 > 0 || days > 0) finalString += `${minutes % 60}m`;
-
-  return finalString.trim();
-};
-
-const TripsList = ({ pb, numberOfRecords, pageNumber }) => {
+const TripsList = ({ pb, numberOfRecords, pageNumber, setTripsMeta }) => {
   if (!pb) return null;
   if (!numberOfRecords) numberOfRecords = 50;
   if (!pageNumber) pageNumber = 1;
@@ -25,12 +11,17 @@ const TripsList = ({ pb, numberOfRecords, pageNumber }) => {
   const [actionTime, setActionTime] = useState(0);
 
   useEffect(() => {
-    pb.collection('trips').getList(1, 50, {
-      //filter: 'someField1 != someField2',
+    pb.collection('trips').getList(pageNumber, numberOfRecords, {
+      sort: '-departure_date',
     }).then((resultList) => {
+      setTripsMeta(resultList);
       setTripsList(resultList.items);
     })
   }, [numberOfRecords, pageNumber, actionTime]);
+
+  if (tripsList.length == 0) {
+    return <label>You don't have any trips recorded yet, try clicking on "Add Trip" above!</label>
+  }
 
   return <table className='atlas_tripsList'>
     <thead>
@@ -46,7 +37,6 @@ const TripsList = ({ pb, numberOfRecords, pageNumber }) => {
     <tbody>
       {
         tripsList.map((trip) => {
-          console.log(trip)
           return <tr>
             <th scope="row">{trip.railroad != 'amtrak' ? trip.railroad.substring(0, 1) : ''}{trip.train_number}</th>
             <td>{trip.start_code} - {trip.end_code}</td>

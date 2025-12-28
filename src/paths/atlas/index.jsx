@@ -12,7 +12,9 @@ const AtlasIndex = () => {
   const [bgURL, setBGURL] = useState("/content/images/amtraker-back.webp");
   const [bgClass, setBGClass] = useState("bg-focus-in");
   const [authUpdatedAt, setAuthUpdatedAt] = useState(0);
-  
+  const [tripsMeta, setTripsMeta] = useState(null);
+  const [pageNumber, setPageNumber] = useState(1);
+
   console.log(authUpdatedAt)
 
   if (pb.authStore.isValid) {
@@ -42,7 +44,27 @@ const AtlasIndex = () => {
           </div>
           <section className='section-trainPage'>
             <AtlasNav currentRoute={'index'} />
-            <TripsList pb={pb} numberOfRecords={50} pageNumber={1}/>
+            {tripsMeta && tripsMeta.totalItems > 0 ?
+              <>
+                <label>Page Selection</label>
+                <div className='links' style={{
+                  marginBottom: '8px'
+                }}>
+                  {
+                    Array(tripsMeta.totalPages)
+                      .fill("amongus")
+                      .map((val, i) => {
+                        return <button
+                          className={'root' + (pageNumber == i + 1 ? ' currentlyClickedButton' : '')}
+                          onClick={(e) => setPageNumber(i + 1)}
+                        >{i + 1}</button>
+                      })
+                  }
+                </div>
+              </> :
+              null
+            }
+            <TripsList pb={pb} numberOfRecords={50} pageNumber={pageNumber} setTripsMeta={setTripsMeta} />
           </section>
         </div>
       </>
