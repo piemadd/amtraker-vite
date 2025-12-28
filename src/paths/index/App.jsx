@@ -246,7 +246,10 @@ const App = () => {
             <button className='root'>View the Map</button>
           </Link>
 
-          <button disabled className='root disabledButton'>Amtraker Atlas</button>
+          <button disabled className='root' style={{
+            cursor: 'not-allowed',
+            opacity: 0.8
+          }}>Amtraker Atlas</button>
         </div>
 
         <section className='footer section-border'>
