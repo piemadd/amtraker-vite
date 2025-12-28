@@ -102,8 +102,6 @@ const AtlasAdd = () => {
     setTimeMin((totalTimeSeconds / 60).toFixed(0));
   }, [selectedStartStation, selectedEndStation]);
 
-
-
   if (pb.authStore.isValid) {
     useEffect(() => {
       console.log("%cHello Developers", 'background-color: darkblue; color: white; font-style: italic; border: 5px solid darkblue; font-size: 2em;');
@@ -272,42 +270,9 @@ const AtlasAdd = () => {
         </div>
       </>
     );
-  }
+  };
 
-  return (
-    <>
-      <img
-        id='background'
-        alt='Amtrak network map.'
-        className={bgClass + ' terrabanner'}
-        src={bgURL}
-      ></img>
-      <div className='trainPage'>
-        <div className='header-trainpage'>
-          <h2
-            onClick={() => {
-              if (history.state.idx && history.state.idx > 0) {
-                navigate(-1);
-              } else {
-                navigate("/", { replace: true }); //fallback
-              }
-            }}
-            className='click'
-            style={{ paddingLeft: '32px' }}
-          >
-            Back
-          </h2>
-        </div>
-        <section className='section-trainPage'>
-          <h1>Atlas</h1>
-          <p>Amtraker Atlas allows you to track your Amtrak, Brightline, and VIA rail trips, similar to Flighty Passport with flights.</p>
-          <button className='root' onClick={async () => {
-            await pb.collection('users').authWithOAuth2({ provider: 'google' });
-          }}>Login With Google</button>
-        </section>
-      </div>
-    </>
-  );
+  navigate("/atlas", { replace: true });
 };
 
 export default AtlasAdd;
