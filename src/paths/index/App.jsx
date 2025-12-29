@@ -247,7 +247,6 @@ const App = () => {
           <Link to={"/map"}>
             <button className='root'>Live Map</button>
           </Link>
-
           <Link to={"/atlas"}>
             <button className='root'>Atlas (Beta)</button>
           </Link>
