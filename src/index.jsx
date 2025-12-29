@@ -33,6 +33,8 @@ const PrivacyPolicy = React.lazy(() => import("./paths/index/privacy"));
 const AboutPage = React.lazy(() => import("./paths/index/about"));
 const VotePage = React.lazy(() => import("./paths/index/vote.jsx"));
 const ICookaDaMeatBall = React.lazy(() => import("./paths/index/meatball"));
+const AtlasIndex = React.lazy(() => import("./paths/atlas/index.jsx"));
+const AtlasAdd = React.lazy(() => import("./paths/atlas/add.jsx"));
 
 const router = createBrowserRouter([
   {
@@ -83,6 +85,16 @@ const router = createBrowserRouter([
   {
     path: "/stations/:stationCode",
     element: <StationPage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/atlas",
+    element: <AtlasIndex />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/atlas/add",
+    element: <AtlasAdd />,
     errorElement: <ErrorPage />,
   },
   {

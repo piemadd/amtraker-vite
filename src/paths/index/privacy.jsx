@@ -54,219 +54,69 @@ const PrivacyPolicy = () => {
         </div>
         <section className='section-trainPage'>
           <h1>Privacy Policy for Amtraker</h1>
-          <p>
-            At Amtraker, accessible from https://amtraker.com, one of our main
-            priorities is the privacy of our visitors. This Privacy Policy
-            document contains types of information that is collected and
-            recorded by Amtraker and how we use it.
-          </p>
-          <p>
-            If you have additional questions or require more information about
-            our Privacy Policy, do not hesitate to contact us.
-          </p>
-          <p>
-            This Privacy Policy applies only to our online activities and is
-            valid for visitors to our website with regards to the information
-            that they shared and/or collect in Amtraker. This policy is not
-            applicable to any information collected offline or via channels
-            other than this website. Our Privacy Policy was created with the
-            help of the{" "}
-            <a
-              style={{
-                color: "white",
-                textDecoration: "underline",
-              }}
-              href='https://www.privacypolicygenerator.info'
-            >
-              Free Privacy Policy Generator
-            </a>
-            .
-          </p>
-          <h2>Consent</h2>
-          <p>
-            By using our website, you hereby consent to our Privacy Policy and
-            agree to its terms.
-          </p>
-          <h2>Information we collect</h2>
-          <p>
-            The personal information that you are asked to provide, and the
-            reasons why you are asked to provide it, will be made clear to you
-            at the point we ask you to provide your personal information.
-          </p>
-          <p>
-            If you contact us directly, we may receive additional information
-            about you such as your name, email address, phone number, the
-            contents of the message and/or attachments you may send us, and any
-            other information you may choose to provide.
-          </p>
-          <h2>How we use your information</h2>
-          <p>
-            We use the information we collect in various ways, including to:
-          </p>
+          <p>This privacy policy applies to the Amtraker app and website (amtraker.com) (hereby referred to as "Application") that was created by Piero Maddaleni (hereby referred to as "Service Provider") as an Open Source service. This service is intended for use "AS IS".</p>
+          <br />
+          <h2>Information Collection and Use</h2>
+          <p>The Application collects information when you download and use it. This information may include information such as </p>
           <ul>
-            <li>Provide, operate, and maintain our website</li>
-            <li>Improve, personalize, and expand our website</li>
-            <li>Understand and analyze how you use our website</li>
-            <li>Develop new products, services, features, and functionality</li>
+            <li>Your device's Internet Protocol address (e.g. IP address)</li>
+            <li>The pages of the Application that you visit, the time and date of your visit, the time spent on those pages</li>
+            <li>The time spent on the Application</li>
+            <li>The operating system you use on your mobile device</li>
           </ul>
+          <br />
+          <p>The Service Provider may use the information you provided to contact you for account services, such as password resets, but will not use the data.</p>
+          <br />
+          <p>For a better experience, while using the Application, the Service Provider may require you to provide us with certain personally identifiable information, including but not limited to your first and last name, email address, and train trips. The information that the Service Provider request will be retained by them and used as described in this privacy policy.</p>
+          <br />
           <h2>Log Files</h2>
-          <p>
-            Amtraker follows a standard procedure of using log files. These
-            files log visitors when they visit websites. All hosting companies
-            do this and a part of hosting services' analytics. The information
-            collected by log files include internet protocol (IP) addresses,
-            browser type, Internet Service Provider (ISP), date and time stamp,
-            referring/exit pages, and possibly the number of clicks. These are
-            not linked to any information that is personally identifiable. The
-            purpose of the information is for analyzing trends, administering
-            the site, tracking users' movement on the website, and gathering
-            demographic information.
-          </p>
-          <h2>Cookies and Web Beacons</h2>
-          <p>
-            Like any other website, Amtraker uses 'cookies'. These cookies are
-            used to store information including visitors' preferences, and the
-            pages on the website that the visitor accessed or visited. The
-            information is used to optimize the users' experience by customizing
-            our web page content based on visitors' browser type and/or other
-            information.
-          </p>
-          <p>
-            For more general information on cookies, please read{" "}
-            <a
-              style={{
-                color: "white",
-                textDecoration: "underline",
-              }}
-              href='https://www.generateprivacypolicy.com/#cookies'
-            >
-              the Cookies article on Generate Privacy Policy website
-            </a>
-            .
-          </p>
-          <h2>Google DoubleClick DART Cookie</h2>
-          <p>
-            Google is one of a third-party vendor on our site. It also uses
-            cookies, known as DART cookies, to serve ads to our site visitors
-            based upon their visit to www.website.com and other sites on the
-            internet. However, visitors may choose to decline the use of DART
-            cookies by visiting the Google ad and content network Privacy Policy
-            at the following URL –{" "}
-            <a
-              style={{
-                color: "white",
-                textDecoration: "underline",
-              }}
-              href='https://policies.google.com/technologies/ads'
-            >
-              https://policies.google.com/technologies/ads
-            </a>
-          </p>
-          <h2>Advertising Partners Privacy Policies</h2>
-          <p>
-            You may consult this list to find the Privacy Policy for each of the
-            advertising partners of Amtraker.
-          </p>
-          <p>
-            Third-party ad servers or ad networks uses technologies like
-            cookies, JavaScript, or Web Beacons that are used in their
-            respective advertisements and links that appear on Amtraker, which
-            are sent directly to users' browser. They automatically receive your
-            IP address when this occurs. These technologies are used to measure
-            the effectiveness of their advertising campaigns and/or to
-            personalize the advertising content that you see on websites that
-            you visit.
-          </p>
-          <p>
-            Note that Amtraker has no access to or control over these cookies
-            that are used by third-party advertisers.
-          </p>
-          <h2>Third Party Privacy Policies</h2>
-          <p>
-            Amtraker's Privacy Policy does not apply to other advertisers or
-            websites. Thus, we are advising you to consult the respective
-            Privacy Policies of these third-party ad servers for more detailed
-            information. It may include their practices and instructions about
-            how to opt-out of certain options.{" "}
-          </p>
-          <p>
-            You can choose to disable cookies through your individual browser
-            options. To know more detailed information about cookie management
-            with specific web browsers, it can be found at the browsers'
-            respective websites.
-          </p>
-          <h2>CCPA Privacy Rights (Do Not Sell My Personal Information)</h2>
-          <p>
-            Under the CCPA, among other rights, California consumers have the
-            right to:
-          </p>
-          <p>
-            Request that a business that collects a consumer's personal data
-            disclose the categories and specific pieces of personal data that a
-            business has collected about consumers.
-          </p>
-          <p>
-            Request that a business delete any personal data about the consumer
-            that a business has collected.
-          </p>
-          <p>
-            Request that a business that sells a consumer's personal data, not
-            sell the consumer's personal data.
-          </p>
-          <p>
-            If you make a request, we have one month to respond to you. If you
-            would like to exercise any of these rights, please contact us.
-          </p>
-          <h2>GDPR Data Protection Rights</h2>
-          <p>
-            We would like to make sure you are fully aware of all of your data
-            protection rights. Every user is entitled to the following:
-          </p>
-          <p>
-            The right to access – You have the right to request copies of your
-            personal data. We may charge you a small fee for this service.
-          </p>
-          <p>
-            The right to rectification – You have the right to request that we
-            correct any information you believe is inaccurate. You also have the
-            right to request that we complete the information you believe is
-            incomplete.
-          </p>
-          <p>
-            The right to erasure – You have the right to request that we erase
-            your personal data, under certain conditions.
-          </p>
-          <p>
-            The right to restrict processing – You have the right to request
-            that we restrict the processing of your personal data, under certain
-            conditions.
-          </p>
-          <p>
-            The right to object to processing – You have the right to object to
-            our processing of your personal data, under certain conditions.
-          </p>
-          <p>
-            The right to data portability – You have the right to request that
-            we transfer the data that we have collected to another organization,
-            or directly to you, under certain conditions.
-          </p>
-          <p>
-            If you make a request, we have one month to respond to you. If you
-            would like to exercise any of these rights, please contact us.
-          </p>
-          <h2>Children's Information</h2>
-          <p>
-            Another part of our priority is adding protection for children while
-            using the internet. We encourage parents and guardians to observe,
-            participate in, and/or monitor and guide their online activity.
-          </p>
-          <p>
-            Amtraker does not knowingly collect any Personal Identifiable
-            Information from children under the age of 13. If you think that
-            your child provided this kind of information on our website, we
-            strongly encourage you to contact us immediately and we will do our
-            best efforts to promptly remove such information from our records.
-          </p>
+          <p>Amtraker follows a standard procedure of using log files. These files log visitors when they visit websites. All hosting companies do this and a part of hosting services' analytics. The information collected by log files include internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks. These are not linked to any information that is personally identifiable. The purpose of the information is for analyzing trends, administering the site, tracking users' movement on the website, and gathering demographic information.</p>
+          <br />
+          <h2>Geolocation</h2>
+          <p>Upon consenting to sharing your location, the application may collect your device's location to display on the map. This data does not leave your device.</p>
+          <br />
+          <h2>Third Party Access</h2>
+          <div>
+            <p>Please note that the Application utilizes third-party services that have their own Privacy Policy about handling data. Below are the links to the Privacy Policy of the third-party service providers used by the Application:</p>
+            <ul>
+              <li>
+                <a href="https://www.google.com/policies/privacy/" target="_blank" rel="noopener noreferrer">Google Play Services, Google Analytics</a>
+              </li>
+            </ul>
+          </div>
+          <br />
+          <p>The Service Provider may disclose User Provided and Automatically Collected Information:</p>
+          <ul>
+            <li>as required by law, such as to comply with a subpoena, or similar legal process;</li>
+            <li>when they believe in good faith that disclosure is necessary to protect their rights, protect your safety or the safety of others, investigate fraud, or respond to a government request;</li>
+            <li>with their trusted services providers who work on their behalf, do not have an independent use of the information we disclose to them, and have agreed to adhere to the rules set forth in this privacy statement.</li>
+          </ul>
+          <p></p>
+          <br />
+          <h2>Data Retention Policy</h2>
+          <p>The Service Provider will retain User Provided data for as long as you use the Application and for a reasonable time thereafter. If you'd like them to delete User Provided Data that you have provided via the Application, please contact them at contact@amtraker.com and they will respond in a reasonable time.</p>
+          <br />
+          <h2>Children</h2>
+          <p>The Service Provider does not use the Application to knowingly solicit data from or market to children under the age of 13.</p>
+          <div>
+            <br />
+            <p>The Application does not address anyone under the age of 13. The Service Provider does not knowingly collect personally identifiable information from children under 13 years of age. In the case the Service Provider discover that a child under 13 has provided personal information, the Service Provider will immediately delete this from their servers. If you are a parent or guardian and you are aware that your child has provided us with personal information, please contact the Service Provider (contact@amtraker.com) so that they will be able to take the necessary actions.</p>
+          </div>
+          <br />
+          <h2>Security</h2>
+          <p>The Service Provider is concerned about safeguarding the confidentiality of your information. The Service Provider provides physical, electronic, and procedural safeguards to protect information the Service Provider processes and maintains.</p>
+          <br />
+          <h2>Changes</h2>
+          <p>This Privacy Policy may be updated from time to time for any reason. The Service Provider will notify you of any changes to the Privacy Policy by updating this page with the new Privacy Policy. You are advised to consult this Privacy Policy regularly for any changes, as continued use is deemed approval of all changes.</p>
+          <br />
+          <p>This privacy policy is effective as of 2025-12-29</p>
+          <br />
+          <h2>Your Consent</h2>
+          <p>By using the Application, you are consenting to the processing of your information as set forth in this Privacy Policy now and as amended by us.</p>
+          <br />
+          <h2>Contact Us</h2>
+          <p>If you have any questions regarding privacy while using the Application, or have questions about the practices, please contact the Service Provider via email at contact@amtraker.com.</p>
+          <hr />
         </section>
       </div>
     </>
