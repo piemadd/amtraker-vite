@@ -41,6 +41,18 @@ const AtlasIndex = () => {
             >
               Back
             </h2>
+            <h2
+              onClick={() => {
+                const confirmationRes = confirm('Are you sure you want to log out?');
+                if (!confirmationRes) return;
+                pb.authStore.clear();
+                navigate(0);
+              }}
+              className='click'
+              style={{ paddingRight: '32px' }}
+            >
+              Log Out
+            </h2>
           </div>
           <section className='section-trainPage'>
             <AtlasNav currentRoute={'index'} />
@@ -97,7 +109,7 @@ const AtlasIndex = () => {
         </div>
         <section className='section-trainPage'>
           <h1>Atlas</h1>
-          <p>Amtraker Atlas allows you to track your Amtrak, Brightline, and VIA rail trips, similar to Flighty Passport with flights.</p>
+          <p>Amtraker Atlas allows you to track your Amtrak, Brightline, and VIA rail trips, similar to Flighty Passport with flights. Atlas is still in development, and more features will be added over time, but the basic functionality of adding and deleting trips is done. I wanted the basic functionality to be released before the new year. Enjoy, and please let me know (<a href="mailto:piero@piemadd.com">piero@piemadd.com</a>) if you have any issues or recommendations!</p>
           <button className='root' onClick={async () => {
             await pb.collection('users').authWithOAuth2({ provider: 'google' });
             setAuthUpdatedAt(Date.now());
