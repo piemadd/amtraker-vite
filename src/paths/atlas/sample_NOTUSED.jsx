@@ -37,7 +37,7 @@ const AtlasAdd = () => {
             </h2>
           </div>
           <section className='section-trainPage'>
-            <AtlasNav currentRoute={'index'}/>
+            <AtlasNav currentRoute={'index'} userData={pb.authStore.record}/>
             <div>
               Logged in!
             </div>

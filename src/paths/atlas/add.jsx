@@ -135,7 +135,7 @@ const AtlasAdd = () => {
             </h2>
           </div>
           <section className='section-trainPage'>
-            <AtlasNav currentRoute={'add'} />
+            <AtlasNav currentRoute={'add'} userData={pb.authStore.record}/>
             <label style={{ maxWidth: '300px' }}>Note: As of now, editing trips are not possible, so please ensure all information is correct. You can always delete a record and make a new one.</label>
             {loadingData ?
               <p>{loadingData}</p> :

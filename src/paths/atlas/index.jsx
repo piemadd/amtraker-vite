@@ -55,7 +55,7 @@ const AtlasIndex = () => {
             </h2>
           </div>
           <section className='section-trainPage'>
-            <AtlasNav currentRoute={'index'} />
+            <AtlasNav currentRoute={'index'} userData={pb.authStore.record}/>
             {tripsMeta && tripsMeta.totalItems > 0 ?
               <>
                 <label>Page Selection</label>

@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 import { hoursMinutesDaysDuration } from './common';
 
-const TripsList = ({ pb, numberOfRecords, pageNumber, setTripsMeta }) => {
+const TripsList = ({ pb, numberOfRecords, pageNumber, setTripsMeta, dontUseFilter }) => {
   if (!pb) return null;
   if (!numberOfRecords) numberOfRecords = 50;
   if (!pageNumber) pageNumber = 1;
+  if (!dontUseFilter) dontUseFilter = false;
 
   const [loadingTripsList, setLoadingTripsList] = useState(true);
   const [tripsList, setTripsList] = useState([]);
@@ -13,6 +14,8 @@ const TripsList = ({ pb, numberOfRecords, pageNumber, setTripsMeta }) => {
   useEffect(() => {
     pb.collection('trips').getList(pageNumber, numberOfRecords, {
       sort: '-departure_date',
+      filter: dontUseFilter ? null : `user_id = '${pb.authStore.model.id}'`, // hi if youre looking through this code and think i'm only filtering on the client: i am not
+      // go ahead and remove the filter, you'll still only get your own data. 
     }).then((resultList) => {
       setTripsMeta(resultList);
       setTripsList(resultList.items);
