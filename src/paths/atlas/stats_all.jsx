@@ -29,7 +29,7 @@ const AtlasStatsAll = () => {
     trip_count: 'Trips Count',
     user_count: 'Users Count',
     user_most_recent_time: 'Last User Creation',
-    trip_most_recent_time: 'Last User Creation',
+    trip_most_recent_time: 'Last Trip Creation',
   };
 
   const prettyStatValues = {

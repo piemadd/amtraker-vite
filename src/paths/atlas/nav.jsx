@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 const AtlasNav = ({ currentRoute = null, userData = null }) => {
   if (!currentRoute) currentRoute = 'index';
 
-  console.log(userData)
-
   return <>
     <h1>Atlas</h1>
     <label style={{ maxWidth: '500px' }}>Atlas is still early in development and more features will be added over time, please be patient. <b>If you notice any bugs or have any feature requests</b> please email me directly at <a href="mailto:piero@piemadd.com">piero@piemadd.com</a>.</label>
