@@ -28,6 +28,15 @@ const AtlasNav = ({ currentRoute = null, userData = null }) => {
       }
 
       {
+        currentRoute == 'stats_ind' ?
+          <button className='root currentlyClickedButton'>
+            Stats
+          </button> : <Link to={"/atlas/stats"} replace={true}>
+            <button className='root'>Stats</button>
+          </Link>
+      }
+
+      {
         userData.permissions_admin ? (
           currentRoute == 'stats_all' ?
             <button className='root currentlyClickedButton'>

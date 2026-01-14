@@ -55,6 +55,25 @@ table.atlas_tripsList>tbody>tr:nth-of-type(even) {
   background-color: #00000055;
 }
 
+.atlas-stats-ind-stat {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.atlas-stats-ind-stat>p {
+  text-align: center;
+}
+
+.atlas-stats-ind-stat>p>span {
+  display: block;
+  font-size: 16px;
+}
+
+.atlas-stats-ind-stat>hr {
+  border-style: 1px solid #acacac;
+}
+
 .gayTitle {
   background: #ffffff;
 

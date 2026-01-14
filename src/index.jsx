@@ -36,6 +36,7 @@ const ICookaDaMeatBall = React.lazy(() => import("./paths/index/meatball"));
 const AtlasIndex = React.lazy(() => import("./paths/atlas/index.jsx"));
 const AtlasAdd = React.lazy(() => import("./paths/atlas/add.jsx"));
 const AtlasStatsAll = React.lazy(() => import("./paths/atlas/stats_all.jsx"));
+const AtlasStatsInd = React.lazy(() => import("./paths/atlas/stats_ind.jsx"));
 
 const router = createBrowserRouter([
   {
@@ -96,6 +97,11 @@ const router = createBrowserRouter([
   {
     path: "/atlas/add",
     element: <AtlasAdd />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/atlas/stats",
+    element: <AtlasStatsInd />,
     errorElement: <ErrorPage />,
   },
   {
