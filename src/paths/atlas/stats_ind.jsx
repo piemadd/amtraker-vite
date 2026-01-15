@@ -11,26 +11,24 @@ const AtlasStatsInd = () => {
 
   const [bgURL, setBGURL] = useState("/content/images/amtraker-back.webp");
   const [bgClass, setBGClass] = useState("bg-focus-in");
-  const [atlasStats, setAtlatsStats] = useState({});
   const [userSummary, setUserSummary] = useState({
     total_length: 0,
     total_length_curr_year: 0,
     total_time: 0,
     total_time_curr_year: 0,
     trip_count: 0,
-    trip_count_curr_year: 0
+    trip_count_curr_year: 0,
+    top_station: '',
+    top_station_curr_year: '',
   });
+
+  console.log(userSummary)
 
   useEffect(() => {
     // top users
     pb.collection('user_summary')
       .getOne(pb.authStore.record.id)
       .then((data) => setUserSummary(data));
-
-    // stats
-    pb.collection('atlas_stats')
-      .getFirstListItem()
-      .then((data) => setAtlatsStats(data));
   }, []);
 
   if (pb.authStore.isValid) {
@@ -88,6 +86,11 @@ const AtlasStatsInd = () => {
                 {hoursMinutesDaysDuration(userSummary.total_time_curr_year)}
                 <span>Time Spent</span>
               </p>
+              <hr />
+              <p>
+                {userSummary.top_station_curr_year ?? 'N/A'}
+                <span>Top Station</span>
+              </p>
             </div>
             <h2>Overall</h2>
             <div className="atlas-stats-ind-stat">
@@ -104,6 +107,11 @@ const AtlasStatsInd = () => {
               <p>
                 {hoursMinutesDaysDuration(userSummary.total_time)}
                 <span>Time Spent</span>
+              </p>
+              <hr />
+              <p>
+                {userSummary.top_station ?? 'N/A'}
+                <span>Top Station</span>
               </p>
             </div>
           </section>
