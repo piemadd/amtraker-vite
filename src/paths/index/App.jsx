@@ -183,12 +183,10 @@ const App = () => {
       >⟳</button>
       <main>
         {/*<h2 className='welcome-to'>Welcome to</h2>*/}
-        {/*}
         <div className="titleArea">
           <h1 className='gayTitle'>Amtraker</h1>
-        <p className="slogan">Happy holidays!</p>
+        {/*}<p className="slogan">Happy holidays!</p>*/}
         </div>
-        */}
         <section id='section-saved' className="section-border">
           {isStale ? (
             <div className='stale'>
