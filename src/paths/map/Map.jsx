@@ -601,6 +601,8 @@ const AmtrakerMap = () => {
             '<a href="http://feed.gobrightline.com/" target="_blank">© Brightline</a>',
             '<a href="https://www.viarail.ca/en/developer-resources" target="_blank">© VIA Rail</a>',
             '<a href="https://developer.njtransit.com/terms/" target="_blank">© NJT</a>',
+            '<a href="https://metrolinktrains.com/about/gtfs/gtfs-rt-access/" target="_blank">© LA Metrolink</a>',
+            '<a href="https://moynihantrainhall.nyc/" target="_blank">© NY Moynihan</a>',
           ].join(' | '),
         }));
 
