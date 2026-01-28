@@ -4,8 +4,21 @@ const AtlasNav = ({ currentRoute = null, userData = null }) => {
   if (!currentRoute) currentRoute = 'index';
 
   return <>
-    <h1>Atlas</h1>
-    <label style={{ maxWidth: '500px' }}>Atlas is still early in development and more features will be added over time, please be patient. <b>If you notice any bugs or have any feature requests</b> please email me directly at <a href="mailto:piero@piemadd.com">piero@piemadd.com</a>.</label>
+    <h1>Amtraker Atlas</h1>
+    <details style={{
+      maxWidth: '500px',
+      marginBottom: '2px',
+    }}>
+      <summary style={{
+        fontSize: '16px',
+        marginBottom: '2px',
+
+      }}>
+        Beta Note
+      </summary>
+      <label>Atlas is still early in development and more features will be added over time, please be patient. <b>If you notice any bugs or have any feature requests</b> please email me directly at <a href="mailto:piero@piemadd.com">piero@piemadd.com</a>.</label>
+    </details>
+
     <div className='links' style={{
       marginBottom: '8px'
     }}>
