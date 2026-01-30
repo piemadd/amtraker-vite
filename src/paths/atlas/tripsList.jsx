@@ -14,7 +14,7 @@ const TripsList = ({ pb, numberOfRecords, pageNumber, setTripsMeta, dontUseFilte
   useEffect(() => {
     pb.collection('trips').getList(pageNumber, numberOfRecords, {
       sort: '-departure_date',
-      filter: dontUseFilter ? null : `user_id = '${pb.authStore.model.id}'`, // hi if youre looking through this code and think i'm only filtering on the client: i am not
+      filter: dontUseFilter ? null : `user_id = '${pb.authStore.record.id}'`, // hi if youre looking through this code and think i'm only filtering on the client: i am not
       // go ahead and remove the filter, you'll still only get your own data. 
     }).then((resultList) => {
       setTripsMeta(resultList);

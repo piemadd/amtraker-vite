@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import PocketBase from 'pocketbase';
 import AtlasNav from "./nav";
 import { hoursMinutesDaysDuration } from './common';
+import { Bar } from 'react-chartjs-2';
+import 'chart.js/auto';
 
 const pb = new PocketBase('https://pb.amtraker.com');
 
@@ -21,14 +23,70 @@ const AtlasStatsInd = () => {
     top_station: '',
     top_station_curr_year: '',
   });
-
-  console.log(userSummary)
+  const [lastTwelveMonths, setLastTwelveMonths] = useState([]);
 
   useEffect(() => {
-    // top users
+    // user summary
     pb.collection('user_summary')
       .getOne(pb.authStore.record.id)
       .then((data) => setUserSummary(data));
+
+    pb.collection('user_trips_monthly')
+      .getFullList({
+        sort: '-year_month',
+        filter: `user_id = '${pb.authStore.record.id}'`
+      })
+      .then((data) => {
+        const dateToYYYYMM = (date) => {
+          const yearFull = date.getUTCFullYear();
+          const monthFull = (date.getUTCMonth() + 1).toString().padStart(2, '0');
+          return `${yearFull}-${monthFull}`;
+        };
+
+        const now = new Date();
+        const currentMonthDate = new Date(dateToYYYYMM(now));
+
+        let lastTwelveMonthStrings = [];
+
+        while (lastTwelveMonthStrings.length < 12) {
+          lastTwelveMonthStrings.push(dateToYYYYMM(currentMonthDate));
+          currentMonthDate.setMonth(currentMonthDate.getMonth() - 1);
+        }
+
+        // reversing to be chronological
+        lastTwelveMonthStrings.reverse();
+
+        // building a dictionary of actual data
+        let dbDataDict = {};
+        data.forEach((data) => {
+          dbDataDict[data.year_month] = {
+            count: data.count_per_month_user,
+            sum_length: data.sum_length_per_month_user,
+            sum_time: data.sum_time_per_month_user,
+          }
+        });
+
+        let finalDataForChart = [];
+
+        lastTwelveMonthStrings.forEach((monthString) => {
+          const dbData = dbDataDict[monthString] || {
+            count: 0,
+            sum_length: 0,
+            sum_time: 0,
+          };
+
+          finalDataForChart.push({
+            label: new Intl.DateTimeFormat("en-US", {
+              year: "numeric",
+              month: "short",
+              timeZone: "UTC",
+            }).format(new Date(monthString)),
+            ...dbData,
+          })
+        });
+
+        setLastTwelveMonths(finalDataForChart);
+      });
   }, []);
 
   if (pb.authStore.isValid) {
@@ -70,7 +128,9 @@ const AtlasStatsInd = () => {
           </div>
           <section className='section-trainPage'>
             <AtlasNav currentRoute={'stats_ind'} userData={pb.authStore.record} />
-            <h2>This Year</h2>
+            <h2 style={{
+              marginTop: -10
+            }}>This Year</h2>
             <div className="atlas-stats-ind-stat">
               <p>
                 {userSummary.trip_count_curr_year}
@@ -92,7 +152,9 @@ const AtlasStatsInd = () => {
                 <span>Top Station</span>
               </p>
             </div>
-            <h2>Overall</h2>
+            <h2 style={{
+              marginTop: -2
+            }}>Overall</h2>
             <div className="atlas-stats-ind-stat">
               <p>
                 {userSummary.trip_count}
@@ -113,6 +175,87 @@ const AtlasStatsInd = () => {
                 {userSummary.top_station ?? 'N/A'}
                 <span>Top Station</span>
               </p>
+            </div>
+            <h2 style={{
+              marginTop: -2,
+              marginBottom: 4,
+            }}>Charts</h2>
+            <div style={{
+              margin: '-8px -8px',
+              padding: '8px 8px',
+              width: '100%',
+              background: '#111d',
+            }}>
+              <h4 style={{
+                marginTop: -4,
+                marginBottom: 4,
+              }}>Monthly Trips</h4>
+              <Bar
+                options={{
+                  plugins: {
+                    legend: false,
+                  }
+                }}
+                data={{
+                  labels: lastTwelveMonths.map((month) => month.label),
+                  datasets: [{
+                    data: lastTwelveMonths.map((month) => month.count),
+                    borderWidth: 1
+                  }]
+                }}
+              />
+            </div>
+            <div style={{
+              margin: '-8px -8px',
+              marginTop: 12,
+              padding: '8px 8px',
+              width: '100%',
+              background: '#111d',
+            }}>
+              <h4 style={{
+                marginTop: -4,
+                marginBottom: 4,
+              }}>Monthly Miles</h4>
+              <Bar
+                options={{
+                  plugins: {
+                    legend: false,
+                  }
+                }}
+                data={{
+                  labels: lastTwelveMonths.map((month) => month.label),
+                  datasets: [{
+                    data: lastTwelveMonths.map((month) => month.sum_length),
+                    borderWidth: 1
+                  }]
+                }}
+              />
+            </div>
+            <div style={{
+              margin: '-8px -8px',
+              marginTop: 12,
+              padding: '8px 8px',
+              width: '100%',
+              background: '#111d',
+            }}>
+              <h4 style={{
+                marginTop: -4,
+                marginBottom: 4,
+              }}>Monthly Minutes</h4>
+              <Bar
+                options={{
+                  plugins: {
+                    legend: false,
+                  }
+                }}
+                data={{
+                  labels: lastTwelveMonths.map((month) => month.label),
+                  datasets: [{
+                    data: lastTwelveMonths.map((month) => month.sum_time),
+                    borderWidth: 1
+                  }]
+                }}
+              />
             </div>
           </section>
         </div>

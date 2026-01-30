@@ -33,7 +33,7 @@ const AtlasStatsAll = () => {
   };
 
   const prettyStatValues = {
-    total_length: (v) => v + 'mi',
+    total_length: (v) => Intl.NumberFormat().format(v) + 'mi',
     total_time: (v) => hoursMinutesDaysDuration(v),
     user_most_recent_time: (v) => new Date(v).toLocaleString(),
     trip_most_recent_time: (v) => new Date(v).toLocaleString(),
