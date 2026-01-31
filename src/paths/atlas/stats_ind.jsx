@@ -184,6 +184,7 @@ const AtlasStatsInd = () => {
               margin: '-8px -8px',
               padding: '8px 8px',
               width: '100%',
+              maxWidth: '600px',
               background: '#111d',
             }}>
               <h4 style={{
@@ -210,6 +211,7 @@ const AtlasStatsInd = () => {
               marginTop: 12,
               padding: '8px 8px',
               width: '100%',
+              maxWidth: '600px',
               background: '#111d',
             }}>
               <h4 style={{
@@ -236,6 +238,7 @@ const AtlasStatsInd = () => {
               marginTop: 12,
               padding: '8px 8px',
               width: '100%',
+              maxWidth: '600px',
               background: '#111d',
             }}>
               <h4 style={{
