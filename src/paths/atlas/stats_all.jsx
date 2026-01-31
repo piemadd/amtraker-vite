@@ -17,6 +17,7 @@ const AtlasStatsAll = () => {
   const [topUsers, setTopUsers] = useState([]);
   const [dailyCreations, setDailyCreations] = useState([]);
   const [dailyDepartures, setDailyDepartures] = useState([]);
+  const [dailyUserCreations, setDailyUserCreations] = useState([]);
 
   const statKeysInOrder = [
     'trip_count',
@@ -43,6 +44,44 @@ const AtlasStatsAll = () => {
     trip_most_recent_time: (v) => new Date(v).toLocaleString(),
   };
 
+  const processGraphData = (data) => {
+    let db_dict = {};
+    let finalData = [];
+
+    data.forEach((date) => {
+      db_dict[date.date] = date;
+    })
+
+    const beginningDate = new Date(data[0].date);
+    const endingDate = new Date(data[data.length - 1].date);
+
+    let currentCount = 0;
+    let currentSumLength = 0;
+    let currentSumTime = 0;
+
+    for (
+      let currentDate = new Date(beginningDate);
+      currentDate.valueOf() <= endingDate.valueOf();
+      currentDate.setUTCDate(currentDate.getUTCDate() + 1)
+    ) {
+      const currentDateAsString = dateToYYYYMMDD(currentDate);
+      const currentData = db_dict[currentDateAsString] ?? {
+        count: 0,
+        sum_length: 0,
+        sum_time: 0,
+      };
+
+      finalData.push({
+        label: currentDateAsString,
+        count: currentCount += (currentData.count ?? 0),
+        sum_length: currentSumLength += (currentData.sum_length ?? 0),
+        sum_time: currentSumTime += (currentData.sum_time ?? 0),
+      });
+    };
+
+    return finalData;
+  };
+
   useEffect(() => {
     // top users
     pb.collection('user_summary')
@@ -62,42 +101,7 @@ const AtlasStatsAll = () => {
         sort: '+date',
       })
       .then((data) => {
-        let atlas_stats_creations_dict = {};
-        let finalDailyCreations = [];
-
-        data.forEach((date) => {
-          console.log(date)
-          atlas_stats_creations_dict[date.date] = date;
-        })
-
-        const beginningDate = new Date(data[0].date);
-        const endingDate = new Date(data[data.length - 1].date);
-
-        let currentCount = 0;
-        let currentSumLength = 0;
-        let currentSumTime = 0;
-
-        for (
-          let currentDate = new Date(beginningDate);
-          currentDate.valueOf() <= endingDate.valueOf();
-          currentDate.setUTCDate(currentDate.getUTCDate() + 1)
-        ) {
-          const currentDateAsString = dateToYYYYMMDD(currentDate);
-          const currentData = atlas_stats_creations_dict[currentDateAsString] ?? {
-            count_per_month: 0,
-            sum_length_per_month: 0,
-            sum_time_per_month: 0,
-          };
-
-          finalDailyCreations.push({
-            label: currentDateAsString,
-            count: currentCount += currentData.count_per_month,
-            sum_length: currentSumLength += currentData.sum_length_per_month,
-            sum_time: currentSumTime += currentData.sum_time_per_month,
-          });
-        };
-
-        setDailyCreations(finalDailyCreations);
+        setDailyCreations(processGraphData(data));
       });
 
     // daily departures
@@ -106,43 +110,18 @@ const AtlasStatsAll = () => {
         sort: '+date',
       })
       .then((data) => {
-        let atlas_stats_departures_dict = {};
-        let finalDailyDepartures = [];
-
-        data.forEach((date) => {
-          console.log(date)
-          atlas_stats_departures_dict[date.date] = date;
-        })
-
-        const beginningDate = new Date(data[0].date);
-        const endingDate = new Date(data[data.length - 1].date);
-
-        let currentCount = 0;
-        let currentSumLength = 0;
-        let currentSumTime = 0;
-
-        for (
-          let currentDate = new Date(beginningDate);
-          currentDate.valueOf() <= endingDate.valueOf();
-          currentDate.setUTCDate(currentDate.getUTCDate() + 1)
-        ) {
-          const currentDateAsString = dateToYYYYMMDD(currentDate);
-          const currentData = atlas_stats_departures_dict[currentDateAsString] ?? {
-            count_per_month: 0,
-            sum_length_per_month: 0,
-            sum_time_per_month: 0,
-          };
-
-          finalDailyDepartures.push({
-            label: currentDateAsString,
-            count: currentCount += currentData.count_per_month,
-            sum_length: currentSumLength += currentData.sum_length_per_month,
-            sum_time: currentSumTime += currentData.sum_time_per_month,
-          });
-        };
-
-        setDailyDepartures(finalDailyDepartures);
+        setDailyDepartures(processGraphData(data));
       });
+
+    // daily user creation
+    pb.collection('user_created_summary')
+    .getFullList({
+        sort: '+date',
+      })
+      .then((data) => {
+        setDailyUserCreations(processGraphData(data));
+      });
+
   }, []);
 
   if (pb.authStore.isValid) {
@@ -227,169 +206,232 @@ const AtlasStatsAll = () => {
             </table>
             <h2 style={{
               marginTop: -2,
-              marginBottom: 4,
             }}>Charts</h2>
-            <div style={{
-              margin: '-8px -8px',
-              padding: '8px 8px',
+            <details style={{
               width: '100%',
               maxWidth: '600px',
-              background: '#111d',
+              marginTop: '-8px',
             }}>
-              <h4 style={{
-                marginTop: -4,
-                marginBottom: 4,
-              }}>Daily Trips Created</h4>
-              <Line
-                options={{
-                  plugins: {
-                    legend: false,
-                  }
-                }}
-                data={{
-                  labels: dailyCreations.map((month) => month.label),
-                  datasets: [{
-                    data: dailyCreations.map((month) => month.count),
-                    borderWidth: 1
-                  }]
-                }}
-              />
-            </div>
-            <div style={{
-              margin: '-8px -8px',
-              marginTop: 12,
-              padding: '8px 8px',
+              <summary style={{
+                fontSize: '20px',
+                marginBottom: '-12px',
+              }}>
+                Trips Recorded
+              </summary>
+              <div style={{
+                margin: '-8px -8px',
+                marginTop: 12,
+                padding: '8px 8px',
+                width: '100%',
+                maxWidth: '600px',
+                background: '#111d',
+              }}>
+                <h4 style={{
+                  marginTop: -4,
+                  marginBottom: 4,
+                }}>Daily Trips Created</h4>
+                <Line
+                  options={{
+                    plugins: {
+                      legend: false,
+                    }
+                  }}
+                  data={{
+                    labels: dailyCreations.map((month) => month.label),
+                    datasets: [{
+                      data: dailyCreations.map((month) => month.count),
+                      borderWidth: 1
+                    }]
+                  }}
+                />
+              </div>
+              <div style={{
+                margin: '-8px -8px',
+                marginTop: 12,
+                padding: '8px 8px',
+                width: '100%',
+                maxWidth: '600px',
+                background: '#111d',
+              }}>
+                <h4 style={{
+                  marginTop: -4,
+                  marginBottom: 4,
+                }}>Daily Miles Recorded</h4>
+                <Line
+                  options={{
+                    plugins: {
+                      legend: false,
+                    }
+                  }}
+                  data={{
+                    labels: dailyCreations.map((month) => month.label),
+                    datasets: [{
+                      data: dailyCreations.map((month) => month.sum_length),
+                      borderWidth: 1
+                    }]
+                  }}
+                />
+              </div>
+              <div style={{
+                margin: '-8px -8px',
+                marginTop: 12,
+                padding: '8px 8px',
+                width: '100%',
+                maxWidth: '600px',
+                background: '#111d',
+              }}>
+                <h4 style={{
+                  marginTop: -4,
+                  marginBottom: 4,
+                }}>Daily Minutes Recorded</h4>
+                <Line
+                  options={{
+                    plugins: {
+                      legend: false,
+                    }
+                  }}
+                  data={{
+                    labels: dailyCreations.map((month) => month.label),
+                    datasets: [{
+                      data: dailyCreations.map((month) => month.sum_time),
+                      borderWidth: 1
+                    }]
+                  }}
+                />
+              </div>
+            </details>
+            <details style={{
               width: '100%',
               maxWidth: '600px',
-              background: '#111d',
+              marginTop: '8px',
             }}>
-              <h4 style={{
-                marginTop: -4,
-                marginBottom: 4,
-              }}>Daily Trips Ridden</h4>
-              <Line
-                options={{
-                  plugins: {
-                    legend: false,
-                  }
-                }}
-                data={{
-                  labels: dailyDepartures.map((month) => month.label),
-                  datasets: [{
-                    data: dailyDepartures.map((month) => month.count),
-                    borderWidth: 1
-                  }]
-                }}
-              />
-            </div>
-            <div style={{
-              margin: '-8px -8px',
-              marginTop: 12,
-              padding: '8px 8px',
+              <summary style={{
+                fontSize: '20px',
+                marginBottom: '-12px',
+              }}>
+                Trips Ridden
+              </summary>
+              <div style={{
+                margin: '-8px -8px',
+                marginTop: 12,
+                padding: '8px 8px',
+                width: '100%',
+                maxWidth: '600px',
+                background: '#111d',
+              }}>
+                <h4 style={{
+                  marginTop: -4,
+                  marginBottom: 4,
+                }}>Daily Trips Ridden</h4>
+                <Line
+                  options={{
+                    plugins: {
+                      legend: false,
+                    }
+                  }}
+                  data={{
+                    labels: dailyDepartures.map((month) => month.label),
+                    datasets: [{
+                      data: dailyDepartures.map((month) => month.count),
+                      borderWidth: 1
+                    }]
+                  }}
+                />
+              </div>
+              <div style={{
+                margin: '-8px -8px',
+                marginTop: 12,
+                padding: '8px 8px',
+                width: '100%',
+                maxWidth: '600px',
+                background: '#111d',
+              }}>
+                <h4 style={{
+                  marginTop: -4,
+                  marginBottom: 4,
+                }}>Daily Miles Ridden</h4>
+                <Line
+                  options={{
+                    plugins: {
+                      legend: false,
+                    }
+                  }}
+                  data={{
+                    labels: dailyDepartures.map((month) => month.label),
+                    datasets: [{
+                      data: dailyDepartures.map((month) => month.sum_length),
+                      borderWidth: 1
+                    }]
+                  }}
+                />
+              </div>
+              <div style={{
+                margin: '-8px -8px',
+                marginTop: 12,
+                padding: '8px 8px',
+                width: '100%',
+                maxWidth: '600px',
+                background: '#111d',
+              }}>
+                <h4 style={{
+                  marginTop: -4,
+                  marginBottom: 4,
+                }}>Daily Minutes Ridden</h4>
+                <Line
+                  options={{
+                    plugins: {
+                      legend: false,
+                    }
+                  }}
+                  data={{
+                    labels: dailyDepartures.map((month) => month.label),
+                    datasets: [{
+                      data: dailyDepartures.map((month) => month.sum_time),
+                      borderWidth: 1
+                    }]
+                  }}
+                />
+              </div>
+            </details>
+            <details style={{
               width: '100%',
               maxWidth: '600px',
-              background: '#111d',
+              marginTop: '8px',
             }}>
-              <h4 style={{
-                marginTop: -4,
-                marginBottom: 4,
-              }}>Daily Miles Recorded</h4>
-              <Line
-                options={{
-                  plugins: {
-                    legend: false,
-                  }
-                }}
-                data={{
-                  labels: dailyCreations.map((month) => month.label),
-                  datasets: [{
-                    data: dailyCreations.map((month) => month.sum_length),
-                    borderWidth: 1
-                  }]
-                }}
-              />
-            </div>
-            <div style={{
-              margin: '-8px -8px',
-              marginTop: 12,
-              padding: '8px 8px',
-              width: '100%',
-              maxWidth: '600px',
-              background: '#111d',
-            }}>
-              <h4 style={{
-                marginTop: -4,
-                marginBottom: 4,
-              }}>Daily Miles Ridden</h4>
-              <Line
-                options={{
-                  plugins: {
-                    legend: false,
-                  }
-                }}
-                data={{
-                  labels: dailyDepartures.map((month) => month.label),
-                  datasets: [{
-                    data: dailyDepartures.map((month) => month.sum_length),
-                    borderWidth: 1
-                  }]
-                }}
-              />
-            </div>
-            <div style={{
-              margin: '-8px -8px',
-              marginTop: 12,
-              padding: '8px 8px',
-              width: '100%',
-              maxWidth: '600px',
-              background: '#111d',
-            }}>
-              <h4 style={{
-                marginTop: -4,
-                marginBottom: 4,
-              }}>Daily Minutes Recorded</h4>
-              <Line
-                options={{
-                  plugins: {
-                    legend: false,
-                  }
-                }}
-                data={{
-                  labels: dailyCreations.map((month) => month.label),
-                  datasets: [{
-                    data: dailyCreations.map((month) => month.sum_time),
-                    borderWidth: 1
-                  }]
-                }}
-              />
-            </div>
-            <div style={{
-              margin: '-8px -8px',
-              marginTop: 12,
-              padding: '8px 8px',
-              width: '100%',
-              maxWidth: '600px',
-              background: '#111d',
-            }}>
-              <h4 style={{
-                marginTop: -4,
-                marginBottom: 4,
-              }}>Daily Minutes Ridden</h4>
-              <Line
-                options={{
-                  plugins: {
-                    legend: false,
-                  }
-                }}
-                data={{
-                  labels: dailyDepartures.map((month) => month.label),
-                  datasets: [{
-                    data: dailyDepartures.map((month) => month.sum_time),
-                    borderWidth: 1
-                  }]
-                }}
-              />
-            </div>
+              <summary style={{
+                fontSize: '20px',
+                marginBottom: '-12px',
+              }}>
+                Users Created
+              </summary>
+              <div style={{
+                margin: '-8px -8px',
+                marginTop: 12,
+                padding: '8px 8px',
+                width: '100%',
+                maxWidth: '600px',
+                background: '#111d',
+              }}>
+                <h4 style={{
+                  marginTop: -4,
+                  marginBottom: 4,
+                }}>Daily Account Creation</h4>
+                <Line
+                  options={{
+                    plugins: {
+                      legend: false,
+                    }
+                  }}
+                  data={{
+                    labels: dailyUserCreations.map((month) => month.label),
+                    datasets: [{
+                      data: dailyUserCreations.map((month) => month.count),
+                      borderWidth: 1
+                    }]
+                  }}
+                />
+              </div>
+            </details>
           </section>
         </div>
       </>

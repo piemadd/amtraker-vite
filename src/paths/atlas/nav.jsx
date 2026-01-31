@@ -14,7 +14,6 @@ const AtlasNav = ({ currentRoute = null, userData = null }) => {
       <summary style={{
         fontSize: '16px',
         marginBottom: '2px',
-
       }}>
         Beta Note
       </summary>
