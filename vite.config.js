@@ -8,13 +8,21 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
+      injectRegister: 'auto',
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,mvt,json}']
+      },
+      includeAssets: [
+        "**/*",
+      ],
+      devOptions: {
+        navigateFallback: 'index.html'
       },
       injectManifest: true,
       manifest: {
         "short_name": "Amtraker",
         "name": "Amtraker | Amtrak Tracker",
+        "id": "com.amtraker.piero",
         "description": "Amtraker is a free, open source, and easy to use Train Tracker for Amtrak, Brightline, and VIA Rail!",
         "lang": "en",
         "categories": [
