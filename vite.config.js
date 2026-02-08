@@ -41,56 +41,56 @@ export default defineConfig({
         "screenshots": [
           {
             "src": "content/screenshots/tablet/home.png",
-            "sizes": "1068x733",
+            "sizes": "2160x1620",
             "type": "image/png",
             "platform": "wide",
             "label": "Homescreen of Amtraker"
           },
           {
             "src": "content/screenshots/tablet/map.png",
-            "sizes": "1068x733",
+            "sizes": "2160x1620",
             "type": "image/png",
             "platform": "wide",
             "label": "Amtraker Map"
           },
           {
             "src": "content/screenshots/tablet/train-list.png",
-            "sizes": "1068x733",
+            "sizes": "2160x1620",
             "type": "image/png",
             "platform": "wide",
             "label": "List of Trains"
           },
           {
             "src": "content/screenshots/tablet/train.png",
-            "sizes": "1068x733",
+            "sizes": "2160x1620",
             "type": "image/png",
             "platform": "wide",
             "label": "Individual Train Page"
           },
           {
             "src": "content/screenshots/mobile/home.png",
-            "sizes": "384x733",
+            "sizes": "1125x2436",
             "type": "image/png",
             "platform": "narrow",
             "label": "Homescreen of Amtraker"
           },
           {
             "src": "content/screenshots/mobile/map.png",
-            "sizes": "384x733",
+            "sizes": "1125x2436",
             "type": "image/png",
             "platform": "narrow",
             "label": "Amtraker Map"
           },
           {
             "src": "content/screenshots/mobile/train-list.png",
-            "sizes": "384x733",
+            "sizes": "1125x2436",
             "type": "image/png",
             "platform": "narrow",
             "label": "List of Trains"
           },
           {
             "src": "content/screenshots/mobile/train.png",
-            "sizes": "384x733",
+            "sizes": "1125x2436",
             "type": "image/png",
             "platform": "narrow",
             "label": "Individual Train Page"
