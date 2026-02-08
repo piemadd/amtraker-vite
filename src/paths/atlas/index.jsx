@@ -14,6 +14,8 @@ const AtlasIndex = () => {
   const [authUpdatedAt, setAuthUpdatedAt] = useState(0);
   const [tripsMeta, setTripsMeta] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
+  const [currentUsername, setCurrentUsername] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
 
   console.log(authUpdatedAt)
 
@@ -55,7 +57,7 @@ const AtlasIndex = () => {
             </h2>
           </div>
           <section className='section-trainPage'>
-            <AtlasNav currentRoute={'index'} userData={pb.authStore.record}/>
+            <AtlasNav currentRoute={'index'} userData={pb.authStore.record} />
             {tripsMeta && tripsMeta.totalItems > 0 ?
               <>
                 <label>Page Selection</label>
@@ -114,6 +116,30 @@ const AtlasIndex = () => {
             await pb.collection('users').authWithOAuth2({ provider: 'google' });
             setAuthUpdatedAt(Date.now());
           }}>Login With Google</button>
+          <p>===== or =====</p>
+          <label htmlFor="atlas-login_email">Email</label>
+          <input
+            name="login_email"
+            id="atlas-login_email"
+            onChange={e => setCurrentUsername(e.target.value)}
+            value={currentUsername}
+            type="email"
+          />
+          <label htmlFor="atlas-login_password">Password</label>
+          <input
+            name="login_password"
+            id="atlas-login_password"
+            onChange={e => setCurrentPassword(e.target.value)}
+            type='password'
+            value={currentPassword}
+          />
+          <button className='root' onClick={async () => {
+            await pb.collection('users').authWithPassword(
+              currentUsername,
+              currentPassword,
+            );
+            setAuthUpdatedAt(Date.now());
+          }}>Login With User/Pass</button>
         </section>
       </div>
     </>
