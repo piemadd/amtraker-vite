@@ -54,7 +54,7 @@ const ManualTrainPopup = ({ train, showLink = true, idLink = false}) => {
         <a
         href={!idLink ? `#redirect_to:/trains/${train.trainID.split("-").join("/")}` : `#${train.trainID}`}
         onClick={((e) => {
-          e.preventDefault();
+          //e.preventDefault();
         })}
         >{!idLink ? 'View More' : 'Scroll to Train'}</a>
       </div>
