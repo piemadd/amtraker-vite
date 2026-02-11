@@ -246,7 +246,7 @@ const App = () => {
             <button className='root'>Live Map</button>
           </Link>
           <Link to={"/atlas"}>
-            <button className='root'>Atlas (Beta)</button>
+            <button className='root'>Atlas</button>
           </Link>
         </div>
 
@@ -270,7 +270,7 @@ const App = () => {
           </Link>
         </section>
         <section className='amtrakerVersion section-border'>
-          <p>Amtraker v3.16.9</p>
+          <p>Amtraker v3.17.0</p>
           <p>&copy; <a href="https://piemadd.com" target="_blank">Piero Maddaleni</a> 2026</p>
         </section>
       </main>

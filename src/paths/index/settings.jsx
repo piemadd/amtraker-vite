@@ -86,6 +86,7 @@ const Settings = () => {
             {/* disabled due to high lag and glitching at higher zoom levels from building extrusions */}
           </select>
 
+            {/*
           <h2>Theme</h2>
           <p>
             Amtraker currently only has dark theme, light theme will be added at
@@ -102,6 +103,7 @@ const Settings = () => {
               Light
             </option>
           </select>
+          */}
 
           <h2>More?</h2>
           <p>

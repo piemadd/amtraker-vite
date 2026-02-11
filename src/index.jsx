@@ -37,6 +37,7 @@ const AtlasIndex = React.lazy(() => import("./paths/atlas/index.jsx"));
 const AtlasAdd = React.lazy(() => import("./paths/atlas/add.jsx"));
 const AtlasStatsAll = React.lazy(() => import("./paths/atlas/stats_all.jsx"));
 const AtlasStatsInd = React.lazy(() => import("./paths/atlas/stats_ind.jsx"));
+const AtlasDeleteAccount = React.lazy(() => import("./paths/atlas/delete_account.jsx"));
 
 const router = createBrowserRouter([
   {
@@ -92,6 +93,11 @@ const router = createBrowserRouter([
   {
     path: "/atlas",
     element: <AtlasIndex />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/atlas/delete",
+    element: <AtlasDeleteAccount />,
     errorElement: <ErrorPage />,
   },
   {
