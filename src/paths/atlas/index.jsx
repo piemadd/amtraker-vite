@@ -194,7 +194,7 @@ const AtlasIndex = () => {
             onClick={async () => {
               await pb
                 .collection("users")
-                .authWithOAuth2({ provider: "google" });
+                .authWithOAuth2({ provider: "apple" });
               setAuthUpdatedAt(Date.now());
             }}
           >
