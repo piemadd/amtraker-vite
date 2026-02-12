@@ -60,6 +60,11 @@ a:last-of-type > .joinedLink {
   border: 1px solid #777;
 }
 
+div.atlas_tripsList_holder {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
 table.atlas_tripsList {
   border-collapse: collapse;
   border: 1px solid rgb(255, 255, 255);
@@ -70,12 +75,15 @@ table.atlas_tripsList {
 
 table.atlas_tripsList thead {
   background-color: #000000a9;
+  white-space: nowrap;
 }
 
 table.atlas_tripsList th,
 table.atlas_tripsList td {
   border: 1px solid rgb(160 160 160);
   padding: 8px 10px;
+  white-space: nowrap;
+  
 }
 
 table.atlas_tripsList>tbody>tr:nth-of-type(even) {
@@ -95,9 +103,10 @@ table.atlas_tripsList>tbody>tr:nth-of-type(even) {
   background-color: #222a;
   border: 1px solid #777;
   margin: -1px;
+  flex: 1 0 30%;
 }
 
-.atlas-stats-ind-stat > p:nth-of-type(even) {
+.atlas-stats-ind-stat > p:nth-of-type(2), .atlas-stats-ind-stat > p:nth-of-type(3) {
   background-color: #111a;
 }
 

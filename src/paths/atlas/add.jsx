@@ -136,13 +136,13 @@ const AtlasAdd = () => {
           </div>
           <section className='section-trainPage'>
             <AtlasNav currentRoute={'add'} userData={pb.authStore.record}/>
-            <label style={{ maxWidth: '300px' }}>Note: Editing trips are not possible, so please ensure all information is correct. You can always delete a record and make a new one.</label>
             {loadingData ?
               <p>{loadingData}</p> :
               <form style={{
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '4px',
+                maxWidth: '100%'
               }}>
                 <label htmlFor="atlas-add-railroad">Railroad</label>
                 <select name="railroad" id="atlas-add-railroad" onChange={((e) => {

@@ -164,7 +164,7 @@ const AtlasStatsAll = () => {
           <section className='section-trainPage'>
             <AtlasNav currentRoute={'stats_all'} userData={pb.authStore.record} />
             <h2 style={{
-              marginTop: -10
+              marginTop: -2
             }}>Basic Stats</h2>
             <table className='atlas_tripsList'>
               <tbody>

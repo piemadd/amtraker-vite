@@ -129,7 +129,7 @@ const AtlasStatsInd = () => {
           <section className='section-trainPage'>
             <AtlasNav currentRoute={'stats_ind'} userData={pb.authStore.record} />
             <h2 style={{
-              marginTop: -10
+              marginTop: -2
             }}>This Year</h2>
             <div className="atlas-stats-ind-stat">
               <p>

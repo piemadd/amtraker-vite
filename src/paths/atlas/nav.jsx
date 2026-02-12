@@ -67,9 +67,6 @@ const AtlasNav = ({ currentRoute = null, userData = null }) => {
 
       <div
         className="linksJoined"
-        style={{
-          marginBottom: "8px",
-        }}
       >
         {currentRoute == "index" ? (
           <a href="#" onClick={() => {}}>

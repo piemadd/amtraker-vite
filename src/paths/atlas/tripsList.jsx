@@ -36,61 +36,63 @@ const TripsList = ({
       <>
         <label>You don't have any trips recorded yet, try adding one!</label>
         <Link to={"/atlas/add"} replace={true}>
-          <button className="links">
-            Add Trip
-          </button>
+          <button className="links">Add Trip</button>
         </Link>
       </>
     );
   }
 
   return (
-    <table className="atlas_tripsList">
-      <thead>
-        <tr>
-          <th scope="col">Train</th>
-          <th scope="col">Stations</th>
-          <th scope="col">Date</th>
-          <th scope="col">Length (mi)</th>
-          <th scope="col">Duration</th>
-          <th scope="col">Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        {tripsList.map((trip) => {
-          return (
-            <tr>
-              <th scope="row">
-                {trip.railroad != "amtrak" ? trip.railroad.substring(0, 1) : ""}
-                {trip.train_number}
-              </th>
-              <td>
-                {trip.start_code} - {trip.end_code}
-              </td>
-              <td>
-                {new Date(trip.departure_date).toLocaleDateString([], {
-                  timeZone: "Europe/London",
-                })}
-              </td>
-              <td>{trip.length_mi}</td>
-              <td>{hoursMinutesDaysDuration(trip.time_minutes)}</td>
-              <td
-                onClick={async () => {
-                  const confirmationRes = confirm(
-                    "This action is irreversible. Press OK to continue with deletion.",
-                  );
-                  if (confirmationRes)
-                    await pb.collection("trips").delete(trip.id);
-                  setActionTime(Date.now());
-                }}
-              >
-                ❌
-              </td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
+    <div className="atlas_tripsList_holder">
+      <table className="atlas_tripsList">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Stations</th>
+            <th scope="col">Date</th>
+            <th scope="col">Length (mi)</th>
+            <th scope="col">Duration</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {tripsList.map((trip) => {
+            return (
+              <tr>
+                <th scope="row">
+                  {trip.railroad != "amtrak"
+                    ? trip.railroad.substring(0, 1)
+                    : ""}
+                  {trip.train_number}
+                </th>
+                <td>
+                  {trip.start_code} - {trip.end_code}
+                </td>
+                <td>
+                  {new Date(trip.departure_date).toLocaleDateString([], {
+                    timeZone: "Europe/London",
+                  })}
+                </td>
+                <td>{trip.length_mi}</td>
+                <td>{hoursMinutesDaysDuration(trip.time_minutes)}</td>
+                <td
+                  onClick={async () => {
+                    const confirmationRes = confirm(
+                      "This action is irreversible. Press OK to continue with deletion.",
+                    );
+                    if (confirmationRes)
+                      await pb.collection("trips").delete(trip.id);
+                    setActionTime(Date.now());
+                  }}
+                >
+                  ❌
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
