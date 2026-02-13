@@ -220,11 +220,9 @@ const AtlasIndex = () => {
               borderRadius: "8px",
             }}
             onClick={async (e) => {
-              console.log("Opening window");
-              let w = window.open("about:blank", "_blank");
-              console.log("Window opened");
-
-
+              //console.log("Opening window");
+              //let w = window.open("about:blank", "_blank");
+              //console.log("Window opened");
 
               const authMethods = await pb
                 .collection("users")
