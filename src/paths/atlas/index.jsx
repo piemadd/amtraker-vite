@@ -214,7 +214,7 @@ const AtlasIndex = () => {
               borderRadius: "8px",
             }}
             onClick={function () {
-              let w = window.open('_blank', '_system');
+              let w = window.open('about:blank', '_system');
 
               pb.collection("users")
                 .authWithOAuth2({
