@@ -31,18 +31,15 @@ export default function ErrorPage() {
 
       setTimeout(() => {
         window.location.reload();
-      }, 2500);
+      }, 2000);
     });
 
     return (
       <div id='error-page'>
-        <h1>Oops!</h1>
-        <p>
-          Seems like an old version of Amtraker tried to load. We'll fix that
-          right up for you and you'll be on your way!
-        </p>
+        <h2>Cache Update</h2>
+        <p>Amtraker's cache needed to be updated.</p>
         <br />
-        <p>Reloading in 5 seconds...</p>
+        <p>Reloading in 2 seconds...</p>
       </div>
     );
   } else if (error.status === 404) {
