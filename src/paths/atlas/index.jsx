@@ -182,22 +182,9 @@ const AtlasIndex = () => {
           <button
             className="root"
             onClick={function () {
-              /*
-              console.log("Opening window");
-              let w = window.open("about:blank", "_blank");
-              console.log("Window opened");
-              */
-
               pb.collection("users")
                 .authWithOAuth2({
                   provider: "google",
-                  /*
-                  urlCallback: (url) => {
-                    console.log("Resulting url:", url);
-                    w.location.href = url;
-                    console.log("URL set");
-                  },
-                  */
                 })
                 .then((authData) => {
                   setAuthUpdatedAt(Date.now());
@@ -220,47 +207,9 @@ const AtlasIndex = () => {
               borderRadius: "8px",
             }}
             onClick={(e) => {
-              console.log("Opening window");
-              let w = window.open("about:blank", '_self');
-              console.log("Window opened");
-
-              console.log(w)
-
-              /*
-              pb.collection("users")
-                .listAuthMethods()
-                .then((authMethods) => {
-                  const providers = authMethods.oauth2?.providers || [];
-
-                  const thisProvider = providers.find(
-                    (provider) => provider.name == "apple",
-                  );
-
-                  localStorage.setItem(
-                    "amtraker_atlas_auth_provider_data",
-                    JSON.stringify(thisProvider),
-                  );
-
-                  w.location.href =
-                    thisProvider.authURL
-                    .replace('response_mode=form_post', 'response_mode=query')
-                    .replace('scope=name+email', '') +
-                    "https://amtraker.com/atlas/oauth_redirect"; // https://pb.amtraker.com/api/oauth2-redirect
-                });
-
-              // provider.authURL + redirectURL
-
-              console.log("authMethods:", JSON.stringify(authMethods));
-              console.log("providers:", JSON.stringify(providers));
-              */
-
               pb.collection("users")
                 .authWithOAuth2({
-                  provider: "apple",
-                  urlCallback: (url) => {
-                    console.log('url!', url)
-                    w.location.href = 'url';
-                  }
+                  provider: "apple"
                 })
                 .then((authData) => {
                   setAuthUpdatedAt(Date.now());
