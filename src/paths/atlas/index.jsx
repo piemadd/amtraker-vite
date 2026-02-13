@@ -182,7 +182,7 @@ const AtlasIndex = () => {
           <button
             className="root"
             onClick={function () {
-              let w = window.open('about:blank', '_system');
+              let w = window.open('about:blank', '_blank');
 
               pb.collection("users")
                 .authWithOAuth2({
@@ -214,7 +214,7 @@ const AtlasIndex = () => {
               borderRadius: "8px",
             }}
             onClick={function () {
-              let w = window.open('about:blank', '_system');
+              let w = window.open('about:blank', '_blank');
 
               pb.collection("users")
                 .authWithOAuth2({
