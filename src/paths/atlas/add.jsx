@@ -120,7 +120,7 @@ const AtlasAdd = () => {
         ></img>
         <div className='trainPage'>
           <div className='header-trainpage'>
-            <h2
+            <p
               onClick={() => {
                 if (history.state.idx && history.state.idx > 0) {
                   navigate(-1);
@@ -129,10 +129,14 @@ const AtlasAdd = () => {
                 }
               }}
               className='click'
-              style={{ paddingLeft: '32px' }}
+              style={{ 
+                paddingLeft: '32px',
+                fontSize: '24px',
+                fontWeight: 500,
+               }}
             >
               Back
-            </h2>
+            </p>
           </div>
           <section className='section-trainPage'>
             <AtlasNav currentRoute={'add'} userData={pb.authStore.record}/>

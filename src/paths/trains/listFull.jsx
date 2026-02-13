@@ -15,9 +15,9 @@ const FullTrainsList = () => {
     stringToHash(localStorage.getItem("passphrase")).then((hash) => {
       if (
         hash ==
-        "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
+          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
         hash ==
-        "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
+          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
       ) {
         setBGURL("/content/images/prideflag.jpg");
         setBGClass("bg-focus-in peppino");
@@ -28,20 +28,20 @@ const FullTrainsList = () => {
   return (
     <>
       <img
-        id='backgroundNew'
-        alt='Map of Australia.'
-        className={'bg-focus-in peppino'}
-        src={'/content/images/waow.png'}
+        id="backgroundNew"
+        alt="Map of Australia."
+        className={"bg-focus-in peppino"}
+        src={"/content/images/waow.png"}
       ></img>
       <img
-        id='background'
-        alt='Amtrak network map.'
-        className={bgClass + ' terrabanner'}
+        id="background"
+        alt="Amtrak network map."
+        className={bgClass + " terrabanner"}
         src={bgURL}
       ></img>
-      <div className='trainPage'>
-        <div className='header-trainpage'>
-          <h2
+      <div className="trainPage">
+        <div className="header-trainpage">
+          <p
             onClick={() => {
               if (history.state.idx && history.state.idx > 0) {
                 navigate(-1);
@@ -49,13 +49,17 @@ const FullTrainsList = () => {
                 navigate("/", { replace: true }); //fallback
               }
             }}
-            className='click'
-            style={{ paddingLeft: '32px' }}
+            className="click"
+            style={{
+              paddingLeft: "32px",
+              fontSize: "24px",
+              fontWeight: 500,
+            }}
           >
             Back
-          </h2>
+          </p>
         </div>
-        <section className='section-trainPage'>
+        <section className="section-trainPage">
           <p>
             Below is a list of trains intended for crawling purposes by search
             engines and those who prefer to browse a long list of train names

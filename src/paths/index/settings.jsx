@@ -22,16 +22,16 @@ const Settings = () => {
 
     localStorage.setItem("amtraker-v3-settings", JSON.stringify(newSettings));
 
-    console.log('Updated settings:', newSettings)
+    console.log("Updated settings:", newSettings);
   };
 
   useEffect(() => {
     stringToHash(localStorage.getItem("passphrase")).then((hash) => {
       if (
         hash ==
-        "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
+          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
         hash ==
-        "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
+          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
       ) {
         setBGURL("/content/images/prideflag.jpg");
         setBGClass("bg-focus-in peppino");
@@ -42,20 +42,20 @@ const Settings = () => {
   return (
     <>
       <img
-        id='backgroundNew'
-        alt='Map of Australia.'
-        className={'bg-focus-in peppino'}
-        src={'/content/images/waow.png'}
+        id="backgroundNew"
+        alt="Map of Australia."
+        className={"bg-focus-in peppino"}
+        src={"/content/images/waow.png"}
       ></img>
       <img
-        id='background'
-        alt='Amtrak network map.'
-        className={bgClass + ' terrabanner'}
+        id="background"
+        alt="Amtrak network map."
+        className={bgClass + " terrabanner"}
         src={bgURL}
       ></img>
-      <div className='trainPage'>
-        <div className='header-trainpage'>
-          <h2
+      <div className="trainPage">
+        <div className="header-trainpage">
+          <p
             onClick={() => {
               if (history.state.idx && history.state.idx > 0) {
                 navigate(-1);
@@ -63,13 +63,17 @@ const Settings = () => {
                 navigate("/", { replace: true }); //fallback
               }
             }}
-            className='click'
-            style={{ paddingLeft: '32px' }}
+            className="click"
+            style={{
+              paddingLeft: "32px",
+              fontSize: "24px",
+              fontWeight: 500,
+            }}
           >
             Back
-          </h2>
+          </p>
         </div>
-        <section className='section-trainPage section-settings'>
+        <section className="section-trainPage section-settings">
           <h1>Amtraker Settings</h1>
           <p>
             Use this page to adjust various settings for Amtraker. More settings
@@ -77,16 +81,20 @@ const Settings = () => {
           </p>
           <h2>Map View</h2>
           <p>
-            Whether you'd like the map to use a Globe projection or the traditional Web Mercator (flat) projection.
+            Whether you'd like the map to use a Globe projection or the
+            traditional Web Mercator (flat) projection.
           </p>
-          <select value={currentSettings.mapView} onChange={(e) => handleSettingsUpdate('mapView', e.target.value)}>
-            <option value='mercator'>Web Mercator</option>
-            <option value='globe'>Globe</option>
+          <select
+            value={currentSettings.mapView}
+            onChange={(e) => handleSettingsUpdate("mapView", e.target.value)}
+          >
+            <option value="mercator">Web Mercator</option>
+            <option value="globe">Globe</option>
             {/*<option value='vertical-perspective'>Vertical Perspective</option>*/}
             {/* disabled due to high lag and glitching at higher zoom levels from building extrusions */}
           </select>
 
-            {/*
+          {/*
           <h2>Theme</h2>
           <p>
             Amtraker currently only has dark theme, light theme will be added at
@@ -109,7 +117,7 @@ const Settings = () => {
           <p>
             If you have any feature requests for Amtraker, please send them my
             way via my email:{" "}
-            <a href='mailto:hi@amtraker.com'>hi@amtraker.com</a>.
+            <a href="mailto:hi@amtraker.com">hi@amtraker.com</a>.
           </p>
         </section>
       </div>

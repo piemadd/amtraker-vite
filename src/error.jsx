@@ -31,7 +31,7 @@ export default function ErrorPage() {
 
       setTimeout(() => {
         window.location.reload();
-      }, 5000);
+      }, 2500);
     });
 
     return (
@@ -59,7 +59,7 @@ export default function ErrorPage() {
           <i>
             Current path: {window.location.href}
             <br />
-            Current version: v3.17.2
+            Current version: v3.17.3
             <br />
             Current date and time (UTC): {new Date().toUTCString()}
             <br />
@@ -85,7 +85,7 @@ export default function ErrorPage() {
           <i>
             Current path: {window.location.href}
             <br />
-            Current version: v3.17.2
+            Current version: v3.17.3
             <br />
             Current date and time (UTC): {new Date().toUTCString()}
             <br />

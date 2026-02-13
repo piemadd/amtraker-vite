@@ -34,25 +34,24 @@ const TrainsList = () => {
   const [shitsFucked, setShitsFucked] = useState(false);
 
   useEffect(() => {
-    dataManager.getTrains()
-      .then((data) => {
-        const allDataNew = Object.values(data).flat();
+    dataManager.getTrains().then((data) => {
+      const allDataNew = Object.values(data).flat();
 
-        setTrainDataFull(allDataNew);
-        setTrainData(allDataNew);
-        setResults(allDataNew);
-        setAllIDs([
-          ...allDataNew.map((train) => train.trainID),
-          ...allDataNew.map((train) => train.trainNum),
-        ]);
-        setAllNames(allDataNew.map((train) => train.routeName));
+      setTrainDataFull(allDataNew);
+      setTrainData(allDataNew);
+      setResults(allDataNew);
+      setAllIDs([
+        ...allDataNew.map((train) => train.trainID),
+        ...allDataNew.map((train) => train.trainNum),
+      ]);
+      setAllNames(allDataNew.map((train) => train.routeName));
 
-        if (Object.keys(data).length === 0) {
-          setShitsFucked(true);
-        }
+      if (Object.keys(data).length === 0) {
+        setShitsFucked(true);
+      }
 
-        setLoading(false);
-      });
+      setLoading(false);
+    });
   }, []);
 
   const fuse = new Fuse(trainData, {
@@ -70,28 +69,37 @@ const TrainsList = () => {
 
   const setSearchResults = (currentQuery, agencyFilterString) => {
     let actualNewResults = trainDataFull.filter((train) => {
-      if (agencyFilterString == 'All') return true;
-      if (agencyFilterString == 'Amtrak' && !train.trainID.startsWith('v') && !train.trainID.startsWith('b')) return true;
-      if (agencyFilterString == 'Via' && train.trainID.startsWith('v')) return true;
-      if (agencyFilterString == 'Brightline' && train.trainID.startsWith('b')) return true;
+      if (agencyFilterString == "All") return true;
+      if (
+        agencyFilterString == "Amtrak" &&
+        !train.trainID.startsWith("v") &&
+        !train.trainID.startsWith("b")
+      )
+        return true;
+      if (agencyFilterString == "Via" && train.trainID.startsWith("v"))
+        return true;
+      if (agencyFilterString == "Brightline" && train.trainID.startsWith("b"))
+        return true;
       return false;
     });
 
     if (currentQuery.length == 0) {
       // do nothing
     } else if (allIDs.includes(currentQuery)) {
-      const isAnID = currentQuery.split('-').length > 1;
+      const isAnID = currentQuery.split("-").length > 1;
       actualNewResults = actualNewResults.filter((train) => {
         if (train.trainID == currentQuery) return true;
         if (train.trainNum == currentQuery && !isAnID) return true;
         return false;
       });
     } else if (allNames.includes(currentQuery)) {
-      actualNewResults = actualNewResults.filter((train) => train.routeName == currentQuery);
+      actualNewResults = actualNewResults.filter(
+        (train) => train.routeName == currentQuery,
+      );
     } else {
       fuse.setCollection(actualNewResults);
       actualNewResults = fuse.search(currentQuery).map((result) => result.item);
-    };
+    }
 
     setResults(actualNewResults);
   };
@@ -103,9 +111,9 @@ const TrainsList = () => {
     stringToHash(localStorage.getItem("passphrase")).then((hash) => {
       if (
         hash ==
-        "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
+          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
         hash ==
-        "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
+          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
       ) {
         setBGURL("/content/images/prideflag.jpg");
         setBGClass("bg-focus-in peppino");
@@ -116,20 +124,20 @@ const TrainsList = () => {
   return (
     <>
       <img
-        id='backgroundNew'
-        alt='Map of Australia.'
-        className={'bg-focus-in peppino'}
-        src={'/content/images/waow.png'}
+        id="backgroundNew"
+        alt="Map of Australia."
+        className={"bg-focus-in peppino"}
+        src={"/content/images/waow.png"}
       ></img>
       <img
-        id='background'
-        alt='Amtrak network map.'
-        className={bgClass + ' terrabanner'}
+        id="background"
+        alt="Amtrak network map."
+        className={bgClass + " terrabanner"}
         src={bgURL}
       ></img>
-      <div className='trainPage'>
-        <div className='header-trainpage'>
-          <h2
+      <div className="trainPage">
+        <div className="header-trainpage">
+          <p
             onClick={() => {
               if (history.state.idx && history.state.idx > 0) {
                 navigate(-1);
@@ -137,52 +145,57 @@ const TrainsList = () => {
                 navigate("/", { replace: true }); //fallback
               }
             }}
-            className='click'
-            style={{ paddingLeft: '32px' }}
+            className="click"
+            style={{
+              paddingLeft: "32px",
+              fontSize: "24px",
+              fontWeight: 500,
+            }}
           >
             Back
-          </h2>
+          </p>
           {shitsFucked ? (
             <>
               <p>
                 The Amtrak API seems to be having issues currently! Please try
                 again later...
               </p>
-              <h2></h2>
+              <p></p>
             </>
           ) : null}
         </div>
-        <section className='section-trainPage'>
+        <section className="section-trainPage">
           <input
-            id='searchbox'
-            type='text'
+            id="searchbox"
+            type="text"
             value={query}
-            placeholder='Search for a train'
+            placeholder="Search for a train"
             onChange={(e) => {
               updateQuery(e.target.value);
               debounce(setSearchResults(e.target.value, agencyFilter));
             }}
           />
           <div className="mutliButton">
-            {
-              ['All', 'Amtrak', 'Via', 'Brightline'].map((key) => {
-                return <button
+            {["All", "Amtrak", "Via", "Brightline"].map((key) => {
+              return (
+                <button
                   key={key}
                   style={{
-                    backgroundColor: agencyFilter == key ? 'rgba(255, 255, 255, 0.25)' : null,
+                    backgroundColor:
+                      agencyFilter == key ? "rgba(255, 255, 255, 0.25)" : null,
                   }}
                   onClick={(e) => {
-                    console.log(e.target)
+                    console.log(e.target);
                     setAgencyFilter(e.target.innerText);
                     debounce(setSearchResults(query, e.target.innerText));
                   }}
                 >
                   {key}
                 </button>
-              })
-            }
+              );
+            })}
           </div>
-          <div className='stations fullTrainsList'>
+          <div className="stations fullTrainsList">
             {!loading ? (
               <>
                 {results.map((train, i) => {
@@ -191,15 +204,15 @@ const TrainsList = () => {
                       to={`/trains/${train.trainID.replace("-", "/")}`}
                       key={`train-${train.trainID}`}
                       replace={true}
-                      className='station-link'
+                      className="station-link"
                     >
                       <ManualTrainBox train={train} />
                     </Link>
-                  )
+                  );
                 })}
               </>
             ) : (
-              <div className='station-box'>
+              <div className="station-box">
                 <p>Loading train data...</p>
               </div>
             )}

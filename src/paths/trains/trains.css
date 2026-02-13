@@ -16,6 +16,11 @@
   justify-content: flex-start;
 }
 
+.train-box h2 {
+  font-weight: 300;
+  font-size: 1.2rem;
+}
+
 .train-box span {
   font-weight: 400;
 }

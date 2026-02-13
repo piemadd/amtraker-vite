@@ -12,16 +12,18 @@ import { toHoursAndMinutesLate } from "../../tools";
 const componentToHex = (c) => {
   const trueValue = Math.min(Math.max(Math.floor(c * 255), 0), 255);
   var hex = trueValue.toString(16);
-  return hex.padStart(2, '0');
+  return hex.padStart(2, "0");
 };
 
 // https://stackoverflow.com/questions/17242144/javascript-convert-hsb-hsv-color-to-rgb-accurately
 const hsvToRgb = (h, s, v, returnComponents = false) => {
-  let f = (n, k = (n + h / 60) % 6) => v - v * s * Math.max(Math.min(k, 4 - k, 1), 0);
+  let f = (n, k = (n + h / 60) % 6) =>
+    v - v * s * Math.max(Math.min(k, 4 - k, 1), 0);
   if (returnComponents) return [f(5) * 255, f(3) * 255, f(1) * 255];
   return `#${componentToHex(f(5))}${componentToHex(f(3))}${componentToHex(f(1))}`;
 };
-const reinterprolateValue = (x, minX, maxX, minY, maxY) => (((x - minX) * (maxY - minY)) / (maxX - minX)) + minY;
+const reinterprolateValue = (x, minX, maxX, minY, maxY) =>
+  ((x - minX) * (maxY - minY)) / (maxX - minX) + minY;
 
 const calculateColorInRange = (minutesLate, maxMinutesLate) => {
   const actualMinutesLate = Math.min(Math.max(minutesLate, 0), maxMinutesLate);
@@ -29,16 +31,16 @@ const calculateColorInRange = (minutesLate, maxMinutesLate) => {
   const colorPercents = [
     {
       minutes: 0,
-      hsv: [132, 0.69, 0.54]
+      hsv: [132, 0.69, 0.54],
     },
     {
       minutes: maxMinutesLate * 0.25,
-      hsv: [35, 0.93, 0.78]
+      hsv: [35, 0.93, 0.78],
     },
     {
       minutes: maxMinutesLate,
-      hsv: [-12, 0.94, 0.78]
-    }
+      hsv: [-12, 0.94, 0.78],
+    },
   ];
 
   let lowPointIndex = 0;
@@ -54,53 +56,77 @@ const calculateColorInRange = (minutesLate, maxMinutesLate) => {
     }
 
     if (i == colorPercents.length - 1) highPointIndex = i; // has to be the high point
-  };
+  }
 
   const lowPoint = colorPercents[lowPointIndex];
   const highPoint = colorPercents[highPointIndex];
 
-  if (lowPoint.minutes == highPoint.minutes) return {
-    color: hsvToRgb(lowPoint.hsv[0], lowPoint.hsv[1], lowPoint.hsv[2]),
-    text: "#ffffff"
-  }
+  if (lowPoint.minutes == highPoint.minutes)
+    return {
+      color: hsvToRgb(lowPoint.hsv[0], lowPoint.hsv[1], lowPoint.hsv[2]),
+      text: "#ffffff",
+    };
 
-  let actualHue = reinterprolateValue(actualMinutesLate, lowPoint.minutes, highPoint.minutes, lowPoint.hsv[0], highPoint.hsv[0]);
-  let actualSaturation = reinterprolateValue(actualMinutesLate, lowPoint.minutes, highPoint.minutes, lowPoint.hsv[1], highPoint.hsv[1]);
-  let actualValue = reinterprolateValue(actualMinutesLate, lowPoint.minutes, highPoint.minutes, lowPoint.hsv[2], highPoint.hsv[2]);
+  let actualHue = reinterprolateValue(
+    actualMinutesLate,
+    lowPoint.minutes,
+    highPoint.minutes,
+    lowPoint.hsv[0],
+    highPoint.hsv[0],
+  );
+  let actualSaturation = reinterprolateValue(
+    actualMinutesLate,
+    lowPoint.minutes,
+    highPoint.minutes,
+    lowPoint.hsv[1],
+    highPoint.hsv[1],
+  );
+  let actualValue = reinterprolateValue(
+    actualMinutesLate,
+    lowPoint.minutes,
+    highPoint.minutes,
+    lowPoint.hsv[2],
+    highPoint.hsv[2],
+  );
 
   // fallback
   // NaN really only appears at the if above, but im not trying to be too careful
-  if (
-    isNaN(actualHue) ||
-    isNaN(actualSaturation) ||
-    isNaN(actualValue)
-  ) return {
-    color: hsvToRgb(lowPoint.hsv[0], lowPoint.hsv[1], lowPoint.hsv[2]),
-    text: "#ffffff"
-  }
+  if (isNaN(actualHue) || isNaN(actualSaturation) || isNaN(actualValue))
+    return {
+      color: hsvToRgb(lowPoint.hsv[0], lowPoint.hsv[1], lowPoint.hsv[2]),
+      text: "#ffffff",
+    };
 
   if (actualHue < 0) actualHue += 360;
 
-  const rgbComponents = hsvToRgb(actualHue, actualSaturation, actualValue, true);
-  const greyscaleValue = (rgbComponents[0] * 0.299) + (rgbComponents[1] * 0.587) + (rgbComponents[1] * 0.114);
+  const rgbComponents = hsvToRgb(
+    actualHue,
+    actualSaturation,
+    actualValue,
+    true,
+  );
+  const greyscaleValue =
+    rgbComponents[0] * 0.299 +
+    rgbComponents[1] * 0.587 +
+    rgbComponents[1] * 0.114;
 
   return {
     color: hsvToRgb(actualHue, actualSaturation, actualValue),
     text: greyscaleValue > 145 ? "#000000" : "#ffffff",
-  }
+  };
 };
 // end calculateIconColor.ts in amtraker-v3
 
 const providerColors = {
-  'Via': '#FFDB00',
-  'Brightline': '#FFCC00',
-  'Amtrak': '#18567D',
+  Via: "#FFDB00",
+  Brightline: "#FFCC00",
+  Amtrak: "#18567D",
 };
 
 const providerTextColors = {
-  'Via': '#000000',
-  'Brightline': '#000000',
-  'Amtrak': '#FFFFFF',
+  Via: "#000000",
+  Brightline: "#000000",
+  Amtrak: "#FFFFFF",
 };
 
 const TrainsLeaderboard = () => {
@@ -113,18 +139,17 @@ const TrainsLeaderboard = () => {
   const [shitsFucked, setShitsFucked] = useState(false);
 
   useEffect(() => {
-    dataManager.getTrains()
-      .then((data) => {
-        const allDataNew = Object.values(data).flat();
+    dataManager.getTrains().then((data) => {
+      const allDataNew = Object.values(data).flat();
 
-        setTrainData(allDataNew);
+      setTrainData(allDataNew);
 
-        if (Object.keys(data).length === 0) {
-          setShitsFucked(true);
-        }
+      if (Object.keys(data).length === 0) {
+        setShitsFucked(true);
+      }
 
-        setLoading(false);
-      });
+      setLoading(false);
+    });
   }, []);
 
   const [bgURL, setBGURL] = useState("/content/images/amtraker-back.webp");
@@ -134,9 +159,9 @@ const TrainsLeaderboard = () => {
     stringToHash(localStorage.getItem("passphrase")).then((hash) => {
       if (
         hash ==
-        "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
+          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
         hash ==
-        "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
+          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
       ) {
         setBGURL("/content/images/prideflag.jpg");
         setBGClass("bg-focus-in peppino");
@@ -147,20 +172,20 @@ const TrainsLeaderboard = () => {
   return (
     <>
       <img
-        id='backgroundNew'
-        alt='Map of Australia.'
-        className={'bg-focus-in peppino'}
-        src={'/content/images/waow.png'}
+        id="backgroundNew"
+        alt="Map of Australia."
+        className={"bg-focus-in peppino"}
+        src={"/content/images/waow.png"}
       ></img>
       <img
-        id='background'
-        alt='Amtrak network map.'
-        className={bgClass + ' terrabanner'}
+        id="background"
+        alt="Amtrak network map."
+        className={bgClass + " terrabanner"}
         src={bgURL}
       ></img>
-      <div className='trainPage'>
-        <div className='header-trainpage'>
-          <h2
+      <div className="trainPage">
+        <div className="header-trainpage">
+          <p
             onClick={() => {
               if (history.state.idx && history.state.idx > 0) {
                 navigate(-1);
@@ -168,23 +193,27 @@ const TrainsLeaderboard = () => {
                 navigate("/", { replace: true }); //fallback
               }
             }}
-            className='click'
-            style={{ paddingLeft: '32px' }}
+            className="click"
+            style={{
+              paddingLeft: "32px",
+              fontSize: "24px",
+              fontWeight: 500,
+            }}
           >
             Back
-          </h2>
+          </p>
           {shitsFucked ? (
             <>
               <p>
                 The Amtrak API seems to be having issues currently! Please try
                 again later...
               </p>
-              <h2></h2>
+              <p></p>
             </>
           ) : null}
         </div>
-        <section className='section-trainPage'>
-          <div className='trainsLeaderboard'>
+        <section className="section-trainPage">
+          <div className="trainsLeaderboard">
             <div className="leaderboardTitle">Rank</div>
             <div className="leaderboardTitle">Name</div>
             <div className="leaderboardTitle">Railroad</div>
@@ -193,55 +222,90 @@ const TrainsLeaderboard = () => {
               <>
                 {trainData
                   .map((train) => {
-                    const currentStop = train.stations.find((station) => train.eventCode == station.code);
-                    let msLate = new Date(currentStop.arr ?? currentStop.dep).valueOf() - new Date(currentStop.schArr ?? currentStop.schDep).valueOf();
+                    const currentStop = train.stations.find(
+                      (station) => train.eventCode == station.code,
+                    );
+                    let msLate =
+                      new Date(currentStop.arr ?? currentStop.dep).valueOf() -
+                      new Date(
+                        currentStop.schArr ?? currentStop.schDep,
+                      ).valueOf();
 
                     if (!msLate) msLate = 0;
 
                     return {
                       ...train,
                       currentStop,
-                      msLate
-                    }
+                      msLate,
+                    };
                   })
                   .sort((a, b) => b.msLate - a.msLate)
                   .map((train, i, arr) => {
-                    const posColor = calculateColorInRange((-i * 4) / (arr.length * 3) + 1, 1)
+                    const posColor = calculateColorInRange(
+                      (-i * 4) / (arr.length * 3) + 1,
+                      1,
+                    );
 
-                    return <>
-                      <div
-                        className="leaderboardElement"
-                        style={{
-                          backgroundColor: posColor.color,
-                          color: posColor.text,
-                        }}>{i + 1}</div>
-                      <div className="leaderboardElement">{train.routeName} [{train.trainNumRaw}] {!train.onlyOfTrainNum ? `(${train.trainID.split('-')[1]})` : ""}</div>
-                      <div
-                        className="leaderboardElement"
-                        style={{
-                          backgroundColor: providerColors[train.provider],
-                          color: providerTextColors[train.provider],
-                        }}>{train.provider}</div>
-                      <div
-                        className="leaderboardElement"
-                        style={{
-                          backgroundColor: train.iconColor,
-                          color: train.textColor,
-                        }}>{toHoursAndMinutesLate(new Date(train.currentStop.arr ?? train.currentStop.dep), new Date(train.currentStop.schArr ?? train.currentStop.schDep))}</div>
-                    </>
+                    return (
+                      <>
+                        <div
+                          className="leaderboardElement"
+                          style={{
+                            backgroundColor: posColor.color,
+                            color: posColor.text,
+                          }}
+                        >
+                          {i + 1}
+                        </div>
+                        <div className="leaderboardElement">
+                          {train.routeName} [{train.trainNumRaw}]{" "}
+                          {!train.onlyOfTrainNum
+                            ? `(${train.trainID.split("-")[1]})`
+                            : ""}
+                        </div>
+                        <div
+                          className="leaderboardElement"
+                          style={{
+                            backgroundColor: providerColors[train.provider],
+                            color: providerTextColors[train.provider],
+                          }}
+                        >
+                          {train.provider}
+                        </div>
+                        <div
+                          className="leaderboardElement"
+                          style={{
+                            backgroundColor: train.iconColor,
+                            color: train.textColor,
+                          }}
+                        >
+                          {toHoursAndMinutesLate(
+                            new Date(
+                              train.currentStop.arr ?? train.currentStop.dep,
+                            ),
+                            new Date(
+                              train.currentStop.schArr ??
+                                train.currentStop.schDep,
+                            ),
+                          )}
+                        </div>
+                      </>
+                    );
 
-                    return (<Link
-                      to={`/trains/${train.trainID.replace("-", "/")}`}
-                      key={`train-${train.trainID}`}
-                      replace={true}
-                      className='station-link'
-                    >
-                      <ManualTrainBox train={train} />
-                    </Link>)
+                    return (
+                      <Link
+                        to={`/trains/${train.trainID.replace("-", "/")}`}
+                        key={`train-${train.trainID}`}
+                        replace={true}
+                        className="station-link"
+                      >
+                        <ManualTrainBox train={train} />
+                      </Link>
+                    );
                   })}
               </>
             ) : (
-              <div className='station-box'>
+              <div className="station-box">
                 <p>Loading train data...</p>
               </div>
             )}

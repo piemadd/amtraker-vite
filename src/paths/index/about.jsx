@@ -43,19 +43,23 @@ const AboutPage = () => {
       ></img>
       <div className='trainPage'>
         <div className='header-trainpage'>
-          <h2
-            onClick={() => {
-              if (history.state.idx && history.state.idx > 0) {
-                navigate(-1);
-              } else {
-                navigate("/", { replace: true }); //fallback
-              }
-            }}
-            className='click'
-            style={{ paddingLeft: '32px' }}
-          >
-            Back
-          </h2>
+           <p
+              onClick={() => {
+                if (history.state.idx && history.state.idx > 0) {
+                  navigate(-1);
+                } else {
+                  navigate("/", { replace: true }); //fallback
+                }
+              }}
+              className='click'
+              style={{ 
+                paddingLeft: '32px',
+                fontSize: '24px',
+                fontWeight: 500,
+               }}
+            >
+              Back
+            </p>
         </div>
         <section className='section-trainPage'>
           <h1>About Amtraker</h1>

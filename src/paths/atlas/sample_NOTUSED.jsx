@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import PocketBase from 'pocketbase';
+import PocketBase from "pocketbase";
 import AtlasNav from "./nav";
 
-const pb = new PocketBase('https://pb.amtraker.com');
+const pb = new PocketBase("https://pb.amtraker.com");
 
 const AtlasAdd = () => {
   const navigate = useNavigate();
@@ -15,14 +15,14 @@ const AtlasAdd = () => {
     return (
       <>
         <img
-          id='background'
-          alt='Amtrak network map.'
-          className={bgClass + ' terrabanner'}
+          id="background"
+          alt="Amtrak network map."
+          className={bgClass + " terrabanner"}
           src={bgURL}
         ></img>
-        <div className='trainPage'>
-          <div className='header-trainpage'>
-            <h2
+        <div className="trainPage">
+          <div className="header-trainpage">
+            <p
               onClick={() => {
                 if (history.state.idx && history.state.idx > 0) {
                   navigate(-1);
@@ -30,17 +30,19 @@ const AtlasAdd = () => {
                   navigate("/", { replace: true }); //fallback
                 }
               }}
-              className='click'
-              style={{ paddingLeft: '32px' }}
+              className="click"
+              style={{
+                paddingLeft: "32px",
+                fontSize: "24px",
+                fontWeight: 500,
+              }}
             >
               Back
-            </h2>
+            </p>
           </div>
-          <section className='section-trainPage'>
-            <AtlasNav currentRoute={'index'} userData={pb.authStore.record}/>
-            <div>
-              Logged in!
-            </div>
+          <section className="section-trainPage">
+            <AtlasNav currentRoute={"index"} userData={pb.authStore.record} />
+            <div>Logged in!</div>
           </section>
         </div>
       </>
@@ -50,14 +52,14 @@ const AtlasAdd = () => {
   return (
     <>
       <img
-        id='background'
-        alt='Amtrak network map.'
-        className={bgClass + ' terrabanner'}
+        id="background"
+        alt="Amtrak network map."
+        className={bgClass + " terrabanner"}
         src={bgURL}
       ></img>
-      <div className='trainPage'>
-        <div className='header-trainpage'>
-          <h2
+      <div className="trainPage">
+        <div className="header-trainpage">
+          <p
             onClick={() => {
               if (history.state.idx && history.state.idx > 0) {
                 navigate(-1);
@@ -65,18 +67,32 @@ const AtlasAdd = () => {
                 navigate("/", { replace: true }); //fallback
               }
             }}
-            className='click'
-            style={{ paddingLeft: '32px' }}
+            className="click"
+            style={{
+              paddingLeft: "32px",
+              fontSize: "24px",
+              fontWeight: 500,
+            }}
           >
             Back
-          </h2>
+          </p>
         </div>
-        <section className='section-trainPage'>
+        <section className="section-trainPage">
           <h1>Atlas</h1>
-          <p>Amtraker Atlas allows you to track your Amtrak, Brightline, and VIA rail trips, similar to Flighty Passport with flights.</p>
-          <button className='root' onClick={async () => {
-            await pb.collection('users').authWithOAuth2({ provider: 'google' });
-          }}>Login With Google</button>
+          <p>
+            Amtraker Atlas allows you to track your Amtrak, Brightline, and VIA
+            rail trips, similar to Flighty Passport with flights.
+          </p>
+          <button
+            className="root"
+            onClick={async () => {
+              await pb
+                .collection("users")
+                .authWithOAuth2({ provider: "google" });
+            }}
+          >
+            Login With Google
+          </button>
         </section>
       </div>
     </>

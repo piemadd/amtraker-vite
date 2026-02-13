@@ -44,12 +44,12 @@ const StationsList = () => {
           })
           .sort((a, b) => {
             return a.name.localeCompare(b.name);
-          })
+          }),
       );
       setResults(
         Object.values(data).sort((a, b) => {
           return a.name.localeCompare(b.name);
-        })
+        }),
       );
       setLoading(false);
     });
@@ -67,9 +67,9 @@ const StationsList = () => {
     stringToHash(localStorage.getItem("passphrase")).then((hash) => {
       if (
         hash ==
-        "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
+          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
         hash ==
-        "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
+          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
       ) {
         setBGURL("/content/images/prideflag.jpg");
         setBGClass("bg-focus-in peppino");
@@ -80,20 +80,20 @@ const StationsList = () => {
   return (
     <>
       <img
-        id='backgroundNew'
-        alt='Map of Australia.'
-        className={'bg-focus-in peppino'}
-        src={'/content/images/waow.png'}
+        id="backgroundNew"
+        alt="Map of Australia."
+        className={"bg-focus-in peppino"}
+        src={"/content/images/waow.png"}
       ></img>
       <img
-        id='background'
-        alt='Amtrak network map.'
-        className={bgClass + ' terrabanner'}
+        id="background"
+        alt="Amtrak network map."
+        className={bgClass + " terrabanner"}
         src={bgURL}
       ></img>
-      <div className='trainPage'>
-        <div className='header-trainpage'>
-          <h2
+      <div className="trainPage">
+        <div className="header-trainpage">
+          <p
             onClick={() => {
               if (history.state.idx && history.state.idx > 0) {
                 navigate(-1);
@@ -101,39 +101,43 @@ const StationsList = () => {
                 navigate("/", { replace: true }); //fallback
               }
             }}
-            className='click'
-            style={{ paddingLeft: '32px' }}
+            className="click"
+            style={{
+              paddingLeft: "32px",
+              fontSize: "24px",
+              fontWeight: 500,
+            }}
           >
             Back
-          </h2>
+          </p>
           {shitsFucked ? (
             <>
               <p>
                 The Amtrak API seems to be having issues currently! Please try
                 again later...
               </p>
-              <h2></h2>
+              <p></p>
             </>
           ) : null}
         </div>
-        <section className='section-trainPage'>
+        <section className="section-trainPage">
           <input
-            id='searchbox'
-            type='text'
+            id="searchbox"
+            type="text"
             value={query}
-            placeholder='Search for a station'
+            placeholder="Search for a station"
             onChange={(e) => {
               updateQuery(e.target.value);
               debounce(
                 setResults(
                   e.target.value.length > 0
                     ? fuse.search(e.target.value).map((result) => result.item)
-                    : stationData
-                )
+                    : stationData,
+                ),
               );
             }}
           />
-          <div className='stations fullStationsList'>
+          <div className="stations fullStationsList">
             {!loading ? (
               <>
                 {results.map((station, i) => {
@@ -142,49 +146,51 @@ const StationsList = () => {
                       "no tz:",
                       station.name,
                       station.code,
-                      station.state
+                      station.state,
                     );
                   }
                   if (!station.name) {
                     console.log("no name:", station.code, station.state);
                   }
 
-                  return <Link
-                    to={`/stations/${station.code}`}
-                    key={`station-${station.code}`}
-                    replace={true}
-                    className='station-link'
-                  >
-                    <div className='station-box'>
-                      <div>
-                        {station.name} ({station.code})&nbsp;
+                  return (
+                    <Link
+                      to={`/stations/${station.code}`}
+                      key={`station-${station.code}`}
+                      replace={true}
+                      className="station-link"
+                    >
+                      <div className="station-box">
+                        <div>
+                          {station.name} ({station.code})&nbsp;
+                        </div>
+                        <p>
+                          {station.hasAddress ? (
+                            <span className="greyed">
+                              {station.address1}{" "}
+                              {station.address2 !== " "
+                                ? station.address2
+                                : null}
+                              <br />
+                              {station.city}, {station.state} {station.zip}
+                              <br />
+                              {station.tz}
+                            </span>
+                          ) : (
+                            <span className="greyed">
+                              Address not available.
+                              <br />
+                              {station.tz}
+                            </span>
+                          )}
+                        </p>
                       </div>
-                      <p>
-                        {station.hasAddress ? (
-                          <span className='greyed'>
-                            {station.address1}{" "}
-                            {station.address2 !== " "
-                              ? station.address2
-                              : null}
-                            <br />
-                            {station.city}, {station.state} {station.zip}
-                            <br />
-                            {station.tz}
-                          </span>
-                        ) : (
-                          <span className='greyed'>
-                            Address not available.
-                            <br />
-                            {station.tz}
-                          </span>
-                        )}
-                      </p>
-                    </div>
-                  </Link>
+                    </Link>
+                  );
                 })}
               </>
             ) : (
-              <div className='station-box'>
+              <div className="station-box">
                 <p>Loading station data...</p>
               </div>
             )}

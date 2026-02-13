@@ -24,7 +24,7 @@ const AtlasDeleteAccount = () => {
         ></img>
         <div className="trainPage">
           <div className="header-trainpage">
-            <h2
+             <p
               onClick={() => {
                 if (history.state.idx && history.state.idx > 0) {
                   navigate(-1);
@@ -32,11 +32,15 @@ const AtlasDeleteAccount = () => {
                   navigate("/", { replace: true }); //fallback
                 }
               }}
-              className="click"
-              style={{ paddingLeft: "32px" }}
+              className='click'
+              style={{ 
+                paddingLeft: '32px',
+                fontSize: '24px',
+                fontWeight: 500,
+               }}
             >
               Back
-            </h2>
+            </p>
             <h2
               onClick={() => {
                 const confirmationRes = confirm(
