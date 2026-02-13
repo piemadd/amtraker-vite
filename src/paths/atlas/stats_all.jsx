@@ -162,7 +162,7 @@ const AtlasStatsAll = () => {
               }}
               className="click"
               style={{ 
-                paddingLeft: '32px',
+                paddingRight: '32px',
                 fontSize: '24px',
                 fontWeight: 500,
                }}

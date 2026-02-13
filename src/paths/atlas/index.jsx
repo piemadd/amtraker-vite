@@ -59,7 +59,7 @@ const AtlasIndex = () => {
               }}
               className="click"
               style={{
-                paddingLeft: "32px",
+                paddingRight: "32px",
                 fontSize: "24px",
                 fontWeight: 500,
               }}
@@ -182,15 +182,17 @@ const AtlasIndex = () => {
           <button
             className="root"
             onClick={function () {
-              let w = window.open('about:blank', '_blank');
+              console.log("Opening window");
+              let w = window.open("about:blank", "_blank");
+              console.log("Window opened");
 
               pb.collection("users")
                 .authWithOAuth2({
                   provider: "google",
                   urlCallback: (url) => {
-                    console.log('Resulting url:', url)
+                    console.log("Resulting url:", url);
                     w.location.href = url;
-                    console.log('URL set')
+                    console.log("URL set");
                   },
                 })
                 .then((authData) => {
@@ -214,15 +216,17 @@ const AtlasIndex = () => {
               borderRadius: "8px",
             }}
             onClick={function () {
-              let w = window.open('about:blank', '_blank');
+              console.log("Opening window");
+              let w = window.open("about:blank", "_blank");
+              console.log("Window opened");
 
               pb.collection("users")
                 .authWithOAuth2({
                   provider: "apple",
                   urlCallback: (url) => {
-                    console.log('Resulting url:', url)
+                    console.log("Resulting url:", url);
                     w.location.href = url;
-                    console.log('URL set')
+                    console.log("URL set");
                   },
                 })
                 .then((authData) => {
