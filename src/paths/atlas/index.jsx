@@ -216,18 +216,20 @@ const AtlasIndex = () => {
               borderRadius: "8px",
             }}
             onClick={function (e) {
-              console.log("Opening window");
-              let w = window.open("about:blank", "_blank");
-              console.log("Window opened");
+              //console.log("Opening window");
+              //let w = window.open("about:blank", "_blank");
+              //console.log("Window opened");
 
               pb.collection("users")
                 .authWithOAuth2({
                   provider: "apple",
+                  /*
                   urlCallback: (url) => {
                     console.log("Resulting url:", url);
                     w.location.href = url;
                     console.log("URL set");
                   },
+                  */
                 })
                 .then((authData) => {
                   setAuthUpdatedAt(Date.now());
