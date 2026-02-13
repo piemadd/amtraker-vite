@@ -182,7 +182,7 @@ const AtlasIndex = () => {
           <button
             className="root"
             onClick={function () {
-              let w = window.open('_blank', '_system');
+              let w = window.open('about:blank', '_system');
 
               pb.collection("users")
                 .authWithOAuth2({
