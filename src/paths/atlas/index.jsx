@@ -215,7 +215,7 @@ const AtlasIndex = () => {
               border: "solid 1px #000000",
               borderRadius: "8px",
             }}
-            onClick={function () {
+            onClick={function (e) {
               console.log("Opening window");
               let w = window.open("about:blank", "_blank");
               console.log("Window opened");
