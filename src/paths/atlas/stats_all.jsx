@@ -151,7 +151,7 @@ const AtlasStatsAll = () => {
             >
               Back
             </p>
-            <h2
+            <p
               onClick={() => {
                 const confirmationRes = confirm(
                   "Are you sure you want to log out?",
@@ -161,10 +161,14 @@ const AtlasStatsAll = () => {
                 navigate(0);
               }}
               className="click"
-              style={{ paddingRight: "32px" }}
+              style={{ 
+                paddingLeft: '32px',
+                fontSize: '24px',
+                fontWeight: 500,
+               }}
             >
               Log Out
-            </h2>
+            </p>
           </div>
           <section className="section-trainPage">
             <AtlasNav

@@ -31,7 +31,7 @@ const AtlasIndex = () => {
         ></img>
         <div className="trainPage">
           <div className="header-trainpage">
-             <p
+            <p
               onClick={() => {
                 if (history.state.idx && history.state.idx > 0) {
                   navigate(-1);
@@ -39,16 +39,16 @@ const AtlasIndex = () => {
                   navigate("/", { replace: true }); //fallback
                 }
               }}
-              className='click'
-              style={{ 
-                paddingLeft: '32px',
-                fontSize: '24px',
+              className="click"
+              style={{
+                paddingLeft: "32px",
+                fontSize: "24px",
                 fontWeight: 500,
-               }}
+              }}
             >
               Back
             </p>
-            <h2
+            <p
               onClick={() => {
                 const confirmationRes = confirm(
                   "Are you sure you want to log out?",
@@ -58,10 +58,14 @@ const AtlasIndex = () => {
                 navigate(0);
               }}
               className="click"
-              style={{ paddingRight: "32px" }}
+              style={{
+                paddingLeft: "32px",
+                fontSize: "24px",
+                fontWeight: 500,
+              }}
             >
               Log Out
-            </h2>
+            </p>
           </div>
           <section className="section-trainPage">
             <AtlasNav currentRoute={"index"} userData={pb.authStore.record} />
@@ -127,23 +131,23 @@ const AtlasIndex = () => {
       ></img>
       <div className="trainPage">
         <div className="header-trainpage">
-           <p
-              onClick={() => {
-                if (history.state.idx && history.state.idx > 0) {
-                  navigate(-1);
-                } else {
-                  navigate("/", { replace: true }); //fallback
-                }
-              }}
-              className='click'
-              style={{ 
-                paddingLeft: '32px',
-                fontSize: '24px',
-                fontWeight: 500,
-               }}
-            >
-              Back
-            </p>
+          <p
+            onClick={() => {
+              if (history.state.idx && history.state.idx > 0) {
+                navigate(-1);
+              } else {
+                navigate("/", { replace: true }); //fallback
+              }
+            }}
+            className="click"
+            style={{
+              paddingLeft: "32px",
+              fontSize: "24px",
+              fontWeight: 500,
+            }}
+          >
+            Back
+          </p>
         </div>
         <section className="section-trainPage">
           <h1>Atlas</h1>
@@ -178,8 +182,15 @@ const AtlasIndex = () => {
           <button
             className="root"
             onClick={() => {
+              let w = window.open();
+
               pb.collection("users")
-                .authWithOAuth2({ provider: "google" })
+                .authWithOAuth2({
+                  provider: "google",
+                  urlCallback: (url) => {
+                    w.location.href = url;
+                  },
+                })
                 .then((authData) => {
                   setAuthUpdatedAt(Date.now());
                 });
@@ -201,8 +212,15 @@ const AtlasIndex = () => {
               borderRadius: "8px",
             }}
             onClick={() => {
+              let w = window.open();
+
               pb.collection("users")
-                .authWithOAuth2({ provider: "apple" })
+                .authWithOAuth2({
+                  provider: "apple",
+                  urlCallback: (url) => {
+                    w.location.href = url;
+                  },
+                })
                 .then((authData) => {
                   setAuthUpdatedAt(Date.now());
                 });
