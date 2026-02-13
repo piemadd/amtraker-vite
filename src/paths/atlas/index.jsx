@@ -182,18 +182,22 @@ const AtlasIndex = () => {
           <button
             className="root"
             onClick={function () {
+              /*
               console.log("Opening window");
               let w = window.open("about:blank", "_blank");
               console.log("Window opened");
+              */
 
               pb.collection("users")
                 .authWithOAuth2({
                   provider: "google",
+                  /*
                   urlCallback: (url) => {
                     console.log("Resulting url:", url);
                     w.location.href = url;
                     console.log("URL set");
                   },
+                  */
                 })
                 .then((authData) => {
                   setAuthUpdatedAt(Date.now());
@@ -215,10 +219,17 @@ const AtlasIndex = () => {
               border: "solid 1px #000000",
               borderRadius: "8px",
             }}
-            onClick={function (e) {
+            onClick={async (e) => {
               //console.log("Opening window");
               //let w = window.open("about:blank", "_blank");
               //console.log("Window opened");
+
+              const authMethods = await pb.collection("users")
+                .listAuthMethods();
+
+                console.log('authMethods:', authMethods)
+
+                
 
               pb.collection("users")
                 .authWithOAuth2({
