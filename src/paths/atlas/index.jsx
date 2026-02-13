@@ -169,11 +169,12 @@ const AtlasIndex = () => {
           </details>
           <button
             className="root"
-            onClick={async () => {
-              await pb
-                .collection("users")
-                .authWithOAuth2({ provider: "google" });
-              setAuthUpdatedAt(Date.now());
+            onClick={() => {
+              pb.collection("users")
+                .authWithOAuth2({ provider: "google" })
+                .then((authData) => {
+                  setAuthUpdatedAt(Date.now());
+                });
             }}
           >
             Login With Google
@@ -191,11 +192,12 @@ const AtlasIndex = () => {
               border: "solid 1px #000000",
               borderRadius: "8px",
             }}
-            onClick={async () => {
-              await pb
-                .collection("users")
-                .authWithOAuth2({ provider: "apple" });
-              setAuthUpdatedAt(Date.now());
+            onClick={() => {
+              pb.collection("users")
+                .authWithOAuth2({ provider: "apple" })
+                .then((authData) => {
+                  setAuthUpdatedAt(Date.now());
+                });
             }}
           >
             <AppleLogo
@@ -225,10 +227,11 @@ const AtlasIndex = () => {
           <button
             className="root"
             onClick={async () => {
-              await pb
-                .collection("users")
-                .authWithPassword(currentUsername, currentPassword);
-              setAuthUpdatedAt(Date.now());
+              pb.collection("users")
+                .authWithPassword(currentUsername, currentPassword)
+                .then((authData) => {
+                  setAuthUpdatedAt(Date.now());
+                });
             }}
           >
             Login With User/Pass
