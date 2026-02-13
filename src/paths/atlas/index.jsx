@@ -220,16 +220,21 @@ const AtlasIndex = () => {
               borderRadius: "8px",
             }}
             onClick={async (e) => {
-              //console.log("Opening window");
-              //let w = window.open("about:blank", "_blank");
-              //console.log("Window opened");
+              console.log("Opening window");
+              let w = window.open("about:blank", "_blank");
+              console.log("Window opened");
 
-              const authMethods = await pb.collection("users")
+
+
+              const authMethods = await pb
+                .collection("users")
                 .listAuthMethods();
+              const providers = authMethods.oauth2?.providers || [];
 
-                console.log('authMethods:', authMethods)
+              // provider.authURL + redirectURL
 
-                
+              console.log("authMethods:", JSON.stringify(authMethods));
+              console.log("providers:", JSON.stringify(providers))
 
               pb.collection("users")
                 .authWithOAuth2({
