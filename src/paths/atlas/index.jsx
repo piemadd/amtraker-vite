@@ -189,26 +189,27 @@ const AtlasIndex = () => {
           <button
             className="root"
             onClick={() => {
-              /*
-              const w = window.open();
-              if (!w) return false;
-              (async function () {
-                await pb.collection("users").authWithOAuth2({
-                  provider: "google",
-                  urlCallback: (url) => {
-                    w.location.href = url;
-                  },
-                });
-              })();
-              */
-
-              pb.collection("users")
-                .authWithOAuth2({
-                  provider: "google",
-                })
-                .then((authData) => {
-                  setAuthUpdatedAt(Date.now());
-                });
+              if (window.webkit?.messageHandlers) {
+                // on the ios app
+                (async function () {
+                  await pb.collection("users").authWithOAuth2({
+                    provider: "google",
+                    urlCallback: (url) => {
+                      window.webkit?.messageHandlers[
+                        "open-auth-url"
+                      ].postMessage(url);
+                    },
+                  });
+                })();
+              } else {
+                pb.collection("users")
+                  .authWithOAuth2({
+                    provider: "google",
+                  })
+                  .then((authData) => {
+                    setAuthUpdatedAt(Date.now());
+                  });
+              }
             }}
           >
             Login With Google
@@ -233,7 +234,9 @@ const AtlasIndex = () => {
                   await pb.collection("users").authWithOAuth2({
                     provider: "apple",
                     urlCallback: (url) => {
-                      window.webkit?.messageHandlers['open-auth-url'].postMessage(url);
+                      window.webkit?.messageHandlers[
+                        "open-auth-url"
+                      ].postMessage(url);
                     },
                   });
                 })();
