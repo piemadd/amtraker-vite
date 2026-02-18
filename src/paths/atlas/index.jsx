@@ -18,7 +18,7 @@ const AtlasIndex = () => {
   const [currentUsername, setCurrentUsername] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
 
-  console.log('authUpdatedAt:', authUpdatedAt.toString());
+  console.log("authUpdatedAt:", authUpdatedAt.toString());
 
   // listening for auth completion so we can reload
   useEffect(() => {
@@ -227,26 +227,27 @@ const AtlasIndex = () => {
               borderRadius: "8px",
             }}
             onClick={(e) => {
-              /*
-              const w = window.open();
-              if (!w) return false;
-              (async function () {
-                await pb.collection("users").authWithOAuth2({
-                  provider: "apple",
-                  urlCallback: (url) => {
-                    w.location.href = url;
-                  },
-                });
-              })();
-              */
-
-              pb.collection("users")
-                .authWithOAuth2({
-                  provider: "apple",
-                })
-                .then((authData) => {
-                  setAuthUpdatedAt(Date.now());
-                });
+              if (window.webkit?.messageHandlers) {
+                // on the ios app
+                (async function () {
+                  await pb.collection("users").authWithOAuth2({
+                    provider: "apple",
+                    urlCallback: (url) => {
+                      window.webkit?.messageHandlers['open-auth-url'].postMessage(JSON.stringify({
+                        url,
+                      }));
+                    },
+                  });
+                })();
+              } else {
+                pb.collection("users")
+                  .authWithOAuth2({
+                    provider: "apple",
+                  })
+                  .then((authData) => {
+                    setAuthUpdatedAt(Date.now());
+                  });
+              }
             }}
           >
             <AppleLogo
