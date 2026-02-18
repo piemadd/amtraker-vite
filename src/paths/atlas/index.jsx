@@ -17,8 +17,22 @@ const AtlasIndex = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [currentUsername, setCurrentUsername] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
+  const [authURLRedirect, setAuthURLRedirect] = useState("");
 
-  console.log(authUpdatedAt);
+  // actually logging in
+  useEffect(() => {
+    if (authURLRedirect.length > 0) {
+      window.open(authURLRedirect);
+    }
+  }, [authURLRedirect]);
+
+  // listening for auth completion so we can reload
+  useEffect(() => {
+    pb.authStore.onChange((token, record) => {
+      setAuthURLRedirect("");
+      setAuthUpdatedAt(Date.now()); // force a react refresh
+    });
+  }, []);
 
   if (pb.authStore.isValid) {
     return (
@@ -181,7 +195,19 @@ const AtlasIndex = () => {
           </details>
           <button
             className="root"
-            onClick={function () {
+            onClick={() => {
+              const w = window.open();
+              if (!w) return false;
+              (async function () {
+                await pb.collection("users").authWithOAuth2({
+                  provider: "google",
+                  urlCallback: (url) => {
+                    w.location.href = url;
+                  },
+                });
+              })();
+
+              /*
               pb.collection("users")
                 .authWithOAuth2({
                   provider: "google",
@@ -189,6 +215,7 @@ const AtlasIndex = () => {
                 .then((authData) => {
                   setAuthUpdatedAt(Date.now());
                 });
+              */
             }}
           >
             Login With Google
@@ -207,13 +234,26 @@ const AtlasIndex = () => {
               borderRadius: "8px",
             }}
             onClick={(e) => {
+              const w = window.open();
+              if (!w) return false;
+              (async function () {
+                await pb.collection("users").authWithOAuth2({
+                  provider: "apple",
+                  urlCallback: (url) => {
+                    w.location.href = url;
+                  },
+                });
+              })();
+
+              /*
               pb.collection("users")
                 .authWithOAuth2({
-                  provider: "apple"
+                  provider: "apple",
                 })
                 .then((authData) => {
                   setAuthUpdatedAt(Date.now());
                 });
+              */
             }}
           >
             <AppleLogo
