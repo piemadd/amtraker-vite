@@ -233,9 +233,7 @@ const AtlasIndex = () => {
                   await pb.collection("users").authWithOAuth2({
                     provider: "apple",
                     urlCallback: (url) => {
-                      window.webkit?.messageHandlers['open-auth-url'].postMessage(JSON.stringify({
-                        url,
-                      }));
+                      window.webkit?.messageHandlers['open-auth-url'].postMessage(url);
                     },
                   });
                 })();
