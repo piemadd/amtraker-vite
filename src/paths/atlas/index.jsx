@@ -17,19 +17,12 @@ const AtlasIndex = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [currentUsername, setCurrentUsername] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
-  const [authURLRedirect, setAuthURLRedirect] = useState("");
 
-  // actually logging in
-  useEffect(() => {
-    if (authURLRedirect.length > 0) {
-      window.open(authURLRedirect);
-    }
-  }, [authURLRedirect]);
+  console.log('authUpdatedAt:', authUpdatedAt.toString());
 
   // listening for auth completion so we can reload
   useEffect(() => {
     pb.authStore.onChange((token, record) => {
-      setAuthURLRedirect("");
       setAuthUpdatedAt(Date.now()); // force a react refresh
     });
   }, []);
@@ -196,6 +189,7 @@ const AtlasIndex = () => {
           <button
             className="root"
             onClick={() => {
+              /*
               const w = window.open();
               if (!w) return false;
               (async function () {
@@ -206,8 +200,8 @@ const AtlasIndex = () => {
                   },
                 });
               })();
+              */
 
-              /*
               pb.collection("users")
                 .authWithOAuth2({
                   provider: "google",
@@ -215,7 +209,6 @@ const AtlasIndex = () => {
                 .then((authData) => {
                   setAuthUpdatedAt(Date.now());
                 });
-              */
             }}
           >
             Login With Google
@@ -234,6 +227,7 @@ const AtlasIndex = () => {
               borderRadius: "8px",
             }}
             onClick={(e) => {
+              /*
               const w = window.open();
               if (!w) return false;
               (async function () {
@@ -244,8 +238,8 @@ const AtlasIndex = () => {
                   },
                 });
               })();
+              */
 
-              /*
               pb.collection("users")
                 .authWithOAuth2({
                   provider: "apple",
@@ -253,7 +247,6 @@ const AtlasIndex = () => {
                 .then((authData) => {
                   setAuthUpdatedAt(Date.now());
                 });
-              */
             }}
           >
             <AppleLogo
