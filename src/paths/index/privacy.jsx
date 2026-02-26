@@ -223,7 +223,6 @@ const PrivacyPolicy = () => {
             Application, or have questions about the practices, please contact
             the Service Provider via email at contact@amtraker.com.
           </p>
-          <hr />
         </section>
       </div>
     </>

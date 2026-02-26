@@ -119,6 +119,16 @@ const Settings = () => {
             way via my email:{" "}
             <a href="mailto:hi@amtraker.com">hi@amtraker.com</a>.
           </p>
+
+          <h2>Debug Info</h2>
+          <p>User Agent:</p>
+          <pre>{navigator.userAgent}</pre>
+          <p>Platform:</p>
+          <pre>{navigator.platform}</pre>
+          <p>OSCPU</p>
+          <pre>{navigator.oscpu}</pre>
+          <p>Vendor</p>
+          <pre>{navigator.vendor.length > 0 ? navigator.vendor : "[empty string]"}</pre>
         </section>
       </div>
     </>
