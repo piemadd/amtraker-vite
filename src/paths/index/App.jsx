@@ -21,7 +21,7 @@ const App = () => {
   const downloadURL = useMemo(() => {
     const userAgent = navigator.userAgent;
 
-    if (/Android/.test(userAgent) && sessionStorage.getItem("has_android_twa_referrer") === "true") {
+    if (/Android/.test(userAgent) && sessionStorage.getItem("has_android_twa_referrer") !== "true") {
       // we are in a browser on android
       return {
         url: "https://play.google.com/store/apps/details?id=com.amtrak.piero",
