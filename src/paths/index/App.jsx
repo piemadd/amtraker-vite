@@ -17,13 +17,32 @@ const App = () => {
   const dataManager = window.dataManager;
   const appSettings = useMemo(settingsInit, []);
 
+  // download link for if we're in a mobile browser
+  const downloadURL = useMemo(() => {
+    const userAgent = navigator.userAgent;
+
+    if (/Android(?!.*wv)/.test(userAgent)) {
+      // we are in a browser on android
+      return {
+        url: "https://play.google.com/store/apps/details?id=com.amtrak.piero",
+        text: "Download App",
+      };
+    } else if (/(iPhone|iPod|iPad)(?!.*PWAShell)/.test(userAgent)) {
+      // we are in a browser on ios
+      return {
+        url: "https://apps.apple.com/us/app/amtraker-track-amtrak-via/id6758903803",
+        text: "Download App",
+      };
+    } else return null;
+  }, []);
+
   useEffect(() => {
     autoAddTrains().then(() => {
       setSavedTrains(
         localStorage
           .getItem("savedTrainsAmtrakerV3")
           .split(",")
-          .filter((n) => n)
+          .filter((n) => n),
       );
     });
   }, []);
@@ -43,8 +62,9 @@ const App = () => {
       //setSavedTrainsObjects([]);
       let savedTranisObjectsTemp = [];
       savedTrains.forEach((trainID, i, arr) => {
-        const shortenedTrainID = `${trainID.split("-")[0]}-${trainID.split("-")[2]
-          }`;
+        const shortenedTrainID = `${trainID.split("-")[0]}-${
+          trainID.split("-")[2]
+        }`;
 
         dataManager
           .getTrain(shortenedTrainID)
@@ -63,7 +83,7 @@ const App = () => {
 
               localStorage.setItem(
                 "savedTrainsAmtrakerV3",
-                newSavedTrains.join(",")
+                newSavedTrains.join(","),
               );
 
               if (i === arr.length - 1) {
@@ -79,7 +99,7 @@ const App = () => {
             if (
               (schDep.getMonth() + 1 !== parseInt(trainID.split("-")[1]) ||
                 schDep.getFullYear().toString().substring(2, 4) !==
-                trainID.split("-")[3]) &&
+                  trainID.split("-")[3]) &&
               !trainID.includes("NaN")
             ) {
               console.log("removing train due to incorrect date");
@@ -92,7 +112,7 @@ const App = () => {
 
               localStorage.setItem(
                 "savedTrainsAmtrakerV3",
-                newSavedTrains.join(",")
+                newSavedTrains.join(","),
               );
 
               if (i === arr.length - 1) {
@@ -107,7 +127,7 @@ const App = () => {
                 to={`/trains/${trainID.split("-")[0]}/${trainID.split("-")[2]}`}
               >
                 <ManualTrainBox train={trainData} />
-              </Link>
+              </Link>,
             );
 
             if (i === arr.length - 1) {
@@ -127,12 +147,12 @@ const App = () => {
 
             localStorage.setItem(
               "savedTrainsAmtrakerV3",
-              newSavedTrains.join(",")
+              newSavedTrains.join(","),
             );
             return null;
           });
       });
-      setSiteLastFetched(Date.now())
+      setSiteLastFetched(Date.now());
     });
   }, [savedTrains]);
 
@@ -143,9 +163,9 @@ const App = () => {
     stringToHash(localStorage.getItem("passphrase")).then((hash) => {
       if (
         hash ==
-        "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
+          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
         hash ==
-        "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
+          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
       ) {
         setBGURL("/content/images/prideflag.jpg");
         setBGClass("bg-focus-in peppino");
@@ -156,51 +176,72 @@ const App = () => {
   return (
     <>
       <img
-        id='backgroundNew'
-        alt='Map of Australia.'
-        className={'bg-focus-in peppino'}
-        src={'/content/images/waow.png'}
+        id="backgroundNew"
+        alt="Map of Australia."
+        className={"bg-focus-in peppino"}
+        src={"/content/images/waow.png"}
       ></img>
       <img
-        id='background'
-        alt='Amtrak network map.'
-        className={bgClass + ' terrabanner'}
+        id="background"
+        alt="Amtrak network map."
+        className={bgClass + " terrabanner"}
         src={bgURL}
       ></img>
+      {downloadURL ? (
+        <a href={downloadURL.url} target="_blank">
+          <button
+            className="root"
+            style={{
+              bottom: "8px",
+              left: "8px",
+              position: "absolute",
+              width: "auto",
+              height: "48px",
+              textAlign: "center",
+              lineHeight: "0px",
+            }}
+          >
+            {downloadURL.text}
+          </button>
+        </a>
+      ) : null}
       <button
-        className='root'
+        className="root"
         style={{
-          bottom: '8px',
-          right: '8px',
-          position: 'absolute',
-          fontSize: '24px',
-          width: '48px',
-          height: '48px',
-          textAlign: 'center',
-          lineHeight: '0px'
+          bottom: "8px",
+          right: "8px",
+          position: "absolute",
+          fontSize: "24px",
+          width: "48px",
+          height: "48px",
+          textAlign: "center",
+          lineHeight: "0px",
         }}
         onClick={() => setSavedTrains([...savedTrains])}
-      >⟳</button>
+      >
+        ⟳
+      </button>
       <main>
         {/*<h2 className='welcome-to'>Welcome to</h2>*/}
         <div className="titleArea">
-          <h1 className='gayTitle'>Amtraker</h1>
-        {/*}<p className="slogan">Happy holidays!</p>*/}
+          <h1 className="gayTitle">Amtraker</h1>
+          {/*}<p className="slogan">Happy holidays!</p>*/}
         </div>
-        <section id='section-saved' className="section-border">
+        <section id="section-saved" className="section-border">
           {isStale ? (
-            <div className='stale'>
+            <div className="stale">
               <p>
-                <span className='stale-text'>Warning:</span> Data is stale.
+                <span className="stale-text">Warning:</span> Data is stale.
                 Trains were last updated on average{" "}
                 {Math.floor(timeSinceLastUpdate / 60000)} minutes ago.
               </p>
             </div>
           ) : null}
           {shitsFucked ? (
-            <div className='stale'>
+            <div className="stale">
               <p>
-                <span className='stale-text'>Warning:</span> The Amtrak API seems to be having issues currently! Please try again later...
+                <span className="stale-text">Warning:</span> The Amtrak API
+                seems to be having issues currently! Please try again later...
               </p>
             </div>
           ) : null}
@@ -219,59 +260,69 @@ const App = () => {
           >
             Saved Trains
           </h2>
-          <div className='savedTrains'>
+          <div className="savedTrains">
             {loading ? (
-              <div className='loading'>Loading...</div>
+              <div className="loading">Loading...</div>
             ) : savedTrainsObjects.length > 0 ? (
-              <>{savedTrainsObjects}
-                <p>Data Last Fetched at: {new Date(siteLastFetched).toLocaleTimeString()}</p>
+              <>
+                {savedTrainsObjects}
+                <p>
+                  Data Last Fetched at:{" "}
+                  {new Date(siteLastFetched).toLocaleTimeString()}
+                </p>
               </>
             ) : (
               <div>No Saved Trains</div>
             )}
           </div>
         </section>
-        <h3 className='split'>or</h3>
-        <div className='links'>
+        <h3 className="split">or</h3>
+        <div className="links">
           <Link to={"/trains"}>
-            <button className='root'>Trains List</button>
+            <button className="root">Trains List</button>
           </Link>
 
           <Link to={"/stations"}>
-            <button className='root'>Stations List</button>
+            <button className="root">Stations List</button>
           </Link>
         </div>
-        <div className='links'>
+        <div className="links">
           <Link to={"/map"}>
-            <button className='root'>Live Map</button>
+            <button className="root">Live Map</button>
           </Link>
           <Link to={"/atlas"}>
-            <button className='root'>Atlas</button>
+            <button className="root">Atlas</button>
           </Link>
         </div>
 
-        <section className='footer section-border'>
+        <section className="footer section-border">
           <p>
             <a
-              href='https://docs.google.com/forms/d/e/1FAIpQLSfLfypJxtK62zBakCzo23y-WKFZj_TjbX5pKGZ08gxOeBatkg/viewform?usp=sf_link'
-              target='blank'
+              href="https://docs.google.com/forms/d/e/1FAIpQLSfLfypJxtK62zBakCzo23y-WKFZj_TjbX5pKGZ08gxOeBatkg/viewform?usp=sf_link"
+              target="blank"
             >
               Feedback
             </a>
           </p>
-          <Link to='/about'>
+          <Link to="/about">
             <p>About</p>
           </Link>
-          <Link to='/settings'>
+          <Link to="/settings">
             <p>Settings</p>
           </Link>
-          <Link to='/privacy'>
+          <Link to="/privacy">
             <p>Privacy Policy</p>
           </Link>
         </section>
-        <section className='amtrakerVersion section-border'>
-          <p>Amtraker v3.18.1</p>
-          <p>&copy; <a href="https://piemadd.com" target="_blank">Piero Maddaleni</a> 2026</p>
+        <section className="amtrakerVersion section-border">
+          <p>Amtraker v3.18.2</p>
+          <p>
+            &copy;{" "}
+            <a href="https://piemadd.com" target="_blank">
+              Piero Maddaleni
+            </a>{" "}
+            2026
+          </p>
         </section>
       </main>
     </>
