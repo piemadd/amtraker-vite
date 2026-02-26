@@ -121,14 +121,16 @@ const Settings = () => {
           </p>
 
           <h2>Debug Info</h2>
-          <p>User Agent:</p>
+          <p>User Agent</p>
           <pre>{navigator.userAgent}</pre>
           <p>Platform:</p>
           <pre>{navigator.platform}</pre>
           <p>OSCPU</p>
-          <pre>{navigator.oscpu}</pre>
+          <pre>{navigator.oscpu.length > 0 ? navigator.oscpu : "[empty string]"}</pre>
           <p>Vendor</p>
           <pre>{navigator.vendor.length > 0 ? navigator.vendor : "[empty string]"}</pre>
+          <p>Session Storage</p>
+          <pre>{JSON.stringify(sessionStorage, null, 2)}</pre>
         </section>
       </div>
     </>
