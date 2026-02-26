@@ -23,6 +23,7 @@ const App = () => {
 
     if (/Android(?!.*wv)/.test(userAgent)) {
       // we are in a browser on android
+      return null; // probably do this for now
       return {
         url: "https://play.google.com/store/apps/details?id=com.amtrak.piero",
         text: "Download App",
@@ -315,7 +316,7 @@ const App = () => {
           </Link>
         </section>
         <section className="amtrakerVersion section-border">
-          <p>Amtraker v3.18.4</p>
+          <p>Amtraker v3.18.5</p>
           <p>
             &copy;{" "}
             <a href="https://piemadd.com" target="_blank">

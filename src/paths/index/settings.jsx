@@ -126,7 +126,7 @@ const Settings = () => {
           <p>Platform:</p>
           <pre>{navigator.platform}</pre>
           <p>OSCPU</p>
-          <pre>{navigator.oscpu.length > 0 ? navigator.oscpu : "[empty string]"}</pre>
+          <pre>{(navigator.oscpu && navigator.oscpu.length > 0) ? navigator.oscpu : "[empty string]"}</pre>
           <p>Vendor</p>
           <pre>{navigator.vendor.length > 0 ? navigator.vendor : "[empty string]"}</pre>
           <p>Session Storage</p>
