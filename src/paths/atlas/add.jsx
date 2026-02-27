@@ -21,6 +21,12 @@ window.createRecordWithData = createRecordWithData;
 const AtlasAdd = () => {
   const navigate = useNavigate();
 
+  if (!pb.authStore.isValid || !pb.authStore.record) {
+    console.log('Redirecting...')
+    navigate("/atlas", { replace: true });
+    return null;
+  }
+
   const [bgURL, setBGURL] = useState("/content/images/amtraker-back.webp");
   const [bgClass, setBGClass] = useState("bg-focus-in");
   const [disableInputValidation, setDisableInputValidation] = useState(localStorage.getItem('amtraker_atlas_disable_checks') ?? false);
@@ -102,7 +108,6 @@ const AtlasAdd = () => {
     setTimeMin((totalTimeSeconds / 60).toFixed(0));
   }, [selectedStartStation, selectedEndStation]);
 
-  if (pb.authStore.isValid) {
     useEffect(() => {
       console.log("%cHello Developers", 'background-color: darkblue; color: white; font-style: italic; border: 5px solid darkblue; font-size: 2em;');
       console.log("I know you're probably poking around seeing how to add your own records. Please be reponsible and dont make me ban you.");
@@ -275,7 +280,7 @@ const AtlasAdd = () => {
         </div>
       </>
     );
-  };
+  
 
   navigate("/atlas", { replace: true });
 };

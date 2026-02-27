@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 const AtlasNav = ({ currentRoute = null, userData = null }) => {
   if (!currentRoute) currentRoute = "index";
 
+  if (!userData) return null;
+
   return (
     <>
       <h1

@@ -10,6 +10,12 @@ const pb = new PocketBase("https://pb.amtraker.com");
 
 const AtlasStatsInd = () => {
   const navigate = useNavigate();
+  
+  if (!pb.authStore.isValid || !pb.authStore.record) {
+    console.log('Redirecting...')
+    navigate("/atlas", { replace: true });
+    return null;
+  }
 
   const [bgURL, setBGURL] = useState("/content/images/amtraker-back.webp");
   const [bgClass, setBGClass] = useState("bg-focus-in");
@@ -91,7 +97,6 @@ const AtlasStatsInd = () => {
       });
   }, []);
 
-  if (pb.authStore.isValid) {
     return (
       <>
         <img
@@ -315,9 +320,6 @@ const AtlasStatsInd = () => {
         </div>
       </>
     );
-  }
-
-  navigate("/atlas", { replace: true });
 };
 
 export default AtlasStatsInd;
