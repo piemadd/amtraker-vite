@@ -296,6 +296,7 @@ const App = () => {
         </div>
 
         <section className="footer section-border">
+          {/*}
           <p>
             <a
               href="https://docs.google.com/forms/d/e/1FAIpQLSfLfypJxtK62zBakCzo23y-WKFZj_TjbX5pKGZ08gxOeBatkg/viewform?usp=sf_link"
@@ -304,6 +305,7 @@ const App = () => {
               Feedback
             </a>
           </p>
+          */}
           <Link to="/about">
             <p>About</p>
           </Link>
@@ -315,7 +317,7 @@ const App = () => {
           </Link>
         </section>
         <section className="amtrakerVersion section-border">
-          <p>Amtraker v3.18.7</p>
+          <p>Amtraker v3.18.8</p>
           <p>
             &copy;{" "}
             <a href="https://piemadd.com" target="_blank">
