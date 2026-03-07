@@ -4,6 +4,9 @@ import stringToHash from "../../components/money/stringToHash";
 
 const AboutPage = () => {
   const navigate = useNavigate();
+
+  document.title = 'About - Amtraker';
+
   const [bgURL, setBGURL] = useState("/content/images/amtraker-back.webp");
   const [bgClass, setBGClass] = useState("bg-focus-in");
 
@@ -99,7 +102,7 @@ const AboutPage = () => {
                   you don't spam the API ofc. You can find the API documentation{" "}
                   <a href="https://github.com/piemadd/amtrak">here</a>. Let me
                   know any issues you have with the API by emailing me at{" "}
-                  <a href="mailto:dev@amtraker.com">dev@amtraker.com</a>.
+                  <a href="mailto:amtraker@piemadd.com">amtraker@piemadd.com</a>.
                 </li>
               </ul>
             </li>
@@ -133,7 +136,7 @@ const AboutPage = () => {
               <ul>
                 <li>
                   You can email me at{" "}
-                  <a href="mailto:hi@amtraker.com">hi@amtraker.com</a>, or you
+                  <a href="mailto:amtraker@piemadd.com">amtraker@piemadd.com</a>, or you
                   can submit feedback via the{" "}
                   <a
                     href="https://forms.gle/Fp6fVc2wqVLZKXKq9"
@@ -163,7 +166,7 @@ const AboutPage = () => {
                   tracking your train, Amtraker won't be able to either. If the
                   train, for whatever reason, is tracking on the official
                   tracker, but not on Amtraker, please{" "}
-                  <a href="mailto:hi@amtraker.com">email me</a> and I'll look as
+                  <a href="mailto:amtraker@piemadd.com">email me</a> and I'll look as
                   soon as I can.
                 </li>
               </ul>

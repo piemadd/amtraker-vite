@@ -10,6 +10,8 @@ const pb = new PocketBase("https://pb.amtraker.com");
 const AtlasIndex = () => {
   const navigate = useNavigate();
 
+  document.title = 'Amtraker Atlas : Home';
+
   const [bgURL, setBGURL] = useState("/content/images/amtraker-back.webp");
   const [bgClass, setBGClass] = useState("bg-focus-in");
   const [authUpdatedAt, setAuthUpdatedAt] = useState(0);

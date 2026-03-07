@@ -35,7 +35,7 @@ export async function onRequest(context) {
 
   // these are the metatags we want to inject into the site
   ogtag = `
-    <meta property="og:title" content="${infoData[code].name} (${code}) | Amtraker" />
+    <meta property="og:title" content="${infoData[code].name} (${code}) - Amtraker" />
     <meta property="og:description" content="Track trains to and from ${infoData[code].name}!" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
@@ -47,7 +47,7 @@ export async function onRequest(context) {
 
     <meta name="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="${request.url}">
-    <meta name="twitter:title" content="${infoData[code].name} (${code}) | Amtraker">
+    <meta name="twitter:title" content="${infoData[code].name} (${code}) - Amtraker">
     <meta name="twitter:description" content="Track trains to and from ${infoData[code].name}!">
     <meta name="twitter:image" content="https://ogimg.transitstat.us/images?service=amtraker&type=station&code=${code}">
   `

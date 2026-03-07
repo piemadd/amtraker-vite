@@ -28,19 +28,16 @@ initAlwaysTracked();
 import App from "./paths/index/App.jsx";
 
 const TrainsByNumber = React.lazy(() => import("./paths/trains/num.jsx"));
+const BetterTrainsByNumber = React.lazy(() => import("./paths/trains/numBetter.jsx"));
 const BetterTrainPage = React.lazy(() => import("./paths/trains/train.jsx"));
 const TrainsList = React.lazy(() => import("./paths/trains/list.jsx"));
-const TrainsLeaderboard = React.lazy(
-  () => import("./paths/trains/leaderboard.jsx"),
-);
+const TrainsLeaderboard = React.lazy(() => import("./paths/trains/leaderboard.jsx"));
 const FullTrainsList = React.lazy(() => import("./paths/trains/listFull.jsx"));
 const StationsList = React.lazy(() => import("./paths/stations/list.jsx"));
 const StationPage = React.lazy(() => import("./paths/stations/station.jsx"));
 const Settings = React.lazy(() => import("./paths/index/settings.jsx"));
 const Map = React.lazy(() => import("./paths/map/Map.jsx"));
-const MiniMapHolderTest = React.lazy(
-  () => import("./components/mapping/miniMapHolderTest.jsx"),
-);
+const MiniMapHolderTest = React.lazy(() => import("./components/mapping/miniMapHolderTest.jsx"));
 const PrivacyPolicy = React.lazy(() => import("./paths/index/privacy"));
 const AboutPage = React.lazy(() => import("./paths/index/about"));
 const VotePage = React.lazy(() => import("./paths/index/vote.jsx"));
@@ -49,9 +46,7 @@ const AtlasIndex = React.lazy(() => import("./paths/atlas/index.jsx"));
 const AtlasAdd = React.lazy(() => import("./paths/atlas/add.jsx"));
 const AtlasStatsAll = React.lazy(() => import("./paths/atlas/stats_all.jsx"));
 const AtlasStatsInd = React.lazy(() => import("./paths/atlas/stats_ind.jsx"));
-const AtlasDeleteAccount = React.lazy(
-  () => import("./paths/atlas/delete_account.jsx"),
-);
+const AtlasDeleteAccount = React.lazy(() => import("./paths/atlas/delete_account.jsx"));
 
 const router = createBrowserRouter([
   {
@@ -86,7 +81,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/trains/:trainNum",
-    element: <TrainsByNumber />,
+    element: <BetterTrainsByNumber />,
     errorElement: <ErrorPage />,
   },
   {

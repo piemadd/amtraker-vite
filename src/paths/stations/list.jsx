@@ -18,6 +18,8 @@ const debounce = (func, timeout = 300) => {
 const StationsList = () => {
   const navigate = useNavigate();
 
+  document.title = 'All Stations - Amtraker';
+
   const [loading, setLoading] = useState(true);
   const [stationData, setStationData] = useState([]);
   const [results, setResults] = useState([]);

@@ -51,6 +51,13 @@ const BetterTrainPage = () => {
     });
   }, [trainNum, trainDate]);
 
+  if (trainData[0] && !loading) {
+    console.log(trainData[0])
+    document.title = `${trainData[0].provider} Train ${trainData[0].trainNumRaw} (${trainData[0].trainID.split('-')[1]}) Tracker - Amtraker`;
+  } else {
+    document.title = `Train ${trainNum} Tracker - Amtraker`;
+  }
+
   useEffect(() => {
     initAlwaysTracked();
     console.log(

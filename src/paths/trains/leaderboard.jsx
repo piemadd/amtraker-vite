@@ -131,6 +131,9 @@ const providerTextColors = {
 
 const TrainsLeaderboard = () => {
   const navigate = useNavigate();
+
+  document.title = `Late Train Leaderboard - Amtraker`;
+
   const dataManager = window.dataManager;
   const appSettings = useMemo(settingsInit, []);
 

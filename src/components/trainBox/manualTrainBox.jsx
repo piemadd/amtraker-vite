@@ -8,6 +8,7 @@ const ManualTrainBox = ({
   width = null,
   onClick = null,
   overrideEventCode = null,
+  id = null,
 }) => {
   if (overrideEventCode) {
     train.eventCode = overrideEventCode;

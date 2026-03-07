@@ -6,6 +6,8 @@ import stringToHash from "../../components/money/stringToHash";
 const Settings = () => {
   const navigate = useNavigate();
 
+  document.title = 'Settings - Amtraker';
+
   const [bgURL, setBGURL] = useState("/content/images/amtraker-back.webp");
   const [bgClass, setBGClass] = useState("bg-focus-in");
 
@@ -117,7 +119,7 @@ const Settings = () => {
           <p>
             If you have any feature requests for Amtraker, please send them my
             way via my email:{" "}
-            <a href="mailto:hi@amtraker.com">hi@amtraker.com</a>.
+            <a href="mailto:amtraker@piemadd.com">amtraker@piemadd.com</a>.
           </p>
 
           <h2>Debug Info</h2>

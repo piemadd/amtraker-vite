@@ -11,6 +11,7 @@ import MiniMap from "../../components/mapping/miniMap";
 const StationPage = () => {
   const { stationCode } = useParams();
   const navigate = useNavigate();
+
   const dataManager = window.dataManager;
   const appSettings = useMemo(settingsInit, []);
   const [loading, setLoading] = useState(true);
@@ -18,15 +19,19 @@ const StationPage = () => {
   const [onlyShowUpcoming, setOnlyShowUpcoming] = useState(false);
   const [filteredTrainIDs, setFilteredTrainIDs] = useState([]);
   const [filteredStationCodes, setFilteredStationCodes] = useState([]);
+  const [isInvalid, setIsInvalid] = useState(false);
 
   useEffect(() => {
     dataManager.getStation(stationCode).then((data) => {
+      if (!data[stationCode]) setIsInvalid(true);
       setFilteredTrainIDs(data[stationCode].trains);
       setFilteredStationCodes([stationCode]);
       setStationData(data[stationCode]);
       setLoading(false);
     });
   }, [stationCode]);
+
+  document.title = `${stationData && !loading ? stationData.name : stationCode} Station - Amtraker`;
 
   const [bgURL, setBGURL] = useState("/content/images/amtraker-back.webp");
   const [bgClass, setBGClass] = useState("bg-focus-in");
@@ -44,6 +49,74 @@ const StationPage = () => {
       }
     });
   }, []);
+
+  if (isInvalid)
+    return (
+      <>
+        <img
+          id="backgroundNew"
+          alt="Map of Australia."
+          className={"bg-focus-in peppino"}
+          src={"/content/images/waow.png"}
+        ></img>
+        <img
+          id="background"
+          alt="Amtrak network map."
+          className={bgClass + " terrabanner"}
+          src={bgURL}
+        ></img>
+        <div className="trainPage">
+          <div className="header-trainpage">
+            <p
+              onClick={() => {
+                if (history.state.idx && history.state.idx > 0) {
+                  navigate(-1);
+                } else {
+                  navigate("/", { replace: true }); //fallback
+                }
+              }}
+              className="click"
+              style={{
+                paddingLeft: "32px",
+                fontSize: "24px",
+                fontWeight: 500,
+              }}
+            >
+              Back
+            </p>
+            <div className="multiButtonHolder">
+              <ShareButton
+                navigatorOptions={{
+                  title: `Track trains at ${stationData.name} (${stationData.code} with Amtraker!`,
+                  url: `https://amtraker.com/stations/${stationData.code}`,
+                }}
+              />
+            </div>
+          </div>
+          <div className="multiSectionHolder">
+            <section
+              className="section-trainPage"
+              style={{
+                minWidth: "320px",
+                maxWidth: window.innerWidth >= 900 ? "398px" : null, // only setting max size if we have the map
+                gap: "0px",
+              }}
+            >
+              <div className="trainInnerContentScroll">
+                <h2>{stationCode} Station</h2>
+                <p>
+                  This station could not be found in Amtraker's Database. Please
+                  ensure '{stationCode}' is a valid station code.
+                  {stationCode.length > 4
+                    ? " Station codes are always 3-4 characters in length, like 'CHI' or 'TRTO'."
+                    : null}
+                </p>
+              </div>
+            </section>
+          </div>
+        </div>
+      </>
+    );
 
   return (
     <>
@@ -155,7 +228,7 @@ const StationPage = () => {
                         )
                         .filter((train) => {
                           if (onlyShowUpcoming) {
-                            const trainThisStation = train.stations.find(
+                            const trainThisStation = (train.stations ?? []).find(
                               (station) => station.code == stationCode,
                             );
 

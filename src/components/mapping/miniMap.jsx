@@ -181,7 +181,7 @@ const MiniMap = ({ filteredTrainIDs = [], filteredStationCodes = [], zoomToTrain
         } else {
           const bbox = new maplibregl.LngLatBounds();
           for (let i = 0; i < pointsToBoundTo.length; i++) bbox.extend(pointsToBoundTo[i]);
-          if (!bbox.isEmpty()) mapRef.current.fitBounds(bbox, { padding: 16 });
+          if (!bbox.isEmpty()) mapRef.current.fitBounds(bbox, { padding: 64, });
         }
       };
 

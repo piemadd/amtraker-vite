@@ -7,6 +7,8 @@ import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import { autoAddTrains } from "../../tools";
 
 const App = () => {
+  document.title = "Amtraker";
+
   const [savedTrains, setSavedTrains] = useState([]);
   const [isStale, setIsStale] = useState(false);
   const [timeSinceLastUpdate, setTimeSinceLastUpdate] = useState(0);
@@ -21,7 +23,10 @@ const App = () => {
   const downloadURL = useMemo(() => {
     const userAgent = navigator.userAgent;
 
-    if (/Android/.test(userAgent) && sessionStorage.getItem("has_android_twa_referrer") !== "true") {
+    if (
+      /Android/.test(userAgent) &&
+      sessionStorage.getItem("has_android_twa_referrer") !== "true"
+    ) {
       // we are in a browser on android
       return {
         url: "https://play.google.com/store/apps/details?id=com.amtrak.piero",
@@ -317,7 +322,7 @@ const App = () => {
           </Link>
         </section>
         <section className="amtrakerVersion section-border">
-          <p>Amtraker v3.18.8</p>
+          <p>Amtraker v3.19.0</p>
           <p>
             &copy;{" "}
             <a href="https://piemadd.com" target="_blank">

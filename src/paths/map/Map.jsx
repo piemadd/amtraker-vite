@@ -55,6 +55,8 @@ const AmtrakerMap = () => {
   const mapRef = useRef(null);
   const mapContainerRef = useRef(null);
 
+  document.title = 'Live Map - Amtraker';
+
   const setResultsAndRefreshMap = (showAllState, currentQuery) => {
     let actualNewResults = [];
 

@@ -20,6 +20,9 @@ const debounce = (func, timeout = 300) => {
 
 const TrainsList = () => {
   const navigate = useNavigate();
+
+  document.title = `All Trains - Amtraker`;
+
   const dataManager = window.dataManager;
   const appSettings = useMemo(settingsInit, []);
 

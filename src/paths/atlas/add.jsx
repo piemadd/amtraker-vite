@@ -21,6 +21,8 @@ window.createRecordWithData = createRecordWithData;
 const AtlasAdd = () => {
   const navigate = useNavigate();
 
+  document.title = 'Amtraker Atlas : Add';
+
   if (!pb.authStore.isValid || !pb.authStore.record) {
     console.log('Redirecting...')
     navigate("/atlas", { replace: true });

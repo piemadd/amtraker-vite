@@ -5,6 +5,8 @@ import stringToHash from "../../components/money/stringToHash";
 const PrivacyPolicy = () => {
   const navigate = useNavigate();
 
+  document.title = 'Privacy Policy - Amtraker';
+
   const [bgURL, setBGURL] = useState("/content/images/amtraker-back.webp");
   const [bgClass, setBGClass] = useState("bg-focus-in");
 
@@ -166,7 +168,7 @@ const PrivacyPolicy = () => {
             The Service Provider will retain User Provided data for as long as
             you use the Application and for a reasonable time thereafter. If
             you'd like them to delete User Provided Data that you have provided
-            via the Application, please contact them at contact@amtraker.com and
+            via the Application, please contact them at amtraker@piemadd.com and
             they will respond in a reasonable time.
           </p>
           <br />
@@ -186,7 +188,7 @@ const PrivacyPolicy = () => {
               immediately delete this from their servers. If you are a parent or
               guardian and you are aware that your child has provided us with
               personal information, please contact the Service Provider
-              (contact@amtraker.com) so that they will be able to take the
+              (amtraker@piemadd.com) so that they will be able to take the
               necessary actions.
             </p>
           </div>
@@ -221,7 +223,7 @@ const PrivacyPolicy = () => {
           <p>
             If you have any questions regarding privacy while using the
             Application, or have questions about the practices, please contact
-            the Service Provider via email at contact@amtraker.com.
+            the Service Provider via email at amtraker@piemadd.com.
           </p>
         </section>
       </div>

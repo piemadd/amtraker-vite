@@ -10,6 +10,8 @@ const pb = new PocketBase("https://pb.amtraker.com");
 
 const AtlasStatsInd = () => {
   const navigate = useNavigate();
+
+  document.title = 'Amtraker Atlas : Stats';
   
   if (!pb.authStore.isValid || !pb.authStore.record) {
     console.log('Redirecting...')

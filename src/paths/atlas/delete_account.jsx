@@ -8,6 +8,8 @@ const pb = new PocketBase("https://pb.amtraker.com");
 const AtlasDeleteAccount = () => {
   const navigate = useNavigate();
 
+  document.title = 'Amtraker Atlas : Delete Account';
+
   const [bgURL, setBGURL] = useState("/content/images/amtraker-back.webp");
   const [bgClass, setBGClass] = useState("bg-focus-in");
 

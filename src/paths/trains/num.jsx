@@ -40,6 +40,8 @@ const TrainsByNumber = () => {
         setSelectedTrain(sorted[0].trainID);
         setTrainLink(`/trains/${trainNum}/${sorted[0].trainID.split("-")[1]}${searchParams.has("oembed") ? '?oembed' : ''}`);
 
+        // no more automatic redirects as this probably kills SEO
+        /*
         if (data[trainNum].length === 1) {
           console.log("only one train, navigating");
           navigate(
@@ -49,9 +51,16 @@ const TrainsByNumber = () => {
             }
           );
         }
+        */
       }
     });
   }, [trainNum, navigate]);
+
+  if (trainData[0] && !loading) {
+    document.title = `${trainData[0].provider} Train ${trainData[0].trainNumRaw} Tracker - Amtraker`;
+  } else {
+    document.title = `Train ${trainNum} Tracker - Amtraker`;
+  }
 
   const [bgURL, setBGURL] = useState("/content/images/amtraker-back.webp");
   const [bgClass, setBGClass] = useState("bg-focus-in");
