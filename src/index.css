@@ -93,6 +93,7 @@ body,
 }
 
 #background, #backgroundNew {
+  background-color: #203d69;
   object-fit: cover;
   z-index: -1;
   position: fixed;

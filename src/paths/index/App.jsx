@@ -322,7 +322,7 @@ const App = () => {
           </Link>
         </section>
         <section className="amtrakerVersion section-border">
-          <p>Amtraker v3.19.1</p>
+          <p>Amtraker v3.19.2</p>
           <p>
             &copy;{" "}
             <a href="https://piemadd.com" target="_blank">
