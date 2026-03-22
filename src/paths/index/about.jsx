@@ -5,7 +5,7 @@ import stringToHash from "../../components/money/stringToHash";
 const AboutPage = () => {
   const navigate = useNavigate();
 
-  document.title = 'About - Amtraker';
+  document.title = "About - Amtraker";
 
   const [bgURL, setBGURL] = useState("/content/images/amtraker-back.webp");
   const [bgClass, setBGClass] = useState("bg-focus-in");
@@ -83,14 +83,90 @@ const AboutPage = () => {
               <h3>Where does your data come from?</h3>
               <ul>
                 <li>
-                  Amtraker pulls its data from{" "}
-                  <a
-                    href="https://www.amtrak.com/track-your-train.html"
-                    target="_blank"
-                  >
-                    Amtrak's official tracking map
-                  </a>{" "}
-                  and rehosts it on our servers.
+                  Amtraker pulls its data from multiple sources and and rehosts
+                  it on our servers. The list of data providers includes, but is
+                  not limited to:
+                  <ul>
+                    <li>
+                      <a
+                        href="https://github.com/protomaps/basemaps"
+                        target="_blank"
+                      >
+                        Protomaps
+                      </a>{" "}
+                      - Built Map Archives
+                    </li>
+                    <li>
+                      <a href="https://openstreetmap.org" target="_blank">
+                        OpenStreetMap
+                      </a>{" "}
+                      - General Map Data (Streets, Buildings, Cities, etc)
+                    </li>
+                    <li>
+                      <a href="https://overturemaps.org" target="_blank">
+                        Overture Maps Foundation
+                      </a>{" "}
+                      - General Map Data (Land, Oceans, etc)
+                    </li>
+                    <li>
+                      <a
+                        href="https://geodata.bts.gov/datasets/usdot::amtrak-routes/about"
+                        target="_blank"
+                      >
+                        USDOT BTS
+                      </a>{" "}
+                      - Most Amtrak Map Lines
+                    </li>
+                    <li>
+                      <a
+                        href="https://www.amtrak.com/track-your-train.html"
+                        target="_blank"
+                      >
+                        Amtrak
+                      </a>{" "}
+                      - Some Map Lines, Train Data
+                    </li>
+                    <li>
+                      <a href="http://feed.gobrightline.com/" target="_blank">
+                        Brightline
+                      </a>{" "}
+                      - Train Data and Platform Numbers
+                    </li>
+                    <li>
+                      <a
+                        href="https://www.viarail.ca/en/developer-resources"
+                        target="_blank"
+                      >
+                        VIA Rail
+                      </a>{" "}
+                      - Train Data
+                    </li>
+                    <li>
+                      <a
+                        href="https://developer.njtransit.com/terms/"
+                        target="_blank"
+                      >
+                        NJT
+                      </a>{" "}
+                      - Some NEC Platform Data
+                    </li>
+                    <li>
+                      <a
+                        href="https://metrolinktrains.com/about/gtfs/gtfs-rt-access/"
+                        target="_blank"
+                      >
+                        LA Metrolink
+                      </a>{" "}
+                      - LA Area Platform Data
+                    </li>
+                    <li>
+                      <a href="https://moynihantrainhall.nyc/" target="_blank">
+                        NY Moynihan
+                      </a>{" "}
+                      - NYP Platform Data (When available - tends to be more
+                      accurate than NJT)
+                    </li>
+                  </ul>
                 </li>
               </ul>
             </li>
@@ -102,7 +178,8 @@ const AboutPage = () => {
                   you don't spam the API ofc. You can find the API documentation{" "}
                   <a href="https://github.com/piemadd/amtrak">here</a>. Let me
                   know any issues you have with the API by emailing me at{" "}
-                  <a href="mailto:amtraker@piemadd.com">amtraker@piemadd.com</a>.
+                  <a href="mailto:amtraker@piemadd.com">amtraker@piemadd.com</a>
+                  .
                 </li>
               </ul>
             </li>
@@ -136,8 +213,8 @@ const AboutPage = () => {
               <ul>
                 <li>
                   You can email me at{" "}
-                  <a href="mailto:amtraker@piemadd.com">amtraker@piemadd.com</a>, or you
-                  can submit feedback via the{" "}
+                  <a href="mailto:amtraker@piemadd.com">amtraker@piemadd.com</a>
+                  , or you can submit feedback via the{" "}
                   <a
                     href="https://forms.gle/Fp6fVc2wqVLZKXKq9"
                     target="__blank"
@@ -166,8 +243,8 @@ const AboutPage = () => {
                   tracking your train, Amtraker won't be able to either. If the
                   train, for whatever reason, is tracking on the official
                   tracker, but not on Amtraker, please{" "}
-                  <a href="mailto:amtraker@piemadd.com">email me</a> and I'll look as
-                  soon as I can.
+                  <a href="mailto:amtraker@piemadd.com">email me</a> and I'll
+                  look as soon as I can.
                 </li>
               </ul>
             </li>

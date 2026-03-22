@@ -35,12 +35,12 @@ const MiniMap = ({ filteredTrainIDs = [], filteredStationCodes = [], zoomToTrain
               mapRef.current.updateImage(train.trainID, img);
             } else {
               mapRef.current.addImage(train.trainID, img, {
-                pixelRatio: 4,
+                pixelRatio: 2,
               });
             }
           } catch (e) { // different sized image
             mapRef.current.removeImage(train.trainID); mapRef.current.addImage(train.trainID, img, {
-              pixelRatio: 4,
+              pixelRatio: 2,
             });
           }
         }
@@ -254,7 +254,7 @@ const MiniMap = ({ filteredTrainIDs = [], filteredStationCodes = [], zoomToTrain
             //converting the image and loading it
             const img = new Image(imageWidth, imageHeight);
             img.onload = () => mapRef.current.addImage(train.trainID, img, {
-              pixelRatio: 4,
+              pixelRatio: 2,
             });
             img.onerror = console.log;
             img.src = "data:image/svg+xml;base64," + btoa(imageText);
@@ -446,9 +446,11 @@ const MiniMap = ({ filteredTrainIDs = [], filteredStationCodes = [], zoomToTrain
             '<span>Amtrak</span>',
             '<a href="http://feed.gobrightline.com/" target="_blank">© Brightline</a>',
             '<a href="https://www.viarail.ca/en/developer-resources" target="_blank">© VIA Rail</a>',
+            /*
             '<a href="https://developer.njtransit.com/terms/" target="_blank">© NJT</a>',
             '<a href="https://metrolinktrains.com/about/gtfs/gtfs-rt-access/" target="_blank">© LA Metrolink</a>',
             '<a href="https://moynihantrainhall.nyc/" target="_blank">© NY Moynihan</a>',
+            */
           ].join(' | '),
           compact: false
         }));

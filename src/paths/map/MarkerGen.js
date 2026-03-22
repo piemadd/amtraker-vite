@@ -1,5 +1,5 @@
 const generateMarker = (train) => {
-  const sizeMultiplier = 1.25;
+  const sizeMultiplier = 1.25 / 2;
   const needLastNum = !train.onlyOfTrainNum;
 
   const calculatedWidth =
