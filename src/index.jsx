@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import "./index.css";
 import "./paths/index/App.css";
 import "./paths/trains/trains.css";
@@ -35,11 +35,10 @@ const TrainsLeaderboard = React.lazy(() => import("./paths/trains/leaderboard.js
 const FullTrainsList = React.lazy(() => import("./paths/trains/listFull.jsx"));
 const StationsList = React.lazy(() => import("./paths/stations/list.jsx"));
 const StationPage = React.lazy(() => import("./paths/stations/station.jsx"));
-const Settings = React.lazy(() => import("./paths/index/settings.jsx"));
 const Map = React.lazy(() => import("./paths/map/Map.jsx"));
 const MiniMapHolderTest = React.lazy(() => import("./components/mapping/miniMapHolderTest.jsx"));
 const PrivacyPolicy = React.lazy(() => import("./paths/index/privacy"));
-const AboutPage = React.lazy(() => import("./paths/index/about"));
+const AboutSettingsPage = React.lazy(() => import("./paths/index/about_settings.jsx"));
 const VotePage = React.lazy(() => import("./paths/index/vote.jsx"));
 const ICookaDaMeatBall = React.lazy(() => import("./paths/index/meatball"));
 const AtlasIndex = React.lazy(() => import("./paths/atlas/index.jsx"));
@@ -126,7 +125,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/about",
-    element: <AboutPage />,
+    element: <Navigate to="/about_settings" replace={true}/>,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/about_settings",
+    element: <AboutSettingsPage />,
     errorElement: <ErrorPage />,
   },
   {
@@ -136,7 +140,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/settings",
-    element: <Settings />,
+    element: <Navigate to="/about_settings" replace={true}/>,
     errorElement: <ErrorPage />,
   },
   {

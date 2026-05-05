@@ -280,6 +280,12 @@ section.amtrakerVersion {
 section.section-settings {
   display: flex;
   overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+section.section-settings pre {
+  white-space: pre-wrap; 
+word-break: break-all;
 }
 
 section.section-trainPage p {
