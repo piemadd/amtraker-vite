@@ -1,14 +1,31 @@
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
+import settingsInit from "../../components/settingsInit";
 import stringToHash from "../../components/money/stringToHash";
 
-const AboutPage = () => {
+const About = () => {
   const navigate = useNavigate();
 
   document.title = "About - Amtraker";
 
   const [bgURL, setBGURL] = useState("/content/images/amtraker-back.webp");
   const [bgClass, setBGClass] = useState("bg-focus-in");
+
+  const initialSettings = useMemo(settingsInit, []);
+  const [currentSettings, setCurrentSettings] = useState(initialSettings);
+
+  const handleSettingsUpdate = (key, value) => {
+    const newSettings = {
+      ...currentSettings,
+      [key]: value,
+    };
+
+    setCurrentSettings(newSettings);
+
+    localStorage.setItem("amtraker-v3-settings", JSON.stringify(newSettings));
+
+    console.log("Updated settings:", newSettings);
+  };
 
   useEffect(() => {
     stringToHash(localStorage.getItem("passphrase")).then((hash) => {
@@ -22,14 +39,16 @@ const AboutPage = () => {
         setBGClass("bg-focus-in peppino");
       }
     });
-  }, []);
 
-  useEffect(() => {
-    const scrollingToItem = document.getElementById(
-      window.location.hash.replace("#", ""),
-    );
-    if (!scrollingToItem) return;
-    scrollingToItem.scrollIntoView({ behavior: "smooth" });
+    //scrolling to element id in hash because its broken, likely cuz of react router idk
+    const urlHash = window.location.hash.substring(1);
+    if (urlHash.length > 0) {
+      const idElement = document.getElementById(
+        window.location.hash.substring(1),
+      );
+
+      if (idElement) idElement.scrollIntoView();
+    }
   }, []);
 
   return (
@@ -66,7 +85,7 @@ const AboutPage = () => {
             Back
           </p>
         </div>
-        <section className="section-trainPage">
+        <section className="section-trainPage section-settings">
           <h1>About Amtraker</h1>
           <h2>FAQs</h2>
           <ul>
@@ -476,10 +495,259 @@ const AboutPage = () => {
               </ul>
             </li>
           </ul>
+          <hr
+            style={{
+              width: "100%",
+              marginTop: "4px",
+              marginBottom: "12px",
+              border: "1px solid grey",
+            }}
+          />
+          <h1 id="settings">Amtraker Settings</h1>
+          <p>
+            Use this page to adjust various settings for Amtraker. More settings
+            will be added over time.
+          </p>
+          <h2>Map View</h2>
+          <p>
+            Whether you'd like the map to use a Globe projection or the
+            traditional Web Mercator (flat) projection.
+          </p>
+          <select
+            value={currentSettings.mapView}
+            onChange={(e) => handleSettingsUpdate("mapView", e.target.value)}
+          >
+            <option value="mercator">Web Mercator</option>
+            <option value="globe">Globe</option>
+            {/*<option value='vertical-perspective'>Vertical Perspective</option>*/}
+            {/* disabled due to high lag and glitching at higher zoom levels from building extrusions */}
+          </select>
+
+          {/*
+          <h2>Theme</h2>
+          <p>
+            Amtraker currently only has dark theme, light theme will be added at
+            a later date, along with further theme customization.
+          </p>
+          <select
+            disabled
+            style={{
+              color: "#777",
+            }}
+          >
+            <option value='dark'>Dark</option>
+            <option value='light' disabled>
+              Light
+            </option>
+          </select>
+          */}
+
+          <h2>More?</h2>
+          <p>
+            If you have any feature requests for Amtraker, please send them my
+            way via my email:{" "}
+            <a href="mailto:amtraker@piemadd.com">amtraker@piemadd.com</a>.
+          </p>
+
+          <h2>Debug Info</h2>
+          <p>User Agent</p>
+          <pre>{navigator.userAgent}</pre>
+          <p>Platform:</p>
+          <pre>{navigator.platform}</pre>
+          <p>OSCPU</p>
+          <pre>
+            {navigator.oscpu && navigator.oscpu.length > 0
+              ? navigator.oscpu
+              : "[empty string]"}
+          </pre>
+          <p>Vendor</p>
+          <pre>
+            {navigator.vendor && navigator.vendor.length > 0
+              ? navigator.vendor
+              : "[empty string]"}
+          </pre>
+          <p>Session Storage</p>
+          <pre>{JSON.stringify(sessionStorage, null, 2)}</pre>
+          <p>Local Storage</p>
+          <pre>{JSON.stringify(localStorage, null, 2)}</pre>
+          <hr
+            style={{
+              width: "100%",
+              marginTop: "4px",
+              marginBottom: "12px",
+              border: "1px solid grey",
+            }}
+          />
+          <h1 id="privacy">Privacy Policy for Amtraker</h1>
+          <p>
+            This privacy policy applies to the Amtraker app and website
+            (amtraker.com) (hereby referred to as "Application") that was
+            created by Piero Maddaleni (hereby referred to as "Service
+            Provider") as an Open Source service. This service is intended for
+            use "AS IS".
+          </p>
+          <br />
+          <h2>Information Collection and Use</h2>
+          <p>
+            The Application collects information when you download and use it.
+            This information may include information such as{" "}
+          </p>
+          <ul>
+            <li>Your device's Internet Protocol address (e.g. IP address)</li>
+            <li>
+              The pages of the Application that you visit, the time and date of
+              your visit, the time spent on those pages
+            </li>
+            <li>The time spent on the Application</li>
+            <li>The operating system you use on your mobile device</li>
+          </ul>
+          <br />
+          <p>
+            The Service Provider may use the information you provided to contact
+            you for account services, such as password resets, but will not use
+            the data.
+          </p>
+          <br />
+          <p>
+            For a better experience, while using the Application, the Service
+            Provider may require you to provide us with certain personally
+            identifiable information, including but not limited to your first
+            and last name, email address, and train trips. The information that
+            the Service Provider request will be retained by them and used as
+            described in this privacy policy.
+          </p>
+          <br />
+          <h2>Log Files</h2>
+          <p>
+            Amtraker follows a standard procedure of using log files. These
+            files log visitors when they visit websites. All hosting companies
+            do this and a part of hosting services' analytics. The information
+            collected by log files include internet protocol (IP) addresses,
+            browser type, Internet Service Provider (ISP), date and time stamp,
+            referring/exit pages, and possibly the number of clicks. These are
+            not linked to any information that is personally identifiable. The
+            purpose of the information is for analyzing trends, administering
+            the site, tracking users' movement on the website, and gathering
+            demographic information.
+          </p>
+          <br />
+          <h2>Geolocation</h2>
+          <p>
+            Upon consenting to sharing your location, the application may
+            collect your device's location to display on the map. This data does
+            not leave your device.
+          </p>
+          <br />
+          <h2>Third Party Access</h2>
+          <div>
+            <p>
+              Please note that the Application utilizes third-party services
+              that have their own Privacy Policy about handling data. Below are
+              the links to the Privacy Policy of the third-party service
+              providers used by the Application:
+            </p>
+            <ul>
+              <li>
+                <a
+                  href="https://www.google.com/policies/privacy/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Google Play Services, Google Analytics
+                </a>
+              </li>
+            </ul>
+          </div>
+          <br />
+          <p>
+            The Service Provider may disclose User Provided and Automatically
+            Collected Information:
+          </p>
+          <ul>
+            <li>
+              as required by law, such as to comply with a subpoena, or similar
+              legal process;
+            </li>
+            <li>
+              when they believe in good faith that disclosure is necessary to
+              protect their rights, protect your safety or the safety of others,
+              investigate fraud, or respond to a government request;
+            </li>
+            <li>
+              with their trusted services providers who work on their behalf, do
+              not have an independent use of the information we disclose to
+              them, and have agreed to adhere to the rules set forth in this
+              privacy statement.
+            </li>
+          </ul>
+          <p></p>
+          <br />
+          <h2>Data Retention Policy</h2>
+          <p>
+            The Service Provider will retain User Provided data for as long as
+            you use the Application and for a reasonable time thereafter. If
+            you'd like them to delete User Provided Data that you have provided
+            via the Application, please contact them at amtraker@piemadd.com and
+            they will respond in a reasonable time.
+          </p>
+          <br />
+          <h2>Children</h2>
+          <p>
+            The Service Provider does not use the Application to knowingly
+            solicit data from or market to children under the age of 13.
+          </p>
+          <div>
+            <br />
+            <p>
+              The Application does not address anyone under the age of 13. The
+              Service Provider does not knowingly collect personally
+              identifiable information from children under 13 years of age. In
+              the case the Service Provider discover that a child under 13 has
+              provided personal information, the Service Provider will
+              immediately delete this from their servers. If you are a parent or
+              guardian and you are aware that your child has provided us with
+              personal information, please contact the Service Provider
+              (amtraker@piemadd.com) so that they will be able to take the
+              necessary actions.
+            </p>
+          </div>
+          <br />
+          <h2>Security</h2>
+          <p>
+            The Service Provider is concerned about safeguarding the
+            confidentiality of your information. The Service Provider provides
+            physical, electronic, and procedural safeguards to protect
+            information the Service Provider processes and maintains.
+          </p>
+          <br />
+          <h2>Changes</h2>
+          <p>
+            This Privacy Policy may be updated from time to time for any reason.
+            The Service Provider will notify you of any changes to the Privacy
+            Policy by updating this page with the new Privacy Policy. You are
+            advised to consult this Privacy Policy regularly for any changes, as
+            continued use is deemed approval of all changes.
+          </p>
+          <br />
+          <p>This privacy policy is effective as of 2025-12-29</p>
+          <br />
+          <h2>Your Consent</h2>
+          <p>
+            By using the Application, you are consenting to the processing of
+            your information as set forth in this Privacy Policy now and as
+            amended by us.
+          </p>
+          <br />
+          <h2>Contact Us</h2>
+          <p>
+            If you have any questions regarding privacy while using the
+            Application, or have questions about the practices, please contact
+            the Service Provider via email at amtraker@piemadd.com.
+          </p>
         </section>
       </div>
     </>
   );
 };
 
-export default AboutPage;
+export default About;

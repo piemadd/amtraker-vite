@@ -27,7 +27,7 @@ const ManualStationBoxIndependent = ({
           </span>
         ) : (
           <span className='greyed'>
-            Address not available.
+            Address unavailable.
             <br />
             {station.tz}
           </span>

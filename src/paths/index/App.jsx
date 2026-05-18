@@ -281,7 +281,9 @@ const App = () => {
             )}
           </div>
         </section>
-        <h3 className="split">or</h3>
+        <h3 style={{
+          margin: "-4px 0px 0px 0px"
+        }}>or</h3>
         <div className="links">
           <Link to={"/trains"}>
             <button className="root">Trains List</button>
@@ -301,28 +303,16 @@ const App = () => {
         </div>
 
         <section className="footer section-border">
-          {/*}
-          <p>
-            <a
-              href="https://docs.google.com/forms/d/e/1FAIpQLSfLfypJxtK62zBakCzo23y-WKFZj_TjbX5pKGZ08gxOeBatkg/viewform?usp=sf_link"
-              target="blank"
-            >
-              Feedback
-            </a>
-          </p>
-          */}
-          <Link to="/about">
-            <p>About</p>
-          </Link>
-          <Link to="/settings">
-            <p>Settings</p>
-          </Link>
-          <Link to="/privacy">
-            <p>Privacy Policy</p>
-          </Link>
-        </section>
-        <section className="amtrakerVersion section-border">
-          <p>Amtraker v3.19.4</p>
+          <p>Amtraker v3.19.5</p>
+          <div>
+            <Link to="/about">
+              <p>About</p>
+            </Link>
+            <Link to="/about">
+              <p>About</p>
+            </Link>
+            <p><a href="https://api.amtraker.com/docs" target="_blank">API Docs</a></p>
+          </div>
           <p>
             &copy;{" "}
             <a href="https://piemadd.com" target="_blank">

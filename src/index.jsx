@@ -35,10 +35,11 @@ const TrainsLeaderboard = React.lazy(() => import("./paths/trains/leaderboard.js
 const FullTrainsList = React.lazy(() => import("./paths/trains/listFull.jsx"));
 const StationsList = React.lazy(() => import("./paths/stations/list.jsx"));
 const StationPage = React.lazy(() => import("./paths/stations/station.jsx"));
+//const StationBoardPage = React.lazy(() => import("./paths/stations/board.jsx"));
 const Map = React.lazy(() => import("./paths/map/Map.jsx"));
 const MiniMapHolderTest = React.lazy(() => import("./components/mapping/miniMapHolderTest.jsx"));
 const PrivacyPolicy = React.lazy(() => import("./paths/index/privacy"));
-const AboutSettingsPage = React.lazy(() => import("./paths/index/about_settings.jsx"));
+const AboutPage = React.lazy(() => import("./paths/index/about.jsx"));
 const VotePage = React.lazy(() => import("./paths/index/vote.jsx"));
 const ICookaDaMeatBall = React.lazy(() => import("./paths/index/meatball"));
 const AtlasIndex = React.lazy(() => import("./paths/atlas/index.jsx"));
@@ -98,6 +99,13 @@ const router = createBrowserRouter([
     element: <StationPage />,
     errorElement: <ErrorPage />,
   },
+  /*
+  {
+    path: "/stations/board/:stationCode",
+    element: <StationBoardPage />,
+    errorElement: <ErrorPage />,
+  },
+  */
   {
     path: "/atlas",
     element: <AtlasIndex />,
@@ -124,13 +132,13 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/about",
-    element: <Navigate to="/about_settings" replace={true}/>,
+    path: "/about_settings",
+    element: <Navigate to="/about" replace={true}/>,
     errorElement: <ErrorPage />,
   },
   {
-    path: "/about_settings",
-    element: <AboutSettingsPage />,
+    path: "/about",
+    element: <AboutPage />,
     errorElement: <ErrorPage />,
   },
   {
@@ -140,12 +148,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/settings",
-    element: <Navigate to="/about_settings" replace={true}/>,
+    element: <Navigate to="/about#settings" replace={true}/>,
     errorElement: <ErrorPage />,
   },
   {
     path: "/privacy",
-    element: <PrivacyPolicy />,
+    element: <Navigate to="/about#privacy" replace={true}/>,
     errorElement: <ErrorPage />,
   },
   {

@@ -180,7 +180,7 @@ const StationsList = () => {
                             </span>
                           ) : (
                             <span className="greyed">
-                              Address not available.
+                              Address unavailable.
                               <br />
                               {station.tz}
                             </span>

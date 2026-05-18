@@ -105,10 +105,10 @@ const day = now.getDate().toString().padStart(2, '0');
   </url>
 `);
 
-  // about page
+  // about/settings page
   sitemap.write(`
   <url>
-    <loc>https://amtraker.com/about</loc>
+    <loc>https://amtraker.com/about_settings</loc>
     <lastmod>${year}-${month}-${day}</lastmod>
     <changefreq>never</changefreq>
     <priority>0.3</priority>

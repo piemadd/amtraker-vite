@@ -185,7 +185,7 @@ const StationPage = () => {
                   </span>
                 ) : (
                   <span className="greyed">
-                    Address not available.
+                    Address unavailable.
                     <br />
                     {stationData.tz}
                   </span>
