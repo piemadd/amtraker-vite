@@ -308,9 +308,11 @@ const App = () => {
             <Link to="/about">
               <p>About</p>
             </Link>
+            {/*}
             <Link to="/about">
               <p>About</p>
             </Link>
+            {*/}
             <p><a href="https://api.amtraker.com/docs" target="_blank">API Docs</a></p>
           </div>
           <p>
