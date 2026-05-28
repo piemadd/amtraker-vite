@@ -18,26 +18,31 @@ const App = () => {
   const [shitsFucked, setShitsFucked] = useState(false);
   const dataManager = window.dataManager;
   const appSettings = useMemo(settingsInit, []);
+  const [amtrakerGlobalAlerts, setAmtrakerGlobalAlerts] = useState([]);
+
+  useEffect(() => {
+    fetch("https://gks.pgm.sh/api/v1/amtraker_global_alerts")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Global Alerts", data);
+        setAmtrakerGlobalAlerts(
+          (data.response?.object ?? []).map((alert) => {
+            return { text: alert, lastUpdated: new Date(data.response?.meta?.updatedAt) };
+          })
+        );
+      });
+  }, []);
 
   // download link for if we're in a mobile browser
   const downloadURL = useMemo(() => {
     const userAgent = navigator.userAgent;
 
-    if (
-      /Android/.test(userAgent) &&
-      sessionStorage.getItem("has_android_twa_referrer") !== "true"
-    ) {
+    if (/Android/.test(userAgent) && sessionStorage.getItem("has_android_twa_referrer") !== "true") {
       // we are in a browser on android
-      return {
-        url: "https://play.google.com/store/apps/details?id=com.amtrak.piero",
-        text: "Download App",
-      };
+      return { url: "https://play.google.com/store/apps/details?id=com.amtrak.piero", text: "Download App" };
     } else if (/(iPhone|iPod|iPad)(?!.*PWAShell)/.test(userAgent)) {
       // we are in a browser on ios
-      return {
-        url: "https://apps.apple.com/us/app/amtraker-track-amtrak-via/id6758903803",
-        text: "Download App",
-      };
+      return { url: "https://apps.apple.com/us/app/amtraker-track-amtrak-via/id6758903803", text: "Download App" };
     } else return null;
   }, []);
 
@@ -47,7 +52,7 @@ const App = () => {
         localStorage
           .getItem("savedTrainsAmtrakerV3")
           .split(",")
-          .filter((n) => n),
+          .filter((n) => n)
       );
     });
   }, []);
@@ -67,9 +72,7 @@ const App = () => {
       //setSavedTrainsObjects([]);
       let savedTranisObjectsTemp = [];
       savedTrains.forEach((trainID, i, arr) => {
-        const shortenedTrainID = `${trainID.split("-")[0]}-${
-          trainID.split("-")[2]
-        }`;
+        const shortenedTrainID = `${trainID.split("-")[0]}-${trainID.split("-")[2]}`;
 
         dataManager
           .getTrain(shortenedTrainID)
@@ -86,10 +89,7 @@ const App = () => {
                 .filter((n) => n)
                 .filter((train) => train !== trainID);
 
-              localStorage.setItem(
-                "savedTrainsAmtrakerV3",
-                newSavedTrains.join(","),
-              );
+              localStorage.setItem("savedTrainsAmtrakerV3", newSavedTrains.join(","));
 
               if (i === arr.length - 1) {
                 setSavedTrainsObjects(savedTranisObjectsTemp);
@@ -103,8 +103,7 @@ const App = () => {
             //removing train if the saved train id doesn't match the data
             if (
               (schDep.getMonth() + 1 !== parseInt(trainID.split("-")[1]) ||
-                schDep.getFullYear().toString().substring(2, 4) !==
-                  trainID.split("-")[3]) &&
+                schDep.getFullYear().toString().substring(2, 4) !== trainID.split("-")[3]) &&
               !trainID.includes("NaN")
             ) {
               console.log("removing train due to incorrect date");
@@ -115,10 +114,7 @@ const App = () => {
                 .filter((n) => n)
                 .filter((train) => train !== trainID);
 
-              localStorage.setItem(
-                "savedTrainsAmtrakerV3",
-                newSavedTrains.join(","),
-              );
+              localStorage.setItem("savedTrainsAmtrakerV3", newSavedTrains.join(","));
 
               if (i === arr.length - 1) {
                 setSavedTrainsObjects(savedTranisObjectsTemp);
@@ -127,12 +123,9 @@ const App = () => {
             }
 
             savedTranisObjectsTemp.push(
-              <Link
-                key={`saved-train-${trainID}`}
-                to={`/trains/${trainID.split("-")[0]}/${trainID.split("-")[2]}`}
-              >
+              <Link key={`saved-train-${trainID}`} to={`/trains/${trainID.split("-")[0]}/${trainID.split("-")[2]}`}>
                 <ManualTrainBox train={trainData} />
-              </Link>,
+              </Link>
             );
 
             if (i === arr.length - 1) {
@@ -150,10 +143,7 @@ const App = () => {
               .filter((n) => n)
               .filter((train) => train !== trainID);
 
-            localStorage.setItem(
-              "savedTrainsAmtrakerV3",
-              newSavedTrains.join(","),
-            );
+            localStorage.setItem("savedTrainsAmtrakerV3", newSavedTrains.join(","));
             return null;
           });
       });
@@ -167,10 +157,8 @@ const App = () => {
   useEffect(() => {
     stringToHash(localStorage.getItem("passphrase")).then((hash) => {
       if (
-        hash ==
-          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
-        hash ==
-          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
+        hash == "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
+        hash == "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
       ) {
         setBGURL("/content/images/prideflag.jpg");
         setBGClass("bg-focus-in peppino");
@@ -180,12 +168,7 @@ const App = () => {
 
   return (
     <>
-      <img
-        id="background"
-        alt="Amtrak network map."
-        className={bgClass + " terrabanner"}
-        src={bgURL}
-      ></img>
+      <img id="background" alt="Amtrak network map." className={bgClass + " terrabanner"} src={bgURL}></img>
       {downloadURL ? (
         <a href={downloadURL.url} target="_blank">
           <button
@@ -197,7 +180,7 @@ const App = () => {
               width: "auto",
               height: "48px",
               textAlign: "center",
-              lineHeight: "0px",
+              lineHeight: "0px"
             }}
           >
             {downloadURL.text}
@@ -214,7 +197,7 @@ const App = () => {
           width: "48px",
           height: "48px",
           textAlign: "center",
-          lineHeight: "0px",
+          lineHeight: "0px"
         }}
         onClick={() => setSavedTrains([...savedTrains])}
       >
@@ -230,17 +213,32 @@ const App = () => {
           {isStale ? (
             <div className="stale">
               <p>
-                <span className="stale-text">Warning:</span> Data is stale.
-                Trains were last updated on average{" "}
+                <span className="stale-text">Warning:</span> Data is stale. Trains were last updated on average{" "}
                 {Math.floor(timeSinceLastUpdate / 60000)} minutes ago.
               </p>
+            </div>
+          ) : null}
+          {amtrakerGlobalAlerts.length > 0 ? (
+            <div className="stale" style={{maxWidth: 600}}>
+              {amtrakerGlobalAlerts.map((alert, i) => {
+                console.log(alert);
+
+                return (
+                  <p key={`gaa_${i}`}>
+                    <span className="stale-text">
+                      Alert {i + 1} as of {alert.lastUpdated.toLocaleTimeString()}:
+                    </span>{" "}
+                    {alert.text}
+                  </p>
+                );
+              })}
             </div>
           ) : null}
           {shitsFucked ? (
             <div className="stale">
               <p>
-                <span className="stale-text">Warning:</span> The Amtrak API
-                seems to be having issues currently! Please try again later...
+                <span className="stale-text">Warning:</span> The Amtrak API seems to be having issues currently! Please
+                try again later...
               </p>
             </div>
           ) : null}
@@ -251,33 +249,21 @@ const App = () => {
             </p>
           </div>
           */}
-          <h2
-            style={{
-              fontWeight: 500,
-              fontSize: "1.2rem",
-            }}
-          >
-            Saved Trains
-          </h2>
+          <h2 style={{ fontWeight: 500, fontSize: "1.2rem" }}>Saved Trains</h2>
           <div className="savedTrains">
             {loading ? (
               <div className="loading">Loading...</div>
             ) : savedTrainsObjects.length > 0 ? (
               <>
                 {savedTrainsObjects}
-                <p>
-                  Data Last Fetched at:{" "}
-                  {new Date(siteLastFetched).toLocaleTimeString()}
-                </p>
+                <p>Data Last Fetched at: {new Date(siteLastFetched).toLocaleTimeString()}</p>
               </>
             ) : (
               <div>No Saved Trains</div>
             )}
           </div>
         </section>
-        <h3 style={{
-          margin: "-4px 0px 0px 0px"
-        }}>or</h3>
+        <h3 style={{ margin: "-4px 0px 0px 0px" }}>or</h3>
         <div className="links">
           <Link to={"/trains"}>
             <button className="root">Trains List</button>
@@ -297,7 +283,7 @@ const App = () => {
         </div>
 
         <section className="footer section-border">
-          <p>Amtraker v3.19.5</p>
+          <p>Amtraker v3.19.6</p>
           <div>
             <Link to="/about">
               <p>About</p>
@@ -307,7 +293,11 @@ const App = () => {
               <p>About</p>
             </Link>
             {*/}
-            <p><a href="https://api.amtraker.com/docs" target="_blank">API Docs</a></p>
+            <p>
+              <a href="https://api.amtraker.com/docs" target="_blank">
+                API Docs
+              </a>
+            </p>
           </div>
           <p>
             &copy;{" "}
