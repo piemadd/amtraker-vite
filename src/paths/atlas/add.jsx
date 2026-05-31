@@ -242,13 +242,13 @@ const AtlasAdd = () => {
 
                 <label htmlFor="atlas-add-length_mi">Length (mi)</label>
                 {trainRouteName == 'Route Not Found' ?
-                  <input name="departure_date" id="atlas-add-length_mi" onChange={(e) => setDistanceMi(e.value)} value={distanceMi} /> :
+                  <input name="departure_date" id="atlas-add-length_mi" onChange={(e) => setDistanceMi(e.target.value)} value={distanceMi} /> :
                   <input name="departure_date" id="atlas-add-length_mi" disabled value={distanceMi} />
                 }
 
-                <label htmlFor="atlas-add-time_min">Time</label>
+                <label htmlFor="atlas-add-time_min">Time (min)</label>
                 {trainRouteName == 'Route Not Found' ?
-                  <input name="time_min" id="atlas-add-time_min" onChange={(e) => setTimeMin(e.value)} value={timeMin} /> :
+                  <input name="time_min" id="atlas-add-time_min" onChange={(e) => setTimeMin(e.target.value)} value={timeMin} /> :
                   <input name="time_min" id="atlas-add-time_min" disabled value={timeMin} />
                 }
               </form>
