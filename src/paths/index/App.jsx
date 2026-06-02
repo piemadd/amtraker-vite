@@ -33,6 +33,20 @@ const App = () => {
       });
   }, []);
 
+  const sm_or_tm = useMemo(() => {
+    const userAgent = navigator.userAgent;
+
+    if (/Android/.test(userAgent) && sessionStorage.getItem("has_android_twa_referrer") == "true") {
+      // we are in the android app
+      return '™';
+    } else if (/(iPhone|iPod|iPad)(?!.*PWAShell)/.test(userAgent)) {
+      // we are in the ios app
+      return '™';
+    };
+
+    return '℠'
+  }, []);
+
   // download link for if we're in a mobile browser
   const downloadURL = useMemo(() => {
     const userAgent = navigator.userAgent;
@@ -207,6 +221,7 @@ const App = () => {
         {/*<h2 className='welcome-to'>Welcome to</h2>*/}
         <div className="titleArea">
           <h1 className="gayTitle">Amtraker</h1>
+          <p className="sm_tm">{sm_or_tm}</p>
           {/*}<p className="slogan">Happy holidays!</p>*/}
         </div>
         <section id="section-saved" className="section-border">
