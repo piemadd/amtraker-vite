@@ -138,7 +138,6 @@ table.atlas_tripsList > tbody > tr:nth-of-type(even) {
 .gayTitle {
   background: #ffffff;
 
-  /*
   background: linear-gradient(
     105deg,
     rgba(226, 32, 22, 1) 11.5%,
@@ -166,7 +165,6 @@ table.atlas_tripsList > tbody > tr:nth-of-type(even) {
     rgba(253, 216, 23, 1) 88.5%,
     rgba(102, 51, 139, 1) 88.5%
   );
-  */
 
   /*
   background: repeating-linear-gradient(135deg, rgb(185, 0, 12), rgb(185, 0, 12) 10px, rgb(255, 255, 255) 10px, rgb(255, 255, 255) 20px);
