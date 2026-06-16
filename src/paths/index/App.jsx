@@ -301,7 +301,7 @@ const App = () => {
           <p>Amtraker v3.19.9</p>
           <div>
             <Link to="/about">
-              <p>About/Settings</p>
+              <p>About/Settings/Privacy</p>
             </Link>
             {/*}
             <Link to="/about">
