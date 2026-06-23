@@ -29,13 +29,20 @@ export default function ErrorPage() {
         caches.keys().then((newKeys) => console.log("new caches:", newKeys));
       });
 
+      //also need to yeet the service worker
+      navigator.serviceWorker.getRegistrations().then(function (registrations) {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+
       setTimeout(() => {
         window.location.reload();
       }, 2000);
     });
 
     return (
-      <div id='error-page'>
+      <div id="error-page">
         <h2>Cache Update</h2>
         <p>Amtraker's cache needed to be updated.</p>
         <br />
@@ -44,19 +51,18 @@ export default function ErrorPage() {
     );
   } else if (error.status === 404) {
     return (
-      <div id='error-page'>
+      <div id="error-page">
         <h1>404 - Not Found</h1>
         <p>Seems like that page doens't exist.</p>
         <p>
-          Please copy the following and email it to me (piero@piemadd.com) so I
-          can debug and fix the issue. Thanks, and apologies for the
-          inconvenience.
+          Please copy the following and email it to me (piero@piemadd.com) so I can debug and fix the issue. Thanks, and
+          apologies for the inconvenience.
         </p>
         <p>
           <i>
             Current path: {window.location.href}
             <br />
-            Current version: v3.19.9
+            Current version: v3.19.10
             <br />
             Current date and time (UTC): {new Date().toUTCString()}
             <br />
@@ -69,20 +75,19 @@ export default function ErrorPage() {
     );
   } else {
     return (
-      <div id='error-page'>
+      <div id="error-page">
         <h1>Oops!</h1>
         <p>Sorry, an unexpected error has occurred.</p>
         <p>
-          Please copy the following and email it to me (piero@piemadd.com) so I
-          can debug and fix the issue. Thanks, and apologies for the
-          inconvenience.
+          Please copy the following and email it to me (piero@piemadd.com) so I can debug and fix the issue. Thanks, and
+          apologies for the inconvenience.
         </p>
         <br />
         <p>
           <i>
             Current path: {window.location.href}
             <br />
-            Current version: v3.19.9
+            Current version: v3.19.10
             <br />
             Current date and time (UTC): {new Date().toUTCString()}
             <br />
