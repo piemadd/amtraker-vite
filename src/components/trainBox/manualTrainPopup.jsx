@@ -3,6 +3,8 @@ import { toHoursAndMinutesLate } from "../../tools";
 const ManualTrainPopup = ({ train, showLink = true, idLink = false }) => {
   if (!train) return null;
 
+  console.log(train)
+
   const currentStation = train.stations.find(
     (station) => station.code === train.eventCode
   );

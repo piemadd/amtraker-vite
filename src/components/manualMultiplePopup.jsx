@@ -29,11 +29,7 @@ const ManualMultiplePopup = ({ finalItems, mapRef, setPopupInfo, sourcePopup, sh
                     cursor: 'pointer'
                   }}
                   onClick={(e) => {
-                    const train = {
-                      ...item.properties,
-                      stations: JSON.parse(item.properties.stations),
-                      alerts: JSON.parse(item.properties.alerts)
-                    };
+                    const train = dataManager.getTrainSync(item.properties.trainID)[item.properties.trainNum][0];
 
                     setPopupInfo(train);
                     sourcePopup.remove();
@@ -74,10 +70,7 @@ const ManualMultiplePopup = ({ finalItems, mapRef, setPopupInfo, sourcePopup, sh
                     cursor: 'pointer'
                   }}
                   onClick={(e) => {
-                    const station = {
-                      ...item.properties,
-                      trains: JSON.parse(item.properties.trains)
-                    }
+                    const station = dataManager.getStationSync(item.properties.code)[item.properties.code];
                     setPopupInfo(station);
                     sourcePopup.remove();
                     activatePopup(

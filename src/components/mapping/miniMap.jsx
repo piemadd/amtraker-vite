@@ -11,7 +11,13 @@ import ManualMultiplePopup from "../manualMultiplePopup.jsx";
 import settingsInit from "../settingsInit.js";
 import { Link } from "react-router-dom";
 
-const MiniMap = ({ filteredTrainIDs = [], filteredStationCodes = [], zoomToTrains = false, zoomToStations = false, idLinkType = null }) => {
+const MiniMap = ({
+  filteredTrainIDs = [],
+  filteredStationCodes = [],
+  zoomToTrains = false,
+  zoomToStations = false,
+  idLinkType = null
+}) => {
   const dataManager = window.dataManager;
   const appSettings = useMemo(settingsInit, []);
 
@@ -21,7 +27,9 @@ const MiniMap = ({ filteredTrainIDs = [], filteredStationCodes = [], zoomToTrain
   const updateAllData = () => {
     // trains
     dataManager.getTrains().then((data) => {
-      const allDataNew = Object.values(data).flat();
+      const allDataNew = Object.values(data)
+        .flat()
+        .filter((n) => filteredTrainIDs.includes(n.trainID));
 
       //generating the icons for the trains
       allDataNew.forEach((train) => {
@@ -34,16 +42,14 @@ const MiniMap = ({ filteredTrainIDs = [], filteredStationCodes = [], zoomToTrain
             if (mapRef.current.hasImage(train.trainID)) {
               mapRef.current.updateImage(train.trainID, img);
             } else {
-              mapRef.current.addImage(train.trainID, img, {
-                pixelRatio: 2,
-              });
+              mapRef.current.addImage(train.trainID, img, { pixelRatio: 2 });
             }
-          } catch (e) { // different sized image
-            mapRef.current.removeImage(train.trainID); mapRef.current.addImage(train.trainID, img, {
-              pixelRatio: 2,
-            });
+          } catch (e) {
+            // different sized image
+            mapRef.current.removeImage(train.trainID);
+            mapRef.current.addImage(train.trainID, img, { pixelRatio: 2 });
           }
-        }
+        };
         img.onerror = console.log;
         img.src = "data:image/svg+xml;base64," + btoa(imageText);
       });
@@ -56,17 +62,11 @@ const MiniMap = ({ filteredTrainIDs = [], filteredStationCodes = [], zoomToTrain
           .map((train) => {
             return {
               type: "Feature",
-              id: '',
-              properties: {
-                ...train,
-                id: train.trainID,
-              },
-              geometry: {
-                type: "Point",
-                coordinates: [train.lon, train.lat],
-              },
-            }
-          }),
+              id: train.trainID,
+              properties: { trainID: train.trainID, trainNum: train.trainNum, routeName: train.routeName },
+              geometry: { type: "Point", coordinates: [train.lon, train.lat] }
+            };
+          })
       });
     });
 
@@ -80,16 +80,10 @@ const MiniMap = ({ filteredTrainIDs = [], filteredStationCodes = [], zoomToTrain
             return {
               type: "Feature",
               id: station.code,
-              properties: {
-                ...station,
-                id: station.code,
-              },
-              geometry: {
-                type: "Point",
-                coordinates: [station.lon, station.lat],
-              },
-            }
-          }),
+              properties: { code: station.code, name: station.name },
+              geometry: { type: "Point", coordinates: [station.lon, station.lat] }
+            };
+          })
       });
     });
   };
@@ -98,14 +92,15 @@ const MiniMap = ({ filteredTrainIDs = [], filteredStationCodes = [], zoomToTrain
   useEffect(() => {
     try {
       if (mapRef.current) {
-        console.log("Map already initialized, not doing that again")
+        console.log("Map already initialized, not doing that again");
         return;
       }
 
-      console.log('Initializing map')
+      console.log("Initializing map");
 
       // increased workers count test for faster globe loading
-      if (appSettings.mapView == 'globe') maplibregl.setWorkerCount(Math.max(Math.min(Math.floor((navigator.hardwareConcurrency ?? 1) / 2), 3), 1));
+      if (appSettings.mapView == "globe")
+        maplibregl.setWorkerCount(Math.max(Math.min(Math.floor((navigator.hardwareConcurrency ?? 1) / 2), 3), 1));
 
       mapRef.current = new maplibregl.Map({
         container: mapContainerRef.current,
@@ -117,18 +112,18 @@ const MiniMap = ({ filteredTrainIDs = [], filteredStationCodes = [], zoomToTrain
           glyphs: glyphs,
           sprite: sprite,
           layers: layers,
-          projection: { "type": appSettings.mapView ?? 'mercator' },
+          projection: { type: appSettings.mapView ?? "mercator" },
           bearing: 0,
           sources: {
             transit_lines: {
-              type: 'vector',
+              type: "vector",
               tiles: [
                 "https://v4mapa.amtraker.com/amtraker/{z}/{x}/{y}.mvt",
                 "https://v4mapb.amtraker.com/amtraker/{z}/{x}/{y}.mvt",
                 "https://v4mapc.amtraker.com/amtraker/{z}/{x}/{y}.mvt",
                 "https://v4mapd.amtraker.com/amtraker/{z}/{x}/{y}.mvt"
               ],
-              maxzoom: 12,
+              maxzoom: 12
             },
             protomaps: {
               type: "vector",
@@ -138,30 +133,18 @@ const MiniMap = ({ filteredTrainIDs = [], filteredStationCodes = [], zoomToTrain
                 "https://v4mapc.amtraker.com/20251018/{z}/{x}/{y}.mvt",
                 "https://v4mapd.amtraker.com/20251018/{z}/{x}/{y}.mvt"
               ],
-              maxzoom: 15,
+              maxzoom: 15
             },
-            stations: {
-              type: "geojson",
-              data: {
-                type: "FeatureCollection",
-                features: []
-              },
-            },
-            trains: {
-              type: "geojson",
-              data: {
-                type: "FeatureCollection",
-                features: [],
-              },
-            },
+            stations: { type: "geojson", data: { type: "FeatureCollection", features: [] } },
+            trains: { type: "geojson", data: { type: "FeatureCollection", features: [] } }
           },
           version: 8,
-          metadata: {},
+          metadata: {}
         },
         attributionControl: false,
         center: [-97.84139698274907, 41.81914579981135],
         zoom: 3,
-        maxZoom: 20,
+        maxZoom: 20
       });
       window.mapRef = mapRef.current;
 
@@ -173,15 +156,11 @@ const MiniMap = ({ filteredTrainIDs = [], filteredStationCodes = [], zoomToTrain
       const zoomToPointBounds = () => {
         if (pointsToBoundTo.length == 0) return;
         else if (pointsToBoundTo.length == 1) {
-          mapRef.current.flyTo({
-            center: pointsToBoundTo[0],
-            duration: 500,
-            zoom: 9,
-          });
+          mapRef.current.flyTo({ center: pointsToBoundTo[0], duration: 500, zoom: 9 });
         } else {
           const bbox = new maplibregl.LngLatBounds();
           for (let i = 0; i < pointsToBoundTo.length; i++) bbox.extend(pointsToBoundTo[i]);
-          if (!bbox.isEmpty()) mapRef.current.fitBounds(bbox, { padding: 64, });
+          if (!bbox.isEmpty()) mapRef.current.fitBounds(bbox, { padding: 64 });
         }
       };
 
@@ -191,10 +170,10 @@ const MiniMap = ({ filteredTrainIDs = [], filteredStationCodes = [], zoomToTrain
 
         mapRef.current.on("load", () => {
           //adding data to the map
-          mapRef.current.setLayerZoomRange('stations', 0);
-          mapRef.current.setLayerZoomRange('stations_label', 5);
+          mapRef.current.setLayerZoomRange("stations", 0);
+          mapRef.current.setLayerZoomRange("stations_label", 5);
 
-          mapRef.current.getSource('stations').setData({
+          mapRef.current.getSource("stations").setData({
             type: "FeatureCollection",
             features: allStations
               .filter((station) => filteredStationCodes.includes(station.code))
@@ -204,16 +183,10 @@ const MiniMap = ({ filteredTrainIDs = [], filteredStationCodes = [], zoomToTrain
                 return {
                   type: "Feature",
                   id: station.code,
-                  properties: {
-                    ...station,
-                    id: station.code
-                  },
-                  geometry: {
-                    type: "Point",
-                    coordinates: [station.lon, station.lat],
-                  },
-                }
-              }),
+                  properties: { code: station.code, name: station.name },
+                  geometry: { type: "Point", coordinates: [station.lon, station.lat] }
+                };
+              })
           });
 
           zoomToPointBounds();
@@ -221,11 +194,13 @@ const MiniMap = ({ filteredTrainIDs = [], filteredStationCodes = [], zoomToTrain
       });
 
       dataManager.getTrains().then((data) => {
-        const allTrains = Object.values(data).flat();
+        const allTrains = Object.values(data)
+          .flat()
+          .filter((n) => filteredTrainIDs.includes(n.trainID));
 
         mapRef.current.on("load", () => {
           //adding data to the map
-          mapRef.current.getSource('trains').setData({
+          mapRef.current.getSource("trains").setData({
             type: "FeatureCollection",
             features: allTrains
               .filter((n) => filteredTrainIDs.includes(n.trainID))
@@ -235,16 +210,10 @@ const MiniMap = ({ filteredTrainIDs = [], filteredStationCodes = [], zoomToTrain
                 return {
                   type: "Feature",
                   id: train.trainID,
-                  properties: {
-                    ...train,
-                    id: train.trainID,
-                  },
-                  geometry: {
-                    type: "Point",
-                    coordinates: [train.lon, train.lat],
-                  },
-                }
-              }),
+                  properties: { trainID: train.trainID, trainNum: train.trainNum, routeName: train.routeName },
+                  geometry: { type: "Point", coordinates: [train.lon, train.lat] }
+                };
+              })
           });
 
           //generating the icons for the trains
@@ -253,9 +222,7 @@ const MiniMap = ({ filteredTrainIDs = [], filteredStationCodes = [], zoomToTrain
 
             //converting the image and loading it
             const img = new Image(imageWidth, imageHeight);
-            img.onload = () => mapRef.current.addImage(train.trainID, img, {
-              pixelRatio: 2,
-            });
+            img.onload = () => mapRef.current.addImage(train.trainID, img, { pixelRatio: 2 });
             img.onerror = console.log;
             img.src = "data:image/svg+xml;base64," + btoa(imageText);
           });
@@ -269,7 +236,7 @@ const MiniMap = ({ filteredTrainIDs = [], filteredStationCodes = [], zoomToTrain
               "icon-image": ["get", "trainID"],
               //"icon-rotation-alignment": "map",
               "icon-size": 1,
-              "icon-allow-overlap": true,
+              "icon-allow-overlap": true
             },
             paint: {}
           });
@@ -282,12 +249,10 @@ const MiniMap = ({ filteredTrainIDs = [], filteredStationCodes = [], zoomToTrain
         mapRef.current.on("click", (e) => {
           const bbox = [
             [e.point.x - 4, e.point.y - 4], // southwest
-            [e.point.x + 4, e.point.y + 4], // northeast
+            [e.point.x + 4, e.point.y + 4] // northeast
           ];
 
-          let f = mapRef.current.queryRenderedFeatures(bbox, {
-            layers: ["trains", "stations"],
-          });
+          let f = mapRef.current.queryRenderedFeatures(bbox, { layers: ["trains", "stations"] });
 
           if (f.length === 0) return;
 
@@ -296,17 +261,16 @@ const MiniMap = ({ filteredTrainIDs = [], filteredStationCodes = [], zoomToTrain
               offset: 16,
               closeButton: true,
               anchor: "bottom",
-              maxWidth: false,
-            })
-              .setLngLat(e.lngLat);
+              maxWidth: false
+            }).setLngLat(e.lngLat);
 
             const finalItems = f.slice(0, 5);
-            const hasTrains = finalItems.find((item) => item.layer.id == 'trains');
-            const hasStations = finalItems.find((item) => item.layer.id == 'stations');
+            const hasTrains = finalItems.find((item) => item.layer.id == "trains");
+            const hasStations = finalItems.find((item) => item.layer.id == "stations");
 
-            let titleText = 'Feature';
-            if (hasTrains && !hasStations) titleText = 'Train';
-            if (!hasTrains && hasStations) titleText = 'Station';
+            let titleText = "Feature";
+            if (hasTrains && !hasStations) titleText = "Train";
+            if (!hasTrains && hasStations) titleText = "Station";
 
             activatePopup(
               mapRef,
@@ -319,24 +283,24 @@ const MiniMap = ({ filteredTrainIDs = [], filteredStationCodes = [], zoomToTrain
                     targetElement.scrollIntoView({ behavior: "smooth" });
                     targetElement.children[0].animate(
                       [
-                        { filter: 'brightness(1)', backgroundColor: null },
-                        { filter: 'brightness(1.5)', backgroundColor: '#555' }
+                        { filter: "brightness(1)", backgroundColor: null },
+                        { filter: "brightness(1.5)", backgroundColor: "#555" }
                       ],
                       {
                         duration: 200,
-                        easing: 'ease-in-out',
+                        easing: "ease-in-out",
                         iterations: 4, // in and out
-                        direction: 'alternate'
+                        direction: "alternate"
                       }
                     );
                   }
                 }}
                 sourcePopup={popup}
                 showLink={false}
-              //idLinkType={idLinkType}
+                //idLinkType={idLinkType}
               />,
               popup
-            )
+            );
             return;
           }
 
@@ -344,73 +308,60 @@ const MiniMap = ({ filteredTrainIDs = [], filteredStationCodes = [], zoomToTrain
           let targetElement = null;
 
           switch (feature.layer.id) {
-            case 'trains':
-              const train = {
-                ...feature.properties,
-                stations: JSON.parse(feature.properties.stations),
-                alerts: JSON.parse(feature.properties.alerts),
-              };
+            case "trains":
+              const train = dataManager.getTrainSync(feature.properties.trainID)[feature.properties.trainNum][0];
 
               targetElement = document.getElementById(train.trainID);
               if (targetElement) {
                 targetElement.scrollIntoView({ behavior: "smooth" });
                 targetElement.children[0].animate(
                   [
-                    { filter: 'brightness(1)', backgroundColor: null },
-                    { filter: 'brightness(1.5)', backgroundColor: '#555' }
+                    { filter: "brightness(1)", backgroundColor: null },
+                    { filter: "brightness(1.5)", backgroundColor: "#555" }
                   ],
                   {
                     duration: 200,
-                    easing: 'ease-in-out',
+                    easing: "ease-in-out",
                     iterations: 4, // in and out
-                    direction: 'alternate'
+                    direction: "alternate"
                   }
                 );
               }
 
               activatePopup(
                 mapRef,
-                <ManualTrainPopup train={train} showLink={false} idLink={idLinkType == 'train'} />,
-                new maplibregl.Popup({
-                  offset: 16,
-                  closeButton: true,
-                  anchor: "bottom",
-                })
-                  .setLngLat(feature.geometry.coordinates)
-              )
+                <ManualTrainPopup train={train} showLink={false} idLink={idLinkType == "train"} />,
+                new maplibregl.Popup({ offset: 16, closeButton: true, anchor: "bottom" }).setLngLat(
+                  feature.geometry.coordinates
+                )
+              );
               break;
-            case 'stations':
-              const station = {
-                ...feature.properties,
-                trains: JSON.parse(feature.properties.trains)
-              }
+            case "stations":
+              const station = dataManager.getStationSync(feature.properties.code)[feature.properties.code];
 
               targetElement = document.getElementById(station.code);
               if (targetElement) {
                 targetElement.scrollIntoView({ behavior: "smooth" });
                 targetElement.children[0].animate(
                   [
-                    { filter: 'brightness(1)', backgroundColor: null },
-                    { filter: 'brightness(1.5)', backgroundColor: '#555' }
+                    { filter: "brightness(1)", backgroundColor: null },
+                    { filter: "brightness(1.5)", backgroundColor: "#555" }
                   ],
                   {
                     duration: 200,
-                    easing: 'ease-in-out',
+                    easing: "ease-in-out",
                     iterations: 4, // in and out
-                    direction: 'alternate'
+                    direction: "alternate"
                   }
                 );
               }
               activatePopup(
                 mapRef,
-                <ManualStationPopup station={station} showLink={false} idLink={idLinkType == 'station'} />,
-                new maplibregl.Popup({
-                  offset: 12,
-                  closeButton: true,
-                  anchor: "bottom",
-                })
-                  .setLngLat(feature.geometry.coordinates)
-              )
+                <ManualStationPopup station={station} showLink={false} idLink={idLinkType == "station"} />,
+                new maplibregl.Popup({ offset: 12, closeButton: true, anchor: "bottom" }).setLngLat(
+                  feature.geometry.coordinates
+                )
+              );
               break;
           }
         });
@@ -432,28 +383,28 @@ const MiniMap = ({ filteredTrainIDs = [], filteredStationCodes = [], zoomToTrain
         });
 
         mapRef.current.on("moveend", () => {
-          console.log(
-            `Map moved to ${mapRef.current.getCenter()} with zoom ${mapRef.current.getZoom()}`
-          );
+          console.log(`Map moved to ${mapRef.current.getCenter()} with zoom ${mapRef.current.getZoom()}`);
         });
 
-        mapRef.current.addControl(new maplibregl.AttributionControl({
-          customAttribution: [
-            '<a href="https://github.com/protomaps/basemaps" target="_blank">Protomaps</a>',
-            '<a href="https://openstreetmap.org" target="_blank">© OpenStreetMap contributors</a>',
-            '<a href="https://overturemaps.org" target="_blank">© Overture Maps Foundation</a>',
-            '<a href="https://geodata.bts.gov/datasets/usdot::amtrak-routes/about" target="_blank">USDOT BTS</a>',
-            '<span>Amtrak</span>',
-            '<a href="http://feed.gobrightline.com/" target="_blank">© Brightline</a>',
-            '<a href="https://www.viarail.ca/en/developer-resources" target="_blank">© VIA Rail</a>',
-            /*
+        mapRef.current.addControl(
+          new maplibregl.AttributionControl({
+            customAttribution: [
+              '<a href="https://github.com/protomaps/basemaps" target="_blank">Protomaps</a>',
+              '<a href="https://openstreetmap.org" target="_blank">© OpenStreetMap contributors</a>',
+              '<a href="https://overturemaps.org" target="_blank">© Overture Maps Foundation</a>',
+              '<a href="https://geodata.bts.gov/datasets/usdot::amtrak-routes/about" target="_blank">USDOT BTS</a>',
+              "<span>Amtrak</span>",
+              '<a href="http://feed.gobrightline.com/" target="_blank">© Brightline</a>',
+              '<a href="https://www.viarail.ca/en/developer-resources" target="_blank">© VIA Rail</a>'
+              /*
             '<a href="https://developer.njtransit.com/terms/" target="_blank">© NJT</a>',
             '<a href="https://metrolinktrains.com/about/gtfs/gtfs-rt-access/" target="_blank">© LA Metrolink</a>',
             '<a href="https://moynihantrainhall.nyc/" target="_blank">© NY Moynihan</a>',
             */
-          ].join(' | '),
-          compact: false
-        }));
+            ].join(" | "),
+            compact: false
+          })
+        );
 
         console.log("Map initialized");
       });
@@ -463,19 +414,16 @@ const MiniMap = ({ filteredTrainIDs = [], filteredStationCodes = [], zoomToTrain
   }, []);
 
   return (
-    <div
-      ref={mapContainerRef}
-      className='map maplibregl-map'
-      style={{
-        position: "relative",
-        width: "100%",
-        height: "100%",
-        backgroundColor: "#004173",
-      }}
-    >
-      <div className='map-over'>
-        <div className='attribution'>
-          <Link to={"/map"}>View Full Map</Link>
+    <div style={{ position: "relative", width: "100%", height: "100%" }}>
+      <div
+        ref={mapContainerRef}
+        className="map maplibregl-map"
+        style={{ position: "relative", width: "100%", height: "100%", backgroundColor: "#004173" }}
+      >
+        <div className="map-over">
+          <div className="attribution">
+            <Link to={"/map"}>View Full Map</Link>
+          </div>
         </div>
       </div>
     </div>

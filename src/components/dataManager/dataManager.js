@@ -125,6 +125,11 @@ export class DataManager {
     return this._data.trains;
   }
 
+  getTrainsSync() {
+    console.log("DM: All Trains");
+    return this._data.trains;
+  }
+
   getTrainSync(trainID, justObject = false) {
     console.log("DM: Specific Train");
     //a full ID is passed
