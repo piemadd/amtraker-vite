@@ -18,7 +18,16 @@ const debounce = (func, timeout = 300) => {
 const StationsList = () => {
   const navigate = useNavigate();
 
-  document.title = 'All Stations - Amtraker';
+  document.title = "Stations - Amtraker";
+  document
+    .querySelector('meta[name="description"]')
+    .setAttribute(
+      "content",
+      "View a list of all Amtrak, Brightline, and VIA Rail Train stations with Amtraker!"
+    );
+  document
+    .querySelector('meta[property="og:image"]')
+    .setAttribute("content", "https://amtraker.com/content/images/amtraker-back.webp");
 
   const [loading, setLoading] = useState(true);
   const [stationData, setStationData] = useState([]);
@@ -46,21 +55,18 @@ const StationsList = () => {
           })
           .sort((a, b) => {
             return a.name.localeCompare(b.name);
-          }),
+          })
       );
       setResults(
         Object.values(data).sort((a, b) => {
           return a.name.localeCompare(b.name);
-        }),
+        })
       );
       setLoading(false);
     });
   }, []);
 
-  const fuse = new Fuse(stationData, {
-    keys: ["name", "code", "city", "zip"],
-    includeScore: true,
-  });
+  const fuse = new Fuse(stationData, { keys: ["name", "code", "city", "zip"], includeScore: true });
 
   const [bgURL, setBGURL] = useState("/content/images/amtraker-back.webp");
   const [bgClass, setBGClass] = useState("bg-focus-in");
@@ -68,10 +74,8 @@ const StationsList = () => {
   useEffect(() => {
     stringToHash(localStorage.getItem("passphrase")).then((hash) => {
       if (
-        hash ==
-          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
-        hash ==
-          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
+        hash == "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
+        hash == "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
       ) {
         setBGURL("/content/images/prideflag.jpg");
         setBGClass("bg-focus-in peppino");
@@ -81,13 +85,7 @@ const StationsList = () => {
 
   return (
     <>
-      
-      <img
-        id="background"
-        alt="Amtrak network map."
-        className={bgClass + " terrabanner"}
-        src={bgURL}
-      ></img>
+      <img id="background" alt="Amtrak network map." className={bgClass + " terrabanner"} src={bgURL}></img>
       <div className="trainPage">
         <div className="header-trainpage">
           <p
@@ -99,20 +97,13 @@ const StationsList = () => {
               }
             }}
             className="click"
-            style={{
-              paddingLeft: "32px",
-              fontSize: "24px",
-              fontWeight: 500,
-            }}
+            style={{ paddingLeft: "32px", fontSize: "24px", fontWeight: 500 }}
           >
             Back
           </p>
           {shitsFucked ? (
             <>
-              <p>
-                The Amtrak API seems to be having issues currently! Please try
-                again later...
-              </p>
+              <p>The Amtrak API seems to be having issues currently! Please try again later...</p>
               <p></p>
             </>
           ) : null}
@@ -127,10 +118,8 @@ const StationsList = () => {
               updateQuery(e.target.value);
               debounce(
                 setResults(
-                  e.target.value.length > 0
-                    ? fuse.search(e.target.value).map((result) => result.item)
-                    : stationData,
-                ),
+                  e.target.value.length > 0 ? fuse.search(e.target.value).map((result) => result.item) : stationData
+                )
               );
             }}
           />
@@ -139,12 +128,7 @@ const StationsList = () => {
               <>
                 {results.map((station, i) => {
                   if (!station.tz) {
-                    console.log(
-                      "no tz:",
-                      station.name,
-                      station.code,
-                      station.state,
-                    );
+                    console.log("no tz:", station.name, station.code, station.state);
                   }
                   if (!station.name) {
                     console.log("no name:", station.code, station.state);
@@ -164,10 +148,7 @@ const StationsList = () => {
                         <p>
                           {station.hasAddress ? (
                             <span className="greyed">
-                              {station.address1}{" "}
-                              {station.address2 !== " "
-                                ? station.address2
-                                : null}
+                              {station.address1} {station.address2 !== " " ? station.address2 : null}
                               <br />
                               {station.city}, {station.state} {station.zip}
                               <br />

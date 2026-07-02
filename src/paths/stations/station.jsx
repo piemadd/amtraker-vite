@@ -32,6 +32,15 @@ const StationPage = () => {
   }, [stationCode]);
 
   document.title = `${stationData && !loading ? stationData.name : stationCode} Station - Amtraker`;
+  document
+    .querySelector('meta[name="description"]')
+    .setAttribute(
+      "content",
+      `Track trains to and from ${stationData && !loading ? stationData.name : stationCode} Station using Amtraker!`
+    );
+  document
+    .querySelector('meta[property="og:image"]')
+    .setAttribute("content", `https://ogimg.transitstat.us/images?service=amtraker&type=station&code=${stationCode}`);
 
   const [bgURL, setBGURL] = useState("/content/images/amtraker-back.webp");
   const [bgClass, setBGClass] = useState("bg-focus-in");

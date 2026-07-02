@@ -12,6 +12,15 @@ const AtlasStatsInd = () => {
   const navigate = useNavigate();
 
   document.title = 'Amtraker Atlas : Stats';
+  document
+    .querySelector('meta[name="description"]')
+    .setAttribute(
+      "content",
+      "View your Amtraker Atlas stats."
+    );
+  document
+    .querySelector('meta[property="og:image"]')
+    .setAttribute("content", "https://amtraker.com/content/images/amtraker-back.webp");
   
   if (!pb.authStore.isValid || !pb.authStore.record) {
     console.log('Redirecting...')

@@ -5404,6 +5404,13 @@
   </url>
 
   <url>
+    <loc>https://amtraker.com/trains/v39</loc>
+    <lastmod>2026-07-02</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://amtraker.com/trains/v40</loc>
     <lastmod>2026-07-02</lastmod>
     <changefreq>daily</changefreq>

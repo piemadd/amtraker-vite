@@ -22,6 +22,15 @@ const AtlasAdd = () => {
   const navigate = useNavigate();
 
   document.title = 'Amtraker Atlas : Add';
+  document
+    .querySelector('meta[name="description"]')
+    .setAttribute(
+      "content",
+      "Add a train to your Amtraker Atlas."
+    );
+  document
+    .querySelector('meta[property="og:image"]')
+    .setAttribute("content", "https://amtraker.com/content/images/amtraker-back.webp");
 
   if (!pb.authStore.isValid || !pb.authStore.record) {
     console.log('Redirecting...')

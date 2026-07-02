@@ -8,6 +8,15 @@ import { autoAddTrains } from "../../tools";
 
 const App = () => {
   document.title = "Amtraker";
+  document
+    .querySelector('meta[name="description"]')
+    .setAttribute(
+      "content",
+      "Amtraker is a fast, lightweight, and easy to use Amtrak, Brightline, and VIA Rail Train Tracker."
+    );
+  document
+    .querySelector('meta[property="og:image"]')
+    .setAttribute("content", "https://amtraker.com/content/images/amtraker-back.webp");
 
   const [savedTrains, setSavedTrains] = useState([]);
   const [isStale, setIsStale] = useState(false);
@@ -298,7 +307,7 @@ const App = () => {
         </div>
 
         <section className="footer section-border">
-          <p>Amtraker v3.19.13</p>
+          <p>Amtraker v3.19.14</p>
           <div>
             <Link to="/about">
               <p>About/Settings/Privacy</p>

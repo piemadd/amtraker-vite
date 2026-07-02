@@ -7,6 +7,15 @@ const About = () => {
   const navigate = useNavigate();
 
   document.title = "About - Amtraker";
+  document
+    .querySelector('meta[name="description"]')
+    .setAttribute(
+      "content",
+      "Amtraker About, Setings, and Privacy Policy."
+    );
+  document
+    .querySelector('meta[property="og:image"]')
+    .setAttribute("content", "https://amtraker.com/content/images/amtraker-back.webp");
 
   const [bgURL, setBGURL] = useState("/content/images/amtraker-back.webp");
   const [bgClass, setBGClass] = useState("bg-focus-in");

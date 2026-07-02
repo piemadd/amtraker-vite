@@ -56,6 +56,15 @@ const AmtrakerMap = () => {
   const mapContainerRef = useRef(null);
 
   document.title = 'Live Map - Amtraker';
+  document
+    .querySelector('meta[name="description"]')
+    .setAttribute(
+      "content",
+      "View Amtrak, Brightline, and VIA Rail trains on the Amtraker train tracking map!"
+    );
+  document
+    .querySelector('meta[property="og:image"]')
+    .setAttribute("content", "https://amtraker.com/content/images/amtraker-back.webp");
 
   const setResultsAndRefreshMap = (showAllState, currentQuery) => {
     let actualNewResults = [];

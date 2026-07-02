@@ -9,6 +9,15 @@ const AtlasDeleteAccount = () => {
   const navigate = useNavigate();
 
   document.title = 'Amtraker Atlas : Delete Account';
+  document
+    .querySelector('meta[name="description"]')
+    .setAttribute(
+      "content",
+      "Delete your Amtraker Atlas account."
+    );
+  document
+    .querySelector('meta[property="og:image"]')
+    .setAttribute("content", "https://amtraker.com/content/images/amtraker-back.webp");
 
   const [bgURL, setBGURL] = useState("/content/images/amtraker-back.webp");
   const [bgClass, setBGClass] = useState("bg-focus-in");

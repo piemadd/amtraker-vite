@@ -45,12 +45,6 @@ export async function onRequest(context) {
 
     <meta property="og:image:height" content="630" />
     <meta property="og:image:width" content="1200" />
-
-    <meta name="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="${request.url}">
-    <meta name="twitter:title" content="Atlas - Amtraker">
-    <meta name="twitter:description" content="Track your trips with Amtraker Atlas!">
-    <meta name="twitter:image" content="https://amtraker.com/content/images/amtraker_cover.webp">
   `
 
   return new HTMLRewriter()

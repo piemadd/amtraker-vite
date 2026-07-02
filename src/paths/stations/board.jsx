@@ -26,6 +26,15 @@ const StationBoardPage = () => {
   const [maxNumWidth, setMaxNumWidth] = useState(1);
 
   document.title = `${stationData && !loading ? stationData.name : stationCode} Station Arrivals Board - Amtraker`;
+  document
+    .querySelector('meta[name="description"]')
+    .setAttribute(
+      "content",
+      `Track trains to and from ${stationData && !loading ? stationData.name : stationCode} Station using Amtraker!`
+    );
+  document
+    .querySelector('meta[property="og:image"]')
+    .setAttribute("content", `https://ogimg.transitstat.us/images?service=amtraker&type=station&code=${stationCode}`);
 
   const canvasRef = useRef(null);
 

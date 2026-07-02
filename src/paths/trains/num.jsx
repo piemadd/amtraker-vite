@@ -1,9 +1,4 @@
-import {
-  useParams,
-  useNavigate,
-  useSearchParams,
-  Link,
-} from "react-router-dom";
+import { useParams, useNavigate, useSearchParams, Link } from "react-router-dom";
 import { useEffect, useState, useMemo } from "react";
 import { trainNames } from "../../data/trains";
 import "./trains.css";
@@ -20,7 +15,7 @@ const TrainsByNumber = () => {
   const [loading, setLoading] = useState(true);
   const [trainData, setTrainData] = useState([]);
   const [selectedTrain, setSelectedTrain] = useState("");
-  const [trainLink, setTrainLink] = useState(`/trains/${trainNum}${searchParams.has("oembed") ? '?oembed' : ''}`);
+  const [trainLink, setTrainLink] = useState(`/trains/${trainNum}${searchParams.has("oembed") ? "?oembed" : ""}`);
 
   useEffect(() => {
     dataManager.getTrain(trainNum).then((data) => {
@@ -31,14 +26,14 @@ const TrainsByNumber = () => {
         console.log("is valid");
 
         const sorted = data[trainNum].sort((a, b) => {
-          return (
-            Number(a.trainID.split("-")[1]) - Number(b.trainID.split("-")[1])
-          );
+          return Number(a.trainID.split("-")[1]) - Number(b.trainID.split("-")[1]);
         });
 
         setTrainData(sorted);
         setSelectedTrain(sorted[0].trainID);
-        setTrainLink(`/trains/${trainNum}/${sorted[0].trainID.split("-")[1]}${searchParams.has("oembed") ? '?oembed' : ''}`);
+        setTrainLink(
+          `/trains/${trainNum}/${sorted[0].trainID.split("-")[1]}${searchParams.has("oembed") ? "?oembed" : ""}`
+        );
 
         // no more automatic redirects as this probably kills SEO
         /*
@@ -58,8 +53,26 @@ const TrainsByNumber = () => {
 
   if (trainData[0] && !loading) {
     document.title = `${trainData[0].provider} Train ${trainData[0].trainNumRaw} Tracker - Amtraker`;
+    document
+      .querySelector('meta[name="description"]')
+      .setAttribute(
+        "content",
+        `Track the ${trainData[0].provider} ${trainData[0].routeName}, Train Number ${trainData[0].trainNumRaw}, using Amtraker!`
+      );
+    document
+      .querySelector('meta[property="og:image"]')
+      .setAttribute("content", `https://ogimg.transitstat.us/images?service=amtraker&type=train&code=${trainNum}`);
   } else {
     document.title = `Train ${trainNum} Tracker - Amtraker`;
+    document
+      .querySelector('meta[name="description"]')
+      .setAttribute(
+        "content",
+        `Track train ${trainNum} using Amtraker!`
+      );
+    document
+      .querySelector('meta[property="og:image"]')
+      .setAttribute("content", `https://ogimg.transitstat.us/images?service=amtraker&type=train&code=${trainNum}`);
   }
 
   const [bgURL, setBGURL] = useState("/content/images/amtraker-back.webp");
@@ -68,10 +81,8 @@ const TrainsByNumber = () => {
   useEffect(() => {
     stringToHash(localStorage.getItem("passphrase")).then((hash) => {
       if (
-        hash ==
-        "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
-        hash ==
-        "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
+        hash == "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
+        hash == "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
       ) {
         setBGURL("/content/images/prideflag.jpg");
         setBGClass("bg-focus-in peppino");
@@ -81,14 +92,9 @@ const TrainsByNumber = () => {
 
   return (
     <>
-      <img
-        id='background'
-        alt='Amtrak network map.'
-        className={bgClass + ' terrabanner'}
-        src={bgURL}
-      ></img>
+      <img id="background" alt="Amtrak network map." className={bgClass + " terrabanner"} src={bgURL}></img>
       <main>
-        <section className='section-new'>
+        <section className="section-new">
           {!loading ? (
             <div>
               {trainData.length > 0 ? (
@@ -97,25 +103,22 @@ const TrainsByNumber = () => {
                   <h2>{trainNames[trainNum]}</h2>
                   <h4>Choose your departure date from the list:</h4>
                   <select
-                    name='trainNum'
-                    id='trainNum'
+                    name="trainNum"
+                    id="trainNum"
                     value={selectedTrain}
                     onChange={(e) => {
                       setSelectedTrain(e.target.value);
                       setTrainLink(
-                        `/trains/${trainNum}/${e.target.value.split("-")[1]}${searchParams.has("oembed") ? '?oembed' : ''}`
+                        `/trains/${trainNum}/${e.target.value.split("-")[1]}${searchParams.has("oembed") ? "?oembed" : ""}`
                       );
                     }}
                   >
                     {trainData.map((train) => {
                       return (
-                        <option
-                          key={`train-selector-${train.trainID}`}
-                          value={train.trainID}
-                        >
-                          {new Intl.DateTimeFormat([], {
-                            dateStyle: "medium",
-                          }).format(new Date(train.stations[0].schDep))}
+                        <option key={`train-selector-${train.trainID}`} value={train.trainID}>
+                          {new Intl.DateTimeFormat([], { dateStyle: "medium" }).format(
+                            new Date(train.stations[0].schDep)
+                          )}
                         </option>
                       );
                     })}
@@ -129,9 +132,7 @@ const TrainsByNumber = () => {
               ) : (
                 <>
                   <h2>Train {trainNum}</h2>
-                  <h4>
-                    No trains with that number are currently tracking. Sorry :(
-                  </h4>
+                  <h4>No trains with that number are currently tracking. Sorry :(</h4>
                   {!searchParams.has("oembed") ? (
                     <button
                       onClick={() => {

@@ -11,6 +11,15 @@ const AtlasIndex = () => {
   const navigate = useNavigate();
 
   document.title = 'Amtraker Atlas : Home';
+  document
+    .querySelector('meta[name="description"]')
+    .setAttribute(
+      "content",
+      "Record your trips in Amtraker Atlas."
+    );
+  document
+    .querySelector('meta[property="og:image"]')
+    .setAttribute("content", "https://amtraker.com/content/images/amtraker-back.webp");
 
   const [bgURL, setBGURL] = useState("/content/images/amtraker-back.webp");
   const [bgClass, setBGClass] = useState("bg-focus-in");

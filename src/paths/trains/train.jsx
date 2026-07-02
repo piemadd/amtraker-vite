@@ -1,21 +1,10 @@
-import {
-  useParams,
-  useNavigate,
-  useSearchParams,
-  Link,
-} from "react-router-dom";
+import { useParams, useNavigate, useSearchParams, Link } from "react-router-dom";
 import { useEffect, useState, useMemo } from "react";
 import ManualStationBox from "../../components/stationBox/manualStationBox";
 import stringToHash from "../../components/money/stringToHash";
 import "./trains.css";
 import settingsInit from "../../components/settingsInit";
-import {
-  initAlwaysTracked,
-  addAlwaysTracked,
-  removeAlwaysTracked,
-  getSavedTrain,
-  manageSavedTrain,
-} from "../../tools";
+import { initAlwaysTracked, addAlwaysTracked, removeAlwaysTracked, getSavedTrain, manageSavedTrain } from "../../tools";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import ShareButton from "../../components/buttons/shareButton";
 import MiniMap from "../../components/mapping/miniMap";
@@ -42,9 +31,7 @@ const BetterTrainPage = () => {
       } else {
         console.log("is valid");
         setFilteredTrainIDs([data[trainNum][0].trainID]);
-        setFilteredStationCodes(
-          data[trainNum][0].stations.map((station) => station.code),
-        );
+        setFilteredStationCodes(data[trainNum][0].stations.map((station) => station.code));
         setTrainData(data[trainNum]);
         setLoading(false);
       }
@@ -52,26 +39,36 @@ const BetterTrainPage = () => {
   }, [trainNum, trainDate]);
 
   if (trainData[0] && !loading) {
-    console.log(trainData[0])
-    document.title = `${trainData[0].provider} Train ${trainData[0].trainNumRaw} (${trainData[0].trainID.split('-')[1]}) Tracker - Amtraker`;
+    console.log(trainData[0]);
+    document.title = `${trainData[0].provider} Train ${trainData[0].trainNumRaw} (${trainData[0].trainID.split("-")[1]}) Tracker - Amtraker`;
+    document
+      .querySelector('meta[name="description"]')
+      .setAttribute(
+        "content",
+        `Track the ${trainData[0].provider} ${trainData[0].routeName}, Train Number ${trainData[0].trainNumRaw}, using Amtraker!`
+      );
+    document
+      .querySelector('meta[property="og:image"]')
+      .setAttribute(
+        "content",
+        `https://ogimg.transitstat.us/images?service=amtraker&type=train&code=${trainData[0].trainID}`
+      );
   } else {
     document.title = `Train ${trainNum} Tracker - Amtraker`;
+    document
+      .querySelector('meta[name="description"]')
+      .setAttribute("content", `Track train ${trainNum} using Amtraker!`);
+    document
+      .querySelector('meta[property="og:image"]')
+      .setAttribute("content", `https://ogimg.transitstat.us/images?service=amtraker&type=train&code=${trainNum}`);
   }
 
   useEffect(() => {
     initAlwaysTracked();
-    console.log(
-      "alwaysTrackedAmtrakerV3:",
-      localStorage.getItem("alwaysTrackedAmtrakerV3"),
-    );
+    console.log("alwaysTrackedAmtrakerV3:", localStorage.getItem("alwaysTrackedAmtrakerV3"));
     console.log("trainNum:", trainNum);
 
-    if (
-      localStorage
-        .getItem("alwaysTrackedAmtrakerV3")
-        .split(",")
-        .includes(trainNum)
-    ) {
+    if (localStorage.getItem("alwaysTrackedAmtrakerV3").split(",").includes(trainNum)) {
       console.log("is always tracked");
       setAlwaysTracked(true);
     }
@@ -85,10 +82,8 @@ const BetterTrainPage = () => {
   useEffect(() => {
     stringToHash(localStorage.getItem("passphrase")).then((hash) => {
       if (
-        hash ==
-          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
-        hash ==
-          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
+        hash == "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
+        hash == "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
       ) {
         setBGURL("/content/images/prideflag.jpg");
         setBGClass("bg-focus-in peppino");
@@ -98,13 +93,7 @@ const BetterTrainPage = () => {
 
   return (
     <>
-      
-      <img
-        id="background"
-        alt="Amtrak network map."
-        className={bgClass + " terrabanner"}
-        src={bgURL}
-      ></img>
+      <img id="background" alt="Amtrak network map." className={bgClass + " terrabanner"} src={bgURL}></img>
       <div className="trainPage">
         {!searchParams.has("oembed") ? (
           <div className="header-trainpage">
@@ -117,11 +106,7 @@ const BetterTrainPage = () => {
                 }
               }}
               className="click"
-              style={{
-                paddingLeft: "32px",
-                fontSize: "24px",
-                fontWeight: 500,
-              }}
+              style={{ paddingLeft: "32px", fontSize: "24px", fontWeight: 500 }}
             >
               Back
             </p>
@@ -129,9 +114,7 @@ const BetterTrainPage = () => {
               <ShareButton
                 navigatorOptions={{
                   title: `Track the ${trainData[0]?.provider} ${trainData[0]?.routeName} Train with Amtraker!`,
-                  url: `https://amtraker.com/trains/${trainData[0]?.trainID
-                    .split("-")
-                    .join("/")}`,
+                  url: `https://amtraker.com/trains/${trainData[0]?.trainID.split("-").join("/")}`
                 }}
               />
             </div>
@@ -139,20 +122,14 @@ const BetterTrainPage = () => {
         ) : null}
         <div
           className="multiSectionHolder"
-          style={{
-            height: searchParams.has("oembed")
-              ? "calc(100svh - 64px)"
-              : "calc(100svh - 114px)",
-          }}
+          style={{ height: searchParams.has("oembed") ? "calc(100svh - 64px)" : "calc(100svh - 114px)" }}
         >
           <section
             className="section-trainPage"
             style={{
-              height: searchParams.has("oembed")
-                ? "calc(100svh - 64px)"
-                : "calc(100svh - 114px)",
+              height: searchParams.has("oembed") ? "calc(100svh - 64px)" : "calc(100svh - 114px)",
               minWidth: "300px",
-              maxWidth: window.innerWidth >= 900 ? "398px" : null, // only setting max size if we have the map
+              maxWidth: window.innerWidth >= 900 ? "398px" : null // only setting max size if we have the map
             }}
           >
             {!loading ? (
@@ -165,24 +142,16 @@ const BetterTrainPage = () => {
                         alignItems: "left",
                         justifyContent: "left",
                         width: "100%",
-                        marginBottom: "2px",
+                        marginBottom: "2px"
                       }}
                     >
-                      <ManualTrainBox
-                        train={trainData[0]}
-                        loading={false}
-                        maxWidth={true}
-                      />
+                      <ManualTrainBox train={trainData[0]} loading={false} maxWidth={true} />
                     </div>
                     <div className="trainInnerContentScroll">
                       {trainData[0].alerts.length > 0 ? (
                         <details
                           className="train-box"
-                          style={{
-                            marginBottom: "4px",
-                            width: "calc(100% - 26px)",
-                            maxWidth: "380px",
-                          }}
+                          style={{ marginBottom: "4px", width: "calc(100% - 26px)", maxWidth: "380px" }}
                         >
                           <summary>Alerts</summary>
                           <ul>
@@ -203,7 +172,7 @@ const BetterTrainPage = () => {
                               gap: "8px",
                               fontSize: "1.5rem",
                               fontWeight: "300",
-                              marginLeft: "8px",
+                              marginLeft: "8px"
                             }}
                           >
                             <input
@@ -211,11 +180,7 @@ const BetterTrainPage = () => {
                               checked={isSaved}
                               onChange={(e) => {
                                 setIsSaved(e.target.checked);
-                                manageSavedTrain(
-                                  trainNum,
-                                  trainDate,
-                                  e.target.checked,
-                                );
+                                manageSavedTrain(trainNum, trainDate, e.target.checked);
                                 console.log("saved change:", e.target.checked);
                               }}
                             />
@@ -231,7 +196,7 @@ const BetterTrainPage = () => {
                               gap: "8px",
                               fontSize: "1.5rem",
                               fontWeight: "300",
-                              marginLeft: "8px",
+                              marginLeft: "8px"
                             }}
                           >
                             <input
@@ -244,27 +209,22 @@ const BetterTrainPage = () => {
                                 } else {
                                   removeAlwaysTracked(trainNum);
                                 }
-                                console.log(
-                                  "always tracked change:",
-                                  e.target.checked,
-                                );
+                                console.log("always tracked change:", e.target.checked);
                               }}
                             />
                             <label>Save Every Train {trainNum}</label>
                           </div>
                         </>
                       ) : null}
-                      {new Date(trainData[0].lastValTS).valueOf() <
-                      new Date().valueOf() - 1000 * 60 * 15 ? (
+                      {new Date(trainData[0].lastValTS).valueOf() < new Date().valueOf() - 1000 * 60 * 15 ? (
                         <p className="staleTrainWarning">
-                          WARNING: THIS TRAIN'S DATA IS STALE! Data feed has not
-                          been updated since{" "}
+                          WARNING: THIS TRAIN'S DATA IS STALE! Data feed has not been updated since{" "}
                           {new Intl.DateTimeFormat([], {
                             hour: "numeric",
                             minute: "numeric",
                             month: "short",
                             day: "numeric",
-                            timeZoneName: "short",
+                            timeZoneName: "short"
                           }).format(new Date(trainData[0].lastValTS))}
                         </p>
                       ) : null}
@@ -277,14 +237,9 @@ const BetterTrainPage = () => {
                               key={`station-${station.code}`}
                               id={station.code}
                               className="station-link"
-                              style={{
-                                width: "calc(100% - 18px)",
-                              }}
+                              style={{ width: "calc(100% - 18px)" }}
                             >
-                              <ManualStationBox
-                                station={station}
-                                train={trainData[0]}
-                              />
+                              <ManualStationBox station={station} train={trainData[0]} />
                             </Link>
                           );
                         })}
@@ -294,8 +249,7 @@ const BetterTrainPage = () => {
                 ) : (
                   <>
                     <p>
-                      This train is not currently tracking. Please try again
-                      later. We apologize for the inconvenience.
+                      This train is not currently tracking. Please try again later. We apologize for the inconvenience.
                     </p>
                     {!searchParams.has("oembed") ? (
                       <button
@@ -321,11 +275,9 @@ const BetterTrainPage = () => {
             <section
               className="section-trainPage"
               style={{
-                height: searchParams.has("oembed")
-                  ? "calc(100svh - 32px)"
-                  : "calc(100svh - 82px)",
+                height: searchParams.has("oembed") ? "calc(100svh - 32px)" : "calc(100svh - 82px)",
                 padding: 0,
-                borderColor: "#444",
+                borderColor: "#444"
               }}
             >
               <MiniMap

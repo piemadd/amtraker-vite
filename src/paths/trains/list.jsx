@@ -22,6 +22,15 @@ const TrainsList = () => {
   const navigate = useNavigate();
 
   document.title = `All Trains - Amtraker`;
+  document
+    .querySelector('meta[name="description"]')
+    .setAttribute(
+      "content",
+      "View a list of all Amtrak, Brightline, and VIA Rail Trains with Amtraker!"
+    );
+  document
+    .querySelector('meta[property="og:image"]')
+    .setAttribute("content", "https://amtraker.com/content/images/amtraker-back.webp");
 
   const dataManager = window.dataManager;
   const appSettings = useMemo(settingsInit, []);
