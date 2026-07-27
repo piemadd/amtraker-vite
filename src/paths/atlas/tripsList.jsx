@@ -60,7 +60,7 @@ const TripsList = ({
             return (
               <tr>
                 <th scope="row">
-                  {trip.railroad != "amtrak"
+                  {trip.railroad != "amtrak" && trip.railroad != 'goldrunner'
                     ? trip.railroad.substring(0, 1)
                     : ""}
                   {trip.train_number}
