@@ -7,6 +7,8 @@ import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import MiniMap from "../../components/mapping/miniMap";
 import ShareButton from "../../components/buttons/shareButton";
 
+const providerShorts = { Amtrak: "AMTK", Via: "VIA", Brightline: "BLNE" };
+
 const BetterTrainsByNumber = () => {
   const { trainNum } = useParams();
   const [searchParams] = useSearchParams();
@@ -16,14 +18,90 @@ const BetterTrainsByNumber = () => {
 
   const [loading, setLoading] = useState(true);
   const [trainData, setTrainData] = useState([]);
+  const [altTrainData, setAltTrainData] = useState(null);
   const [filteredTrainIDs, setFilteredTrainIDs] = useState([]);
   const [filteredStationCodes, setFilteredStationCodes] = useState([]);
 
   useEffect(() => {
     dataManager.getTrain(trainNum).then((data) => {
-      setLoading(false);
       if (Array.isArray(data) && Object.keys(data).length === 0) {
         console.log("is not valid");
+
+        let railroadToFetch = "amtrak";
+        if (trainNum.startsWith("b")) railroadToFetch = "brightline";
+        if (trainNum.startsWith("v")) railroadToFetch = "via_rail";
+
+        fetch(`https://store.transitstat.us/amtraker_route_meta/${railroadToFetch}/trainsByNum/${trainNum}`)
+          .then((res) => res.json())
+          .then((altData) => {
+            const nextDep = new Date(altData.nextDep);
+            const nextDepISO = nextDep.toISOString();
+            const nextDepDate = new Intl.DateTimeFormat("en-US", {
+              timeZone: altData.stops[0]?.tz ?? "America/New_York",
+              day: "numeric"
+            }).format(nextDep);
+
+            let mockTrainObject = {
+              dataSource: "amtraker-v3",
+              routeName: altData.routeName,
+              trainNum: altData.trainNum,
+              trainNumRaw: altData.trainNumRaw,
+              trainID: `${altData.trainNum}-${nextDepDate}`,
+              lat: 0,
+              lon: 0,
+              trainTimely: "",
+              iconColor: "#2a893d",
+              textColor: "#ffffff",
+              stations: altData.stops.map((stop) => {
+                return {
+                  name: stop.name,
+                  code: stop.code,
+                  tz: stop.tz,
+                  bus: false,
+                  schArr: nextDepISO,
+                  schDep: nextDepISO,
+                  arr: nextDepISO,
+                  dep: nextDepISO,
+                  arrCmnt: "",
+                  depCmnt: "",
+                  status: "Enroute",
+                  stopIconColor: "#2a893d",
+                  platform: ""
+                };
+              }),
+              heading: "N",
+              eventCode: altData.stops[0].code,
+              eventTZ: altData.stops[0].tz,
+              eventName: altData.stops[0].name,
+              origCode: altData.stops[0].code,
+              originTZ: altData.stops[0].tz,
+              origName: altData.stops[0].name,
+              destCode: altData.stops.at(-1).code,
+              destTZ: altData.stops.at(-1).tz,
+              destName: altData.stops.at(-1).name,
+              trainState: "Predeparture",
+              velocity: 0,
+              statusMsg: " ",
+              createdAt: nextDepISO,
+              updatedAt: nextDepISO,
+              lastValTS: nextDepISO,
+              provider: altData.provider,
+              providerShort: providerShorts[altData.provider],
+              onlyOfTrainNum: true,
+              alerts: []
+            };
+
+            setAltTrainData({ ...altData, mockTrainObject });
+
+            setFilteredTrainIDs([]);
+            setFilteredStationCodes(altData.stops.map((stop) => stop.code));
+
+            setLoading(false);
+          })
+          .catch((e) => {
+            // isnt a valid train
+            setLoading(false);
+          });
       } else {
         console.log("is valid");
 
@@ -31,11 +109,11 @@ const BetterTrainsByNumber = () => {
           return Number(a.trainID.split("-")[1]) - Number(b.trainID.split("-")[1]);
         });
 
-        console.log(data[trainNum]);
         setFilteredTrainIDs(data[trainNum].map((train) => train.trainID));
         setFilteredStationCodes(data[trainNum].flatMap((train) => train.stations.map((station) => station.code)));
 
         setTrainData(sorted);
+        setLoading(false);
       }
     });
   }, [trainNum, navigate]);
@@ -127,6 +205,17 @@ const BetterTrainsByNumber = () => {
                   {trainData[0].stations.at(-1).name} Station. Please select a currently tracking train:
                 </p>
               </>
+            ) : altTrainData ? (
+              <>
+                <h2 style={{ marginTop: -12, marginBottom: -12 }}>
+                  {altTrainData.provider} Train {altTrainData.trainNumRaw}
+                </h2>
+                <p style={{ lineHeight: 1.4 }}>
+                  Track Amtrak's {altTrainData.routeName} from {altTrainData.stops[0].name} Station to{" "}
+                  {altTrainData.stops.at(-1).name} Station.
+                </p>
+                <br />
+              </>
             ) : (
               <>
                 <h2 style={{ marginTop: -12, marginBottom: -12 }}>Train {trainNum}</h2>
@@ -157,10 +246,34 @@ const BetterTrainsByNumber = () => {
                       </Link>
                     );
                   })
+                ) : altTrainData ? (
+                  <>
+                    <ManualTrainBox train={altTrainData.mockTrainObject} maxWidth={true} includeNextStopTime={true} />
+
+                    <p>
+                      <small>
+                        This train is not currently tracking, but is scheduled to depart {altTrainData.stops[0].name} at{" "}
+                        {new Date(altTrainData.nextDep).toLocaleTimeString([], {
+                          tz: altTrainData.stops[0].tz,
+                          timeStyle: "short"
+                        })}{" "}
+                        on{" "}
+                        {new Date(altTrainData.nextDep).toLocaleDateString([], {
+                          tz: altTrainData.stops[0].tz,
+                          dateStyle: "long"
+                        })}
+                        .
+                      </small>
+                    </p>
+                    <p>
+                      <small>Trains become trackable approximately 1 hour before initial departure.</small>
+                    </p>
+                  </>
                 ) : (
                   <>
                     <p>
-                      This train is not currently tracking. Please try again later. We apologize for the inconvenience.
+                      This train number does not exist within our live or scheduled data. Please try again later. We
+                      apologize for the inconvenience.
                     </p>
                     {!searchParams.has("oembed") ? (
                       <button

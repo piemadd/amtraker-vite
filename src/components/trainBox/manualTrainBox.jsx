@@ -9,6 +9,7 @@ const ManualTrainBox = ({
   onClick = null,
   overrideEventCode = null,
   id = null,
+  includeNextStopTime = false,
 }) => {
   if (overrideEventCode) {
     train.eventCode = overrideEventCode;
@@ -121,6 +122,23 @@ const ManualTrainBox = ({
             : null}
         </p>
       )}
+      {includeNextStopTime ? (
+        <div style={{
+          marginTop: -4,
+          marginBottom: -4,
+        }}>
+          <p className='greyed'>
+            {currentStation.status === "Departed" ? "Dep" : "Est Dep"}:
+          </p>
+          <p className=''>
+            {new Intl.DateTimeFormat([], {
+              hour: "numeric",
+              minute: "numeric",
+              timeZone: currentStation.tz,
+            }).format(new Date(currentStation.dep))}
+          </p>
+        </div>
+      ) : null}
       {train.statusMsg === "SERVICE DISRUPTION" ? (
         <p>
           <b>Service Disruption</b>

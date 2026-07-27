@@ -10,16 +10,20 @@ const month = (now.getMonth() + 1).toString().padStart(2, '0');
 const day = now.getDate().toString().padStart(2, '0');
 
 (async () => {
-  const trainsRes = await fetch('https://api.amtraker.com/v3/trains');
-  const stationsRes = await fetch('https://api.amtraker.com/v3/stations');
+  const amtrakTrainsRes = await fetch('https://store.transitstat.us/amtraker_route_meta/amtrak/trainsByNum');
+  const brightlineTrainsRes = await fetch('https://store.transitstat.us/amtraker_route_meta/brightline/trainsByNum');
+  const viaTrainsRes = await fetch('https://store.transitstat.us/amtraker_route_meta/via_rail/trainsByNum');
 
-  const trainsData = await trainsRes.json();
+  const amtrakTrainsData = await amtrakTrainsRes.json();
+  const brightlineTrainsData = await brightlineTrainsRes.json();
+  const viaTrainsData = await viaTrainsRes.json();
+
+  const stationsRes = await fetch('https://api.amtraker.com/v3/stations');
   const stationsData = await stationsRes.json();
 
-  const newTrainsData = {
-    ...trainNames,
-    ...trainsData
-  };
+  let finalTrains = {};
+
+  [...Object.keys(amtrakTrainsData), ...Object.keys(brightlineTrainsData), ...Object.keys(viaTrainsData)].forEach((trainNum) => finalTrains[trainNum] = true);
 
   const newStationsData = {
     ...stationNames,
@@ -52,7 +56,7 @@ const day = now.getDate().toString().padStart(2, '0');
   */
 
   // train numbers
-  [...new Set(Object.keys(newTrainsData))].forEach((trainNum) => {
+  [...new Set(Object.keys(finalTrains))].forEach((trainNum) => {
     sitemap.write(`
   <url>
     <loc>https://amtraker.com/trains/${trainNum}</loc>

@@ -54,6 +54,7 @@ const AtlasAdd = () => {
     amtrak: null,
     brightline: null,
     via_rail: null,
+    goldrunner: null,
   })
 
   const handleRunNumberChange = (newRunNumber) => {
@@ -172,6 +173,7 @@ const AtlasAdd = () => {
                   <option value="amtrak">Amtrak</option>
                   <option value="brightline">Brightline</option>
                   <option value="via_rail">VIA Rail</option>
+                  <option value="goldrunner">Gold Runner</option>
                 </select>
                 <label htmlFor="atlas-add-train_number">Train Number</label>
                 <input

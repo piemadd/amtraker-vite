@@ -334,10 +334,10 @@ const AmtrakerMap = () => {
             protomaps: {
               type: "vector",
               tiles: [
-                "https://v4mapa.amtraker.com/20251018/{z}/{x}/{y}.mvt",
-                "https://v4mapb.amtraker.com/20251018/{z}/{x}/{y}.mvt",
-                "https://v4mapc.amtraker.com/20251018/{z}/{x}/{y}.mvt",
-                "https://v4mapd.amtraker.com/20251018/{z}/{x}/{y}.mvt",
+                "https://v4mapa.amtraker.com/20260723/{z}/{x}/{y}.mvt",
+                "https://v4mapb.amtraker.com/20260723/{z}/{x}/{y}.mvt",
+                "https://v4mapc.amtraker.com/20260723/{z}/{x}/{y}.mvt",
+                "https://v4mapd.amtraker.com/20260723/{z}/{x}/{y}.mvt",
               ],
               maxzoom: 15,
             },

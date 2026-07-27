@@ -347,3 +347,12 @@ text-align: left;
   padding-right: 4px;
   gap: 4px;
 }
+
+small {
+  line-height: 1.4;
+  display: block;
+  padding-left: 8px;
+  border-left: 8px #4e4e4e solid;
+  background-color: #000000aa;
+  padding: 4px 8px 8px 8px;
+}
