@@ -254,12 +254,12 @@ const BetterTrainsByNumber = () => {
                       <small>
                         This train is not currently tracking, but is scheduled to depart {altTrainData.stops[0].name} at{" "}
                         {new Date(altTrainData.nextDep).toLocaleTimeString([], {
-                          tz: altTrainData.stops[0].tz,
+                          timeZone: altTrainData.stops[0].tz,
                           timeStyle: "short"
                         })}{" "}
                         on{" "}
                         {new Date(altTrainData.nextDep).toLocaleDateString([], {
-                          tz: altTrainData.stops[0].tz,
+                          timeZone: altTrainData.stops[0].tz,
                           dateStyle: "long"
                         })}
                         .
