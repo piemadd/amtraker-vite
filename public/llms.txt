@@ -1655,11 +1655,6 @@ YAZ | Yazoo City | America/Chicago | true | West Broadway (SR149) & North Water 
 YEM | Yemassee | America/New_York | true | 15 Wall Street |  | Yemassee | SC | 29945 | https://api.amtraker.com/v3/md/stations/YEM
 YNY | Yonkers | America/New_York | true | 5 Buena Vista Avenue |  | Yonkers | NY | 10701-3544 | https://api.amtraker.com/v3/md/stations/YNY
 YUM | Yuma | America/Phoenix | true | 281 Gila Street |  | Yuma | AZ | 85364 | https://api.amtraker.com/v3/md/stations/YUM
-BAS | Bay St. Louis | America/Chicago | true | 1928 Depot Way |   | Bay St. Louis | MS | 39520 | https://api.amtraker.com/v3/md/stations/BAS
-GUF | Gulfport | America/Chicago | true | 1419 27th Avenue |   | Gulfport | MS | 39501 | https://api.amtraker.com/v3/md/stations/GUF
-BIX | Biloxi | America/Chicago | true | 890 Esters Blvd. |   | Biloxi | MS | 39530 | https://api.amtraker.com/v3/md/stations/BIX
-PAG | Pascagoula | America/Chicago | true | 505 Railroad Avenue |   | Pascagoula | MS | 39567 | https://api.amtraker.com/v3/md/stations/PAG
-MOE | Mobile | America/Chicago | true | 11 S. Water Street |   | Mobile | AL | 36602 | https://api.amtraker.com/v3/md/stations/MOE
 BEKW | Miami | America/New_York | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/BEKW
 BAVE | Aventura | America/New_York | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/BAVE
 BFBT | Fort Lauderdale | America/New_York | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/BFBT
@@ -1744,6 +1739,7 @@ CBRG | Cobourg | America/Toronto | false |  |  |  |  |  | https://api.amtraker.c
 OSHA | Oshawa | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/OSHA
 GUIL | Guildwood | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/GUIL
 GANA | Gananoque | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/GANA
+PHOP | Port Hope | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/PHOP
 CWLL | Cornwall | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/CWLL
 WDON | Windsor | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/WDON
 CHAT | Chatham | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/CHAT
@@ -1784,7 +1780,74 @@ JACC | Club Jacques-Cartier | America/Toronto | false |  |  |  |  |  | https://a
 MIQK | Miquick | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/MIQK
 RAPX | Rivière-à-Pierre | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/RAPX
 ROUS | Rousseau | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/ROUS
-PHOP | Port Hope | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/PHOP
+SAUV | Sauvé (EXO) | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/SAUV
+ANJO | Anjou (EXO) | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/ANJO
+JOLI | Joliette | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/JOLI
+SJUS | Saint-Justin | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/SJUS
+SPAU | Saint-Paulin | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/SPAU
+SHWN | Shawinigan | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/SHWN
+GMRE | Grand-Mère | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/GMRE
+GARN | Garneau | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/GARN
+STIT | Saint-Tite | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/STIT
+HERV | Hervey | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/HERV
+NCLC | Club Nicol | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/NCLC
+TRTC | Club Triton | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/TRTC
+LEDW | Lac Édouard | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/LEDW
+LDES | Lac des Roches | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/LDES
+KOND | Kondiaronk | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/KOND
+LIZO | Club Lizotte | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/LIZO
+LBOU | Lac Bouchette | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/LBOU
+CHBD | Chambord | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/CHBD
+HEBV | Hebertville | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/HEBV
+JONQ | Jonquière | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/JONQ
+LTUQ | La Tuque | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/LTUQ
+FITZ | Fitzpatrick | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/FITZ
+CRSM | Cressman | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/CRSM
+VMLC | Club Vermillon | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/VMLC
+RAPB | Rapide Blanc | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/RAPB
+LDAR | Lac Darey | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/LDAR
+DUPL | Duplessis | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/DUPL
+MCTC | McTavish | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/MCTC
+WNDG | Windigo | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/WNDG
+FERG | Ferguson | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/FERG
+WGWC | Wigwam | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/WGWC
+VDRY | Vandry | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/VDRY
+DESS | Dessane | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/DESS
+SMRB | Saint-Maurice Rivière Boom | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/SMRB
+WYMT | Weymont | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/WYMT
+SANM | Sanmaur | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/SANM
+CANN | Cann | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/CANN
+BLGC | Club Bélanger | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/BLGC
+HIBB | Hibbard | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/HIBB
+CASY | Casey | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/CASY
+MCCA | McCarthy | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/MCCA
+SSCC | Club Sisco | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/SSCC
+MJBG | Manjobagues | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/MJBG
+PARE | Parent | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/PARE
+TIMB | Timbrell | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/TIMB
+RTAC | Club Rita | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/RTAC
+STRN | Strachan | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/STRN
+MWWC | Club Maniwawa | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/MWWC
+GRNG | Greening | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/GRNG
+OSKL | Oskelaneo Lodge | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/OSKL
+OSKR | Rivière Oskélanéo | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/OSKR
+CLOV | Clova | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/CLOV
+COQU | Coquar | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/COQU
+MNET | Monet | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/MNET
+CBAT | Consolidated Bathurst | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/CBAT
+KPTC | Club Kapitachuan | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/KPTC
+BRMT | Bourmont | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/BRMT
+BDNC | Club Beaudin | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/BDNC
+LNGL | Langlade | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/LNGL
+DRLL | Da-Rou-Lac Lodge | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/DRLL
+GAGN | Gagnon | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/GAGN
+DIXX | Dix | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/DIXX
+BGQU | Bolger | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/BGQU
+FORS | Forsythe | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/FORS
+PRSS | Press | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/PRSS
+SIGN | Signai | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/SIGN
+MEGI | Megiscane | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/MEGI
+SENN | Senneterre | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/SENN
 CHUR | Churchill | America/Winnipeg | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/CHUR
 TIDL | Tidal | America/Winnipeg | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/TIDL
 CHES | Chesnaye | America/Winnipeg | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/CHES
@@ -1884,39 +1947,25 @@ RUEL | Ruel | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/
 FELX | Felix | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/FELX
 MCKC | McKee's Camp | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/MCKC
 LAFO | Laforest | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/LAFO
+CAPR | Capreol | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/CAPR
+SUDJ | Sudbury Jct | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/SUDJ
+PARS | Parry Sound | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/PARS
 WSHG | Washago | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/WSHG
 SPAR | South Parry | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/SPAR
-SUDJ | Sudbury Jct | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/SUDJ
-CAPR | Capreol | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/CAPR
 MIMI | Toronto VIA Yard | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/MIMI
 BENN | Benny | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/BENN
 YONK | Yonkers | America/New_York | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/YONK
 OCHR | Ochre River | America/Winnipeg | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/OCHR
-WNDG | Windigo | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/WNDG
-SMRB | Saint-Maurice Rivière Boom | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/SMRB
-TIMB | Timbrell | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/TIMB
 OBRI | O'Brien | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/OBRI
 ROCH | Rochester | America/New_York | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/ROCH
-BDNC | Club Beaudin | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/BDNC
-BRMT | Bourmont | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/BRMT
 LEVA | Levack | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/LEVA
 BBAR | Boston Bar | America/Vancouver | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/BBAR
 HOPE | Hope | America/Vancouver | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/HOPE
-OSKR | Rivière Oskélanéo | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/OSKR
 CHIL | Chilliwack | America/Vancouver | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/CHIL
-GRNG | Greening | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/GRNG
-FITZ | Fitzpatrick | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/FITZ
 FING | Finger | America/Winnipeg | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/FING
 TOGO | Togo | America/Regina | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/TOGO
-JONQ | Jonquière | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/JONQ
 KAMS | Kamsack | America/Regina | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/KAMS
 GSTO | Gladstone | America/Winnipeg | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/GSTO
-STIT | Saint-Tite | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/STIT
-SSCC | Club Sisco | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/SSCC
-CHBD | Chambord | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/CHBD
-HERV | Hervey | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/HERV
-LTUQ | La Tuque | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/LTUQ
-VDRY | Vandry | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/VDRY
 XYUL | Aéroport Montréal Pierre-Elliott Trudeau | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/XYUL
 ATKL | Atikameg Lake | America/Winnipeg | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/ATKL
 MUNK | Munk | America/Winnipeg | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/MUNK
@@ -1925,125 +1974,71 @@ NEME | Nemegos | America/Toronto | false |  |  |  |  |  | https://api.amtraker.c
 BUTT | Button | America/Winnipeg | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/BUTT
 SYRA | Syracuse | America/New_York | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/SYRA
 TREM | Tremaudan | America/Winnipeg | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/TREM
-CRSM | Cressman | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/CRSM
 GLNA | Glenella | America/Winnipeg | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/GLNA
-GMRE | Grand-Mère | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/GMRE
-SPAU | Saint-Paulin | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/SPAU
 SCHE | Schenectady | America/New_York | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/SCHE
 EARC | Earchman | America/Winnipeg | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/EARC
-DESS | Dessane | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/DESS
-DRLL | Da-Rou-Lac Lodge | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/DRLL
-LBOU | Lac Bouchette | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/LBOU
 NFNY | Niagara Falls Station | America/New_York | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/NFNY
 DEVN | Devon | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/DEVN
 LRIE | Laurier | America/Winnipeg | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/LRIE
 MIKA | Mikado | America/Regina | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/MIKA
 MSBI | Missanabie | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/MSBI
-CBAT | Consolidated Bathurst | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/CBAT
-CLOV | Clova | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/CLOV
-BLGC | Club Bélanger | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/BLGC
 MUSK | Musk | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/MUSK
-LNGL | Langlade | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/LNGL
 CHRT | Charette | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/CHRT
 RAWE | Rawebb | America/Winnipeg | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/RAWE
 POUG | Poughkeepsie | America/New_York | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/POUG
 POGA | Pogamasing | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/POGA
-SHWN | Shawinigan | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/SHWN
 SUDB | Sudbury | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/SUDB
-HEBV | Hebertville | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/HEBV
-JOLI | Joliette | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/JOLI
 LPRS | La Perouse | America/Winnipeg | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/LPRS
-KOND | Kondiaronk | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/KOND
 AMST | Amsterdam | America/New_York | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/AMST
-MCTC | McTavish | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/MCTC
-LEDW | Lac Édouard | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/LEDW
-MWWC | Club Maniwawa | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/MWWC
-COQU | Coquar | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/COQU
 CHEL | Chelmsford | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/CHEL
 LARC | Larchwood | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/LARC
 ALBY | Albany | America/New_York | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/ALBY
 BISC | Biscotasing | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/BISC
-RAPB | Rapide Blanc | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/RAPB
-CANN | Cann | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/CANN
 BUDD | Budd | America/Winnipeg | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/BUDD
 BOLK | Bolkow | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/BOLK
 STRL | Stralak | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/STRL
 BUFX | Buffalo (Exchange) | America/New_York | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/BUFX
-LDAR | Lac Darey | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/LDAR
 CHAP | Chapleau | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/CHAP
 NEWY | New York | America/New_York | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/NEWY
-SIGN | Signai | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/SIGN
-GARN | Garneau | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/GARN
 FRNZ | Franz | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/FRNZ
 WOMR | Woman River | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/WOMR
-FORS | Forsythe | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/FORS
-HIBB | Hibbard | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/HIBB
 DALT | Dalton | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/DALT
-VMLC | Club Vermillon | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/VMLC
 DUNL | Dunlop | America/Winnipeg | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/DUNL
 BOYD | Boyd | America/Winnipeg | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/BOYD
 CART | Cartier | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/CART
 PLUM | Plumas | America/Winnipeg | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/PLUM
 RBRT | Roberts | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/RBRT
-BGQU | Bolger | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/BGQU
 UTIC | Utica | America/New_York | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/UTIC
 NICH | Nicholson | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/NICH
 MCCR | McCreary | America/Winnipeg | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/MCCR
-MEGI | Megiscane | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/MEGI
 LUKE | Luke | America/Winnipeg | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/LUKE
-RTAC | Club Rita | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/RTAC
 PATE | Paterson | America/Winnipeg | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/PATE
-MNET | Monet | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/MNET
-ANJO | Anjou (EXO) | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/ANJO
 AMYO | Amyot | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/AMYO
 SWAN | Swanson | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/SWAN
 WILD | Wilde | America/Winnipeg | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/WILD
-SENN | Senneterre | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/SENN
-WGWC | Wigwam | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/WGWC
 GVIE | Grandview | America/Winnipeg | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/GVIE
 KORM | Kormak | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/KORM
-KPTC | Club Kapitachuan | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/KPTC
-GAGN | Gagnon | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/GAGN
 BUFF | Buffalo (Depew) | America/New_York | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/BUFF
 ARNO | Arnot | America/Winnipeg | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/ARNO
-CASY | Casey | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/CASY
-TRTC | Club Triton | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/TRTC
 GIRD | Girdwood | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/GIRD
-MJBG | Manjobagues | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/MJBG
-MCCA | McCarthy | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/MCCA
 CROT | Croton-Harmon | America/New_York | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/CROT
 MTGM | Metagama | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/MTGM
 DAUP | Dauphin | America/Winnipeg | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/DAUP
 SHEA | Sheahan | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/SHEA
-STRN | Strachan | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/STRN
 HUDS | Hudson | America/New_York | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/HUDS
 SULT | Sultan | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/SULT
 RAMS | Ramsey | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/RAMS
-PRSS | Press | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/PRSS
-LDES | Lac des Roches | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/LDES
 RBLN | Roblin | America/Winnipeg | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/RBLN
-LIZO | Club Lizotte | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/LIZO
 ROME | Rome | America/New_York | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/ROME
 WHTR | White River | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/WHTR
-PARS | Parry Sound | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/PARS
 ESHR | Esher | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/ESHR
 KINO | Kinogama | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/KINO
-DIXX | Dix | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/DIXX
-DUPL | Duplessis | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/DUPL
 GLBP | Gilbert Plains | America/Winnipeg | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/GLBP
-PARE | Parent | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/PARE
 VERE | Veregin | America/Regina | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/VERE
-OSKL | Oskelaneo Lodge | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/OSKL
-SANM | Sanmaur | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/SANM
 ABBO | Abbotsford | America/Vancouver | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/ABBO
 RHIN | Rhinecliff | America/New_York | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/RHIN
 AZIL | Azilda | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/AZIL
 LOCH | Lochalsh | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/LOCH
-FERG | Ferguson | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/FERG
-SAUV | Sauvé (EXO) | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/SAUV
-NCLC | Club Nicol | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/NCLC
-WYMT | Weymont | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/WYMT
-SJUS | Saint-Justin | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/SJUS
 SNKR | Sinker | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/SNKR
 FRKS | Forks | America/Toronto | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/FRKS
 FBT | Fort Lauderdale | America/New_York | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/FBT
@@ -2051,9 +2046,3 @@ EKW | Miami | America/New_York | false |  |  |  |  |  | https://api.amtraker.com
 RRN | Boca Raton | America/New_York | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/RRN
 AVE | Aventura | America/New_York | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/AVE
 MCO | Orlando | America/New_York | false |  |  |  |  |  | https://api.amtraker.com/v3/md/stations/MCO
-AIR | Castle Air Museum | America/Los_Angeles | true | 5050 Santa Fe Drive |   | Atwater | CA | 95301 | https://api.amtraker.com/v3/md/stations/AIR
-CNL | Allensworth State Park | America/Los_Angeles | true | 4011 Grant Drive |   | Allensworth | CA | 93219 | https://api.amtraker.com/v3/md/stations/CNL
-OLD | Orland, CA | undefined | true | 9th Street and Walker Street |   | Orland | CA | 95963 | https://api.amtraker.com/v3/md/stations/OLD
-RKH | Rockingham Speedway | America/New_York | true | 2153 North Hwy 1 |   | Rockingham | NC | 28379 | https://api.amtraker.com/v3/md/stations/RKH
-SAA | Sacramento Airport, CA | undefined | true | 6900 Airport Boulevard |   | Sacramento | CA | 95837 | https://api.amtraker.com/v3/md/stations/SAA
-WMD | Williams, CA | undefined | true | 4th and D streets |   | Williams | CA | 95987 | https://api.amtraker.com/v3/md/stations/WMD

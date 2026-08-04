@@ -41,6 +41,15 @@ const day = now.getDate().toString().padStart(2, '0');
   </url>
 `);
 
+sitemap.write(`
+  <url>
+    <loc>https://amtraker.com/llms.txt</loc>
+    <lastmod>${year}-${month}-${day}</lastmod>
+    <changefreq>never</changefreq>
+    <priority>0.9</priority>
+  </url>
+`);
+
   // train names
   /*
   [...new Set(Object.values(trainNames))].forEach((trainName) => {
