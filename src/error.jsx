@@ -30,7 +30,7 @@ export default function ErrorPage() {
       });
 
       //also need to yeet the service worker
-      navigator.serviceWorker.getRegistrations().then(function (registrations) {
+      if (navigator.serviceWorker) navigator.serviceWorker.getRegistrations().then(function (registrations) {
         for (let registration of registrations) {
           registration.unregister();
         }
@@ -62,7 +62,7 @@ export default function ErrorPage() {
           <i>
             Current path: {window.location.href}
             <br />
-            Current version: v3.20.3
+            Current version: v3.20.4
             <br />
             Current date and time (UTC): {new Date().toUTCString()}
             <br />
@@ -87,7 +87,7 @@ export default function ErrorPage() {
           <i>
             Current path: {window.location.href}
             <br />
-            Current version: v3.20.3
+            Current version: v3.20.4
             <br />
             Current date and time (UTC): {new Date().toUTCString()}
             <br />
