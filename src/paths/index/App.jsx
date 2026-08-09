@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import settingsInit from "../../components/settingsInit";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import { autoAddTrains } from "../../tools";
+import Moneyyyyyyyy from "../../components/money/moneyyyyyyyy";
 
 const App = () => {
   document.title = "Amtraker";
@@ -47,13 +48,13 @@ const App = () => {
 
     if (/Android/.test(userAgent) && sessionStorage.getItem("has_android_twa_referrer") == "true") {
       // we are in the android app
-      return '™';
+      return "™";
     } else if (/(iPhone|iPod|iPad)(?!.*PWAShell)/.test(userAgent)) {
       // we are in the ios app
-      return '™';
-    };
+      return "™";
+    }
 
-    return '℠'
+    return "℠";
   }, []);
 
   // download link for if we're in a mobile browser
@@ -243,7 +244,7 @@ const App = () => {
             </div>
           ) : null}
           {amtrakerGlobalAlerts.length > 0 ? (
-            <div className="stale" style={{maxWidth: 600}}>
+            <div className="stale" style={{ maxWidth: 600 }}>
               {amtrakerGlobalAlerts.map((alert, i) => {
                 console.log(alert);
 
@@ -307,7 +308,7 @@ const App = () => {
         </div>
 
         <section className="footer section-border">
-          <p>Amtraker v3.20.4</p>
+          <p>Amtraker v3.21.0</p>
           <div>
             <Link to="/about">
               <p>About/Settings/Privacy</p>
@@ -331,6 +332,7 @@ const App = () => {
             2026
           </p>
         </section>
+        <Moneyyyyyyyy />
       </main>
     </>
   );

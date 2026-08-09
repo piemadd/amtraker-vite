@@ -1,14 +1,9 @@
 import { useState, useEffect } from "react";
 import { hoursMinutesDaysDuration } from "./common";
 import { Link } from "react-router-dom";
+import Moneyyyyyyyy from "../../components/money/moneyyyyyyyy";
 
-const TripsList = ({
-  pb,
-  numberOfRecords,
-  pageNumber,
-  setTripsMeta,
-  dontUseFilter,
-}) => {
+const TripsList = ({ pb, numberOfRecords, pageNumber, setTripsMeta, dontUseFilter, sortBy = "-departure_date" }) => {
   if (!pb) return null;
   if (!numberOfRecords) numberOfRecords = 50;
   if (!pageNumber) pageNumber = 1;
@@ -21,15 +16,15 @@ const TripsList = ({
   useEffect(() => {
     pb.collection("trips")
       .getList(pageNumber, numberOfRecords, {
-        sort: "-departure_date",
-        filter: dontUseFilter ? null : `user_id = '${pb.authStore.record.id}'`, // hi if youre looking through this code and think i'm only filtering on the client: i am not
+        sort: sortBy,
+        filter: dontUseFilter ? null : `user_id = '${pb.authStore.record.id}'` // hi if youre looking through this code and think i'm only filtering on the client: i am not
         // go ahead and remove the filter, you'll still only get your own data.
       })
       .then((resultList) => {
         setTripsMeta(resultList);
         setTripsList(resultList.items);
       });
-  }, [numberOfRecords, pageNumber, actionTime]);
+  }, [numberOfRecords, pageNumber, actionTime, sortBy]);
 
   if (tripsList.length == 0) {
     return (
@@ -60,28 +55,19 @@ const TripsList = ({
             return (
               <tr>
                 <th scope="row">
-                  {trip.railroad != "amtrak" && trip.railroad != 'goldrunner'
-                    ? trip.railroad.substring(0, 1)
-                    : ""}
+                  {trip.railroad != "amtrak" && trip.railroad != "goldrunner" ? trip.railroad.substring(0, 1) : ""}
                   {trip.train_number}
                 </th>
                 <td>
                   {trip.start_code} - {trip.end_code}
                 </td>
-                <td>
-                  {new Date(trip.departure_date).toLocaleDateString([], {
-                    timeZone: "Europe/London",
-                  })}
-                </td>
+                <td>{new Date(trip.departure_date).toLocaleDateString([], { timeZone: "Europe/London" })}</td>
                 <td>{trip.length_mi}</td>
                 <td>{hoursMinutesDaysDuration(trip.time_minutes)}</td>
                 <td
                   onClick={async () => {
-                    const confirmationRes = confirm(
-                      "This action is irreversible. Press OK to continue with deletion.",
-                    );
-                    if (confirmationRes)
-                      await pb.collection("trips").delete(trip.id);
+                    const confirmationRes = confirm("This action is irreversible. Press OK to continue with deletion.");
+                    if (confirmationRes) await pb.collection("trips").delete(trip.id);
                     setActionTime(Date.now());
                   }}
                 >
@@ -92,6 +78,9 @@ const TripsList = ({
           })}
         </tbody>
       </table>
+      <div style={{ marginTop: "8px" }}>
+        <Moneyyyyyyyy />
+      </div>
     </div>
   );
 };

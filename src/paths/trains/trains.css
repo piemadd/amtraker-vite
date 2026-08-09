@@ -8,7 +8,7 @@
   transition-duration: 100ms;
 }
 
-.train-box div {
+.train-box > div {
   font-weight: 300;
   display: flex;
   gap: 8px;
@@ -33,11 +33,11 @@
   margin-top: -4px;
 }
 
-.train-box div:first-child {
+.train-box > div:first-child {
   font-weight: 400 !important;
 }
 
-.train-box div:first-child span:first-child {
+.train-box > div:first-child > span:first-child {
   font-weight: 600 !important;
   text-shadow: black 0 0 10px;
 }

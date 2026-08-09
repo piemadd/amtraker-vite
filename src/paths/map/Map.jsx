@@ -16,6 +16,7 @@ import ManualMultiplePopup from "../../components/manualMultiplePopup.jsx";
 import settingsInit from "../../components/settingsInit.js";
 import ShareButton from "../../components/buttons/shareButton.jsx";
 import BaseButton from "../../components/buttons/baseButton.jsx";
+import Moneyyyyyyyy from "../../components/money/moneyyyyyyyy.jsx";
 
 const debounce = (func, timeout = 300) => {
   let timer;
@@ -37,16 +38,9 @@ const AmtrakerMap = () => {
   const [results, setResults] = useState([]);
   const [query, updateQuery] = useState("");
   const [onlyShowUpcoming, setOnlyShowUpcoming] = useState(false);
-  const [windowSize, setWindowSize] = useState([
-    window.innerWidth,
-    window.innerHeight,
-  ]);
+  const [windowSize, setWindowSize] = useState([window.innerWidth, window.innerHeight]);
   const [shitsFucked, setShitsFucked] = useState(false);
-  const [dataStale, setDataStale] = useState({
-    avgLastUpdate: 0,
-    activeTrains: 999,
-    stale: false,
-  });
+  const [dataStale, setDataStale] = useState({ avgLastUpdate: 0, activeTrains: 999, stale: false });
   const navigate = useNavigate();
   const location = useLocation();
   const dataManager = window.dataManager;
@@ -55,13 +49,10 @@ const AmtrakerMap = () => {
   const mapRef = useRef(null);
   const mapContainerRef = useRef(null);
 
-  document.title = 'Live Map - Amtraker';
+  document.title = "Live Map - Amtraker";
   document
     .querySelector('meta[name="description"]')
-    .setAttribute(
-      "content",
-      "View Amtrak, Brightline, and VIA Rail trains on the Amtraker train tracking map!"
-    );
+    .setAttribute("content", "View Amtrak, Brightline, and VIA Rail trains on the Amtraker train tracking map!");
   document
     .querySelector('meta[property="og:image"]')
     .setAttribute("content", "https://amtraker.com/content/images/amtraker-back.webp");
@@ -79,9 +70,7 @@ const AmtrakerMap = () => {
         return false;
       });
     } else if (allNames.includes(currentQuery)) {
-      actualNewResults = allData.filter(
-        (train) => train.routeName == currentQuery,
-      );
+      actualNewResults = allData.filter((train) => train.routeName == currentQuery);
     } else {
       actualNewResults = fuse.search(currentQuery).map((result) => result.item);
     }
@@ -108,10 +97,7 @@ const AmtrakerMap = () => {
   useEffect(() => {
     if (location.hash && location.hash.length > 0) {
       if (location.hash.startsWith("#redirect_to")) {
-        console.log(
-          "Redirecting due to map click:",
-          location.hash.replace("#redirect_to:", ""),
-        );
+        console.log("Redirecting due to map click:", location.hash.replace("#redirect_to:", ""));
         navigate("#", { replace: true });
         navigate(location.hash.replace("#redirect_to:", ""));
       }
@@ -127,16 +113,8 @@ const AmtrakerMap = () => {
 
   const fuse = useMemo(() => {
     return new Fuse(allData, {
-      keys: [
-        "routeName",
-        "trainNum",
-        "trainID",
-        "stations.name",
-        "stations.code",
-        "stations.city",
-        "stations.zip",
-      ],
-      includeScore: true,
+      keys: ["routeName", "trainNum", "trainID", "stations.name", "stations.code", "stations.city", "stations.zip"],
+      includeScore: true
     });
   }, []);
 
@@ -167,9 +145,7 @@ const AmtrakerMap = () => {
     setShitsFucked(false);
 
     // stale data + shits fucked
-    dataManager
-      .getShitsFucked()
-      .then((shitsFucked) => setShitsFucked(shitsFucked));
+    dataManager.getShitsFucked().then((shitsFucked) => setShitsFucked(shitsFucked));
     dataManager.getStaleData().then((stale) => setDataStale(stale));
 
     // trains
@@ -181,10 +157,7 @@ const AmtrakerMap = () => {
       const allDataNew = Object.values(data).flat();
 
       setAllData(allDataNew);
-      setAllIDs([
-        ...allDataNew.map((train) => train.trainID),
-        ...allDataNew.map((train) => train.trainNum),
-      ]);
+      setAllIDs([...allDataNew.map((train) => train.trainID), ...allDataNew.map((train) => train.trainNum)]);
       setAllNames(allDataNew.map((train) => train.routeName));
       fuse.setCollection(allDataNew);
 
@@ -199,16 +172,12 @@ const AmtrakerMap = () => {
             if (mapRef.current.hasImage(train.trainID)) {
               mapRef.current.updateImage(train.trainID, img);
             } else {
-              mapRef.current.addImage(train.trainID, img, {
-                pixelRatio: 2,
-              });
+              mapRef.current.addImage(train.trainID, img, { pixelRatio: 2 });
             }
           } catch (e) {
             // different sized image
             mapRef.current.removeImage(train.trainID);
-            mapRef.current.addImage(train.trainID, img, {
-              pixelRatio: 2,
-            });
+            mapRef.current.addImage(train.trainID, img, { pixelRatio: 2 });
           }
         };
         img.onerror = console.log;
@@ -223,16 +192,10 @@ const AmtrakerMap = () => {
             return {
               type: "Feature",
               id: "",
-              properties: {
-                ...train,
-                id: train.trainID,
-              },
-              geometry: {
-                type: "Point",
-                coordinates: [train.lon, train.lat],
-              },
+              properties: { ...train, id: train.trainID },
+              geometry: { type: "Point", coordinates: [train.lon, train.lat] }
             };
-          }),
+          })
       });
     });
 
@@ -250,16 +213,10 @@ const AmtrakerMap = () => {
           return {
             type: "Feature",
             id: station.code,
-            properties: {
-              ...station,
-              id: station.code,
-            },
-            geometry: {
-              type: "Point",
-              coordinates: [station.lon, station.lat],
-            },
+            properties: { ...station, id: station.code },
+            geometry: { type: "Point", coordinates: [station.lon, station.lat] }
           };
-        }),
+        })
       });
     });
   };
@@ -276,12 +233,7 @@ const AmtrakerMap = () => {
 
       // increased workers count test for faster globe loading
       if (appSettings.mapView == "globe")
-        maplibregl.setWorkerCount(
-          Math.max(
-            Math.min(Math.floor((navigator.hardwareConcurrency ?? 1) / 2), 3),
-            1,
-          ),
-        );
+        maplibregl.setWorkerCount(Math.max(Math.min(Math.floor((navigator.hardwareConcurrency ?? 1) / 2), 3), 1));
 
       mapRef.current = new maplibregl.Map({
         container: mapContainerRef.current,
@@ -327,9 +279,9 @@ const AmtrakerMap = () => {
                 "https://v4mapa.amtraker.com/amtraker/{z}/{x}/{y}.mvt",
                 "https://v4mapb.amtraker.com/amtraker/{z}/{x}/{y}.mvt",
                 "https://v4mapc.amtraker.com/amtraker/{z}/{x}/{y}.mvt",
-                "https://v4mapd.amtraker.com/amtraker/{z}/{x}/{y}.mvt",
+                "https://v4mapd.amtraker.com/amtraker/{z}/{x}/{y}.mvt"
               ],
-              maxzoom: 12,
+              maxzoom: 12
             },
             protomaps: {
               type: "vector",
@@ -337,32 +289,20 @@ const AmtrakerMap = () => {
                 "https://v4mapa.amtraker.com/20260723/{z}/{x}/{y}.mvt",
                 "https://v4mapb.amtraker.com/20260723/{z}/{x}/{y}.mvt",
                 "https://v4mapc.amtraker.com/20260723/{z}/{x}/{y}.mvt",
-                "https://v4mapd.amtraker.com/20260723/{z}/{x}/{y}.mvt",
+                "https://v4mapd.amtraker.com/20260723/{z}/{x}/{y}.mvt"
               ],
-              maxzoom: 15,
+              maxzoom: 15
             },
-            stations: {
-              type: "geojson",
-              data: {
-                type: "FeatureCollection",
-                features: [],
-              },
-            },
-            trains: {
-              type: "geojson",
-              data: {
-                type: "FeatureCollection",
-                features: [],
-              },
-            },
+            stations: { type: "geojson", data: { type: "FeatureCollection", features: [] } },
+            trains: { type: "geojson", data: { type: "FeatureCollection", features: [] } }
           },
           version: 8,
-          metadata: {},
+          metadata: {}
         },
         attributionControl: false,
         center: [-97.84139698274907, 41.81914579981135],
         zoom: 3,
-        maxZoom: 20,
+        maxZoom: 20
       });
       window.mapRef = mapRef.current;
 
@@ -371,9 +311,7 @@ const AmtrakerMap = () => {
 
       //initial data fetch
       // stale data + shits fucked
-      dataManager
-        .getShitsFucked()
-        .then((shitsFucked) => setShitsFucked(shitsFucked));
+      dataManager.getShitsFucked().then((shitsFucked) => setShitsFucked(shitsFucked));
       dataManager.getStaleData().then((stale) => setDataStale(stale));
 
       //starting with stations so theyre on the bottom
@@ -396,17 +334,14 @@ const AmtrakerMap = () => {
                 id: station.code,
                 properties: {
                   ...station,
-                  id: station.code,
+                  id: station.code
                   //routeColor: train.lineColor,
                   //lineCode: train.lineCode,
                   //heading: train.heading,
                 },
-                geometry: {
-                  type: "Point",
-                  coordinates: [station.lon, station.lat],
-                },
+                geometry: { type: "Point", coordinates: [station.lon, station.lat] }
               };
-            }),
+            })
           });
         });
       });
@@ -420,10 +355,7 @@ const AmtrakerMap = () => {
 
         setAllData(allTrains);
         setResults(allTrains);
-        setAllIDs([
-          ...allTrains.map((train) => train.trainID),
-          ...allTrains.map((train) => train.trainNum),
-        ]);
+        setAllIDs([...allTrains.map((train) => train.trainID), ...allTrains.map((train) => train.trainNum)]);
         setAllNames(allTrains.map((train) => train.routeName));
         if (fuse) fuse.setCollection(allTrains);
 
@@ -437,30 +369,23 @@ const AmtrakerMap = () => {
                 id: train.trainID,
                 properties: {
                   ...train,
-                  id: train.trainID,
+                  id: train.trainID
                   //routeColor: train.lineColor,
                   //lineCode: train.lineCode,
                   //heading: train.heading,
                 },
-                geometry: {
-                  type: "Point",
-                  coordinates: [train.lon, train.lat],
-                },
+                geometry: { type: "Point", coordinates: [train.lon, train.lat] }
               };
-            }),
+            })
           });
 
           //generating the icons for the trains
           allTrains.forEach((train) => {
-            const { imageWidth, imageHeight, imageText } =
-              generateMarker(train);
+            const { imageWidth, imageHeight, imageText } = generateMarker(train);
 
             //converting the image and loading it
             const img = new Image(imageWidth, imageHeight);
-            img.onload = () =>
-              mapRef.current.addImage(train.trainID, img, {
-                pixelRatio: 2,
-              });
+            img.onload = () => mapRef.current.addImage(train.trainID, img, { pixelRatio: 2 });
             img.onerror = console.log;
             img.src = "data:image/svg+xml;base64," + btoa(imageText);
           });
@@ -474,7 +399,7 @@ const AmtrakerMap = () => {
               "icon-image": ["get", "trainID"],
               //"icon-rotation-alignment": "map",
               "icon-size": 1,
-              "icon-allow-overlap": true,
+              "icon-allow-overlap": true
             },
             paint: {},
             filter:
@@ -484,8 +409,8 @@ const AmtrakerMap = () => {
                     "any",
                     ...allTrains
                       .filter((n) => savedTrainsShortID.includes(n.trainID))
-                      .map((n) => ["==", "trainID", n.trainID]),
-                  ],
+                      .map((n) => ["==", "trainID", n.trainID])
+                  ]
           });
         });
       });
@@ -494,47 +419,35 @@ const AmtrakerMap = () => {
         mapRef.current.on("click", (e) => {
           const bbox = [
             [e.point.x - 4, e.point.y - 4], // southwest
-            [e.point.x + 4, e.point.y + 4], // northeast
+            [e.point.x + 4, e.point.y + 4] // northeast
           ];
 
-          let f = mapRef.current.queryRenderedFeatures(bbox, {
-            layers: ["trains", "stations"],
-          });
+          let f = mapRef.current.queryRenderedFeatures(bbox, { layers: ["trains", "stations"] });
 
           if (f.length === 0) {
             setPopupInfo(null);
             return;
           }
 
-          if (mapRef.current.getZoom() < 6)
-            f = f.filter((n) => n.layer.id == "trains");
+          if (mapRef.current.getZoom() < 6) f = f.filter((n) => n.layer.id == "trains");
 
           if (f.length > 1) {
             const popup = new maplibregl.Popup({
               offset: 16,
               closeButton: true,
               anchor: "bottom",
-              maxWidth: false,
+              maxWidth: false
             }).setLngLat(e.lngLat);
 
             const finalItems = f.slice(0, 5);
-            const hasTrains = finalItems.find(
-              (item) => item.layer.id == "trains",
-            );
-            const hasStations = finalItems.find(
-              (item) => item.layer.id == "stations",
-            );
+            const hasTrains = finalItems.find((item) => item.layer.id == "trains");
+            const hasStations = finalItems.find((item) => item.layer.id == "stations");
 
             let titleText = "Feature";
             if (hasTrains && !hasStations) titleText = "Train";
             if (!hasTrains && hasStations) titleText = "Station";
 
-            setPopupInfo({
-              arrayType: "popup",
-              titleText,
-              finalItems,
-              sourcePopup: popup,
-            });
+            setPopupInfo({ arrayType: "popup", titleText, finalItems, sourcePopup: popup });
             activatePopup(
               mapRef,
               <ManualMultiplePopup
@@ -543,7 +456,7 @@ const AmtrakerMap = () => {
                 setPopupInfo={setPopupInfo}
                 sourcePopup={popup}
               />,
-              popup,
+              popup
             );
             return;
           }
@@ -555,34 +468,27 @@ const AmtrakerMap = () => {
               const train = {
                 ...feature.properties,
                 stations: JSON.parse(feature.properties.stations),
-                alerts: JSON.parse(feature.properties.alerts),
+                alerts: JSON.parse(feature.properties.alerts)
               };
 
               setPopupInfo(train);
               activatePopup(
                 mapRef,
                 <ManualTrainPopup train={train} />,
-                new maplibregl.Popup({
-                  offset: 16,
-                  closeButton: true,
-                  anchor: "bottom",
-                }).setLngLat(feature.geometry.coordinates),
+                new maplibregl.Popup({ offset: 16, closeButton: true, anchor: "bottom" }).setLngLat(
+                  feature.geometry.coordinates
+                )
               );
               break;
             case "stations":
-              const station = {
-                ...feature.properties,
-                trains: JSON.parse(feature.properties.trains),
-              };
+              const station = { ...feature.properties, trains: JSON.parse(feature.properties.trains) };
               setPopupInfo(station);
               activatePopup(
                 mapRef,
                 <ManualStationPopup station={station} />,
-                new maplibregl.Popup({
-                  offset: 12,
-                  closeButton: true,
-                  anchor: "bottom",
-                }).setLngLat(feature.geometry.coordinates),
+                new maplibregl.Popup({ offset: 12, closeButton: true, anchor: "bottom" }).setLngLat(
+                  feature.geometry.coordinates
+                )
               );
               break;
           }
@@ -605,25 +511,13 @@ const AmtrakerMap = () => {
         });
 
         mapRef.current.on("moveend", () => {
-          console.log(
-            `Map moved to ${mapRef.current.getCenter()} with zoom ${mapRef.current.getZoom()}`,
-          );
+          console.log(`Map moved to ${mapRef.current.getCenter()} with zoom ${mapRef.current.getZoom()}`);
         });
 
-        mapRef.current.addControl(
-          new maplibregl.NavigationControl({
-            visualizePitch: true,
-          }),
-          "top-right",
-        );
+        mapRef.current.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), "top-right");
         mapRef.current.addControl(new maplibregl.FullscreenControl());
         mapRef.current.addControl(
-          new maplibregl.GeolocateControl({
-            positionOptions: {
-              enableHighAccuracy: true,
-            },
-            trackUserLocation: true,
-          }),
+          new maplibregl.GeolocateControl({ positionOptions: { enableHighAccuracy: true }, trackUserLocation: true })
         );
         mapRef.current.addControl(
           new maplibregl.AttributionControl({
@@ -634,14 +528,14 @@ const AmtrakerMap = () => {
               '<a href="https://geodata.bts.gov/datasets/usdot::amtrak-routes/about" target="_blank">USDOT BTS</a>',
               "<span>Amtrak</span>",
               '<a href="http://feed.gobrightline.com/" target="_blank">© Brightline</a>',
-              '<a href="https://www.viarail.ca/en/developer-resources" target="_blank">© VIA Rail</a>',
+              '<a href="https://www.viarail.ca/en/developer-resources" target="_blank">© VIA Rail</a>'
               /*
               '<a href="https://developer.njtransit.com/terms/" target="_blank">© NJT</a>',
               '<a href="https://metrolinktrains.com/about/gtfs/gtfs-rt-access/" target="_blank">© LA Metrolink</a>',
               '<a href="https://moynihantrainhall.nyc/" target="_blank">© NY Moynihan</a>',
               */
-            ].join(" | "),
-          }),
+            ].join(" | ")
+          })
         );
 
         console.log("Map initialized");
@@ -670,51 +564,29 @@ const AmtrakerMap = () => {
               }
             }}
             className="click noselect"
-            style={{
-              paddingLeft: "32px",
-              fontSize: "24px",
-              fontWeight: 500,
-            }}
+            style={{ paddingLeft: "32px", fontSize: "24px", fontWeight: 500 }}
           >
             {query.length > 0 ? "Clear Search" : "Back"}
           </p>
           {shitsFucked ? (
-            <p>
-              The Amtrak API seems to be having issues currently! Please try
-              again later...
-            </p>
+            <p>The Amtrak API seems to be having issues currently! Please try again later...</p>
           ) : dataStale.stale ? (
             <p>
-              Warning: Data is stale. Trains were last updated on average{" "}
-              {Math.floor(dataStale.avgLastUpdate / 60000)} minutes ago.
+              Warning: Data is stale. Trains were last updated on average {Math.floor(dataStale.avgLastUpdate / 60000)}{" "}
+              minutes ago.
             </p>
           ) : null}
           <div className="multiButtonHolder">
             <BaseButton
               symbol="?"
               onClick={() => navigate("/about#faq-map-icons-colors")}
-              otherCssStyles={{
-                height: "75%",
-                fontSize: "20px",
-                lineHeight: "20px",
-                paddingTop: "calc(0.5em - 2px)",
-              }}
+              otherCssStyles={{ height: "75%", fontSize: "20px", lineHeight: "20px", paddingTop: "calc(0.5em - 2px)" }}
             />
-            <ShareButton
-              navigatorOptions={{
-                title: "Amtraker Map",
-                url: "https://amtraker.com/map",
-              }}
-            />
+            <ShareButton navigatorOptions={{ title: "Amtraker Map", url: "https://amtraker.com/map" }} />
             <BaseButton
               symbol="⟳"
               onClick={() => debounce(updateAllData)}
-              otherCssStyles={{
-                height: "75%",
-                fontSize: "20px",
-                lineHeight: "20px",
-                paddingTop: "calc(0.5em - 2px)",
-              }}
+              otherCssStyles={{ height: "75%", fontSize: "20px", lineHeight: "20px", paddingTop: "calc(0.5em - 2px)" }}
             />
           </div>
         </div>
@@ -726,10 +598,7 @@ const AmtrakerMap = () => {
                   type="text"
                   value={query}
                   placeholder="Search..."
-                  style={{
-                    width: "100%",
-                    padding: "8px",
-                  }}
+                  style={{ width: "100%", padding: "8px" }}
                   onChange={(e) => {
                     updateQuery(e.target.value);
                     debounce(setResultsAndRefreshMap(showAll, e.target.value));
@@ -737,18 +606,9 @@ const AmtrakerMap = () => {
                 />
               ) : null}
               {popupInfo && popupInfo.arrayType == "popup" ? (
-                <div
-                  style={{
-                    marginRight: "8px",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "4px",
-                  }}
-                >
+                <div style={{ marginRight: "8px", display: "flex", flexDirection: "column", gap: "4px" }}>
                   <div className="train-box train-box-max-width">
-                    <div className="train-popup__header">
-                      Select a {popupInfo.titleText}:
-                    </div>
+                    <div className="train-popup__header">Select a {popupInfo.titleText}:</div>
                   </div>
                   {popupInfo.finalItems.map((item) => {
                     switch (item.layer.id) {
@@ -757,14 +617,12 @@ const AmtrakerMap = () => {
                           <div
                             key={item.properties.trainID}
                             className="train-box train-box-max-width"
-                            style={{
-                              cursor: "pointer",
-                            }}
+                            style={{ cursor: "pointer" }}
                             onClick={(e) => {
                               const train = {
                                 ...item.properties,
                                 stations: JSON.parse(item.properties.stations),
-                                alerts: JSON.parse(item.properties.alerts),
+                                alerts: JSON.parse(item.properties.alerts)
                               };
 
                               setPopupInfo(train);
@@ -772,36 +630,24 @@ const AmtrakerMap = () => {
                               activatePopup(
                                 mapRef,
                                 <ManualTrainPopup train={train} />,
-                                new maplibregl.Popup({
-                                  offset: 16,
-                                  closeButton: true,
-                                  anchor: "bottom",
-                                }).setLngLat([train.lon, train.lat]),
+                                new maplibregl.Popup({ offset: 16, closeButton: true, anchor: "bottom" }).setLngLat([
+                                  train.lon,
+                                  train.lat
+                                ])
                               );
                               if (mapRef.current) {
                                 mapRef.current.flyTo({
                                   center: [train.lon, train.lat],
                                   duration: 500,
-                                  zoom: Math.max(mapRef.current.getZoom(), 6),
+                                  zoom: Math.max(mapRef.current.getZoom(), 6)
                                 });
                               }
                             }}
                           >
-                            <div
-                              style={{
-                                textWrap: "nowrap",
-                              }}
-                            >
-                              <span
-                                className="status"
-                                style={{
-                                  backgroundColor: item.properties.iconColor,
-                                }}
-                              >
+                            <div style={{ textWrap: "nowrap" }}>
+                              <span className="status" style={{ backgroundColor: item.properties.iconColor }}>
                                 {item.properties.trainID.split("-")[0]}
-                                {!item.properties.onlyOfTrainNum
-                                  ? ` (${item.properties.trainID.split("-")[1]})`
-                                  : ""}
+                                {!item.properties.onlyOfTrainNum ? ` (${item.properties.trainID.split("-")[1]})` : ""}
                               </span>{" "}
                               {item.properties.routeName}
                             </div>
@@ -812,39 +658,30 @@ const AmtrakerMap = () => {
                           <div
                             key={item.properties.code}
                             className="train-box train-box-max-width"
-                            style={{
-                              cursor: "pointer",
-                            }}
+                            style={{ cursor: "pointer" }}
                             onClick={(e) => {
-                              const station = {
-                                ...item.properties,
-                                trains: JSON.parse(item.properties.trains),
-                              };
+                              const station = { ...item.properties, trains: JSON.parse(item.properties.trains) };
                               setPopupInfo(station);
                               popupInfo.sourcePopup.remove();
                               activatePopup(
                                 mapRef,
                                 <ManualStationPopup station={station} />,
-                                new maplibregl.Popup({
-                                  offset: 12,
-                                  closeButton: true,
-                                  anchor: "bottom",
-                                }).setLngLat([station.lon, station.lat]),
+                                new maplibregl.Popup({ offset: 12, closeButton: true, anchor: "bottom" }).setLngLat([
+                                  station.lon,
+                                  station.lat
+                                ])
                               );
                               if (mapRef.current) {
                                 mapRef.current.flyTo({
                                   center: [station.lon, station.lat],
                                   duration: 500,
-                                  zoom: Math.max(mapRef.current.getZoom(), 6),
+                                  zoom: Math.max(mapRef.current.getZoom(), 6)
                                 });
                               }
                             }}
                           >
                             <div>
-                              <span className="status">
-                                {item.properties.code}
-                              </span>{" "}
-                              {item.properties.name}
+                              <span className="status">{item.properties.code}</span> {item.properties.name}
                             </div>
                           </div>
                         );
@@ -853,26 +690,15 @@ const AmtrakerMap = () => {
                 </div>
               ) : null}
               {popupInfo && popupInfo.trainNum ? (
-                <div
-                  style={{
-                    marginRight: "8px",
-                  }}
-                >
+                <div style={{ marginRight: "8px" }}>
                   <ManualTrainBox train={popupInfo} maxWidth={true} />
                   {popupInfo.alerts && popupInfo.alerts.length > 0 ? (
                     <details
                       className="train-box train-box-max-width mapalerts"
-                      style={{
-                        marginTop: "4px",
-                        marginBottom: "0px",
-                      }}
+                      style={{ marginTop: "4px", marginBottom: "0px" }}
                     >
                       <summary>Alerts</summary>
-                      <ul
-                        style={{
-                          marginLeft: "24px",
-                        }}
-                      >
+                      <ul style={{ marginLeft: "24px" }}>
                         {popupInfo.alerts.map((alert, i) => {
                           return <li key={i}>{alert.message}</li>;
                         })}
@@ -882,15 +708,8 @@ const AmtrakerMap = () => {
                 </div>
               ) : null}
               {popupInfo && popupInfo.code ? (
-                <div
-                  style={{
-                    marginRight: "8px",
-                  }}
-                >
-                  <ManualStationBoxIndependent
-                    station={popupInfo}
-                    maxWidth={true}
-                  />
+                <div style={{ marginRight: "8px" }}>
+                  <ManualStationBoxIndependent station={popupInfo} maxWidth={true} />
                 </div>
               ) : null}
               {popupInfo && popupInfo.trainNum ? (
@@ -901,7 +720,7 @@ const AmtrakerMap = () => {
                     gap: "4px",
                     width: "calc(100% + 18px)",
                     height: "100%",
-                    overflowY: "scroll",
+                    overflowY: "scroll"
                   }}
                 >
                   {popupInfo.stations.map((station, i, arr) => {
@@ -911,9 +730,7 @@ const AmtrakerMap = () => {
                         to={`/stations/${station.code}`}
                         key={`station-${station.code}`}
                         className="station-link"
-                        style={{
-                          width: "calc(100% - 18px)",
-                        }}
+                        style={{ width: "calc(100% - 18px)" }}
                       >
                         <ManualStationBox station={station} train={popupInfo} />
                       </Link>
@@ -931,7 +748,7 @@ const AmtrakerMap = () => {
                     gap: "8px",
                     fontSize: "1.5rem",
                     fontWeight: "300",
-                    width: "calc(100% - 8px)",
+                    width: "calc(100% - 8px)"
                   }}
                 >
                   <input
@@ -952,11 +769,7 @@ const AmtrakerMap = () => {
                     .filter((train) => {
                       if (onlyShowUpcoming) {
                         const trainThisStation =
-                          train.stations[
-                            train.stations
-                              .map((station) => station.code)
-                              .indexOf(popupInfo.code)
-                          ];
+                          train.stations[train.stations.map((station) => station.code).indexOf(popupInfo.code)];
 
                         if (!trainThisStation) return true; // still include, but it will be sorted downwards later
 
@@ -968,95 +781,63 @@ const AmtrakerMap = () => {
                     .sort((trainA, trainB) => {
                       if (onlyShowUpcoming) {
                         // getting the stations
-                        const trainAThisStation = trainA.stations.find(
-                          (station) => station.code == popupInfo.code,
-                        );
-                        const trainBThisStation = trainB.stations.find(
-                          (station) => station.code == popupInfo.code,
-                        );
+                        const trainAThisStation = trainA.stations.find((station) => station.code == popupInfo.code);
+                        const trainBThisStation = trainB.stations.find((station) => station.code == popupInfo.code);
 
                         // managing edge cases
-                        if (!trainAThisStation && !trainBThisStation)
-                          return trainB.trainID - trainA.trainID; // by train ID
+                        if (!trainAThisStation && !trainBThisStation) return trainB.trainID - trainA.trainID; // by train ID
                         if (!trainAThisStation) return 1; // prioritize B
                         if (!trainBThisStation) return -1; // prioritize A
 
                         //getting time stamps
-                        const trainAThisStationTime = new Date(
-                          trainAThisStation.arr ?? trainAThisStation.dep,
-                        );
-                        const trainBThisStationTime = new Date(
-                          trainBThisStation.arr ?? trainBThisStation.dep,
-                        );
+                        const trainAThisStationTime = new Date(trainAThisStation.arr ?? trainAThisStation.dep);
+                        const trainBThisStationTime = new Date(trainBThisStation.arr ?? trainBThisStation.dep);
 
                         // more edge cases
-                        if (!trainAThisStationTime && !trainBThisStationTime)
-                          return trainB.trainID - trainA.trainID; // by train ID
+                        if (!trainAThisStationTime && !trainBThisStationTime) return trainB.trainID - trainA.trainID; // by train ID
                         if (!trainAThisStationTime) return 1; // prioritize B
                         if (!trainBThisStationTime) return -1; // prioritize A
 
-                        return (
-                          trainAThisStationTime.valueOf() -
-                          trainBThisStationTime.valueOf()
-                        );
+                        return trainAThisStationTime.valueOf() - trainBThisStationTime.valueOf();
                       }
 
                       return trainB.trainID - trainA.trainID;
                     })
                     .map((train) => {
                       return (
-                        <div
-                          style={{
-                            marginRight: "8px",
-                          }}
-                          key={train.trainID}
-                        >
+                        <div style={{ marginRight: "8px" }} key={train.trainID}>
                           <ManualTrainBox
                             train={train}
                             maxWidth={true}
                             onClick={() => {
-                              dataManager
-                                .getTrain(train.trainID)
-                                .then((trainData) => {
-                                  if (Array.isArray(trainData)) return; //no data
+                              dataManager.getTrain(train.trainID).then((trainData) => {
+                                if (Array.isArray(trainData)) return; //no data
 
-                                  const thisTrain =
-                                    trainData[train.trainID.split("-")[0]][0];
+                                const thisTrain = trainData[train.trainID.split("-")[0]][0];
 
-                                  if (
-                                    !savedTrainsShortID.includes(
-                                      thisTrain.trainID,
-                                    )
-                                  ) {
-                                    mapRef.current.setFilter("trains", [
-                                      "any",
-                                      true,
-                                    ]);
-                                    setResults(allData);
-                                    setShowAll(true);
-                                  }
+                                if (!savedTrainsShortID.includes(thisTrain.trainID)) {
+                                  mapRef.current.setFilter("trains", ["any", true]);
+                                  setResults(allData);
+                                  setShowAll(true);
+                                }
 
-                                  setPopupInfo(thisTrain);
-                                  activatePopup(
-                                    mapRef,
-                                    <ManualTrainPopup train={thisTrain} />,
-                                    new maplibregl.Popup({
-                                      offset: 16,
-                                      closeButton: true,
-                                      anchor: "bottom",
-                                    }).setLngLat([train.lon, train.lat]),
-                                  );
-                                  if (mapRef.current) {
-                                    mapRef.current.flyTo({
-                                      center: [train.lon, train.lat],
-                                      duration: 500,
-                                      zoom: Math.max(
-                                        mapRef.current.getZoom(),
-                                        6,
-                                      ),
-                                    });
-                                  }
-                                });
+                                setPopupInfo(thisTrain);
+                                activatePopup(
+                                  mapRef,
+                                  <ManualTrainPopup train={thisTrain} />,
+                                  new maplibregl.Popup({ offset: 16, closeButton: true, anchor: "bottom" }).setLngLat([
+                                    train.lon,
+                                    train.lat
+                                  ])
+                                );
+                                if (mapRef.current) {
+                                  mapRef.current.flyTo({
+                                    center: [train.lon, train.lat],
+                                    duration: 500,
+                                    zoom: Math.max(mapRef.current.getZoom(), 6)
+                                  });
+                                }
+                              });
                             }}
                             overrideEventCode={popupInfo.code}
                           />
@@ -1070,14 +851,22 @@ const AmtrakerMap = () => {
                       if (showAll) return true;
                       return savedTrainsShortID.includes(n.trainID);
                     })
-                    .map((train) => {
+                    .map((train, i) => {
                       return (
                         <div
                           style={{
-                            marginRight: "8px",
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "4px",
+                            marginRight: "8px"
                           }}
                           key={train.trainID}
                         >
+                          {i > 0 && (i - 6) % 10 == 0 ? (
+                            <div className="train-box train-box-max-width">
+                              <Moneyyyyyyyy sizeName="mobile_banner" noOuter={true} />
+                            </div>
+                          ) : null}
                           <ManualTrainBox
                             train={train}
                             maxWidth={true}
@@ -1086,17 +875,16 @@ const AmtrakerMap = () => {
                               activatePopup(
                                 mapRef,
                                 <ManualTrainPopup train={train} />,
-                                new maplibregl.Popup({
-                                  offset: 16,
-                                  closeButton: true,
-                                  anchor: "bottom",
-                                }).setLngLat([train.lon, train.lat]),
+                                new maplibregl.Popup({ offset: 16, closeButton: true, anchor: "bottom" }).setLngLat([
+                                  train.lon,
+                                  train.lat
+                                ])
                               );
                               if (mapRef.current) {
                                 mapRef.current.flyTo({
                                   center: [train.lon, train.lat],
                                   duration: 500,
-                                  zoom: Math.max(mapRef.current.getZoom(), 6),
+                                  zoom: Math.max(mapRef.current.getZoom(), 6)
                                 });
                               }
                             }}
@@ -1110,12 +898,7 @@ const AmtrakerMap = () => {
           <div
             ref={mapContainerRef}
             className="map maplibregl-map"
-            style={{
-              position: "relative",
-              width: "100%",
-              height: "100%",
-              backgroundColor: "#004173",
-            }}
+            style={{ position: "relative", width: "100%", height: "100%", backgroundColor: "#004173" }}
           >
             <div className="map-over">
               {/*

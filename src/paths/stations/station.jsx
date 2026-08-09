@@ -7,6 +7,7 @@ import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import settingsInit from "../../components/settingsInit";
 import ShareButton from "../../components/buttons/shareButton";
 import MiniMap from "../../components/mapping/miniMap";
+import Moneyyyyyyyy from "../../components/money/moneyyyyyyyy";
 
 const StationPage = () => {
   const { stationCode } = useParams();
@@ -48,10 +49,8 @@ const StationPage = () => {
   useEffect(() => {
     stringToHash(localStorage.getItem("passphrase")).then((hash) => {
       if (
-        hash ==
-          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
-        hash ==
-          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
+        hash == "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
+        hash == "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
       ) {
         setBGURL("/content/images/prideflag.jpg");
         setBGClass("bg-focus-in peppino");
@@ -62,12 +61,7 @@ const StationPage = () => {
   if (isInvalid)
     return (
       <>
-        <img
-          id="background"
-          alt="Amtrak network map."
-          className={bgClass + " terrabanner"}
-          src={bgURL}
-        ></img>
+        <img id="background" alt="Amtrak network map." className={bgClass + " terrabanner"} src={bgURL}></img>
         <div className="trainPage">
           <div className="header-trainpage">
             <p
@@ -79,11 +73,7 @@ const StationPage = () => {
                 }
               }}
               className="click"
-              style={{
-                paddingLeft: "32px",
-                fontSize: "24px",
-                fontWeight: 500,
-              }}
+              style={{ paddingLeft: "32px", fontSize: "24px", fontWeight: 500 }}
             >
               Back
             </p>
@@ -91,7 +81,7 @@ const StationPage = () => {
               <ShareButton
                 navigatorOptions={{
                   title: `Track trains at ${stationData.name} (${stationData.code} with Amtraker!`,
-                  url: `https://amtraker.com/stations/${stationData.code}`,
+                  url: `https://amtraker.com/stations/${stationData.code}`
                 }}
               />
             </div>
@@ -102,14 +92,14 @@ const StationPage = () => {
               style={{
                 minWidth: "320px",
                 maxWidth: window.innerWidth >= 900 ? "398px" : null, // only setting max size if we have the map
-                gap: "0px",
+                gap: "0px"
               }}
             >
               <div className="trainInnerContentScroll">
                 <h2>{stationCode} Station</h2>
                 <p>
-                  This station could not be found in Amtraker's Database. Please
-                  ensure '{stationCode}' is a valid station code.
+                  This station could not be found in Amtraker's Database. Please ensure '{stationCode}' is a valid
+                  station code.
                   {stationCode.length > 4
                     ? " Station codes are always 3-4 characters in length, like 'CHI' or 'TRTO'."
                     : null}
@@ -123,13 +113,7 @@ const StationPage = () => {
 
   return (
     <>
-      
-      <img
-        id="background"
-        alt="Amtrak network map."
-        className={bgClass + " terrabanner"}
-        src={bgURL}
-      ></img>
+      <img id="background" alt="Amtrak network map." className={bgClass + " terrabanner"} src={bgURL}></img>
       <div className="trainPage">
         <div className="header-trainpage">
           <p
@@ -141,11 +125,7 @@ const StationPage = () => {
               }
             }}
             className="click"
-            style={{
-              paddingLeft: "32px",
-              fontSize: "24px",
-              fontWeight: 500,
-            }}
+            style={{ paddingLeft: "32px", fontSize: "24px", fontWeight: 500 }}
           >
             Back
           </p>
@@ -153,7 +133,7 @@ const StationPage = () => {
             <ShareButton
               navigatorOptions={{
                 title: `Track trains at ${stationData.name} (${stationData.code} with Amtraker!`,
-                url: `https://amtraker.com/stations/${stationData.code}`,
+                url: `https://amtraker.com/stations/${stationData.code}`
               }}
             />
           </div>
@@ -164,7 +144,7 @@ const StationPage = () => {
             style={{
               minWidth: "320px",
               maxWidth: window.innerWidth >= 900 ? "398px" : null, // only setting max size if we have the map
-              gap: "0px",
+              gap: "0px"
             }}
           >
             <div className="station-box">
@@ -174,8 +154,7 @@ const StationPage = () => {
               <p>
                 {stationData.hasAddress ? (
                   <span className="greyed">
-                    {stationData.address1}{" "}
-                    {stationData.address2 !== " " ? stationData.address2 : null}
+                    {stationData.address1} {stationData.address2 !== " " ? stationData.address2 : null}
                     <br />
                     {stationData.city}, {stationData.state} {stationData.zip}
                     <br />
@@ -202,7 +181,7 @@ const StationPage = () => {
                   fontSize: "1.5rem",
                   fontWeight: "300",
                   width: "calc(100% - 26px)",
-                  maxWidth: "380px",
+                  maxWidth: "380px"
                 }}
               >
                 <input
@@ -221,19 +200,16 @@ const StationPage = () => {
                   <>
                     {stationData.trains.length > 0 ? (
                       stationData.trains
-                        .map((trainID) =>
-                          dataManager.getTrainSync(trainID, true),
-                        )
+                        .map((trainID) => dataManager.getTrainSync(trainID, true))
                         .filter((train) => {
                           if (onlyShowUpcoming) {
                             const trainThisStation = (train.stations ?? []).find(
-                              (station) => station.code == stationCode,
+                              (station) => station.code == stationCode
                             );
 
                             if (!trainThisStation) return true; // still include, but it will be sorted downwards later
 
-                            if (trainThisStation.status != "Enroute")
-                              return false;
+                            if (trainThisStation.status != "Enroute") return false;
                           }
 
                           return true;
@@ -241,61 +217,43 @@ const StationPage = () => {
                         .sort((trainA, trainB) => {
                           if (onlyShowUpcoming) {
                             // getting the stations
-                            const trainAThisStation = trainA.stations.find(
-                              (station) => station.code == stationCode,
-                            );
-                            const trainBThisStation = trainB.stations.find(
-                              (station) => station.code == stationCode,
-                            );
+                            const trainAThisStation = trainA.stations.find((station) => station.code == stationCode);
+                            const trainBThisStation = trainB.stations.find((station) => station.code == stationCode);
 
                             // managing edge cases
-                            if (!trainAThisStation && !trainBThisStation)
-                              return trainB.trainID - trainA.trainID; // by train ID
+                            if (!trainAThisStation && !trainBThisStation) return trainB.trainID - trainA.trainID; // by train ID
                             if (!trainAThisStation) return 1; // prioritize B
                             if (!trainBThisStation) return -1; // prioritize A
 
                             //getting time stamps
-                            const trainAThisStationTime = new Date(
-                              trainAThisStation.arr ?? trainAThisStation.dep,
-                            );
-                            const trainBThisStationTime = new Date(
-                              trainBThisStation.arr ?? trainBThisStation.dep,
-                            );
+                            const trainAThisStationTime = new Date(trainAThisStation.arr ?? trainAThisStation.dep);
+                            const trainBThisStationTime = new Date(trainBThisStation.arr ?? trainBThisStation.dep);
 
                             // more edge cases
-                            if (
-                              !trainAThisStationTime &&
-                              !trainBThisStationTime
-                            )
+                            if (!trainAThisStationTime && !trainBThisStationTime)
                               return trainB.trainID - trainA.trainID; // by train ID
                             if (!trainAThisStationTime) return 1; // prioritize B
                             if (!trainBThisStationTime) return -1; // prioritize A
 
-                            return (
-                              trainAThisStationTime.valueOf() -
-                              trainBThisStationTime.valueOf()
-                            );
+                            return trainAThisStationTime.valueOf() - trainBThisStationTime.valueOf();
                           }
 
                           return trainB.trainID - trainA.trainID;
                         })
-                        .map((train) => {
+                        .map((train, i) => {
                           return (
-                            <Link
-                              to={`/trains/${train.trainID.split("-").join("/")}`}
-                              key={`train-${train.trainID}`}
-                              id={train.trainID}
-                              className="station-link"
-                              style={{
-                                width: "calc(100% - 26px)",
-                              }}
-                            >
-                              <ManualTrainBox
-                                train={train}
-                                maxWidth={true}
-                                overrideEventCode={stationCode}
-                              />
-                            </Link>
+                            <>
+                              {i > 0 && i % 3 == 0 ? <Moneyyyyyyyy sizeName="mobile_banner" /> : null}
+                              <Link
+                                to={`/trains/${train.trainID.split("-").join("/")}`}
+                                key={`train-${train.trainID}`}
+                                id={train.trainID}
+                                className="station-link"
+                                style={{ width: "calc(100% - 26px)" }}
+                              >
+                                <ManualTrainBox train={train} maxWidth={true} overrideEventCode={stationCode} />
+                              </Link>
+                            </>
                           );
                         })
                     ) : (
@@ -315,12 +273,7 @@ const StationPage = () => {
           {window.innerWidth >= 900 && !loading ? (
             <section
               className="section-trainPage"
-              style={{
-                padding: 0,
-                borderColor: "#444",
-                height: "calc(100svh - 82px)",
-                flexGrow: 99,
-              }}
+              style={{ padding: 0, borderColor: "#444", height: "calc(100svh - 82px)", flexGrow: 99 }}
             >
               <MiniMap
                 filteredTrainIDs={filteredTrainIDs}

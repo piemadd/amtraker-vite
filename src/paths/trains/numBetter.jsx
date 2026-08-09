@@ -6,6 +6,7 @@ import stringToHash from "../../components/money/stringToHash";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import MiniMap from "../../components/mapping/miniMap";
 import ShareButton from "../../components/buttons/shareButton";
+import Moneyyyyyyyy from "../../components/money/moneyyyyyyyy";
 
 const providerShorts = { Amtrak: "AMTK", Via: "VIA", Brightline: "BLNE" };
 
@@ -233,8 +234,9 @@ const BetterTrainsByNumber = () => {
                 }}
               >
                 {trainData.length > 0 ? (
-                  trainData.map((train) => {
+                  trainData.map((train, i, arr) => {
                     return (
+                      <>
                       <Link
                         to={`/trains/${train.trainID.split("-").join("/")}`}
                         key={`train-${train.trainID}`}
@@ -244,6 +246,8 @@ const BetterTrainsByNumber = () => {
                       >
                         <ManualTrainBox train={train} maxWidth={true} />
                       </Link>
+                      {i == arr.length - 1 ? <Moneyyyyyyyy /> : null}
+                      </>
                     );
                   })
                 ) : altTrainData ? (
@@ -268,6 +272,7 @@ const BetterTrainsByNumber = () => {
                     <p>
                       <small>Trains become trackable approximately 1 hour before initial departure.</small>
                     </p>
+                    <Moneyyyyyyyy />
                   </>
                 ) : (
                   <>

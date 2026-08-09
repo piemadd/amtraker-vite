@@ -10,13 +10,8 @@ const pb = new PocketBase("https://pb.amtraker.com");
 const AtlasIndex = () => {
   const navigate = useNavigate();
 
-  document.title = 'Amtraker Atlas : Home';
-  document
-    .querySelector('meta[name="description"]')
-    .setAttribute(
-      "content",
-      "Record your trips in Amtraker Atlas."
-    );
+  document.title = "Amtraker Atlas : Home";
+  document.querySelector('meta[name="description"]').setAttribute("content", "Record your trips in Amtraker Atlas.");
   document
     .querySelector('meta[property="og:image"]')
     .setAttribute("content", "https://amtraker.com/content/images/amtraker-back.webp");
@@ -28,6 +23,8 @@ const AtlasIndex = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [currentUsername, setCurrentUsername] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
+  const [sortBy, setSortBy] = useState("departure_date");
+  const [sortDirection, setSortDirection] = useState("-");
 
   console.log("authUpdatedAt:", authUpdatedAt.toString());
 
@@ -41,12 +38,7 @@ const AtlasIndex = () => {
   if (pb.authStore.isValid) {
     return (
       <>
-        <img
-          id="background"
-          alt="Amtrak network map."
-          className={bgClass + " terrabanner"}
-          src={bgURL}
-        ></img>
+        <img id="background" alt="Amtrak network map." className={bgClass + " terrabanner"} src={bgURL}></img>
         <div className="trainPage">
           <div className="header-trainpage">
             <p
@@ -58,29 +50,19 @@ const AtlasIndex = () => {
                 }
               }}
               className="click"
-              style={{
-                paddingLeft: "32px",
-                fontSize: "24px",
-                fontWeight: 500,
-              }}
+              style={{ paddingLeft: "32px", fontSize: "24px", fontWeight: 500 }}
             >
               Back
             </p>
             <p
               onClick={() => {
-                const confirmationRes = confirm(
-                  "Are you sure you want to log out?",
-                );
+                const confirmationRes = confirm("Are you sure you want to log out?");
                 if (!confirmationRes) return;
                 pb.authStore.clear();
                 navigate(0);
               }}
               className="click"
-              style={{
-                paddingRight: "32px",
-                fontSize: "24px",
-                fontWeight: 500,
-              }}
+              style={{ paddingRight: "32px", fontSize: "24px", fontWeight: 500 }}
             >
               Log Out
             </p>
@@ -88,50 +70,78 @@ const AtlasIndex = () => {
           <section className="section-trainPage">
             <AtlasNav currentRoute={"index"} userData={pb.authStore.record} />
             {tripsMeta && tripsMeta.totalItems > 0 ? (
-              <>
-                <label>Page Selection</label>
-                <div
-                  className="links"
-                  style={{
-                    marginBottom: "8px",
-                  }}
-                >
-                  {Array(tripsMeta.totalPages)
-                    .fill("amongus")
-                    .map((val, i) => {
+              <div style={{ display: "flex", columnGap: "12px", rowGap: "0px", flexWrap: "wrap" }}>
+                <div>
+                  <label>Page Selection</label>
+                  <div className="linksJoined">
+                    {Array(tripsMeta.totalPages)
+                      .fill("amongus")
+                      .map((val, i) => {
+                        return (
+                          <a href="#" onClick={() => {}}>
+                            <button
+                              className={"joinedLink" + (pageNumber == i + 1 ? " currentlyClickedButton" : "")}
+                              onClick={(e) => setPageNumber(i + 1)}
+                            >
+                              {i + 1}
+                            </button>
+                          </a>
+                        );
+                      })}
+                    <Link to={"/atlas/add"} replace={true}>
+                      <button className="joinedLink">Add Trip</button>
+                    </Link>
+                  </div>
+                </div>
+                <div>
+                  <label>Sort By</label>
+                  <div className="linksJoined">
+                    {[
+                      ["departure_date", "Departure Date"],
+                      ["length_mi", "Length"],
+                      ["time_minutes", "Time"]
+                    ].map((val, i) => {
                       return (
-                        <button
-                          className={
-                            "root" +
-                            (pageNumber == i + 1
-                              ? " currentlyClickedButton"
-                              : "")
-                          }
-                          onClick={(e) => setPageNumber(i + 1)}
-                        >
-                          {i + 1}
-                        </button>
+                        <a href="#" onClick={() => {}}>
+                          <button
+                            className={"joinedLink" + (sortBy == val[0] ? " currentlyClickedButton" : "")}
+                            onClick={(e) => setSortBy(val[0])}
+                          >
+                            {val[1]}
+                          </button>
+                        </a>
                       );
                     })}
-                  <Link to={"/atlas/add"} replace={true}>
-                    <button
-                      className="links"
-                      style={{
-                        marginBottom: "8px",
-                        height: "100%",
-                      }}
-                    >
-                      Add Trip
-                    </button>
-                  </Link>
+                  </div>
                 </div>
-              </>
+                <div>
+                  <label>Sort Direction</label>
+                  <div className="linksJoined" style={{ marginBottom: "8px" }}>
+                    {[
+                      ["-", "Desc."],
+                      ["+", "Asc."]
+                    ].map((val, i) => {
+                      return (
+                        <a href="#" onClick={() => {}}>
+                          <button
+                            className={"joinedLink" + (sortDirection == val[0] ? " currentlyClickedButton" : "")}
+                            onClick={(e) => setSortDirection(val[0])}
+                          >
+                            {val[1]}
+                          </button>
+                        </a>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
             ) : null}
             <TripsList
               pb={pb}
               numberOfRecords={50}
               pageNumber={pageNumber}
               setTripsMeta={setTripsMeta}
+              sortBy={`${sortDirection}${sortBy}`}
             />
           </section>
         </div>
@@ -141,12 +151,7 @@ const AtlasIndex = () => {
 
   return (
     <>
-      <img
-        id="background"
-        alt="Amtrak network map."
-        className={bgClass + " terrabanner"}
-        src={bgURL}
-      ></img>
+      <img id="background" alt="Amtrak network map." className={bgClass + " terrabanner"} src={bgURL}></img>
       <div className="trainPage">
         <div className="header-trainpage">
           <p
@@ -158,41 +163,20 @@ const AtlasIndex = () => {
               }
             }}
             className="click"
-            style={{
-              paddingLeft: "32px",
-              fontSize: "24px",
-              fontWeight: 500,
-            }}
+            style={{ paddingLeft: "32px", fontSize: "24px", fontWeight: 500 }}
           >
             Back
           </p>
         </div>
         <section className="section-trainPage">
           <h1>Atlas</h1>
-          <details
-            style={{
-              maxWidth: "500px",
-              marginBottom: "2px",
-            }}
-          >
-            <summary
-              style={{
-                fontSize: "16px",
-                marginBottom: "2px",
-              }}
-            >
-              Atlas Note
-            </summary>
+          <details style={{ maxWidth: "500px", marginBottom: "2px" }}>
+            <summary style={{ fontSize: "16px", marginBottom: "2px" }}>Atlas Note</summary>
             <label>
-              <b>If you notice any bugs or have any feature requests</b> please
-              email me directly at{" "}
-              <a href="mailto:piero@piemadd.com">piero@piemadd.com</a>. It is
-              important to note{" "}
+              <b>If you notice any bugs or have any feature requests</b> please email me directly at{" "}
+              <a href="mailto:piero@piemadd.com">piero@piemadd.com</a>. It is important to note{" "}
               <i>
-                <b>
-                  Atlas is not required to use the regular train tracking
-                  aspects of Amtraker
-                </b>
+                <b>Atlas is not required to use the regular train tracking aspects of Amtraker</b>
               </i>
               .
             </label>
@@ -206,17 +190,13 @@ const AtlasIndex = () => {
                   await pb.collection("users").authWithOAuth2({
                     provider: "google",
                     urlCallback: (url) => {
-                      window.webkit?.messageHandlers[
-                        "open-auth-url"
-                      ].postMessage(url);
-                    },
+                      window.webkit?.messageHandlers["open-auth-url"].postMessage(url);
+                    }
                   });
                 })();
               } else {
                 pb.collection("users")
-                  .authWithOAuth2({
-                    provider: "google",
-                  })
+                  .authWithOAuth2({ provider: "google" })
                   .then((authData) => {
                     setAuthUpdatedAt(Date.now());
                   });
@@ -236,7 +216,7 @@ const AtlasIndex = () => {
               gap: "0px",
               paddingRight: "12px",
               border: "solid 1px #000000",
-              borderRadius: "8px",
+              borderRadius: "8px"
             }}
             onClick={(e) => {
               if (window.webkit?.messageHandlers) {
@@ -245,29 +225,20 @@ const AtlasIndex = () => {
                   await pb.collection("users").authWithOAuth2({
                     provider: "apple",
                     urlCallback: (url) => {
-                      window.webkit?.messageHandlers[
-                        "open-auth-url"
-                      ].postMessage(url);
-                    },
+                      window.webkit?.messageHandlers["open-auth-url"].postMessage(url);
+                    }
                   });
                 })();
               } else {
                 pb.collection("users")
-                  .authWithOAuth2({
-                    provider: "apple",
-                  })
+                  .authWithOAuth2({ provider: "apple" })
                   .then((authData) => {
                     setAuthUpdatedAt(Date.now());
                   });
               }
             }}
           >
-            <AppleLogo
-              style={{
-                margin: "-16px -8px -18px -16px",
-              }}
-            />{" "}
-            Login With Apple
+            <AppleLogo style={{ margin: "-16px -8px -18px -16px" }} /> Login With Apple
           </button>
           <p>===== or =====</p>
           <label htmlFor="atlas-login_email">Email</label>

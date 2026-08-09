@@ -4,6 +4,7 @@ import "../trains/trains.css"; //fuck it we ball
 import Fuse from "fuse.js";
 import settingsInit from "../../components/settingsInit";
 import stringToHash from "../../components/money/stringToHash";
+import Moneyyyyyyyy from "../../components/money/moneyyyyyyyy";
 
 const debounce = (func, timeout = 300) => {
   let timer;
@@ -21,10 +22,7 @@ const StationsList = () => {
   document.title = "Stations - Amtraker";
   document
     .querySelector('meta[name="description"]')
-    .setAttribute(
-      "content",
-      "View a list of all Amtrak, Brightline, and VIA Rail Train stations with Amtraker!"
-    );
+    .setAttribute("content", "View a list of all Amtrak, Brightline, and VIA Rail Train stations with Amtraker!");
   document
     .querySelector('meta[property="og:image"]')
     .setAttribute("content", "https://amtraker.com/content/images/amtraker-back.webp");
@@ -135,35 +133,38 @@ const StationsList = () => {
                   }
 
                   return (
-                    <Link
-                      to={`/stations/${station.code}`}
-                      key={`station-${station.code}`}
-                      replace={true}
-                      className="station-link"
-                    >
-                      <div className="station-box">
-                        <div>
-                          {station.name} ({station.code})&nbsp;
+                    <>
+                      {i > 0 && i % 10 == 0 ? <Moneyyyyyyyy /> : null}
+                      <Link
+                        to={`/stations/${station.code}`}
+                        key={`station-${station.code}`}
+                        replace={true}
+                        className="station-link"
+                      >
+                        <div className="station-box">
+                          <div>
+                            {station.name} ({station.code})&nbsp;
+                          </div>
+                          <p>
+                            {station.hasAddress ? (
+                              <span className="greyed">
+                                {station.address1} {station.address2 !== " " ? station.address2 : null}
+                                <br />
+                                {station.city}, {station.state} {station.zip}
+                                <br />
+                                {station.tz}
+                              </span>
+                            ) : (
+                              <span className="greyed">
+                                Address unavailable.
+                                <br />
+                                {station.tz}
+                              </span>
+                            )}
+                          </p>
                         </div>
-                        <p>
-                          {station.hasAddress ? (
-                            <span className="greyed">
-                              {station.address1} {station.address2 !== " " ? station.address2 : null}
-                              <br />
-                              {station.city}, {station.state} {station.zip}
-                              <br />
-                              {station.tz}
-                            </span>
-                          ) : (
-                            <span className="greyed">
-                              Address unavailable.
-                              <br />
-                              {station.tz}
-                            </span>
-                          )}
-                        </p>
-                      </div>
-                    </Link>
+                      </Link>
+                    </>
                   );
                 })}
               </>

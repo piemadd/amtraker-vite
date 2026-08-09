@@ -5,6 +5,7 @@ import Fuse from "fuse.js";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import settingsInit from "../../components/settingsInit";
 import stringToHash from "../../components/money/stringToHash";
+import Moneyyyyyyyy from "../../components/money/moneyyyyyyyy";
 
 //import ErrorData from "../../data/error.json";
 
@@ -24,10 +25,7 @@ const TrainsList = () => {
   document.title = `All Trains - Amtraker`;
   document
     .querySelector('meta[name="description"]')
-    .setAttribute(
-      "content",
-      "View a list of all Amtrak, Brightline, and VIA Rail Trains with Amtraker!"
-    );
+    .setAttribute("content", "View a list of all Amtrak, Brightline, and VIA Rail Trains with Amtraker!");
   document
     .querySelector('meta[property="og:image"]')
     .setAttribute("content", "https://amtraker.com/content/images/amtraker-back.webp");
@@ -52,10 +50,7 @@ const TrainsList = () => {
       setTrainDataFull(allDataNew);
       setTrainData(allDataNew);
       setResults(allDataNew);
-      setAllIDs([
-        ...allDataNew.map((train) => train.trainID),
-        ...allDataNew.map((train) => train.trainNum),
-      ]);
+      setAllIDs([...allDataNew.map((train) => train.trainID), ...allDataNew.map((train) => train.trainNum)]);
       setAllNames(allDataNew.map((train) => train.routeName));
 
       if (Object.keys(data).length === 0) {
@@ -67,31 +62,17 @@ const TrainsList = () => {
   }, []);
 
   const fuse = new Fuse(trainData, {
-    keys: [
-      "routeName",
-      "trainNum",
-      "trainID",
-      "stations.name",
-      "stations.code",
-      "stations.city",
-      "stations.zip",
-    ],
-    includeScore: true,
+    keys: ["routeName", "trainNum", "trainID", "stations.name", "stations.code", "stations.city", "stations.zip"],
+    includeScore: true
   });
 
   const setSearchResults = (currentQuery, agencyFilterString) => {
     let actualNewResults = trainDataFull.filter((train) => {
       if (agencyFilterString == "All") return true;
-      if (
-        agencyFilterString == "Amtrak" &&
-        !train.trainID.startsWith("v") &&
-        !train.trainID.startsWith("b")
-      )
+      if (agencyFilterString == "Amtrak" && !train.trainID.startsWith("v") && !train.trainID.startsWith("b"))
         return true;
-      if (agencyFilterString == "Via" && train.trainID.startsWith("v"))
-        return true;
-      if (agencyFilterString == "Brightline" && train.trainID.startsWith("b"))
-        return true;
+      if (agencyFilterString == "Via" && train.trainID.startsWith("v")) return true;
+      if (agencyFilterString == "Brightline" && train.trainID.startsWith("b")) return true;
       return false;
     });
 
@@ -105,9 +86,7 @@ const TrainsList = () => {
         return false;
       });
     } else if (allNames.includes(currentQuery)) {
-      actualNewResults = actualNewResults.filter(
-        (train) => train.routeName == currentQuery,
-      );
+      actualNewResults = actualNewResults.filter((train) => train.routeName == currentQuery);
     } else {
       fuse.setCollection(actualNewResults);
       actualNewResults = fuse.search(currentQuery).map((result) => result.item);
@@ -122,10 +101,8 @@ const TrainsList = () => {
   useEffect(() => {
     stringToHash(localStorage.getItem("passphrase")).then((hash) => {
       if (
-        hash ==
-          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
-        hash ==
-          "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
+        hash == "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3" ||
+        hash == "ea0fc47b2284d5e8082ddd1fb0dfee5fa5c9ea7e40c5710dca287c9be5430ef3"
       ) {
         setBGURL("/content/images/prideflag.jpg");
         setBGClass("bg-focus-in peppino");
@@ -135,13 +112,7 @@ const TrainsList = () => {
 
   return (
     <>
-      
-      <img
-        id="background"
-        alt="Amtrak network map."
-        className={bgClass + " terrabanner"}
-        src={bgURL}
-      ></img>
+      <img id="background" alt="Amtrak network map." className={bgClass + " terrabanner"} src={bgURL}></img>
       <div className="trainPage">
         <div className="header-trainpage">
           <p
@@ -153,20 +124,13 @@ const TrainsList = () => {
               }
             }}
             className="click"
-            style={{
-              paddingLeft: "32px",
-              fontSize: "24px",
-              fontWeight: 500,
-            }}
+            style={{ paddingLeft: "32px", fontSize: "24px", fontWeight: 500 }}
           >
             Back
           </p>
           {shitsFucked ? (
             <>
-              <p>
-                The Amtrak API seems to be having issues currently! Please try
-                again later...
-              </p>
+              <p>The Amtrak API seems to be having issues currently! Please try again later...</p>
               <p></p>
             </>
           ) : null}
@@ -187,10 +151,7 @@ const TrainsList = () => {
               return (
                 <button
                   key={key}
-                  style={{
-                    backgroundColor:
-                      agencyFilter == key ? "rgba(255, 255, 255, 0.25)" : null,
-                  }}
+                  style={{ backgroundColor: agencyFilter == key ? "rgba(255, 255, 255, 0.25)" : null }}
                   onClick={(e) => {
                     console.log(e.target);
                     setAgencyFilter(e.target.innerText);
@@ -207,14 +168,17 @@ const TrainsList = () => {
               <>
                 {results.map((train, i) => {
                   return (
-                    <Link
-                      to={`/trains/${train.trainID.replace("-", "/")}`}
-                      key={`train-${train.trainID}`}
-                      replace={true}
-                      className="station-link"
-                    >
-                      <ManualTrainBox train={train} />
-                    </Link>
+                    <>
+                      {i > 0 && i % 10 == 0 ? <Moneyyyyyyyy /> : null}
+                      <Link
+                        to={`/trains/${train.trainID.replace("-", "/")}`}
+                        key={`train-${train.trainID}`}
+                        replace={true}
+                        className="station-link"
+                      >
+                        <ManualTrainBox train={train} />
+                      </Link>
+                    </>
                   );
                 })}
               </>

@@ -8,6 +8,7 @@ import { initAlwaysTracked, addAlwaysTracked, removeAlwaysTracked, getSavedTrain
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import ShareButton from "../../components/buttons/shareButton";
 import MiniMap from "../../components/mapping/miniMap";
+import Moneyyyyyyyy from "../../components/money/moneyyyyyyyy";
 
 const BetterTrainPage = () => {
   const { trainNum, trainDate } = useParams();
@@ -232,6 +233,8 @@ const BetterTrainPage = () => {
                       <div className="stations">
                         {trainData[0].stations.map((station, i, arr) => {
                           return (
+                            <>
+                            {i > 0 && (i - 4) % 10 == 0 ? <Moneyyyyyyyy /> : null}
                             <Link
                               to={`/stations/${station.code}`}
                               key={`station-${station.code}`}
@@ -241,6 +244,7 @@ const BetterTrainPage = () => {
                             >
                               <ManualStationBox station={station} train={trainData[0]} />
                             </Link>
+                            </>
                           );
                         })}
                       </div>
