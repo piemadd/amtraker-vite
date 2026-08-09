@@ -54,12 +54,14 @@ const Moneyyyyyyyy = ({ sizeName = "auto", noOuter = false }) => {
           data-ad-client="ca-pub-1957239635288103"
           data-ad-slot={thisSize[2]}
         ></ins>
+        { /*}
         <div
           className="monay-message"
           style={{ width: thisSize[0], height: thisSize[1], marginBottom: 0 - thisSize[1] }}
         >
           <p>hi :3</p>
         </div>
+        { */}
       </div>
     </div>
   );
