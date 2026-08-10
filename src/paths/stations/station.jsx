@@ -240,10 +240,9 @@ const StationPage = () => {
 
                           return trainB.trainID - trainA.trainID;
                         })
-                        .map((train, i) => {
+                        .map((train, i, arr) => {
                           return (
                             <>
-                              {i > 0 && i % 3 == 0 ? <Moneyyyyyyyy sizeName="mobile_banner" /> : null}
                               <Link
                                 to={`/trains/${train.trainID.split("-").join("/")}`}
                                 key={`train-${train.trainID}`}
@@ -253,6 +252,7 @@ const StationPage = () => {
                               >
                                 <ManualTrainBox train={train} maxWidth={true} overrideEventCode={stationCode} />
                               </Link>
+                              {(i > 0 && i % 3 == 0) || (arr.length < 4 && i == arr.length - 1) ? <Moneyyyyyyyy sizeName="mobile_banner" /> : null}
                             </>
                           );
                         })
