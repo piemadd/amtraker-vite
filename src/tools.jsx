@@ -161,9 +161,35 @@ const initAlwaysTracked = () => {
     localStorage.setItem("alwaysTrackedAmtrakerV3", "");
 };
 
-const autoAddTrains = async (trainArr) => {
+const autoAddTrains = async () => {
   const dataManager = window.dataManager;
   const ids = await dataManager.getIDs();
+
+  const alwaysTracked = (localStorage
+    .getItem("alwaysTrackedAmtrakerV3") ?? '')
+    .split(",");
+
+  let savedTrains = (localStorage.getItem("savedTrainsAmtrakerV3") ?? '').split(",");
+
+  ids.forEach((id) => {
+    const trainNum = id.split("-")[0];
+
+    if (alwaysTracked.includes(trainNum)) {
+      if (!savedTrains.includes(id)) {
+        savedTrains.push(id);
+      }
+    }
+  });
+
+  localStorage.setItem(
+    "savedTrainsAmtrakerV3",
+    savedTrains.filter((n) => n.length > 0).join(",")
+  );
+};
+
+const autoAddTrainsSync = () => {
+  const dataManager = window.dataManager;
+  const ids = dataManager.getIDsSync();
 
   const alwaysTracked = (localStorage
     .getItem("alwaysTrackedAmtrakerV3") ?? '')
@@ -219,6 +245,7 @@ export {
   addAlwaysTracked,
   removeAlwaysTracked,
   autoAddTrains,
+  autoAddTrainsSync,
   manageSavedTrain,
   getSavedTrain,
 };

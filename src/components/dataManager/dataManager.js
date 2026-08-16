@@ -196,10 +196,16 @@ export class DataManager {
   async getIDs() {
     console.log("DM: IDs");
 
-    console.log(this._data);
+    return this._data.ids;
+  }
+
+  getIDsSync() {
+    console.log("DM: IDs");
 
     return this._data.ids;
   }
+
+  
 
   async getShitsFucked() {
     console.log("DM: ShitsFucked");

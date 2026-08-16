@@ -17,6 +17,7 @@ import settingsInit from "../../components/settingsInit.js";
 import ShareButton from "../../components/buttons/shareButton.jsx";
 import BaseButton from "../../components/buttons/baseButton.jsx";
 import Moneyyyyyyyy from "../../components/money/moneyyyyyyyy.jsx";
+import { autoAddTrainsSync } from "../../tools.jsx";
 
 const debounce = (func, timeout = 300) => {
   let timer;
@@ -122,6 +123,8 @@ const AmtrakerMap = () => {
     if (!localStorage.getItem("savedTrainsAmtrakerV3")) {
       localStorage.setItem("savedTrainsAmtrakerV3", "");
     }
+
+     autoAddTrainsSync();
 
     const trains = localStorage
       .getItem("savedTrainsAmtrakerV3")
