@@ -4,11 +4,12 @@ import ManualStationBox from "../../components/stationBox/manualStationBox";
 import stringToHash from "../../components/money/stringToHash";
 import "./trains.css";
 import settingsInit from "../../components/settingsInit";
-import { initAlwaysTracked, addAlwaysTracked, removeAlwaysTracked, getSavedTrain, manageSavedTrain } from "../../tools";
+import { initAlwaysTracked, addAlwaysTracked, removeAlwaysTracked, getSavedTrain, manageSavedTrain, autoAddTrainsSync } from "../../tools";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import ShareButton from "../../components/buttons/shareButton";
 import MiniMap from "../../components/mapping/miniMap";
 import Moneyyyyyyyy from "../../components/money/moneyyyyyyyy";
+
 
 const BetterTrainPage = () => {
   const { trainNum, trainDate } = useParams();
@@ -66,6 +67,7 @@ const BetterTrainPage = () => {
 
   useEffect(() => {
     initAlwaysTracked();
+    autoAddTrainsSync();
     console.log("alwaysTrackedAmtrakerV3:", localStorage.getItem("alwaysTrackedAmtrakerV3"));
     console.log("trainNum:", trainNum);
 
