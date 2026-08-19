@@ -24,7 +24,11 @@ export async function onRequest(context) {
   let code = pathname.replace('/trains/', '').replaceAll('/', '-');
   let ogtag
 
-  const infoRes = await fetch(`http://api.amtraker.com/v3/trains/${code}`);
+  const infoRes = await fetch(`http://api.amtraker.com/v3/trains/${code}`, {
+    headers: {
+      'User-Agent': "AmtrakerVite/v3.21.5 (+https://amtraker.com)"
+    }
+  });
   const infoDataRaw = await infoRes.text();
 
   if (infoDataRaw == 'Not found') return res; // doesnt exist

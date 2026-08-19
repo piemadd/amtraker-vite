@@ -1,11 +1,7 @@
 import sampleTrain from "./sampleTrain.json";
 import localForage from "localforage";
 
-localForage.config({
-  name: "AmtrakerOffline",
-  storeName: "AmtrakerOfflineStore",
-  version: "3",
-});
+localForage.config({ name: "AmtrakerOffline", storeName: "AmtrakerOfflineStore", version: "3" });
 
 const URL_TO_USE = "https://api.amtraker.com/v3/all";
 //const URL_TO_USE = 'http://localhost:3001/v3/all';
@@ -18,11 +14,7 @@ export class DataManager {
       stations: {},
       ids: [],
       shitsFucked: true,
-      staleData: {
-        avgLastUpdate: 9999999,
-        activeTrains: 1,
-        stale: true,
-      },
+      staleData: { avgLastUpdate: 9999999, activeTrains: 1, stale: true }
     };
     this._lastUpdated = 0;
 
@@ -34,15 +26,13 @@ export class DataManager {
         console.log("DM-R:", this._id);
         fetch(URL_TO_USE, {
           cache: "reload",
+          headers: { "User-Agent": "AmtrakerVite/v3.21.5 (+https://amtraker.com)" }
         })
           .then((res) => res.json())
           .then((data) => {
             this._data = data;
             this._lastUpdated = Date.now();
-            localForage.setItem(
-              "amtraker_datamanager_v1_data",
-              JSON.stringify(data),
-            );
+            localForage.setItem("amtraker_datamanager_v1_data", JSON.stringify(data));
             console.log("DM-R:", this._id, "Success");
           })
           .catch((e) => {
@@ -53,10 +43,7 @@ export class DataManager {
       }
 
       //i know this is gonna be 1 refresh out of date. fuck you, i don't give a shit
-      localForage.setItem(
-        "amtraker_datamanager_v1_data",
-        JSON.stringify(this._data),
-      );
+      localForage.setItem("amtraker_datamanager_v1_data", JSON.stringify(this._data));
     };
 
     setInterval(() => {
@@ -68,38 +55,24 @@ export class DataManager {
   async checkDataStatusAndUpdate() {
     const runFetch = async () => {
       try {
-        if (
-          !this._lastUpdated ||
-          !this._data ||
-          this._lastUpdated < Date.now() - 1000 * 60 * 5
-        ) {
-          const res = await fetch(URL_TO_USE, {
-            cache: "reload",
-            signal: AbortSignal.timeout(5000),
-          });
+        if (!this._lastUpdated || !this._data || this._lastUpdated < Date.now() - 1000 * 60 * 5) {
+          const res = await fetch(URL_TO_USE, { cache: "reload", signal: AbortSignal.timeout(5000) });
           const data = await res.json();
           this._data = data;
           this._lastUpdated = Date.now();
 
-          localForage.setItem(
-            "amtraker_datamanager_v1_data",
-            JSON.stringify(this._data),
-          );
+          localForage.setItem("amtraker_datamanager_v1_data", JSON.stringify(this._data));
           console.log("Initial request succeeded");
         }
       } catch (e) {
-        let tempData = await localForage.getItem(
-          "amtraker_datamanager_v1_data",
-        );
+        let tempData = await localForage.getItem("amtraker_datamanager_v1_data");
 
         if (!tempData)
           tempData =
             '{"trains":{},"stations":{},"ids":[],"shitsFucked":true,"staleData":{"avgLastUpdate":9999999,"activeTrains":1,"stale":true}}';
 
         this._data = JSON.parse(tempData);
-        this._lastUpdated = await localForage.getItem(
-          "amtraker_datamanager_v1_last_updated",
-        );
+        this._lastUpdated = await localForage.getItem("amtraker_datamanager_v1_last_updated");
         console.log("Initial request timed out, using cached data");
       }
     };
@@ -140,9 +113,7 @@ export class DataManager {
 
       if (!this._data.trains[trainNum]) return []; // train number doesn't exist
 
-      const train = this._data.trains[trainNum].find(
-        (train) => train.trainID == trainID,
-      );
+      const train = this._data.trains[trainNum].find((train) => train.trainID == trainID);
 
       if (train === undefined) return []; // train number exists, but not this specific id
 
@@ -151,9 +122,7 @@ export class DataManager {
     }
 
     if (!this._data.trains[trainID]) return []; // train number doesn't exist
-    return {
-      [trainID]: this._data.trains[trainID],
-    };
+    return { [trainID]: this._data.trains[trainID] };
   }
 
   async getTrain(trainID, justObject = false) {
@@ -184,9 +153,7 @@ export class DataManager {
 
     if (!this._data.stations[stationCode]) return []; // station doesn't exist
 
-    return {
-      [stationCode]: this._data.stations[stationCode],
-    };
+    return { [stationCode]: this._data.stations[stationCode] };
   }
 
   async getStation(stationCode) {
@@ -204,8 +171,6 @@ export class DataManager {
 
     return this._data.ids;
   }
-
-  
 
   async getShitsFucked() {
     console.log("DM: ShitsFucked");

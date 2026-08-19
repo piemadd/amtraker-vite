@@ -35,7 +35,9 @@ const Moneyyyyyyyy = ({ sizeName = "auto", noOuter = false }) => {
   }, []);
 
   useEffect(() => {
-    fetch(`https://api.amtraker.com/ads/ads/adsense/adblock/ads.json?=${new Date().getTime()}`)
+    fetch(`https://api.amtraker.com/ads/ads/adsense/adblock/ads.json?=${new Date().getTime()}`, {
+      headers: { "User-Agent": "AmtrakerVite/v3.21.5 (+https://amtraker.com)" }
+    })
       .then((res) => {
         if (!res.ok) setIsBlocked(true);
       })
@@ -45,7 +47,7 @@ const Moneyyyyyyyy = ({ sizeName = "auto", noOuter = false }) => {
   }, []);
 
   return (
-    <div className={noOuter ? 'monay-noOuter' : "monay"}>
+    <div className={noOuter ? "monay-noOuter" : "monay"}>
       <small>Advertisement</small>
       <div className="monay-inner">
         <ins
@@ -54,7 +56,7 @@ const Moneyyyyyyyy = ({ sizeName = "auto", noOuter = false }) => {
           data-ad-client="ca-pub-1957239635288103"
           data-ad-slot={thisSize[2]}
         ></ins>
-        { /*}
+        {/*}
         <div
           className="monay-message"
           style={{ width: thisSize[0], height: thisSize[1], marginBottom: 0 - thisSize[1] }}
