@@ -26,7 +26,7 @@ export class DataManager {
         console.log("DM-R:", this._id);
         fetch(URL_TO_USE, {
           cache: "reload",
-          headers: { "User-Agent": "AmtrakerVite/v3.21.5 (+https://amtraker.com)" }
+          headers: { "User-Agent": "AmtrakerVite/v3.21.6 (+https://amtraker.com)", "Amtraker-Version": "v3.21.6" }
         })
           .then((res) => res.json())
           .then((data) => {
