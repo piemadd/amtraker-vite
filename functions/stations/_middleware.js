@@ -26,8 +26,8 @@ export async function onRequest(context) {
 
   const infoRes = await fetch(`http://api.amtraker.com/v3/stations/${code}`, {
     headers: {
-      'User-Agent': "AmtrakerViteWorker/v3.21.7 (+https://amtraker.com)",
-      'Amtraker-Version': "v3.21.7",
+      'User-Agent': "AmtrakerViteWorker/v3.21.8 (+https://amtraker.com)",
+      'Amtraker-Version': "v3.21.8",
     }
   });
   const infoDataRaw = await infoRes.text();

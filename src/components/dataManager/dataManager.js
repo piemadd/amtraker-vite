@@ -26,7 +26,7 @@ export class DataManager {
         console.log("DM-R:", this._id);
         fetch(URL_TO_USE, {
           cache: "reload",
-          headers: { "User-Agent": "AmtrakerVite/v3.21.7 (+https://amtraker.com)", "Amtraker-Version": "v3.21.7" }
+          headers: { "User-Agent": "AmtrakerVite/v3.21.8 (+https://amtraker.com)", "Amtraker-Version": "v3.21.8" }
         })
           .then((res) => res.json())
           .then((data) => {
@@ -56,7 +56,11 @@ export class DataManager {
     const runFetch = async () => {
       try {
         if (!this._lastUpdated || !this._data || this._lastUpdated < Date.now() - 1000 * 60 * 5) {
-          const res = await fetch(URL_TO_USE, { cache: "reload", signal: AbortSignal.timeout(5000) });
+          const res = await fetch(URL_TO_USE, {
+            cache: "reload",
+            headers: { "User-Agent": "AmtrakerVite/v3.21.8 (+https://amtraker.com)", "Amtraker-Version": "v3.21.8" },
+            signal: AbortSignal.timeout(5000)
+          });
           const data = await res.json();
           this._data = data;
           this._lastUpdated = Date.now();
