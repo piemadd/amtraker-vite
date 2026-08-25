@@ -308,7 +308,7 @@ const App = () => {
         </div>
 
         <section className="footer section-border">
-          <p>Amtraker v3.21.8</p>
+          <p>Amtraker v3.21.9</p>
           <div>
             <Link to="/about">
               <p>About/Settings/Privacy</p>
