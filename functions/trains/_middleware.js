@@ -43,7 +43,7 @@ export async function onRequest(context) {
   // these are the metatags we want to inject into the site
   ogtag = `
     <meta property="og:title" content="${infoData.routeName} (${infoData.trainNum}) - Amtraker" />
-    <meta property="og:description" content="Track the ${infoData.provider} ${infoData.routeName}, Train ${infoData.trainNumRaw} using Amtraker! />
+    <meta property="og:description" content="Track the ${infoData.provider} ${infoData.routeName}, Train ${infoData.trainNumRaw} using Amtraker!" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="${request.url}" />
