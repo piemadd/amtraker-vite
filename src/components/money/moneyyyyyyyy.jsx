@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 
 const Moneyyyyyyyy = ({ sizeName = "auto", noOuter = false }) => {
+  return null;
+
   let sizeToUse = "medium_rectangle";
 
   if (sizeName == "auto") {
@@ -36,7 +38,7 @@ const Moneyyyyyyyy = ({ sizeName = "auto", noOuter = false }) => {
 
   useEffect(() => {
     fetch(`https://api.amtraker.com/ads/ads/adsense/adblock/ads.json?=${new Date().getTime()}`, {
-      headers: { "User-Agent": "AmtrakerVite/v3.21.9 (+https://amtraker.com)" }
+      headers: { "User-Agent": "AmtrakerVite/v3.21.10 (+https://amtraker.com)" }
     })
       .then((res) => {
         if (!res.ok) setIsBlocked(true);
