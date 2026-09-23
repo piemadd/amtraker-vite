@@ -249,31 +249,6 @@ const AmtrakerMap = () => {
           sprite: sprite,
           layers: layers,
           projection: { type: appSettings.mapView ?? "mercator" },
-          /*sky: {
-            "sky-color": "#193af3",
-            "sky-horizon-blend": 0.5,
-            "horizon-color": "#193af3",
-            "horizon-fog-blend": 0.5,
-            "fog-color": "#ffffff",
-            "fog-ground-blend": 0.5,
-            "atmosphere-blend": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              0,
-              0.2,
-              5,
-              0,
-              12,
-              0
-            ]
-          },
-          light: {
-            anchor: "viewport",
-            color: "#88C6FC",
-            intensity: 0,
-            position: [1, 180, 180]
-          },*/
           bearing: 0,
           sources: {
             transit_lines: {
