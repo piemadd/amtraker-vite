@@ -30,7 +30,7 @@ const About = () => {
     console.log("Updated settings:", newSettings);
   };
 
-  const initialAllSavedtrains = useMemo(() => (localStorage.getItem("alwaysTrackedAmtrakerV3") ?? "").split(","), []);
+  const initialAllSavedtrains = useMemo(() => (localStorage.getItem("alwaysTrackedAmtrakerV3") ?? "").split(",").filter((v) => v.length > 0), []);
   const [alwaysSavedTrains, setAlwaysSavedTrains] = useState(initialAllSavedtrains);
 
   const handleAlwaysSavedTrainsUpdate = (additions, removals) => {
@@ -433,6 +433,7 @@ const About = () => {
           <p>Edit the train numbers that will always be saved.</p>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+            {alwaysSavedTrains.length == 0 ? <button>No trains are set to autpmatically save currently.</button>: null}
             {alwaysSavedTrains.map((alwaysSavedTrainNum) => {
               return (
                 <button
