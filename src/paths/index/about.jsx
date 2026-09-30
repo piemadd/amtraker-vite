@@ -41,7 +41,7 @@ const About = () => {
         (alwaysSavedTrainNumber) => !removals.includes(alwaysSavedTrainNumber)
       );
 
-      const uniqueNumbers = [...new Set(newAlwaysSavedTrains)];
+      const uniqueNumbers = [...new Set(newAlwaysSavedTrains)].filter((v) => v.length > 0);
 
       localStorage.setItem('alwaysTrackedAmtrakerV3', uniqueNumbers.join(','));
 
