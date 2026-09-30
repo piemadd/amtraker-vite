@@ -433,7 +433,7 @@ const About = () => {
           <p>Edit the train numbers that will always be saved.</p>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-            {alwaysSavedTrains.length == 0 ? <button>No trains are set to autpmatically save currently.</button>: null}
+            {alwaysSavedTrains.length == 0 ? <button>No trains are set to automatically save currently.</button>: null}
             {alwaysSavedTrains.map((alwaysSavedTrainNum) => {
               return (
                 <button
@@ -453,6 +453,8 @@ const About = () => {
                 const userInput = prompt(
                   "Please enter the train number you would like to add.\n\nFor VIA Rail trains, add a 'v' to the beginning and for Brightline trains, add a 'b' to the beginning.\n\nExamples: '5' 'v1' 'b5333'"
                 );
+
+                if (!userInput) return;
 
                 handleAlwaysSavedTrainsUpdate([userInput], []);
               }}
