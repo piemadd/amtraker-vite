@@ -9,10 +9,7 @@ const About = () => {
   document.title = "About - Amtraker";
   document
     .querySelector('meta[name="description"]')
-    .setAttribute(
-      "content",
-      "Amtraker About, Setings, and Privacy Policy."
-    );
+    .setAttribute("content", "Amtraker About, Setings, and Privacy Policy.");
   document
     .querySelector('meta[property="og:image"]')
     .setAttribute("content", "https://amtraker.com/content/images/amtraker-back.webp");
@@ -31,6 +28,25 @@ const About = () => {
     localStorage.setItem("amtraker-v3-settings", JSON.stringify(newSettings));
 
     console.log("Updated settings:", newSettings);
+  };
+
+  const initialAllSavedtrains = useMemo(() => (localStorage.getItem("alwaysTrackedAmtrakerV3") ?? "").split(","), []);
+  const [alwaysSavedTrains, setAlwaysSavedTrains] = useState(initialAllSavedtrains);
+
+  const handleAlwaysSavedTrainsUpdate = (additions, removals) => {
+    setAlwaysSavedTrains((currentAlwaysSavedTrains) => {
+      let newAlwaysSavedTrains = [...currentAlwaysSavedTrains, ...additions];
+
+      newAlwaysSavedTrains = newAlwaysSavedTrains.filter(
+        (alwaysSavedTrainNumber) => !removals.includes(alwaysSavedTrainNumber)
+      );
+
+      const uniqueNumbers = [...new Set(newAlwaysSavedTrains)];
+
+      localStorage.setItem('alwaysTrackedAmtrakerV3', uniqueNumbers.join(','));
+
+      return uniqueNumbers;
+    });
   };
 
   useEffect(() => {
@@ -413,11 +429,36 @@ const About = () => {
           </select>
           */}
 
-          <h2>More?</h2>
-          <p>
-            If you have any feature requests for Amtraker, please send them my way via my email:{" "}
-            <a href="mailto:amtraker@piemadd.com">amtraker@piemadd.com</a>.
-          </p>
+          <h2>Always Saved Trains</h2>
+          <p>Edit the train numbers that will always be saved.</p>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+            {alwaysSavedTrains.map((alwaysSavedTrainNum) => {
+              return (
+                <button
+                  data-trainnum={alwaysSavedTrainNum}
+                  onClick={(e) => {
+                    const result =  confirm(`Confirm that you would like to delete '${alwaysSavedTrainNum}' from your list of always saved trains.\n\nPress OK to confirm deletion.`);
+                    
+                    if (result) handleAlwaysSavedTrainsUpdate([], [e.target.dataset.trainnum]);
+                  }}
+                >
+                  Delete Train {alwaysSavedTrainNum}
+                </button>
+              );
+            })}
+            <button
+              onClick={(e) => {
+                const userInput = prompt(
+                  "Please enter the train number you would like to add.\n\nFor VIA Rail trains, add a 'v' to the beginning and for Brightline trains, add a 'b' to the beginning.\n\nExamples: '5' 'v1' 'b5333'"
+                );
+
+                handleAlwaysSavedTrainsUpdate([userInput], []);
+              }}
+            >
+              Add a Train Manually
+            </button>
+          </div>
 
           <h2>Debug Info</h2>
           <p>User Agent</p>
