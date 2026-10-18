@@ -7,6 +7,13 @@ import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import { autoAddTrains } from "../../tools";
 import Moneyyyyyyyy from "../../components/money/moneyyyyyyyy";
 import { m } from "../../paraglide/messages.js";
+import { getLocale, setLocale } from "../../paraglide/runtime.js";
+
+const languageButtons = [
+  { locale: "en", flag: "🇺🇸", name: "English" },
+  { locale: "fr", flag: "🇨🇦", name: "Français" },
+  { locale: "es", flag: "🇲🇽", name: "Español" }
+];
 
 const App = () => {
   document.title = m["common_strings.amtraker_title"]();
@@ -226,6 +233,31 @@ const App = () => {
       >
         ⟳
       </button>
+      <div style={{ bottom: "8px", right: "64px", position: "absolute", display: "flex", gap: "8px" }}>
+        {languageButtons.map(({ locale, flag, name }) => (
+          <button
+            key={locale}
+            className="root"
+            title={name}
+            aria-label={name}
+            aria-pressed={getLocale() == locale}
+            style={{
+              fontSize: "20px",
+              width: "48px",
+              height: "48px",
+              textAlign: "center",
+              lineHeight: "0px",
+              backgroundColor: getLocale() == locale ? "rgba(0, 0, 0, 0.85)" : null,
+              borderColor: getLocale() == locale ? "#fff" : null,
+            }}
+            onClick={() => {
+              if (getLocale() !== locale) setLocale(locale); // reloads onto the same page with the new /fr/ or /es/ prefix
+            }}
+          >
+            {flag}
+          </button>
+        ))}
+      </div>
       <main>
         {/*<h2 className='welcome-to'>Welcome to</h2>*/}
         <div className="titleArea">
