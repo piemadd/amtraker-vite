@@ -1,4 +1,4 @@
-import { getPageMeta, buildHeadTags } from "../src/seo/pageMeta.js";
+import { getPageMeta, buildHeadTags } from "../src/components/pageMeta.js";
 
 class RemoveElement {
   element(element) {

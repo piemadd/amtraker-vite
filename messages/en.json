@@ -27,8 +27,13 @@
     "not_available": "N/A",
     "origin_to_destination": "{origin} to {destination}",
     "speed_mph": "{speed} mph",
+    "speed_kmh": "{speed} km/h",
     "track_number": "Track {platform}",
     "service_disruption": "Service Disruption",
+    "units": {
+      "switch_to_metric": "Switch to metric units (km, km/h)",
+      "switch_to_imperial": "Switch to imperial units (mi, mph)"
+    },
     "train_status": {
       "on_time": "On Time",
       "early": "Early",
@@ -91,7 +96,9 @@
       "stations_list": "Stations List",
       "live_map": "Live Map",
       "atlas": "Atlas",
-      "about_settings_privacy": "About/Settings/Privacy",
+      "about": "About",
+      "settings": "Settings",
+      "privacy": "Privacy",
       "api_docs": "API Docs",
       "alert_header": "Alert {number} as of {time}:"
     },
@@ -185,6 +192,7 @@
       "all_stats": "All Stats",
       "add_trip": "Add Trip",
       "length_mi": "Length (mi)",
+      "length_km": "Length (km)",
       "time_spent": "Time Spent",
       "charts": "Charts",
       "index": {
@@ -245,9 +253,11 @@
         "overall": "Overall",
         "trips_taken": "Trips Taken",
         "miles_traveled": "Miles Traveled",
+        "kilometers_traveled": "Kilometers Traveled",
         "top_station": "Top Station",
         "monthly_trips": "Monthly Trips",
         "monthly_miles": "Monthly Miles",
+        "monthly_kilometers": "Monthly Kilometers",
         "monthly_minutes": "Monthly Minutes"
       },
       "stats_all": {
@@ -258,6 +268,7 @@
         "last_user_creation": "Last User Creation",
         "last_trip_creation": "Last Trip Creation",
         "length_mi_value": "{length}mi",
+        "length_km_value": "{length}km",
         "basic_stats": "Basic Stats",
         "top_users": "Top Users",
         "rank": "Rank",
@@ -266,10 +277,12 @@
         "trips_recorded": "Trips Recorded",
         "daily_trips_created": "Daily Trips Created",
         "daily_miles_recorded": "Daily Miles Recorded",
+        "daily_kilometers_recorded": "Daily Kilometers Recorded",
         "daily_minutes_recorded": "Daily Minutes Recorded",
         "trips_ridden": "Trips Ridden",
         "daily_trips_ridden": "Daily Trips Ridden",
         "daily_miles_ridden": "Daily Miles Ridden",
+        "daily_kilometers_ridden": "Daily Kilometers Ridden",
         "daily_minutes_ridden": "Daily Minutes Ridden",
         "users_created": "Users Created",
         "daily_account_creation": "Daily Account Creation"

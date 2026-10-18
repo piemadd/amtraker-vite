@@ -5,6 +5,8 @@ import AtlasNav from "./nav";
 import { hoursMinutesDaysDuration } from './common';
 import { m } from "../../paraglide/messages.js";
 import LanguageButtons from "../../components/buttons/languageButtons";
+import UnitsButton from "../../components/buttons/unitsButton";
+import { useUnits, toDisplayDistance, fromDisplayDistance } from "../../components/units.js";
 
 const pb = new PocketBase('https://pb.amtraker.com');
 
@@ -50,6 +52,7 @@ const AtlasAdd = () => {
   const [selectedStartStation, setSelectedStartStation] = useState("");
   const [selectedEndStation, setSelectedEndStation] = useState("");
   const [departureDate, setDepartureDate] = useState("");
+  const units = useUnits();
   const [distanceMi, setDistanceMi] = useState(0);
   const [timeMin, setTimeMin] = useState(0);
   const [loadingData, setLoadingData] = useState(m["pages.atlas.add.loading_routes"]());
@@ -160,6 +163,7 @@ const AtlasAdd = () => {
               {m["common_strings.back"]()}
             </p>
             <div className="multiButtonHolder">
+              <UnitsButton headerStyle={true} />
               <LanguageButtons headerStyle={true} />
             </div>
           </div>
@@ -259,10 +263,10 @@ const AtlasAdd = () => {
                 <label htmlFor="atlas-add-departure_date">{m["pages.atlas.add.departure_date"]()}</label>
                 <input name="departure_date" id="atlas-add-departure_date" type="date" onChange={e => setDepartureDate(e.target.value)} />
 
-                <label htmlFor="atlas-add-length_mi">{m["pages.atlas.length_mi"]()}</label>
+                <label htmlFor="atlas-add-length_mi">{units === "metric" ? m["pages.atlas.length_km"]() : m["pages.atlas.length_mi"]()}</label>
                 {routeNotFound ?
                   <input name="departure_date" id="atlas-add-length_mi" onChange={(e) => setDistanceMi(e.target.value)} value={distanceMi} /> :
-                  <input name="departure_date" id="atlas-add-length_mi" disabled value={distanceMi} />
+                  <input name="departure_date" id="atlas-add-length_mi" disabled value={toDisplayDistance(Number(distanceMi), units).toFixed(2)} />
                 }
 
                 <label htmlFor="atlas-add-time_min">{m["pages.atlas.add.time_min"]()}</label>
@@ -287,7 +291,7 @@ const AtlasAdd = () => {
                     "departure_date": departureDate,
                     "user_id": pb.authStore.record.id,
                     "user_relation": pb.authStore.record.id,
-                    "length_mi": distanceMi,
+                    "length_mi": routeNotFound ? fromDisplayDistance(Number(distanceMi), units).toFixed(2) : distanceMi, // manual entries are typed in the current unit
                     "time_minutes": timeMin,
                   }, true);
                   navigate('/atlas', { replace: true });

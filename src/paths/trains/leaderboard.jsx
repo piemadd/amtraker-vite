@@ -7,6 +7,7 @@ import stringToHash from "../../components/money/stringToHash";
 import { toHoursAndMinutesLate } from "../../tools";
 import { m } from "../../paraglide/messages.js";
 import LanguageButtons from "../../components/buttons/languageButtons";
+import UnitsButton from "../../components/buttons/unitsButton";
 
 // calculateIconColor.ts in amtraker-v3
 
@@ -209,6 +210,7 @@ const TrainsLeaderboard = () => {
             </>
           ) : null}
           <div className="multiButtonHolder">
+            <UnitsButton headerStyle={true} />
             <LanguageButtons headerStyle={true} />
           </div>
         </div>

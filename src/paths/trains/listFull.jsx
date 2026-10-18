@@ -6,6 +6,7 @@ import "./trains.css"; //fuck it we ball
 import stringToHash from "../../components/money/stringToHash";
 import { m } from "../../paraglide/messages.js";
 import LanguageButtons from "../../components/buttons/languageButtons";
+import UnitsButton from "../../components/buttons/unitsButton";
 
 const FullTrainsList = () => {
   const navigate = useNavigate();
@@ -56,6 +57,7 @@ const FullTrainsList = () => {
             {m["common_strings.back"]()}
           </p>
           <div className="multiButtonHolder">
+            <UnitsButton headerStyle={true} />
             <LanguageButtons headerStyle={true} />
           </div>
         </div>

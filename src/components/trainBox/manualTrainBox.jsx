@@ -1,6 +1,8 @@
 import "../../paths/trains/trains.css";
 import { toHoursAndMinutesLate } from "../../tools";
 import { m } from "../../paraglide/messages.js";
+import { useUnits, formatSpeed } from "../units.js";
+import { getIntlLocale } from "../intlLocale.js";
 
 const ManualTrainBox = ({
   train,
@@ -12,6 +14,8 @@ const ManualTrainBox = ({
   id = null,
   includeNextStopTime = false,
 }) => {
+  const units = useUnits();
+
   if (overrideEventCode) {
     train.eventCode = overrideEventCode;
   }
@@ -93,19 +97,19 @@ const ManualTrainBox = ({
         {m["common_strings.origin_to_destination"]({ origin: train.origCode, destination: train.destCode })}
       </p>
       <p>
-        {toHoursAndMinutesLate(arr, schArr)} - {m["common_strings.speed_mph"]({ speed: train.velocity.toFixed(1) })}
+        {toHoursAndMinutesLate(arr, schArr)} - {formatSpeed(train.velocity, 1, units)}
       </p>
       {overrideEventCode ? (
         <>
           <p>
             <b>{m["components.train_box.eta"]({ code: currentStation.code })}</b>{" "}
-            {new Intl.DateTimeFormat([], {
+            {new Intl.DateTimeFormat(getIntlLocale(), {
               hour: "numeric",
               minute: "numeric",
               timeZone: currentStation.tz,
             }).format(arr)}
             &nbsp;:&nbsp;
-            {new Intl.DateTimeFormat([], {
+            {new Intl.DateTimeFormat(getIntlLocale(), {
               month: "short",
               day: "numeric",
               timeZone: currentStation.tz,
@@ -132,7 +136,7 @@ const ManualTrainBox = ({
             {currentStation.status === "Departed" ? m["common_strings.time.dep"]() : m["common_strings.time.est_dep"]()}:
           </p>
           <p className=''>
-            {new Intl.DateTimeFormat([], {
+            {new Intl.DateTimeFormat(getIntlLocale(), {
               hour: "numeric",
               minute: "numeric",
               timeZone: currentStation.tz,

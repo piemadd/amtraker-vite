@@ -10,6 +10,7 @@ import MiniMap from "../../components/mapping/miniMap";
 import Moneyyyyyyyy from "../../components/money/moneyyyyyyyy";
 import { m } from "../../paraglide/messages.js";
 import LanguageButtons from "../../components/buttons/languageButtons";
+import UnitsButton from "../../components/buttons/unitsButton";
 
 const StationPage = () => {
   const { stationCode } = useParams();
@@ -80,6 +81,7 @@ const StationPage = () => {
               {m["common_strings.back"]()}
             </p>
             <div className="multiButtonHolder">
+              <UnitsButton headerStyle={true} />
               <LanguageButtons headerStyle={true} />
               <ShareButton
                 navigatorOptions={{
@@ -130,6 +132,7 @@ const StationPage = () => {
             {m["common_strings.back"]()}
           </p>
           <div className="multiButtonHolder">
+            <UnitsButton headerStyle={true} />
             <LanguageButtons headerStyle={true} />
             <ShareButton
               navigatorOptions={{

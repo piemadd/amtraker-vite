@@ -4,6 +4,7 @@ import settingsInit from "../../components/settingsInit";
 import stringToHash from "../../components/money/stringToHash";
 import { m } from "../../paraglide/messages.js";
 import LanguageButtons from "../../components/buttons/languageButtons";
+import UnitsButton from "../../components/buttons/unitsButton";
 
 const About = () => {
   const navigate = useNavigate();
@@ -92,6 +93,7 @@ const About = () => {
             {m["common_strings.back"]()}
           </p>
           <div className="multiButtonHolder">
+            <UnitsButton headerStyle={true} />
             <LanguageButtons headerStyle={true} />
           </div>
         </div>

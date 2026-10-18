@@ -1,5 +1,6 @@
 import { toHoursAndMinutesLate } from '../../tools';
 import { m } from "../../paraglide/messages.js";
+import { getIntlLocale } from "../../components/intlLocale.js";
 
 const ManualStationBox = ({ station, train, loading = false }) => {
   const schArr = new Date(station.schArr ?? station.schDep ?? null);
@@ -44,7 +45,7 @@ const ManualStationBox = ({ station, train, loading = false }) => {
         &nbsp;
         <p className='greyed'>
           {": "}
-          {new Intl.DateTimeFormat([], {
+          {new Intl.DateTimeFormat(getIntlLocale(), {
             month: "short",
             day: "numeric",
             timeZone: station.tz,
@@ -58,7 +59,7 @@ const ManualStationBox = ({ station, train, loading = false }) => {
           </p>
           &nbsp;
           <p className=''>
-            {new Intl.DateTimeFormat([], {
+            {new Intl.DateTimeFormat(getIntlLocale(), {
               hour: "numeric",
               minute: "numeric",
               timeZone: station.tz,
@@ -73,7 +74,7 @@ const ManualStationBox = ({ station, train, loading = false }) => {
           </p>
           &nbsp;
           <p className=''>
-            {new Intl.DateTimeFormat([], {
+            {new Intl.DateTimeFormat(getIntlLocale(), {
               hour: "numeric",
               minute: "numeric",
               timeZone: station.tz,

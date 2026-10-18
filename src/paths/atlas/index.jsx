@@ -6,6 +6,7 @@ import TripsList from "./tripsList";
 import AppleLogo from "./apple";
 import { m } from "../../paraglide/messages.js";
 import LanguageButtons from "../../components/buttons/languageButtons";
+import UnitsButton from "../../components/buttons/unitsButton";
 
 const pb = new PocketBase("https://pb.amtraker.com");
 
@@ -57,6 +58,7 @@ const AtlasIndex = () => {
               {m["common_strings.back"]()}
             </p>
             <div className="multiButtonHolder" style={{ alignItems: "center" }}>
+              <UnitsButton headerStyle={true} />
               <LanguageButtons headerStyle={true} />
               <p
                 onClick={() => {
@@ -173,6 +175,7 @@ const AtlasIndex = () => {
             {m["common_strings.back"]()}
           </p>
           <div className="multiButtonHolder">
+            <UnitsButton headerStyle={true} />
             <LanguageButtons headerStyle={true} />
           </div>
         </div>

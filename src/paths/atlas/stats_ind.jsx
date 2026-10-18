@@ -7,6 +7,9 @@ import { Bar } from "react-chartjs-2";
 import "chart.js/auto";
 import { m } from "../../paraglide/messages.js";
 import LanguageButtons from "../../components/buttons/languageButtons";
+import UnitsButton from "../../components/buttons/unitsButton";
+import { useUnits, toDisplayDistance } from "../../components/units.js";
+import { getIntlLocale } from "../../components/intlLocale.js";
 
 const pb = new PocketBase("https://pb.amtraker.com");
 
@@ -43,6 +46,7 @@ const AtlasStatsInd = () => {
     top_station_curr_year: "",
   });
   const [lastTwelveMonths, setLastTwelveMonths] = useState([]);
+  const units = useUnits();
 
   useEffect(() => {
     // user summary
@@ -97,7 +101,7 @@ const AtlasStatsInd = () => {
           };
 
           finalDataForChart.push({
-            label: new Intl.DateTimeFormat("en-US", {
+            label: new Intl.DateTimeFormat(getIntlLocale(), {
               year: "numeric",
               month: "short",
               timeZone: "UTC",
@@ -138,6 +142,7 @@ const AtlasStatsInd = () => {
               {m["common_strings.back"]()}
             </p>
             <div className="multiButtonHolder" style={{ alignItems: "center" }}>
+              <UnitsButton headerStyle={true} />
               <LanguageButtons headerStyle={true} />
               <p
                 onClick={() => {
@@ -176,8 +181,8 @@ const AtlasStatsInd = () => {
               </p>
               <hr />
               <p>
-                {Intl.NumberFormat().format(userSummary.total_length_curr_year)}
-                <span>{m["pages.atlas.stats_ind.miles_traveled"]()}</span>
+                {Intl.NumberFormat().format(toDisplayDistance(userSummary.total_length_curr_year, units))}
+                <span>{units === "metric" ? m["pages.atlas.stats_ind.kilometers_traveled"]() : m["pages.atlas.stats_ind.miles_traveled"]()}</span>
               </p>
               <hr />
               <p>
@@ -204,8 +209,8 @@ const AtlasStatsInd = () => {
               </p>
               <hr />
               <p>
-                {Intl.NumberFormat().format(userSummary.total_length)}
-                <span>{m["pages.atlas.stats_ind.miles_traveled"]()}</span>
+                {Intl.NumberFormat().format(toDisplayDistance(userSummary.total_length, units))}
+                <span>{units === "metric" ? m["pages.atlas.stats_ind.kilometers_traveled"]() : m["pages.atlas.stats_ind.miles_traveled"]()}</span>
               </p>
               <hr />
               <p>
@@ -276,7 +281,7 @@ const AtlasStatsInd = () => {
                   marginBottom: 4,
                 }}
               >
-                {m["pages.atlas.stats_ind.monthly_miles"]()}
+                {units === "metric" ? m["pages.atlas.stats_ind.monthly_kilometers"]() : m["pages.atlas.stats_ind.monthly_miles"]()}
               </h4>
               <Bar
                 options={{
@@ -288,7 +293,7 @@ const AtlasStatsInd = () => {
                   labels: lastTwelveMonths.map((month) => month.label),
                   datasets: [
                     {
-                      data: lastTwelveMonths.map((month) => month.sum_length),
+                      data: lastTwelveMonths.map((month) => toDisplayDistance(month.sum_length, units)),
                       borderWidth: 1,
                     },
                   ],

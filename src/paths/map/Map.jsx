@@ -21,6 +21,7 @@ import Moneyyyyyyyy from "../../components/money/moneyyyyyyyy.jsx";
 import { autoAddTrainsSync } from "../../tools.jsx";
 import { m } from "../../paraglide/messages.js";
 import LanguageButtons from "../../components/buttons/languageButtons";
+import UnitsButton from "../../components/buttons/unitsButton";
 
 maplibregl.setWorkerUrl(workerUrl);
 
@@ -556,6 +557,7 @@ const AmtrakerMap = () => {
             </p>
           ) : null}
           <div className="multiButtonHolder">
+            <UnitsButton headerStyle={true} />
             <LanguageButtons headerStyle={true} />
             <BaseButton
               symbol="?"

@@ -7,6 +7,9 @@ import { Bar, Line } from "react-chartjs-2";
 import "chart.js/auto";
 import { m } from "../../paraglide/messages.js";
 import LanguageButtons from "../../components/buttons/languageButtons";
+import UnitsButton from "../../components/buttons/unitsButton";
+import { useUnits, toDisplayDistance } from "../../components/units.js";
+import { getIntlLocale } from "../../components/intlLocale.js";
 
 const pb = new PocketBase("https://pb.amtraker.com");
 
@@ -20,6 +23,8 @@ const AtlasStatsAll = () => {
   const [dailyCreations, setDailyCreations] = useState([]);
   const [dailyDepartures, setDailyDepartures] = useState([]);
   const [dailyUserCreations, setDailyUserCreations] = useState([]);
+  const units = useUnits();
+  const lengthValueMessage = units === "metric" ? m["pages.atlas.stats_all.length_km_value"] : m["pages.atlas.stats_all.length_mi_value"];
 
   const statKeysInOrder = [
     "trip_count",
@@ -40,10 +45,10 @@ const AtlasStatsAll = () => {
   };
 
   const prettyStatValues = {
-    total_length: (v) => m["pages.atlas.stats_all.length_mi_value"]({ length: Intl.NumberFormat().format(v) }),
+    total_length: (v) => lengthValueMessage({ length: Intl.NumberFormat().format(toDisplayDistance(v, units)) }),
     total_time: (v) => hoursMinutesDaysDuration(v),
-    user_most_recent_time: (v) => new Date(v).toLocaleString(),
-    trip_most_recent_time: (v) => new Date(v).toLocaleString(),
+    user_most_recent_time: (v) => new Date(v).toLocaleString(getIntlLocale()),
+    trip_most_recent_time: (v) => new Date(v).toLocaleString(getIntlLocale()),
   };
 
   const processGraphData = (data) => {
@@ -154,6 +159,7 @@ const AtlasStatsAll = () => {
               {m["common_strings.back"]()}
             </p>
             <div className="multiButtonHolder" style={{ alignItems: "center" }}>
+              <UnitsButton headerStyle={true} />
               <LanguageButtons headerStyle={true} />
               <p
                 onClick={() => {
@@ -224,7 +230,7 @@ const AtlasStatsAll = () => {
                       <th scope="row">{i + 1}</th>
                       <td>{user.trip_count}</td>
                       <td>{hoursMinutesDaysDuration(user.total_time)}</td>
-                      <td>{m["pages.atlas.stats_all.length_mi_value"]({ length: user.total_length.toFixed(2) })}</td>
+                      <td>{lengthValueMessage({ length: toDisplayDistance(user.total_length, units).toFixed(2) })}</td>
                     </tr>
                   );
                 })}
@@ -303,7 +309,7 @@ const AtlasStatsAll = () => {
                     marginBottom: 4,
                   }}
                 >
-                  {m["pages.atlas.stats_all.daily_miles_recorded"]()}
+                  {units === "metric" ? m["pages.atlas.stats_all.daily_kilometers_recorded"]() : m["pages.atlas.stats_all.daily_miles_recorded"]()}
                 </h4>
                 <Line
                   options={{
@@ -315,7 +321,7 @@ const AtlasStatsAll = () => {
                     labels: dailyCreations.map((month) => month.label),
                     datasets: [
                       {
-                        data: dailyCreations.map((month) => month.sum_length),
+                        data: dailyCreations.map((month) => toDisplayDistance(month.sum_length, units)),
                         borderWidth: 1,
                       },
                     ],
@@ -424,7 +430,7 @@ const AtlasStatsAll = () => {
                     marginBottom: 4,
                   }}
                 >
-                  {m["pages.atlas.stats_all.daily_miles_ridden"]()}
+                  {units === "metric" ? m["pages.atlas.stats_all.daily_kilometers_ridden"]() : m["pages.atlas.stats_all.daily_miles_ridden"]()}
                 </h4>
                 <Line
                   options={{
@@ -436,7 +442,7 @@ const AtlasStatsAll = () => {
                     labels: dailyDepartures.map((month) => month.label),
                     datasets: [
                       {
-                        data: dailyDepartures.map((month) => month.sum_length),
+                        data: dailyDepartures.map((month) => toDisplayDistance(month.sum_length, units)),
                         borderWidth: 1,
                       },
                     ],

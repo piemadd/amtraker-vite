@@ -1,6 +1,7 @@
 import { useRouteError } from "react-router";
 import { useEffect } from "react";
 import { m } from "./paraglide/messages.js";
+import { getIntlLocale } from "./components/intlLocale.js";
 
 export default function ErrorPage() {
   const error = useRouteError();
@@ -62,11 +63,11 @@ export default function ErrorPage() {
           <i>
             {m["pages.error.current_path"]({ path: window.location.href })}
             <br />
-            {m["pages.error.current_version"]({ version: "v3.21.20" })}
+            {m["pages.error.current_version"]({ version: "v3.21.21" })}
             <br />
             {m["pages.error.current_time_utc"]({ time: new Date().toUTCString() })}
             <br />
-            {m["pages.error.current_time_local"]({ time: new Date().toLocaleString() })}
+            {m["pages.error.current_time_local"]({ time: new Date().toLocaleString(getIntlLocale()) })}
             <br />
             {errorString}
           </i>
@@ -86,11 +87,11 @@ export default function ErrorPage() {
           <i>
             {m["pages.error.current_path"]({ path: window.location.href })}
             <br />
-            {m["pages.error.current_version"]({ version: "v3.21.20" })}
+            {m["pages.error.current_version"]({ version: "v3.21.21" })}
             <br />
             {m["pages.error.current_time_utc"]({ time: new Date().toUTCString() })}
             <br />
-            {m["pages.error.current_time_local"]({ time: new Date().toLocaleString() })}
+            {m["pages.error.current_time_local"]({ time: new Date().toLocaleString(getIntlLocale()) })}
             <br />
             {errorString}
           </i>

@@ -11,6 +11,8 @@ import MiniMap from "../../components/mapping/miniMap";
 import Moneyyyyyyyy from "../../components/money/moneyyyyyyyy";
 import { m } from "../../paraglide/messages.js";
 import LanguageButtons from "../../components/buttons/languageButtons";
+import UnitsButton from "../../components/buttons/unitsButton";
+import { getIntlLocale } from "../../components/intlLocale.js";
 
 
 const BetterTrainPage = () => {
@@ -125,6 +127,7 @@ const BetterTrainPage = () => {
               {m["common_strings.back"]()}
             </p>
             <div className="multiButtonHolder">
+              <UnitsButton headerStyle={true} />
               <LanguageButtons headerStyle={true} />
               <ShareButton
                 navigatorOptions={{
@@ -234,7 +237,7 @@ const BetterTrainPage = () => {
                       {new Date(trainData[0].lastValTS).valueOf() < new Date().valueOf() - 1000 * 60 * 15 ? (
                         <p className="staleTrainWarning">
                           {m["pages.trains.train.stale_warning"]({
-                            time: new Intl.DateTimeFormat([], {
+                            time: new Intl.DateTimeFormat(getIntlLocale(), {
                               hour: "numeric",
                               minute: "numeric",
                               month: "short",

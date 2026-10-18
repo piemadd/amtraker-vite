@@ -21,14 +21,19 @@
     "loading_train": "Chargement du train",
     "loading_station": "Chargement de la gare",
     "loading_station_data": "Chargement des données de la gare",
-    "download_app": "DL l'appli",
+    "download_app": "Télécharger l'appli",
     "log_out": "Déconnexion",
     "log_out_confirm": "Voulez-vous vraiment vous déconnecter?",
     "not_available": "S. O.",
     "origin_to_destination": "{origin} à {destination}",
     "speed_mph": "{speed} mi/h",
+    "speed_kmh": "{speed} km/h",
     "track_number": "Voie {platform}",
     "service_disruption": "Interruption de service",
+    "units": {
+      "switch_to_metric": "Passer aux unités métriques (km, km/h)",
+      "switch_to_imperial": "Passer aux unités impériales (mi, mi/h)"
+    },
     "train_status": {
       "on_time": "À l'heure",
       "early": "En avance",
@@ -40,8 +45,8 @@
       "days_short": "{days} j",
       "hours_short": "{hours} h",
       "minutes_short": "{minutes} min",
-      "amount_late": "{amount} de retard",
-      "amount_early": "{amount} d'avance",
+      "amount_late": "En retard {amount}",
+      "amount_early": "En avance {amount}",
       "unknown_estimate_error": "Inconnu (erreur d'estimation)",
       "unknown_schedule_error": "Inconnu (erreur d'horaire)",
       "arr": "Arr.",
@@ -53,7 +58,7 @@
   "components": {
     "train_box": {
       "eta": "Arrivée prévue ({code}) :",
-      "next_stop": "Prochain arrêt : {name} ({code})"
+      "next_stop": "Prochain gare : {name} ({code})"
     },
     "train_popup": {
       "updated": "Mis à jour :",
@@ -87,11 +92,13 @@
       "saved_trains": "Trains enregistrés",
       "no_saved_trains": "Aucun train enregistré",
       "data_last_fetched": "Données récupérées à",
-      "trains_list": "Liste des trains",
-      "stations_list": "Liste des gares",
-      "live_map": "Carte en direct",
+      "trains_list": "Liste des Trains",
+      "stations_list": "Liste des Gares",
+      "live_map": "Carte Interactive",
       "atlas": "Atlas",
-      "about_settings_privacy": "À propos/Paramètres/Confidentialité",
+      "about": "À propos",
+      "settings": "Paramètres",
+      "privacy": "Confidentialité",
       "api_docs": "Documentation de l'API",
       "alert_header": "Alerte {number} en date de {time} :"
     },
@@ -185,6 +192,7 @@
       "all_stats": "Toutes les statistiques",
       "add_trip": "Ajouter un voyage",
       "length_mi": "Distance (mi)",
+      "length_km": "Distance (km)",
       "time_spent": "Temps passé",
       "charts": "Graphiques",
       "index": {
@@ -245,9 +253,11 @@
         "overall": "Au total",
         "trips_taken": "Voyages effectués",
         "miles_traveled": "Milles parcourus",
+        "kilometers_traveled": "Kilomètres parcourus",
         "top_station": "Gare la plus fréquentée",
         "monthly_trips": "Voyages par mois",
         "monthly_miles": "Milles par mois",
+        "monthly_kilometers": "Kilomètres par mois",
         "monthly_minutes": "Minutes par mois"
       },
       "stats_all": {
@@ -258,6 +268,7 @@
         "last_user_creation": "Dernier utilisateur créé",
         "last_trip_creation": "Dernier voyage créé",
         "length_mi_value": "{length} mi",
+        "length_km_value": "{length} km",
         "basic_stats": "Statistiques de base",
         "top_users": "Meilleurs utilisateurs",
         "rank": "Rang",
@@ -266,10 +277,12 @@
         "trips_recorded": "Voyages consignés",
         "daily_trips_created": "Voyages créés par jour",
         "daily_miles_recorded": "Milles consignés par jour",
+        "daily_kilometers_recorded": "Kilomètres consignés par jour",
         "daily_minutes_recorded": "Minutes consignées par jour",
         "trips_ridden": "Voyages effectués",
         "daily_trips_ridden": "Voyages effectués par jour",
         "daily_miles_ridden": "Milles parcourus par jour",
+        "daily_kilometers_ridden": "Kilomètres parcourus par jour",
         "daily_minutes_ridden": "Minutes parcourues par jour",
         "users_created": "Utilisateurs créés",
         "daily_account_creation": "Comptes créés par jour"

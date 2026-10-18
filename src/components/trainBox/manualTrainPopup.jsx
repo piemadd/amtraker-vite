@@ -1,7 +1,10 @@
 import { toHoursAndMinutesLate } from "../../tools";
 import { m } from "../../paraglide/messages.js";
+import { useUnits, formatSpeed } from "../units.js";
+import { getIntlLocale } from "../intlLocale.js";
 
 const ManualTrainPopup = ({ train, showLink = true, idLink = false }) => {
+  const units = useUnits();
   if (!train) return null;
 
   const currentStation = train.stations.find(
@@ -19,11 +22,11 @@ const ManualTrainPopup = ({ train, showLink = true, idLink = false }) => {
       {m["common_strings.origin_to_destination"]({ origin: train.origCode, destination: train.destCode })}
     </div>
     <div className='train-popup__info train-popup__updated greyed'>
-      {m["common_strings.speed_mph"]({ speed: train.velocity.toFixed(2) })} {train.heading}
+      {formatSpeed(train.velocity, 2, units)} {train.heading}
     </div>
     <div className='train-popup__info train-popup__updated greyed'>
       {m["components.train_popup.updated"]()}{" "}
-      {new Intl.DateTimeFormat([], {
+      {new Intl.DateTimeFormat(getIntlLocale(), {
         hour: "numeric",
         minute: "numeric",
         timeZoneName: "short",
@@ -43,7 +46,7 @@ const ManualTrainPopup = ({ train, showLink = true, idLink = false }) => {
     <div className='train-popup__info train-popup__updated greyed'>
       {m["components.train_popup.estimated"]()} {new Date(
         currentStation.arr ?? currentStation.dep ?? null
-      ).toLocaleTimeString([], {
+      ).toLocaleTimeString(getIntlLocale(), {
         hour: "numeric",
         minute: "numeric",
         timeZoneName: "short",

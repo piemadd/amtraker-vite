@@ -27,8 +27,13 @@
     "not_available": "N/D",
     "origin_to_destination": "{origin} a {destination}",
     "speed_mph": "{speed} mi/h",
+    "speed_kmh": "{speed} km/h",
     "track_number": "Vía {platform}",
     "service_disruption": "Interrupción del servicio",
+    "units": {
+      "switch_to_metric": "Cambiar a unidades métricas (km, km/h)",
+      "switch_to_imperial": "Cambiar a unidades imperiales (mi, mi/h)"
+    },
     "train_status": {
       "on_time": "A tiempo",
       "early": "Adelantado",
@@ -91,7 +96,9 @@
       "stations_list": "Lista de Estaciones",
       "live_map": "Mapa en Vivo",
       "atlas": "Atlas",
-      "about_settings_privacy": "Acerca de/Ajustes/Privacidad",
+      "about": "Acerca de",
+      "settings": "Ajustes",
+      "privacy": "Privacidad",
       "api_docs": "Documentación de la API",
       "alert_header": "Alerta {number} a las {time}:"
     },
@@ -185,6 +192,7 @@
       "all_stats": "Todas las estadísticas",
       "add_trip": "Agregar viaje",
       "length_mi": "Distancia (mi)",
+      "length_km": "Distancia (km)",
       "time_spent": "Tiempo total",
       "charts": "Gráficas",
       "index": {
@@ -245,9 +253,11 @@
         "overall": "En total",
         "trips_taken": "Viajes realizados",
         "miles_traveled": "Millas recorridas",
+        "kilometers_traveled": "Kilómetros recorridos",
         "top_station": "Estación más visitada",
         "monthly_trips": "Viajes por mes",
         "monthly_miles": "Millas por mes",
+        "monthly_kilometers": "Kilómetros por mes",
         "monthly_minutes": "Minutos por mes"
       },
       "stats_all": {
@@ -258,6 +268,7 @@
         "last_user_creation": "Último usuario creado",
         "last_trip_creation": "Último viaje creado",
         "length_mi_value": "{length} mi",
+        "length_km_value": "{length} km",
         "basic_stats": "Estadísticas básicas",
         "top_users": "Usuarios principales",
         "rank": "Lugar",
@@ -266,10 +277,12 @@
         "trips_recorded": "Viajes registrados",
         "daily_trips_created": "Viajes creados por día",
         "daily_miles_recorded": "Millas registradas por día",
+        "daily_kilometers_recorded": "Kilómetros registrados por día",
         "daily_minutes_recorded": "Minutos registrados por día",
         "trips_ridden": "Viajes realizados",
         "daily_trips_ridden": "Viajes realizados por día",
         "daily_miles_ridden": "Millas recorridas por día",
+        "daily_kilometers_ridden": "Kilómetros recorridos por día",
         "daily_minutes_ridden": "Minutos recorridos por día",
         "users_created": "Usuarios creados",
         "daily_account_creation": "Cuentas creadas por día"

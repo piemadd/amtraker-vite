@@ -3,6 +3,8 @@ import { hoursMinutesDaysDuration } from "./common";
 import { Link } from "react-router";
 import Moneyyyyyyyy from "../../components/money/moneyyyyyyyy";
 import { m } from "../../paraglide/messages.js";
+import { useUnits, toDisplayDistance } from "../../components/units.js";
+import { getIntlLocale } from "../../components/intlLocale.js";
 
 const TripsList = ({ pb, numberOfRecords, pageNumber, setTripsMeta, dontUseFilter, sortBy = "-departure_date" }) => {
   if (!pb) return null;
@@ -13,6 +15,7 @@ const TripsList = ({ pb, numberOfRecords, pageNumber, setTripsMeta, dontUseFilte
   const [loadingTripsList, setLoadingTripsList] = useState(true);
   const [tripsList, setTripsList] = useState([]);
   const [actionTime, setActionTime] = useState(0);
+  const units = useUnits();
 
   useEffect(() => {
     pb.collection("trips")
@@ -46,7 +49,7 @@ const TripsList = ({ pb, numberOfRecords, pageNumber, setTripsMeta, dontUseFilte
             <th scope="col">#</th>
             <th scope="col">{m["pages.atlas.trips.stations"]()}</th>
             <th scope="col">{m["pages.atlas.trips.date"]()}</th>
-            <th scope="col">{m["pages.atlas.length_mi"]()}</th>
+            <th scope="col">{units === "metric" ? m["pages.atlas.length_km"]() : m["pages.atlas.length_mi"]()}</th>
             <th scope="col">{m["pages.atlas.trips.duration"]()}</th>
             <th scope="col">{m["pages.atlas.trips.delete"]()}</th>
           </tr>
@@ -62,8 +65,8 @@ const TripsList = ({ pb, numberOfRecords, pageNumber, setTripsMeta, dontUseFilte
                 <td>
                   {trip.start_code} - {trip.end_code}
                 </td>
-                <td>{new Date(trip.departure_date).toLocaleDateString([], { timeZone: "Europe/London" })}</td>
-                <td>{trip.length_mi}</td>
+                <td>{new Date(trip.departure_date).toLocaleDateString(getIntlLocale(), { timeZone: "Europe/London" })}</td>
+                <td>{units === "metric" ? toDisplayDistance(trip.length_mi, units).toFixed(2) : trip.length_mi}</td>
                 <td>{hoursMinutesDaysDuration(trip.time_minutes)}</td>
                 <td
                   onClick={async () => {

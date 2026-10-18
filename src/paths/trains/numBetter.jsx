@@ -9,6 +9,8 @@ import ShareButton from "../../components/buttons/shareButton";
 import Moneyyyyyyyy from "../../components/money/moneyyyyyyyy";
 import { m } from "../../paraglide/messages.js";
 import LanguageButtons from "../../components/buttons/languageButtons";
+import UnitsButton from "../../components/buttons/unitsButton";
+import { getIntlLocale } from "../../components/intlLocale.js";
 
 const providerShorts = { Amtrak: "AMTK", Via: "VIA", Brightline: "BLNE" };
 
@@ -185,6 +187,7 @@ const BetterTrainsByNumber = () => {
               {m["common_strings.back"]()}
             </p>
             <div className="multiButtonHolder">
+              <UnitsButton headerStyle={true} />
               <LanguageButtons headerStyle={true} />
               <ShareButton
                 navigatorOptions={{
@@ -276,11 +279,11 @@ const BetterTrainsByNumber = () => {
                       <small>
                         {m["pages.trains.by_number.scheduled_departure"]({
                           station: altTrainData.stops[0].name,
-                          time: new Date(altTrainData.nextDep).toLocaleTimeString([], {
+                          time: new Date(altTrainData.nextDep).toLocaleTimeString(getIntlLocale(), {
                             timeZone: altTrainData.stops[0].tz,
                             timeStyle: "short"
                           }),
-                          date: new Date(altTrainData.nextDep).toLocaleDateString([], {
+                          date: new Date(altTrainData.nextDep).toLocaleDateString(getIntlLocale(), {
                             timeZone: altTrainData.stops[0].tz,
                             dateStyle: "long"
                           })

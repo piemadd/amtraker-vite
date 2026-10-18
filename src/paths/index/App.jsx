@@ -8,6 +8,8 @@ import { autoAddTrains } from "../../tools";
 import Moneyyyyyyyy from "../../components/money/moneyyyyyyyy";
 import { m } from "../../paraglide/messages.js";
 import LanguageButtons from "../../components/buttons/languageButtons";
+import UnitsButton from "../../components/buttons/unitsButton";
+import { getIntlLocale } from "../../components/intlLocale.js";
 
 const App = () => {
   document.title = m["common_strings.amtraker_title"]();
@@ -228,6 +230,7 @@ const App = () => {
         ⟳
       </button>
       <div style={{ bottom: "8px", right: "64px", position: "absolute", display: "flex", gap: "8px" }}>
+        <UnitsButton />
         <LanguageButtons />
       </div>
       <main>
@@ -254,7 +257,7 @@ const App = () => {
                 return (
                   <p key={`gaa_${i}`}>
                     <span className="stale-text">
-                      {m["pages.index.alert_header"]({ number: i + 1, time: alert.lastUpdated.toLocaleTimeString() })}
+                      {m["pages.index.alert_header"]({ number: i + 1, time: alert.lastUpdated.toLocaleTimeString(getIntlLocale()) })}
                     </span>{" "}
                     {alert.text}
                   </p>
@@ -283,7 +286,7 @@ const App = () => {
             ) : savedTrainsObjects.length > 0 ? (
               <>
                 {savedTrainsObjects}
-                <p>{m["pages.index.data_last_fetched"]()}: {new Date(siteLastFetched).toLocaleTimeString()}</p>
+                <p>{m["pages.index.data_last_fetched"]()}: {new Date(siteLastFetched).toLocaleTimeString(getIntlLocale())}</p>
               </>
             ) : (
               <div>{m["pages.index.no_saved_trains"]()}</div>
@@ -310,16 +313,11 @@ const App = () => {
         </div>
 
         <section className="footer section-border">
-          <p>Amtraker v3.21.20</p>
+          <p>Amtraker v3.21.21</p>
           <div>
             <Link to="/about">
-              <p>{m["pages.index.about_settings_privacy"]()}</p>
+              <p>{m["pages.index.about"]()}/<wbr />{m["pages.index.settings"]()}/<wbr />{m["pages.index.privacy"]()}</p>
             </Link>
-            {/*}
-            <Link to="/about">
-              <p>About</p>
-            </Link>
-            {*/}
             <p>
               <a href="https://api.amtraker.com/docs" target="_blank">
                 {m["pages.index.api_docs"]()}
