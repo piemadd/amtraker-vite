@@ -306,7 +306,7 @@ const App = () => {
         </div>
 
         <section className="footer section-border">
-          <p>Amtraker v3.21.19</p>
+          <p>Amtraker v3.21.20</p>
           <div>
             <Link to="/about">
               <p>{m["pages.index.about_settings_privacy"]()}</p>
