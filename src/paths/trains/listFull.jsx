@@ -1,9 +1,10 @@
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router";
 import { useState, useEffect } from "react";
 import { trainNames } from "../../data/trains";
 import settingsInit from "../../components/settingsInit";
 import "./trains.css"; //fuck it we ball
 import stringToHash from "../../components/money/stringToHash";
+import { m } from "../../paraglide/messages.js";
 
 const FullTrainsList = () => {
   const navigate = useNavigate();
@@ -51,7 +52,7 @@ const FullTrainsList = () => {
               fontWeight: 500,
             }}
           >
-            Back
+            {m["common_strings.back"]()}
           </p>
         </div>
         <section className="section-trainPage">

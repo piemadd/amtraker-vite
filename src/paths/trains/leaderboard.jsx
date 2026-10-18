@@ -1,4 +1,4 @@
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router";
 import { useEffect, useState, useMemo } from "react";
 import "./trains.css"; //fuck it we ball
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";

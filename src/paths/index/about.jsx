@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useEffect, useMemo, useState } from "react";
 import settingsInit from "../../components/settingsInit";
 import stringToHash from "../../components/money/stringToHash";

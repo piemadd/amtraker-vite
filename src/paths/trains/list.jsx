@@ -1,4 +1,4 @@
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router";
 import { useEffect, useState, useMemo } from "react";
 import "./trains.css"; //fuck it we ball
 import Fuse from "fuse.js";
@@ -6,6 +6,7 @@ import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import settingsInit from "../../components/settingsInit";
 import stringToHash from "../../components/money/stringToHash";
 import Moneyyyyyyyy from "../../components/money/moneyyyyyyyy";
+import { m } from "../../paraglide/messages.js";
 
 //import ErrorData from "../../data/error.json";
 
@@ -130,7 +131,7 @@ const TrainsList = () => {
           </p>
           {shitsFucked ? (
             <>
-              <p>The Amtrak API seems to be having issues currently! Please try again later...</p>
+              <p>{m["common_strings.shitsfucked"]()}</p>
               <p></p>
             </>
           ) : null}
@@ -140,7 +141,7 @@ const TrainsList = () => {
             id="searchbox"
             type="text"
             value={query}
-            placeholder="Search for a train"
+            placeholder={m["pages.trains.list.search_placeholder"]()}
             onChange={(e) => {
               updateQuery(e.target.value);
               debounce(setSearchResults(e.target.value, agencyFilter));
@@ -184,7 +185,7 @@ const TrainsList = () => {
               </>
             ) : (
               <div className="station-box">
-                <p>Loading train data...</p>
+                <p>{m["pages.trains.loading_train_data"]()}...</p>
               </div>
             )}
           </div>

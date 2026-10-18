@@ -1,4 +1,4 @@
-import { useParams, useNavigate, useSearchParams, Link } from "react-router-dom";
+import { useParams, useNavigate, useSearchParams, Link } from "react-router";
 import { useEffect, useState, useMemo } from "react";
 import ManualStationBox from "../../components/stationBox/manualStationBox";
 import stringToHash from "../../components/money/stringToHash";

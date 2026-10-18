@@ -1,0 +1,31 @@
+{
+  "$schema": "https://inlang.com/schema/inlang-message-format",
+  "common_strings": {
+    "amtraker_title": "Amtraker",
+    "amtraker_meta_description": "Amtraker is a fast, lightweight, and easy to use Amtrak, Brightline, and VIA Rail Train Tracker.",
+    "loading": "Loading",
+    "or": "or",
+    "back": "Back",
+    "shitsfucked": "The Amtrak API seems to be having issues currently! Please try again later..."
+  },
+  "pages": {
+    "index": {
+      "saved_trains": "Saved Trains",
+      "no_saved_trains": "No Saved Trains",
+      "data_last_fetched": "Data Last Fetched at",
+      "trains_list": "Trains List",
+      "stations_list": "Stations List",
+      "live_map": "Live Map",
+      "atlas": "Atlas",
+      "about_settings_privacy": "About/Settings/Privacy",
+      "api_docs": "API Docs"
+    },
+    "trains": {
+      "loading_train_data": "Loading train data",
+      "list": {
+        "search_placeholder": "Search for a train"
+      },
+      "list_full": {}
+    }
+  }
+}

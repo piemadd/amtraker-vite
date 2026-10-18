@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useMemo, useRef } from "react";
-import { useNavigate, Link, useLocation } from "react-router-dom";
-import maplibregl from "maplibre-gl";
+import { useNavigate, Link, useLocation } from "react-router";
+import * as maplibregl from "maplibre-gl";
+import workerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url";
 import "./Map.css";
 import "maplibre-gl/dist/maplibre-gl.css";
 import Fuse from "fuse.js";
@@ -18,6 +19,8 @@ import ShareButton from "../../components/buttons/shareButton.jsx";
 import BaseButton from "../../components/buttons/baseButton.jsx";
 import Moneyyyyyyyy from "../../components/money/moneyyyyyyyy.jsx";
 import { autoAddTrainsSync } from "../../tools.jsx";
+
+maplibregl.setWorkerUrl(workerUrl);
 
 const debounce = (func, timeout = 300) => {
   let timer;
@@ -124,7 +127,7 @@ const AmtrakerMap = () => {
       localStorage.setItem("savedTrainsAmtrakerV3", "");
     }
 
-     autoAddTrainsSync();
+    autoAddTrainsSync();
 
     const trains = localStorage
       .getItem("savedTrainsAmtrakerV3")
@@ -443,11 +446,7 @@ const AmtrakerMap = () => {
 
           switch (feature.layer.id) {
             case "trains":
-              const train = {
-                ...feature.properties,
-                stations: JSON.parse(feature.properties.stations),
-                alerts: JSON.parse(feature.properties.alerts)
-              };
+              const train = feature.properties;
 
               setPopupInfo(train);
               activatePopup(
@@ -459,7 +458,7 @@ const AmtrakerMap = () => {
               );
               break;
             case "stations":
-              const station = { ...feature.properties, trains: JSON.parse(feature.properties.trains) };
+              const station = feature.properties;
               setPopupInfo(station);
               activatePopup(
                 mapRef,
@@ -597,11 +596,7 @@ const AmtrakerMap = () => {
                             className="train-box train-box-max-width"
                             style={{ cursor: "pointer" }}
                             onClick={(e) => {
-                              const train = {
-                                ...item.properties,
-                                stations: JSON.parse(item.properties.stations),
-                                alerts: JSON.parse(item.properties.alerts)
-                              };
+                              const train = item.properties;
 
                               setPopupInfo(train);
                               popupInfo.sourcePopup.remove();
@@ -638,7 +633,7 @@ const AmtrakerMap = () => {
                             className="train-box train-box-max-width"
                             style={{ cursor: "pointer" }}
                             onClick={(e) => {
-                              const station = { ...item.properties, trains: JSON.parse(item.properties.trains) };
+                              const station = item.properties;
                               setPopupInfo(station);
                               popupInfo.sourcePopup.remove();
                               activatePopup(
@@ -832,12 +827,7 @@ const AmtrakerMap = () => {
                     .map((train, i) => {
                       return (
                         <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "4px",
-                            marginRight: "8px"
-                          }}
+                          style={{ display: "flex", flexDirection: "column", gap: "4px", marginRight: "8px" }}
                           key={train.trainID}
                         >
                           {i > 0 && (i - 6) % 10 == 0 ? (

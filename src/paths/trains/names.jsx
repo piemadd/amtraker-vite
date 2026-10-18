@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link } from "react-router";
 import { useState, useMemo } from "react";
 import { trainNames } from "../../data/trains";
 import "./trains.css";

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { hoursMinutesDaysDuration } from "./common";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import Moneyyyyyyyy from "../../components/money/moneyyyyyyyy";
 
 const TripsList = ({ pb, numberOfRecords, pageNumber, setTripsMeta, dontUseFilter, sortBy = "-departure_date" }) => {

@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo, useRef } from "react";
-import maplibregl from "maplibre-gl";
+import * as maplibregl from "maplibre-gl";
+import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 import "../../paths/map/Map.css";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { layers, sprite, glyphs } from "../../paths/map/mapLayers.json";
@@ -9,7 +10,9 @@ import ManualTrainPopup from "../trainBox/manualTrainPopup.jsx";
 import ManualStationPopup from "../stationBox/maualStationPopup.jsx";
 import ManualMultiplePopup from "../manualMultiplePopup.jsx";
 import settingsInit from "../settingsInit.js";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
+
+maplibregl.setWorkerUrl(workerUrl);
 
 const MiniMap = ({
   filteredTrainIDs = [],
@@ -305,11 +308,7 @@ const MiniMap = ({
 
           switch (feature.layer.id) {
             case "trains":
-              const train = {
-                ...feature.properties,
-                stations: JSON.parse(feature.properties.stations),
-                alerts: JSON.parse(feature.properties.alerts)
-              };
+              const train = feature.properties;
 
               targetElement = document.getElementById(train.trainID);
               if (targetElement) {
@@ -337,7 +336,7 @@ const MiniMap = ({
               );
               break;
             case "stations":
-              const station = { ...feature.properties, trains: JSON.parse(feature.properties.trains) };
+              const station = feature.properties;
 
               targetElement = document.getElementById(station.code);
               if (targetElement) {

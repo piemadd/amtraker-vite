@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import { VitePWA } from "vite-plugin-pwa";
+import { paraglideVitePlugin } from "@inlang/paraglide-js";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -120,6 +121,7 @@ export default defineConfig({
           }
         ]
       }
-    })
+    }),
+    paraglideVitePlugin({ project: "./project.inlang", outdir: "./src/paraglide", emitTsDeclarations: false })
   ]
 });

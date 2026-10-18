@@ -1,4 +1,4 @@
-import { useParams, useNavigate, useSearchParams, Link } from "react-router-dom";
+import { useParams, useNavigate, useSearchParams, Link } from "react-router";
 import { useEffect, useState, useMemo } from "react";
 import "./trains.css";
 import settingsInit from "../../components/settingsInit";

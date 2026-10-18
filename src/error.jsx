@@ -1,4 +1,4 @@
-import { useRouteError } from "react-router-dom";
+import { useRouteError } from "react-router";
 import { useEffect } from "react";
 
 export default function ErrorPage() {

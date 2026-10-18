@@ -1,4 +1,4 @@
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router";
 import { useEffect, useState } from "react";
 import PocketBase from "pocketbase";
 import AtlasNav from "./nav";

@@ -1,20 +1,19 @@
 import "./App.css";
 import { useState, useEffect, useMemo } from "react";
 import stringToHash from "../../components/money/stringToHash";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import settingsInit from "../../components/settingsInit";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import { autoAddTrains } from "../../tools";
 import Moneyyyyyyyy from "../../components/money/moneyyyyyyyy";
+import { m } from "../../paraglide/messages.js";
 
 const App = () => {
-  document.title = "Amtraker";
+  document.title = m["common_strings.amtraker_title"]();
   document
     .querySelector('meta[name="description"]')
     .setAttribute(
-      "content",
-      "Amtraker is a fast, lightweight, and easy to use Amtrak, Brightline, and VIA Rail Train Tracker."
-    );
+      "content", m["common_strings.amtraker_meta_description"]());
   document
     .querySelector('meta[property="og:image"]')
     .setAttribute("content", "https://amtraker.com/content/images/amtraker-back.webp");
@@ -274,36 +273,36 @@ const App = () => {
             </p>
           </div>
           */}
-          <h2 style={{ fontWeight: 500, fontSize: "1.2rem" }}>Saved Trains</h2>
+          <h2 style={{ fontWeight: 500, fontSize: "1.2rem" }}>{m["pages.index.saved_trains"]()}</h2>
           <div className="savedTrains">
             {loading ? (
-              <div className="loading">Loading...</div>
+              <div className="loading">{m["common_strings.loading"]()}...</div>
             ) : savedTrainsObjects.length > 0 ? (
               <>
                 {savedTrainsObjects}
-                <p>Data Last Fetched at: {new Date(siteLastFetched).toLocaleTimeString()}</p>
+                <p>{m["pages.index.data_last_fetched"]()} at: {new Date(siteLastFetched).toLocaleTimeString()}</p>
               </>
             ) : (
-              <div>No Saved Trains</div>
+              <div>{m["pages.index.no_saved_trains"]()}</div>
             )}
           </div>
         </section>
-        <h3 style={{ margin: "-4px 0px 0px 0px" }}>or</h3>
+        <h3 style={{ margin: "-4px 0px 0px 0px" }}>{m['common_strings.or']()}</h3>
         <div className="links">
           <Link to={"/trains"}>
-            <button className="root">Trains List</button>
+            <button className="root">{m["pages.index.trains_list"]()}</button>
           </Link>
 
           <Link to={"/stations"}>
-            <button className="root">Stations List</button>
+            <button className="root">{m["pages.index.stations_list"]()}</button>
           </Link>
         </div>
         <div className="links">
           <Link to={"/map"}>
-            <button className="root">Live Map</button>
+            <button className="root">{m["pages.index.live_map"]()}</button>
           </Link>
           <Link to={"/atlas"}>
-            <button className="root">Atlas</button>
+            <button className="root">{m["pages.index.atlas"]()}</button>
           </Link>
         </div>
 
@@ -311,7 +310,7 @@ const App = () => {
           <p>Amtraker v3.21.19</p>
           <div>
             <Link to="/about">
-              <p>About/Settings/Privacy</p>
+              <p>{m["pages.index.about_settings_privacy"]()}</p>
             </Link>
             {/*}
             <Link to="/about">
@@ -320,7 +319,7 @@ const App = () => {
             {*/}
             <p>
               <a href="https://api.amtraker.com/docs" target="_blank">
-                API Docs
+                {m["pages.index.api_docs"]()}
               </a>
             </p>
           </div>
