@@ -97,8 +97,8 @@
     },
     "trains": {
       "loading_train_data": "Loading train data",
-      "page_title": "{provider} Train {trainNum} Tracker - Amtraker",
-      "page_title_with_date": "{provider} Train {trainNum} ({trainDate}) Tracker - Amtraker",
+      "page_title": "{routeName} ({provider} {trainNum}) Tracker - Amtraker",
+      "page_title_with_date": "{routeName} ({provider} {trainNum} - {trainDate}) Tracker - Amtraker",
       "page_title_generic": "Train {trainNum} Tracker - Amtraker",
       "meta_description": "Track the {provider} {routeName}, Train Number {trainNum}, using Amtraker!",
       "meta_description_generic": "Track train {trainNum} using Amtraker!",

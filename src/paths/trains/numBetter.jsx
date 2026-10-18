@@ -121,7 +121,11 @@ const BetterTrainsByNumber = () => {
   }, [trainNum, navigate]);
 
   if (trainData[0] && !loading) {
-    document.title = m["pages.trains.page_title"]({ provider: trainData[0].provider, trainNum: trainData[0].trainNumRaw });
+    document.title = m["pages.trains.page_title"]({
+      provider: trainData[0].provider,
+      trainNum: trainData[0].trainNumRaw,
+      routeName: trainData[0].routeName
+    });
     document
       .querySelector('meta[name="description"]')
       .setAttribute(

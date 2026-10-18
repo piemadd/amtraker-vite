@@ -97,8 +97,8 @@
     },
     "trains": {
       "loading_train_data": "Cargando datos de los trenes",
-      "page_title": "Rastreador del tren {provider} {trainNum} - Amtraker",
-      "page_title_with_date": "Rastreador del tren {provider} {trainNum} ({trainDate}) - Amtraker",
+      "page_title": "Rastreador del {routeName} ({provider} {trainNum}) - Amtraker",
+      "page_title_with_date": "Rastreador del {routeName} ({provider} {trainNum} - {trainDate}) - Amtraker",
       "page_title_generic": "Rastreador del tren {trainNum} - Amtraker",
       "meta_description": "¡Rastrea el {routeName}, tren número {trainNum} ({provider}), con Amtraker!",
       "meta_description_generic": "¡Rastrea el tren {trainNum} con Amtraker!",

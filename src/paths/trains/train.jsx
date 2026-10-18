@@ -46,7 +46,8 @@ const BetterTrainPage = () => {
     document.title = m["pages.trains.page_title_with_date"]({
       provider: trainData[0].provider,
       trainNum: trainData[0].trainNumRaw,
-      trainDate: trainData[0].trainID.split("-")[1]
+      trainDate: trainData[0].trainID.split("-")[1],
+      routeName: trainData[0].routeName
     });
     document
       .querySelector('meta[name="description"]')

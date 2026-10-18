@@ -1,8 +1,6 @@
 User-agent: *
 Disallow: /bippityboppityicookadameatball
 Allow: /
-
-User-agent: *
 Allow: /llms.txt
 
 Sitemap: https://amtraker.com/sitemap.xml

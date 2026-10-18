@@ -9,6 +9,43 @@ const year = now.getFullYear();
 const month = (now.getMonth() + 1).toString().padStart(2, '0');
 const day = now.getDate().toString().padStart(2, '0');
 
+const lastmod = `${year}-${month}-${day}`;
+
+// locales with their url prefix, english has none
+const alternateLocales = [
+  ['en', ''],
+  ['es', '/es'],
+  ['fr', '/fr'],
+];
+
+// path is relative to the site root, ie /trains/5
+// translated pages get one entry per locale, each listing every version of the page (plus x-default)
+// lastmod is only included for pages with live data, since today's date would be wrong for the static ones
+const writeUrl = (path, changefreq, priority, { translated = true, live = false } = {}) => {
+  const alternates = translated
+    ? [
+        ...alternateLocales.map(([locale, prefix]) => [locale, `https://amtraker.com${prefix}${path}`]),
+        ['x-default', `https://amtraker.com${path}`],
+      ]
+        .map(([hreflang, href]) => `
+    <xhtml:link rel="alternate" hreflang="${hreflang}" href="${href}"/>`)
+        .join('')
+    : '';
+
+  const prefixes = translated ? alternateLocales.map(([, prefix]) => prefix) : [''];
+
+  prefixes.forEach((prefix) => {
+    sitemap.write(`
+  <url>
+    <loc>https://amtraker.com${prefix}${path}</loc>${live ? `
+    <lastmod>${lastmod}</lastmod>` : ''}
+    <changefreq>${changefreq}</changefreq>
+    <priority>${priority}</priority>${alternates}
+  </url>
+`);
+  });
+};
+
 (async () => {
   const amtrakTrainsRes = await fetch('https://store.transitstat.us/amtraker_route_meta/amtrak/trainsByNum');
   const brightlineTrainsRes = await fetch('https://store.transitstat.us/amtraker_route_meta/brightline/trainsByNum');
@@ -31,24 +68,9 @@ const day = now.getDate().toString().padStart(2, '0');
   }
 
   sitemap.write('<?xml version="1.0" encoding="UTF-8"?>');
-  sitemap.write('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
-  sitemap.write(`
-  <url>
-    <loc>https://amtraker.com/</loc>
-    <lastmod>${year}-${month}-${day}</lastmod>
-    <changefreq>never</changefreq>
-    <priority>1.0</priority>
-  </url>
-`);
-
-sitemap.write(`
-  <url>
-    <loc>https://amtraker.com/llms.txt</loc>
-    <lastmod>${year}-${month}-${day}</lastmod>
-    <changefreq>never</changefreq>
-    <priority>0.9</priority>
-  </url>
-`);
+  sitemap.write('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">');
+  writeUrl('/', 'never', '1.0');
+  writeUrl('/llms.txt', 'never', '0.9', { translated: false });
 
   // train names
   /*
@@ -66,67 +88,31 @@ sitemap.write(`
 
   // train numbers
   [...new Set(Object.keys(finalTrains))].forEach((trainNum) => {
-    sitemap.write(`
-  <url>
-    <loc>https://amtraker.com/trains/${trainNum}</loc>
-    <lastmod>${year}-${month}-${day}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-`);
+    writeUrl(`/trains/${trainNum}`, 'daily', '0.8', { live: true });
   });
 
   // station codes
   [...new Set(Object.keys(newStationsData))].forEach((station) => {
-    sitemap.write(`
-  <url>
-    <loc>https://amtraker.com/stations/${station}</loc>
-    <lastmod>${year}-${month}-${day}</lastmod>
-    <changefreq>hourly</changefreq>
-    <priority>0.7</priority>
-  </url>
-`);
+    writeUrl(`/stations/${station}`, 'hourly', '0.7', { live: true });
   });
 
   // train list
-  sitemap.write(`
-  <url>
-    <loc>https://amtraker.com/trains</loc>
-    <lastmod>${year}-${month}-${day}</lastmod>
-    <changefreq>hourly</changefreq>
-    <priority>0.6</priority>
-  </url>
-`);
+  writeUrl('/trains', 'hourly', '0.6', { live: true });
+
+  // full train list, meant for crawlers
+  writeUrl('/trains/full', 'monthly', '0.5');
 
   // station list
-  sitemap.write(`
-  <url>
-    <loc>https://amtraker.com/stations</loc>
-    <lastmod>${year}-${month}-${day}</lastmod>
-    <changefreq>never</changefreq>
-    <priority>0.5</priority>
-  </url>
-`);
+  writeUrl('/stations', 'never', '0.5');
 
   // map
-  sitemap.write(`
-  <url>
-    <loc>https://amtraker.com/map</loc>
-    <lastmod>${year}-${month}-${day}</lastmod>
-    <changefreq>never</changefreq>
-    <priority>0.4</priority>
-  </url>
-`);
+  writeUrl('/map', 'never', '0.4');
+
+  // atlas
+  writeUrl('/atlas', 'never', '0.3');
 
   // about/settings page
-  sitemap.write(`
-  <url>
-    <loc>https://amtraker.com/about_settings</loc>
-    <lastmod>${year}-${month}-${day}</lastmod>
-    <changefreq>never</changefreq>
-    <priority>0.3</priority>
-  </url>
-`);
+  writeUrl('/about', 'never', '0.3');
 
   sitemap.write('</urlset>');
   sitemap.end();
