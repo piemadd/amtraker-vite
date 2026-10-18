@@ -7,6 +7,7 @@ import settingsInit from "../../components/settingsInit";
 import stringToHash from "../../components/money/stringToHash";
 import Moneyyyyyyyy from "../../components/money/moneyyyyyyyy";
 import { m } from "../../paraglide/messages.js";
+import LanguageButtons from "../../components/buttons/languageButtons";
 
 //import ErrorData from "../../data/error.json";
 
@@ -135,6 +136,9 @@ const TrainsList = () => {
               <p></p>
             </>
           ) : null}
+          <div className="multiButtonHolder">
+            <LanguageButtons headerStyle={true} />
+          </div>
         </div>
         <section className="section-trainPage">
           <input

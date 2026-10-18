@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import settingsInit from "../../components/settingsInit";
 import stringToHash from "../../components/money/stringToHash";
 import { m } from "../../paraglide/messages.js";
+import LanguageButtons from "../../components/buttons/languageButtons";
 
 const About = () => {
   const navigate = useNavigate();
@@ -90,6 +91,9 @@ const About = () => {
           >
             {m["common_strings.back"]()}
           </p>
+          <div className="multiButtonHolder">
+            <LanguageButtons headerStyle={true} />
+          </div>
         </div>
         <section className="section-trainPage section-settings">
           <p style={{ marginTop: -8 }}>

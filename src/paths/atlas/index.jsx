@@ -5,6 +5,7 @@ import AtlasNav from "./nav";
 import TripsList from "./tripsList";
 import AppleLogo from "./apple";
 import { m } from "../../paraglide/messages.js";
+import LanguageButtons from "../../components/buttons/languageButtons";
 
 const pb = new PocketBase("https://pb.amtraker.com");
 
@@ -55,18 +56,21 @@ const AtlasIndex = () => {
             >
               {m["common_strings.back"]()}
             </p>
-            <p
-              onClick={() => {
-                const confirmationRes = confirm(m["common_strings.log_out_confirm"]());
-                if (!confirmationRes) return;
-                pb.authStore.clear();
-                navigate(0);
-              }}
-              className="click"
-              style={{ paddingRight: "32px", fontSize: "24px", fontWeight: 500 }}
-            >
-              {m["common_strings.log_out"]()}
-            </p>
+            <div className="multiButtonHolder" style={{ alignItems: "center" }}>
+              <LanguageButtons headerStyle={true} />
+              <p
+                onClick={() => {
+                  const confirmationRes = confirm(m["common_strings.log_out_confirm"]());
+                  if (!confirmationRes) return;
+                  pb.authStore.clear();
+                  navigate(0);
+                }}
+                className="click"
+                style={{ paddingRight: "32px", fontSize: "24px", fontWeight: 500 }}
+              >
+                {m["common_strings.log_out"]()}
+              </p>
+            </div>
           </div>
           <section className="section-trainPage">
             <AtlasNav currentRoute={"index"} userData={pb.authStore.record} />
@@ -168,6 +172,9 @@ const AtlasIndex = () => {
           >
             {m["common_strings.back"]()}
           </p>
+          <div className="multiButtonHolder">
+            <LanguageButtons headerStyle={true} />
+          </div>
         </div>
         <section className="section-trainPage">
           <h1>{m["pages.index.atlas"]()}</h1>

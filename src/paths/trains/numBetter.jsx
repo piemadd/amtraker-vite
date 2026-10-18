@@ -8,6 +8,7 @@ import MiniMap from "../../components/mapping/miniMap";
 import ShareButton from "../../components/buttons/shareButton";
 import Moneyyyyyyyy from "../../components/money/moneyyyyyyyy";
 import { m } from "../../paraglide/messages.js";
+import LanguageButtons from "../../components/buttons/languageButtons";
 
 const providerShorts = { Amtrak: "AMTK", Via: "VIA", Brightline: "BLNE" };
 
@@ -184,6 +185,7 @@ const BetterTrainsByNumber = () => {
               {m["common_strings.back"]()}
             </p>
             <div className="multiButtonHolder">
+              <LanguageButtons headerStyle={true} />
               <ShareButton
                 navigatorOptions={{
                   title: m["pages.trains.share_title"]({ provider: trainData[0]?.provider, routeName: trainData[0]?.routeName }),

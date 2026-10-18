@@ -4,6 +4,7 @@ import PocketBase from 'pocketbase';
 import AtlasNav from "./nav";
 import { hoursMinutesDaysDuration } from './common';
 import { m } from "../../paraglide/messages.js";
+import LanguageButtons from "../../components/buttons/languageButtons";
 
 const pb = new PocketBase('https://pb.amtraker.com');
 
@@ -158,6 +159,9 @@ const AtlasAdd = () => {
             >
               {m["common_strings.back"]()}
             </p>
+            <div className="multiButtonHolder">
+              <LanguageButtons headerStyle={true} />
+            </div>
           </div>
           <section className='section-trainPage'>
             <AtlasNav currentRoute={'add'} userData={pb.authStore.record}/>

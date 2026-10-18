@@ -6,6 +6,7 @@ import { hoursMinutesDaysDuration } from "./common";
 import { Bar } from "react-chartjs-2";
 import "chart.js/auto";
 import { m } from "../../paraglide/messages.js";
+import LanguageButtons from "../../components/buttons/languageButtons";
 
 const pb = new PocketBase("https://pb.amtraker.com");
 
@@ -136,22 +137,25 @@ const AtlasStatsInd = () => {
             >
               {m["common_strings.back"]()}
             </p>
-            <p
-              onClick={() => {
-                const confirmationRes = confirm(m["common_strings.log_out_confirm"]());
-                if (!confirmationRes) return;
-                pb.authStore.clear();
-                navigate(0);
-              }}
-              className="click"
-              style={{
-               paddingRight: '32px',
-                fontSize: "24px",
-                fontWeight: 500,
-              }}
-            >
-              {m["common_strings.log_out"]()}
-            </p>
+            <div className="multiButtonHolder" style={{ alignItems: "center" }}>
+              <LanguageButtons headerStyle={true} />
+              <p
+                onClick={() => {
+                  const confirmationRes = confirm(m["common_strings.log_out_confirm"]());
+                  if (!confirmationRes) return;
+                  pb.authStore.clear();
+                  navigate(0);
+                }}
+                className="click"
+                style={{
+                 paddingRight: '32px',
+                  fontSize: "24px",
+                  fontWeight: 500,
+                }}
+              >
+                {m["common_strings.log_out"]()}
+              </p>
+            </div>
           </div>
           <section className="section-trainPage">
             <AtlasNav

@@ -9,6 +9,7 @@ import ShareButton from "../../components/buttons/shareButton";
 import MiniMap from "../../components/mapping/miniMap";
 import Moneyyyyyyyy from "../../components/money/moneyyyyyyyy";
 import { m } from "../../paraglide/messages.js";
+import LanguageButtons from "../../components/buttons/languageButtons";
 
 const StationPage = () => {
   const { stationCode } = useParams();
@@ -79,6 +80,7 @@ const StationPage = () => {
               {m["common_strings.back"]()}
             </p>
             <div className="multiButtonHolder">
+              <LanguageButtons headerStyle={true} />
               <ShareButton
                 navigatorOptions={{
                   title: m["pages.stations.station.share_title"]({ name: stationData.name, code: stationData.code }),
@@ -128,6 +130,7 @@ const StationPage = () => {
             {m["common_strings.back"]()}
           </p>
           <div className="multiButtonHolder">
+            <LanguageButtons headerStyle={true} />
             <ShareButton
               navigatorOptions={{
                 title: m["pages.stations.station.share_title"]({ name: stationData.name, code: stationData.code }),
