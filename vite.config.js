@@ -122,6 +122,11 @@ export default defineConfig({
         ]
       }
     }),
-    paraglideVitePlugin({ project: "./project.inlang", outdir: "./src/paraglide", emitTsDeclarations: false })
+    paraglideVitePlugin({
+      project: "./project.inlang",
+      outdir: "./src/paraglide",
+      emitTsDeclarations: false,
+      strategy: ["url", "baseLocale"] // locale comes from a url prefix, ie /fr/trains/5
+    })
   ]
 });

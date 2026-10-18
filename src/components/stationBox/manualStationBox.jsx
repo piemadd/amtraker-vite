@@ -1,4 +1,5 @@
 import { toHoursAndMinutesLate } from '../../tools';
+import { m } from "../../paraglide/messages.js";
 
 const ManualStationBox = ({ station, train, loading = false }) => {
   const schArr = new Date(station.schArr ?? station.schDep ?? null);
@@ -7,11 +8,11 @@ const ManualStationBox = ({ station, train, loading = false }) => {
   const schDep = new Date(station.schDep ?? station.schArr ?? null);
   const dep = new Date(station.dep ?? station.arr ?? null);
 
-  let trainTimely = "On Time";
+  let trainTimely = m["common_strings.train_status.on_time"]();
 
-  if (schArr.valueOf() > arr.valueOf()) trainTimely = "Early";
-  if (schArr.valueOf() < arr.valueOf()) trainTimely = "Late";
-  if (!schArr || !arr) trainTimely = "No Data";
+  if (schArr.valueOf() > arr.valueOf()) trainTimely = m["common_strings.train_status.early"]();
+  if (schArr.valueOf() < arr.valueOf()) trainTimely = m["common_strings.train_status.late"]();
+  if (!schArr || !arr) trainTimely = m["common_strings.train_status.no_data"]();
 
 
   let toUseTime = 0; // 0 is dep only, 1 is both, 2 is arr only
@@ -21,7 +22,7 @@ const ManualStationBox = ({ station, train, loading = false }) => {
   else toUseTime = 0;
 
   return loading ? (
-    <div className={"station-line"}>Loading train...</div>
+    <div className={"station-line"}>{m["common_strings.loading_train"]()}...</div>
   ) : (
     <div
       className={`station-line${train.eventCode === station.code ? " currentStation" : ""
@@ -53,7 +54,7 @@ const ManualStationBox = ({ station, train, loading = false }) => {
       {toUseTime >= 1 ? (
         <div>
           <p className='greyed'>
-            {station.status === "Enroute" ? "Est arr" : "Arr"}:
+            {station.status === "Enroute" ? m["common_strings.time.est_arr"]() : m["common_strings.time.arr"]()}:
           </p>
           &nbsp;
           <p className=''>
@@ -68,7 +69,7 @@ const ManualStationBox = ({ station, train, loading = false }) => {
       {toUseTime <= 1 ? (
         <div>
           <p className='greyed'>
-            {station.status === "Departed" ? "Dep" : "Est Dep"}:
+            {station.status === "Departed" ? m["common_strings.time.dep"]() : m["common_strings.time.est_dep"]()}:
           </p>
           &nbsp;
           <p className=''>
@@ -83,7 +84,7 @@ const ManualStationBox = ({ station, train, loading = false }) => {
       {station.platform.length > 0 ? (
         <div>
           <p className='greyed'>
-            Track {station.platform}
+            {m["common_strings.track_number"]({ platform: station.platform })}
           </p>
         </div>
       ) : null}

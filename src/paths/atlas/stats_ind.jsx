@@ -5,18 +5,19 @@ import AtlasNav from "./nav";
 import { hoursMinutesDaysDuration } from "./common";
 import { Bar } from "react-chartjs-2";
 import "chart.js/auto";
+import { m } from "../../paraglide/messages.js";
 
 const pb = new PocketBase("https://pb.amtraker.com");
 
 const AtlasStatsInd = () => {
   const navigate = useNavigate();
 
-  document.title = 'Amtraker Atlas : Stats';
+  document.title = m["pages.atlas.stats_ind.page_title"]();
   document
     .querySelector('meta[name="description"]')
     .setAttribute(
       "content",
-      "View your Amtraker Atlas stats."
+      m["pages.atlas.stats_ind.meta_description"]()
     );
   document
     .querySelector('meta[property="og:image"]')
@@ -112,7 +113,7 @@ const AtlasStatsInd = () => {
       <>
         <img
           id="background"
-          alt="Amtrak network map."
+          alt={m["common_strings.background_alt"]()}
           className={bgClass + " terrabanner"}
           src={bgURL}
         ></img>
@@ -133,13 +134,11 @@ const AtlasStatsInd = () => {
                 fontWeight: 500,
               }}
             >
-              Back
+              {m["common_strings.back"]()}
             </p>
             <p
               onClick={() => {
-                const confirmationRes = confirm(
-                  "Are you sure you want to log out?",
-                );
+                const confirmationRes = confirm(m["common_strings.log_out_confirm"]());
                 if (!confirmationRes) return;
                 pb.authStore.clear();
                 navigate(0);
@@ -151,7 +150,7 @@ const AtlasStatsInd = () => {
                 fontWeight: 500,
               }}
             >
-              Log Out
+              {m["common_strings.log_out"]()}
             </p>
           </div>
           <section className="section-trainPage">
@@ -164,27 +163,27 @@ const AtlasStatsInd = () => {
                 marginTop: -2,
               }}
             >
-              This Year
+              {m["pages.atlas.stats_ind.this_year"]()}
             </h2>
             <div className="atlas-stats-ind-stat">
               <p>
                 {userSummary.trip_count_curr_year}
-                <span>Trips Taken</span>
+                <span>{m["pages.atlas.stats_ind.trips_taken"]()}</span>
               </p>
               <hr />
               <p>
                 {Intl.NumberFormat().format(userSummary.total_length_curr_year)}
-                <span>Miles Traveled</span>
+                <span>{m["pages.atlas.stats_ind.miles_traveled"]()}</span>
               </p>
               <hr />
               <p>
                 {hoursMinutesDaysDuration(userSummary.total_time_curr_year)}
-                <span>Time Spent</span>
+                <span>{m["pages.atlas.time_spent"]()}</span>
               </p>
               <hr />
               <p>
-                {userSummary.top_station_curr_year ?? "N/A"}
-                <span>Top Station</span>
+                {userSummary.top_station_curr_year ?? m["common_strings.not_available"]()}
+                <span>{m["pages.atlas.stats_ind.top_station"]()}</span>
               </p>
             </div>
             <h2
@@ -192,27 +191,27 @@ const AtlasStatsInd = () => {
                 marginTop: -2,
               }}
             >
-              Overall
+              {m["pages.atlas.stats_ind.overall"]()}
             </h2>
             <div className="atlas-stats-ind-stat">
               <p>
                 {userSummary.trip_count}
-                <span>Trips Taken</span>
+                <span>{m["pages.atlas.stats_ind.trips_taken"]()}</span>
               </p>
               <hr />
               <p>
                 {Intl.NumberFormat().format(userSummary.total_length)}
-                <span>Miles Traveled</span>
+                <span>{m["pages.atlas.stats_ind.miles_traveled"]()}</span>
               </p>
               <hr />
               <p>
                 {hoursMinutesDaysDuration(userSummary.total_time)}
-                <span>Time Spent</span>
+                <span>{m["pages.atlas.time_spent"]()}</span>
               </p>
               <hr />
               <p>
-                {userSummary.top_station ?? "N/A"}
-                <span>Top Station</span>
+                {userSummary.top_station ?? m["common_strings.not_available"]()}
+                <span>{m["pages.atlas.stats_ind.top_station"]()}</span>
               </p>
             </div>
             <h2
@@ -221,7 +220,7 @@ const AtlasStatsInd = () => {
                 marginBottom: 4,
               }}
             >
-              Charts
+              {m["pages.atlas.charts"]()}
             </h2>
             <div
               style={{
@@ -238,7 +237,7 @@ const AtlasStatsInd = () => {
                   marginBottom: 4,
                 }}
               >
-                Monthly Trips
+                {m["pages.atlas.stats_ind.monthly_trips"]()}
               </h4>
               <Bar
                 options={{
@@ -273,7 +272,7 @@ const AtlasStatsInd = () => {
                   marginBottom: 4,
                 }}
               >
-                Monthly Miles
+                {m["pages.atlas.stats_ind.monthly_miles"]()}
               </h4>
               <Bar
                 options={{
@@ -308,7 +307,7 @@ const AtlasStatsInd = () => {
                   marginBottom: 4,
                 }}
               >
-                Monthly Minutes
+                {m["pages.atlas.stats_ind.monthly_minutes"]()}
               </h4>
               <Bar
                 options={{

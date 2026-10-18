@@ -2,18 +2,19 @@ import activatePopup from "../paths/map/PopupActivation";
 import ManualTrainPopup from "./trainBox/manualTrainPopup";
 import ManualStationPopup from "./stationBox/maualStationPopup";
 import { Popup } from "maplibre-gl";
+import { m } from "../paraglide/messages.js";
 
 const ManualMultiplePopup = ({ finalItems, mapRef, setPopupInfo, sourcePopup, showLink = true, idLinkType = null }) => {
   const hasTrains = finalItems.find((item) => item.layer.id == "trains");
   const hasStations = finalItems.find((item) => item.layer.id == "stations");
 
-  let titleText = "Feature";
-  if (hasTrains && !hasStations) titleText = "Train";
-  if (!hasTrains && hasStations) titleText = "Station";
+  let titleText = m["components.multiple_popup.select_feature"]();
+  if (hasTrains && !hasStations) titleText = m["components.multiple_popup.select_train"]();
+  if (!hasTrains && hasStations) titleText = m["components.multiple_popup.select_station"]();
 
   return (
     <div className="train-popup">
-      <div className="train-popup__header">Select a {titleText}:</div>
+      <div className="train-popup__header">{titleText}</div>
       <div className="train-popup__info train-popup__updated greyed"></div>
       {finalItems.map((item) => {
         switch (item.layer.id) {

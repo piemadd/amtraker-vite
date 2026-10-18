@@ -1,3 +1,4 @@
+import { m } from "../../paraglide/messages.js";
 const ManualStationBoxIndependent = ({
   station,
   loading = false,
@@ -6,7 +7,7 @@ const ManualStationBoxIndependent = ({
 }) => {
   return loading ? (
     <div className={`station-box${maxWidth ? ' train-box-max-width' : ''}`}>
-      <p>Loading station data...</p>
+      <p>{m["common_strings.loading_station_data"]()}...</p>
     </div>
   ) : (
     <div className={`station-box${maxWidth ? ' train-box-max-width' : ''}`} onClick={onClick}>
@@ -27,7 +28,7 @@ const ManualStationBoxIndependent = ({
           </span>
         ) : (
           <span className='greyed'>
-            Address unavailable.
+            {m["common_strings.address_unavailable"]()}
             <br />
             {station.tz}
           </span>

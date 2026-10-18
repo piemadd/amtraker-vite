@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { m } from "../../paraglide/messages.js";
 
 const AtlasNav = ({ currentRoute = null, userData = null }) => {
   if (!currentRoute) currentRoute = "index";
@@ -12,7 +13,7 @@ const AtlasNav = ({ currentRoute = null, userData = null }) => {
           fontSize: 40,
         }}
       >
-        Amtraker Atlas
+        {m["pages.atlas.amtraker_atlas"]()}
       </h1>
       <details
         style={{
@@ -26,18 +27,14 @@ const AtlasNav = ({ currentRoute = null, userData = null }) => {
             marginBottom: "2px",
           }}
         >
-          Atlas Note
+          {m["pages.atlas.note_title"]()}
         </summary>
         <label>
-          <b>If you notice any bugs or have any feature requests</b> please
-          email me directly at{" "}
-          <a href="mailto:piero@piemadd.com">piero@piemadd.com</a>. It is
-          important to note{" "}
+          <b>{m["pages.atlas.note_bugs"]()}</b> {m["pages.atlas.note_email"]()}{" "}
+          <a href="mailto:piero@piemadd.com">piero@piemadd.com</a>.{" "}
+          {m["pages.atlas.note_important"]()}{" "}
           <i>
-            <b>
-              Atlas is not required to use the regular train tracking aspects of
-              Amtraker
-            </b>
+            <b>{m["pages.atlas.note_not_required"]()}</b>
           </i>
           .
         </label>
@@ -54,13 +51,13 @@ const AtlasNav = ({ currentRoute = null, userData = null }) => {
             marginBottom: "2px",
           }}
         >
-          Account Deletion
+          {m["pages.atlas.account_deletion"]()}
         </summary>
         <label>
-          If you would like to delete your account, click{" "}
+          {m["pages.atlas.account_deletion_prompt"]()}{" "}
           <Link to={"/atlas/delete"} replace={true}>
             <b>
-              <u>here</u>
+              <u>{m["pages.atlas.account_deletion_link"]()}</u>
             </b>
           </Link>
           .
@@ -73,12 +70,12 @@ const AtlasNav = ({ currentRoute = null, userData = null }) => {
         {currentRoute == "index" ? (
           <a href="#" onClick={() => {}}>
             <button className="joinedLink currentlyClickedButton">
-              Trips List
+              {m["pages.atlas.trips_list"]()}
             </button>
           </a>
         ) : (
           <Link to={"/atlas/"} replace={true}>
-            <button className="joinedLink">Trips List</button>
+            <button className="joinedLink">{m["pages.atlas.trips_list"]()}</button>
           </Link>
         )}
 
@@ -95,11 +92,11 @@ const AtlasNav = ({ currentRoute = null, userData = null }) => {
 
         {currentRoute == "stats_ind" ? (
           <a href="#" onClick={() => {}}>
-            <button className="joinedLink currentlyClickedButton">Stats</button>
+            <button className="joinedLink currentlyClickedButton">{m["pages.atlas.stats"]()}</button>
           </a>
         ) : (
           <Link to={"/atlas/stats"} replace={true}>
-            <button className="joinedLink">Stats</button>
+            <button className="joinedLink">{m["pages.atlas.stats"]()}</button>
           </Link>
         )}
 
@@ -107,12 +104,12 @@ const AtlasNav = ({ currentRoute = null, userData = null }) => {
           currentRoute == "stats_all" ? (
             <a href="#" onClick={() => {}}>
               <button className="joinedLink currentlyClickedButton">
-                All Stats
+                {m["pages.atlas.all_stats"]()}
               </button>
             </a>
           ) : (
             <Link to={"/atlas/stats/all"} replace={true}>
-              <button className="joinedLink">All Stats</button>
+              <button className="joinedLink">{m["pages.atlas.all_stats"]()}</button>
             </Link>
           )
         ) : null}

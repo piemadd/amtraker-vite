@@ -31,7 +31,7 @@ const FullTrainsList = () => {
       
       <img
         id="background"
-        alt="Amtrak network map."
+        alt={m["common_strings.background_alt"]()}
         className={bgClass + " terrabanner"}
         src={bgURL}
       ></img>
@@ -57,9 +57,7 @@ const FullTrainsList = () => {
         </div>
         <section className="section-trainPage">
           <p>
-            Below is a list of trains intended for crawling purposes by search
-            engines and those who prefer to browse a long list of train names
-            and numbers.
+            {m["pages.trains.list_full.intro"]()}
           </p>
           <br />
           <div
@@ -69,7 +67,7 @@ const FullTrainsList = () => {
               textAlign: "left",
             }}
           >
-            <h2>Trains by Name</h2>
+            <h2>{m["pages.trains.list_full.trains_by_name"]()}</h2>
             {[...new Set(Object.values(trainNames))].map((trainName) => {
               return (
                 <Link
@@ -81,7 +79,7 @@ const FullTrainsList = () => {
                 </Link>
               );
             })}
-            <h2>Trains by Number</h2>
+            <h2>{m["pages.trains.list_full.trains_by_number"]()}</h2>
             {Object.keys(trainNames).map((trainNum) => {
               return (
                 <Link

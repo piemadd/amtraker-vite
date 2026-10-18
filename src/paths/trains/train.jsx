@@ -9,6 +9,7 @@ import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import ShareButton from "../../components/buttons/shareButton";
 import MiniMap from "../../components/mapping/miniMap";
 import Moneyyyyyyyy from "../../components/money/moneyyyyyyyy";
+import { m } from "../../paraglide/messages.js";
 
 
 const BetterTrainPage = () => {
@@ -42,12 +43,20 @@ const BetterTrainPage = () => {
 
   if (trainData[0] && !loading) {
     console.log(trainData[0]);
-    document.title = `${trainData[0].provider} Train ${trainData[0].trainNumRaw} (${trainData[0].trainID.split("-")[1]}) Tracker - Amtraker`;
+    document.title = m["pages.trains.page_title_with_date"]({
+      provider: trainData[0].provider,
+      trainNum: trainData[0].trainNumRaw,
+      trainDate: trainData[0].trainID.split("-")[1]
+    });
     document
       .querySelector('meta[name="description"]')
       .setAttribute(
         "content",
-        `Track the ${trainData[0].provider} ${trainData[0].routeName}, Train Number ${trainData[0].trainNumRaw}, using Amtraker!`
+        m["pages.trains.meta_description"]({
+          provider: trainData[0].provider,
+          routeName: trainData[0].routeName,
+          trainNum: trainData[0].trainNumRaw
+        })
       );
     document
       .querySelector('meta[property="og:image"]')
@@ -56,10 +65,10 @@ const BetterTrainPage = () => {
         `https://ogimg.transitstat.us/images?service=amtraker&type=train&code=${trainData[0].trainID}`
       );
   } else {
-    document.title = `Train ${trainNum} Tracker - Amtraker`;
+    document.title = m["pages.trains.page_title_generic"]({ trainNum });
     document
       .querySelector('meta[name="description"]')
-      .setAttribute("content", `Track train ${trainNum} using Amtraker!`);
+      .setAttribute("content", m["pages.trains.meta_description_generic"]({ trainNum }));
     document
       .querySelector('meta[property="og:image"]')
       .setAttribute("content", `https://ogimg.transitstat.us/images?service=amtraker&type=train&code=${trainNum}`);
@@ -96,7 +105,7 @@ const BetterTrainPage = () => {
 
   return (
     <>
-      <img id="background" alt="Amtrak network map." className={bgClass + " terrabanner"} src={bgURL}></img>
+      <img id="background" alt={m["common_strings.background_alt"]()} className={bgClass + " terrabanner"} src={bgURL}></img>
       <div className="trainPage">
         {!searchParams.has("oembed") ? (
           <div className="header-trainpage">
@@ -111,12 +120,12 @@ const BetterTrainPage = () => {
               className="click"
               style={{ paddingLeft: "32px", fontSize: "24px", fontWeight: 500 }}
             >
-              Back
+              {m["common_strings.back"]()}
             </p>
             <div className="multiButtonHolder">
               <ShareButton
                 navigatorOptions={{
-                  title: `Track the ${trainData[0]?.provider} ${trainData[0]?.routeName} Train with Amtraker!`,
+                  title: m["pages.trains.share_title"]({ provider: trainData[0]?.provider, routeName: trainData[0]?.routeName }),
                   url: `https://amtraker.com/trains/${trainData[0]?.trainID.split("-").join("/")}`
                 }}
               />
@@ -156,7 +165,7 @@ const BetterTrainPage = () => {
                           className="train-box"
                           style={{ marginBottom: "4px", width: "calc(100% - 26px)", maxWidth: "380px" }}
                         >
-                          <summary>Alerts</summary>
+                          <summary>{m["common_strings.alerts"]()}</summary>
                           <ul>
                             {trainData[0].alerts.map((alert) => {
                               return <li>{alert.message}</li>;
@@ -166,7 +175,7 @@ const BetterTrainPage = () => {
                       ) : null}
                       {!searchParams.has("oembed") ? (
                         <>
-                          <h3>Manage Train:</h3>
+                          <h3>{m["pages.trains.train.manage_train"]()}</h3>
                           <div
                             style={{
                               display: "flex",
@@ -188,7 +197,7 @@ const BetterTrainPage = () => {
                               }}
                             />
                             <label>
-                              Save Train {trainNum} ({trainDate})
+                              {m["pages.trains.train.save_train"]({ trainNum, trainDate })}
                             </label>
                           </div>
                           <div
@@ -215,23 +224,24 @@ const BetterTrainPage = () => {
                                 console.log("always tracked change:", e.target.checked);
                               }}
                             />
-                            <label>Save Every Train {trainNum}</label>
+                            <label>{m["pages.trains.train.save_every_train"]({ trainNum })}</label>
                           </div>
                         </>
                       ) : null}
                       {new Date(trainData[0].lastValTS).valueOf() < new Date().valueOf() - 1000 * 60 * 15 ? (
                         <p className="staleTrainWarning">
-                          WARNING: THIS TRAIN'S DATA IS STALE! Data feed has not been updated since{" "}
-                          {new Intl.DateTimeFormat([], {
-                            hour: "numeric",
-                            minute: "numeric",
-                            month: "short",
-                            day: "numeric",
-                            timeZoneName: "short"
-                          }).format(new Date(trainData[0].lastValTS))}
+                          {m["pages.trains.train.stale_warning"]({
+                            time: new Intl.DateTimeFormat([], {
+                              hour: "numeric",
+                              minute: "numeric",
+                              month: "short",
+                              day: "numeric",
+                              timeZoneName: "short"
+                            }).format(new Date(trainData[0].lastValTS))
+                          })}
                         </p>
                       ) : null}
-                      <h3>Stations</h3>
+                      <h3>{m["pages.trains.train.stations"]()}</h3>
                       <div className="stations">
                         {trainData[0].stations.map((station, i, arr) => {
                           return (
@@ -255,7 +265,7 @@ const BetterTrainPage = () => {
                 ) : (
                   <>
                     <p>
-                      This train is not currently tracking. Please try again later. We apologize for the inconvenience.
+                      {m["pages.trains.train.not_tracking"]()}
                     </p>
                     {!searchParams.has("oembed") ? (
                       <button
@@ -267,14 +277,14 @@ const BetterTrainPage = () => {
                           }
                         }}
                       >
-                        Go Back
+                        {m["common_strings.go_back"]()}
                       </button>
                     ) : null}
                   </>
                 )}
               </>
             ) : (
-              <p>Loading train...</p>
+              <p>{m["common_strings.loading_train"]()}...</p>
             )}
           </section>
           {window.innerWidth >= 900 && !loading ? (

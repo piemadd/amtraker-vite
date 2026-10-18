@@ -9,7 +9,13 @@ import ErrorPage from "./error.jsx";
 import LoadingPage from "./loading";
 import DataManager from "./components/dataManager/dataManager.js";
 import { initAlwaysTracked } from "./tools.jsx";
+import { getLocale, baseLocale } from "./paraglide/runtime.js";
 //import * as serviceWorkerRegistration from "./serviceWorkerRegistration.js";
+
+// locale is determined by the url prefix (ie /fr/trains/5), english has no prefix
+const currentLocale = getLocale();
+const routerBasename = currentLocale === baseLocale ? "/" : `/${currentLocale}`;
+document.documentElement.lang = currentLocale;
 
 console.log(`DM-N: ${JSON.stringify(window.dataManager)}`);
 const dataManager = new DataManager();
@@ -137,7 +143,7 @@ const router = createBrowserRouter([
     hydrateFallbackElement: <LoadingPage />,
     errorElement: <ErrorPage />
   }
-]);
+], { basename: routerBasename });
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 

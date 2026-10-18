@@ -5,6 +5,7 @@ import AtlasNav from "./nav";
 import { hoursMinutesDaysDuration, dateToYYYYMMDD } from "./common";
 import { Bar, Line } from "react-chartjs-2";
 import "chart.js/auto";
+import { m } from "../../paraglide/messages.js";
 
 const pb = new PocketBase("https://pb.amtraker.com");
 
@@ -29,16 +30,16 @@ const AtlasStatsAll = () => {
   ];
 
   const prettyStatNames = {
-    total_length: "Total Trips Length",
-    total_time: "Total Trips Time",
-    trip_count: "Trips Count",
-    user_count: "Users Count",
-    user_most_recent_time: "Last User Creation",
-    trip_most_recent_time: "Last Trip Creation",
+    total_length: m["pages.atlas.stats_all.total_trips_length"](),
+    total_time: m["pages.atlas.stats_all.total_trips_time"](),
+    trip_count: m["pages.atlas.stats_all.trips_count"](),
+    user_count: m["pages.atlas.stats_all.users_count"](),
+    user_most_recent_time: m["pages.atlas.stats_all.last_user_creation"](),
+    trip_most_recent_time: m["pages.atlas.stats_all.last_trip_creation"](),
   };
 
   const prettyStatValues = {
-    total_length: (v) => Intl.NumberFormat().format(v) + "mi",
+    total_length: (v) => m["pages.atlas.stats_all.length_mi_value"]({ length: Intl.NumberFormat().format(v) }),
     total_time: (v) => hoursMinutesDaysDuration(v),
     user_most_recent_time: (v) => new Date(v).toLocaleString(),
     trip_most_recent_time: (v) => new Date(v).toLocaleString(),
@@ -128,7 +129,7 @@ const AtlasStatsAll = () => {
       <>
         <img
           id="background"
-          alt="Amtrak network map."
+          alt={m["common_strings.background_alt"]()}
           className={bgClass + " terrabanner"}
           src={bgURL}
         ></img>
@@ -149,13 +150,11 @@ const AtlasStatsAll = () => {
                 fontWeight: 500,
               }}
             >
-              Back
+              {m["common_strings.back"]()}
             </p>
             <p
               onClick={() => {
-                const confirmationRes = confirm(
-                  "Are you sure you want to log out?",
-                );
+                const confirmationRes = confirm(m["common_strings.log_out_confirm"]());
                 if (!confirmationRes) return;
                 pb.authStore.clear();
                 navigate(0);
@@ -167,7 +166,7 @@ const AtlasStatsAll = () => {
                 fontWeight: 500,
                }}
             >
-              Log Out
+              {m["common_strings.log_out"]()}
             </p>
           </div>
           <section className="section-trainPage">
@@ -180,7 +179,7 @@ const AtlasStatsAll = () => {
                 marginTop: -2,
               }}
             >
-              Basic Stats
+              {m["pages.atlas.stats_all.basic_stats"]()}
             </h2>
             <table className="atlas_tripsList">
               <tbody>
@@ -203,15 +202,15 @@ const AtlasStatsAll = () => {
                 marginTop: -2,
               }}
             >
-              Top Users
+              {m["pages.atlas.stats_all.top_users"]()}
             </h2>
             <table className="atlas_tripsList">
               <thead>
                 <tr>
-                  <th scope="col">Rank</th>
-                  <th scope="col">Trip Count</th>
-                  <th scope="col">Time Spent</th>
-                  <th scope="col">Total Length</th>
+                  <th scope="col">{m["pages.atlas.stats_all.rank"]()}</th>
+                  <th scope="col">{m["pages.atlas.stats_all.trip_count"]()}</th>
+                  <th scope="col">{m["pages.atlas.time_spent"]()}</th>
+                  <th scope="col">{m["pages.atlas.stats_all.total_length"]()}</th>
                 </tr>
               </thead>
               <tbody>
@@ -221,7 +220,7 @@ const AtlasStatsAll = () => {
                       <th scope="row">{i + 1}</th>
                       <td>{user.trip_count}</td>
                       <td>{hoursMinutesDaysDuration(user.total_time)}</td>
-                      <td>{user.total_length.toFixed(2)}mi</td>
+                      <td>{m["pages.atlas.stats_all.length_mi_value"]({ length: user.total_length.toFixed(2) })}</td>
                     </tr>
                   );
                 })}
@@ -232,7 +231,7 @@ const AtlasStatsAll = () => {
                 marginTop: -2,
               }}
             >
-              Charts
+              {m["pages.atlas.charts"]()}
             </h2>
             <details
               style={{
@@ -247,7 +246,7 @@ const AtlasStatsAll = () => {
                   marginBottom: "-12px",
                 }}
               >
-                Trips Recorded
+                {m["pages.atlas.stats_all.trips_recorded"]()}
               </summary>
               <div
                 style={{
@@ -265,7 +264,7 @@ const AtlasStatsAll = () => {
                     marginBottom: 4,
                   }}
                 >
-                  Daily Trips Created
+                  {m["pages.atlas.stats_all.daily_trips_created"]()}
                 </h4>
                 <Line
                   options={{
@@ -300,7 +299,7 @@ const AtlasStatsAll = () => {
                     marginBottom: 4,
                   }}
                 >
-                  Daily Miles Recorded
+                  {m["pages.atlas.stats_all.daily_miles_recorded"]()}
                 </h4>
                 <Line
                   options={{
@@ -335,7 +334,7 @@ const AtlasStatsAll = () => {
                     marginBottom: 4,
                   }}
                 >
-                  Daily Minutes Recorded
+                  {m["pages.atlas.stats_all.daily_minutes_recorded"]()}
                 </h4>
                 <Line
                   options={{
@@ -368,7 +367,7 @@ const AtlasStatsAll = () => {
                   marginBottom: "-12px",
                 }}
               >
-                Trips Ridden
+                {m["pages.atlas.stats_all.trips_ridden"]()}
               </summary>
               <div
                 style={{
@@ -386,7 +385,7 @@ const AtlasStatsAll = () => {
                     marginBottom: 4,
                   }}
                 >
-                  Daily Trips Ridden
+                  {m["pages.atlas.stats_all.daily_trips_ridden"]()}
                 </h4>
                 <Line
                   options={{
@@ -421,7 +420,7 @@ const AtlasStatsAll = () => {
                     marginBottom: 4,
                   }}
                 >
-                  Daily Miles Ridden
+                  {m["pages.atlas.stats_all.daily_miles_ridden"]()}
                 </h4>
                 <Line
                   options={{
@@ -456,7 +455,7 @@ const AtlasStatsAll = () => {
                     marginBottom: 4,
                   }}
                 >
-                  Daily Minutes Ridden
+                  {m["pages.atlas.stats_all.daily_minutes_ridden"]()}
                 </h4>
                 <Line
                   options={{
@@ -489,7 +488,7 @@ const AtlasStatsAll = () => {
                   marginBottom: "-12px",
                 }}
               >
-                Users Created
+                {m["pages.atlas.stats_all.users_created"]()}
               </summary>
               <div
                 style={{
@@ -507,7 +506,7 @@ const AtlasStatsAll = () => {
                     marginBottom: 4,
                   }}
                 >
-                  Daily Account Creation
+                  {m["pages.atlas.stats_all.daily_account_creation"]()}
                 </h4>
                 <Line
                   options={{

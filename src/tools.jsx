@@ -1,4 +1,5 @@
 import { stationMeta } from "./data/stations";
+import { m } from "./paraglide/messages.js";
 
 const manageSavedTrain = (trainNum, trainDate, state) => {
   let currentSaved = (localStorage.getItem('savedTrainsAmtrakerV3') ?? '')
@@ -47,9 +48,11 @@ const hoursAndMinutesUnitl = (date) => {
   const hours = Math.floor(diff / 1000 / 60 / 60);
   const minutes = Math.floor((diff / 1000 / 60 / 60 - hours) * 60);
   // creating the text
-  let amount = `${Math.abs(hours)}h ${Math.abs(minutes)}m`;
-  if (minutes === 0) amount = `${Math.abs(hours)}h`;
-  if (hours === 0) amount = `${Math.abs(minutes)}m`;
+  const hoursText = m["common_strings.time.hours_short"]({ hours: Math.abs(hours) });
+  const minutesText = m["common_strings.time.minutes_short"]({ minutes: Math.abs(minutes) });
+  let amount = `${hoursText} ${minutesText}`;
+  if (minutes === 0) amount = hoursText;
+  if (hours === 0) amount = minutesText;
 
   return amount;
 };
@@ -59,25 +62,27 @@ const toHoursAndMinutesLate = (date1, date2) => {
     date1.toString() == "Invalid Date" ||
     date2.toString() == "Invalid Date"
   )
-    return "Unknown (Estimate Error)";
+    return m["common_strings.time.unknown_estimate_error"]();
 
   const diff = date1.valueOf() - date2.valueOf();
 
-  if (Math.abs(diff) > 1000 * 60 * 60 * 24) return "Unknown (Schedule Error)";
+  if (Math.abs(diff) > 1000 * 60 * 60 * 24) return m["common_strings.time.unknown_schedule_error"]();
 
   const hours = Math.floor(Math.abs(diff) / 1000 / 60 / 60);
   const minutes = Math.floor((Math.abs(diff) / 1000 / 60 / 60 - hours) * 60);
 
   // creating the text
-  let amount = `${Math.abs(hours)}h ${Math.abs(minutes)}m`;
-  if (hours === 0) amount = `${Math.abs(minutes)}m`;
-  if (minutes === 0) amount = `${Math.abs(hours)}h`;
+  const hoursText = m["common_strings.time.hours_short"]({ hours: Math.abs(hours) });
+  const minutesText = m["common_strings.time.minutes_short"]({ minutes: Math.abs(minutes) });
+  let amount = `${hoursText} ${minutesText}`;
+  if (hours === 0) amount = minutesText;
+  if (minutes === 0) amount = hoursText;
 
   //on time
-  if (diff === 0) return "On Time";
+  if (diff === 0) return m["common_strings.train_status.on_time"]();
 
   //late or early
-  return diff > 0 ? `${amount} late` : `${amount} early`;
+  return diff > 0 ? m["common_strings.time.amount_late"]({ amount }) : m["common_strings.time.amount_early"]({ amount });
 };
 
 const calculateDistanceBetweenCoordinates = (lat1, lon1, lat2, lon2) => {

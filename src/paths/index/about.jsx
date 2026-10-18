@@ -2,14 +2,15 @@ import { useNavigate } from "react-router";
 import { useEffect, useMemo, useState } from "react";
 import settingsInit from "../../components/settingsInit";
 import stringToHash from "../../components/money/stringToHash";
+import { m } from "../../paraglide/messages.js";
 
 const About = () => {
   const navigate = useNavigate();
 
-  document.title = "About - Amtraker";
+  document.title = m["pages.about.page_title"]();
   document
     .querySelector('meta[name="description"]')
-    .setAttribute("content", "Amtraker About, Setings, and Privacy Policy.");
+    .setAttribute("content", m["pages.about.meta_description"]());
   document
     .querySelector('meta[property="og:image"]')
     .setAttribute("content", "https://amtraker.com/content/images/amtraker-back.webp");
@@ -71,7 +72,7 @@ const About = () => {
 
   return (
     <>
-      <img id="background" alt="Amtrak network map." className={bgClass + " terrabanner"} src={bgURL}></img>
+      <img id="background" alt={m["common_strings.background_alt"]()} className={bgClass + " terrabanner"} src={bgURL}></img>
       <div className="trainPage">
         <div className="header-trainpage">
           <p
@@ -87,178 +88,175 @@ const About = () => {
             className="click"
             style={{ paddingLeft: "32px", fontSize: "24px", fontWeight: 500 }}
           >
-            Back
+            {m["common_strings.back"]()}
           </p>
         </div>
         <section className="section-trainPage section-settings">
           <p style={{ marginTop: -8 }}>
-            Sections:{" "}
+            {m["pages.about.sections"]()}{" "}
             <span
               style={{ cursor: "pointer", textDecoration: "underline" }}
               onClick={() => document.getElementById("about-section").scrollIntoView()}
             >
-              About
+              {m["pages.about.section_about"]()}
             </span>{" "}
             <span
               style={{ cursor: "pointer", textDecoration: "underline" }}
               onClick={() => document.getElementById("settings-section").scrollIntoView()}
             >
-              Settings
+              {m["pages.about.section_settings"]()}
             </span>{" "}
             <span
               style={{ cursor: "pointer", textDecoration: "underline" }}
               onClick={() => document.getElementById("privacy-section").scrollIntoView()}
             >
-              Privacy Policy
+              {m["pages.about.section_privacy"]()}
             </span>
           </p>
           <hr style={{ width: "100%", marginTop: "4px", marginBottom: "12px", border: "1px solid grey" }} />
-          <h1 id="about-section">About Amtraker</h1>
-          <h2>FAQs</h2>
+          <h1 id="about-section">{m["pages.about.about_heading"]()}</h1>
+          <h2>{m["pages.about.faqs"]()}</h2>
           <ul>
             <li id="faq-what-is-amtraker">
-              <h3>What is Amtraker?</h3>
+              <h3>{m["pages.about.faq.what_is_q"]()}</h3>
               <ul>
-                <li>Amtraker is a website and app that allows you to track Amtrak trains in real time.</li>
+                <li>{m["pages.about.faq.what_is_a"]()}</li>
               </ul>
             </li>
             <li id="faq-data-source">
-              <h3>Where does your data come from?</h3>
+              <h3>{m["pages.about.faq.data_source_q"]()}</h3>
               <ul>
                 <li>
-                  Amtraker pulls its data from multiple sources and and rehosts it on our servers. The list of data
-                  providers includes, but is not limited to:
+                  {m["pages.about.faq.data_source_a"]()}
                   <ul>
                     <li>
                       <a href="https://github.com/protomaps/basemaps" target="_blank">
                         Protomaps
                       </a>{" "}
-                      - Built Map Archives
+                      - {m["pages.about.faq.data_source_protomaps"]()}
                     </li>
                     <li>
                       <a href="https://openstreetmap.org" target="_blank">
                         OpenStreetMap
                       </a>{" "}
-                      - General Map Data (Streets, Buildings, Cities, etc)
+                      - {m["pages.about.faq.data_source_osm"]()}
                     </li>
                     <li>
                       <a href="https://overturemaps.org" target="_blank">
                         Overture Maps Foundation
                       </a>{" "}
-                      - General Map Data (Land, Oceans, etc)
+                      - {m["pages.about.faq.data_source_overture"]()}
                     </li>
                     <li>
                       <a href="https://geodata.bts.gov/datasets/usdot::amtrak-routes/about" target="_blank">
                         USDOT BTS
                       </a>{" "}
-                      - Most Amtrak Map Lines
+                      - {m["pages.about.faq.data_source_usdot"]()}
                     </li>
                     <li>
                       <a href="https://www.amtrak.com/track-your-train.html" target="_blank">
                         Amtrak
                       </a>{" "}
-                      - Some Map Lines, Train Data
+                      - {m["pages.about.faq.data_source_amtrak"]()}
                     </li>
                     <li>
                       <a href="http://feed.gobrightline.com/" target="_blank">
                         Brightline
                       </a>{" "}
-                      - Train Data and Platform Numbers
+                      - {m["pages.about.faq.data_source_brightline"]()}
                     </li>
                     <li>
                       <a href="https://www.viarail.ca/en/developer-resources" target="_blank">
                         VIA Rail
                       </a>{" "}
-                      - Train Data
+                      - {m["pages.about.faq.data_source_via"]()}
                     </li>
                     <li>
                       <a href="https://developer.njtransit.com/terms/" target="_blank">
                         NJT
                       </a>{" "}
-                      - Some NEC Platform Data
+                      - {m["pages.about.faq.data_source_njt"]()}
                     </li>
                     <li>
                       <a href="https://metrolinktrains.com/about/gtfs/gtfs-rt-access/" target="_blank">
                         LA Metrolink
                       </a>{" "}
-                      - LA Area Platform Data
+                      - {m["pages.about.faq.data_source_metrolink"]()}
                     </li>
                     <li>
                       <a href="https://moynihantrainhall.nyc/" target="_blank">
                         NY Moynihan
                       </a>{" "}
-                      - NYP Platform Data (When available - tends to be more accurate than NJT)
+                      - {m["pages.about.faq.data_source_moynihan"]()}
                     </li>
                   </ul>
                 </li>
               </ul>
             </li>
             <li id="faq-dev">
-              <h3>Can I use your data?</h3>
+              <h3>{m["pages.about.faq.dev_q"]()}</h3>
               <ul>
                 <li>
-                  Yes! Amtraker's data is available for use for free, as long as you don't spam the API ofc. You can
-                  find the API documentation <a href="https://github.com/piemadd/amtrak">here</a>. Let me know any
-                  issues you have with the API by emailing me at{" "}
+                  {m["pages.about.faq.dev_a_before_link"]()}{" "}
+                  <a href="https://github.com/piemadd/amtrak">{m["pages.about.faq.dev_a_link"]()}</a>
+                  {m["pages.about.faq.dev_a_after_link"]()}{" "}
                   <a href="mailto:amtraker@piemadd.com">amtraker@piemadd.com</a>.
                 </li>
               </ul>
             </li>
             <li id="faq-installing">
-              <h3>Can I install Amtraker as an App?</h3>
+              <h3>{m["pages.about.faq.installing_q"]()}</h3>
               <ul>
                 <li>
-                  This depends on what device you're using. If you're using an Android device, head on over to{" "}
+                  {m["pages.about.faq.installing_a_android"]()}{" "}
                   <a href="https://play.google.com/store/apps/details?id=com.amtrak.piero" target="_blank">
-                    Google Play
+                    {m["pages.about.faq.installing_a_google_play"]()}
                   </a>{" "}
-                  and if you're on an Apple device head over to{" "}
+                  {m["pages.about.faq.installing_a_apple"]()}{" "}
                   <a href="https://apps.apple.com/us/app/amtraker-track-amtrak-via/id6758903803" target="_blank">
-                    the App Store
+                    {m["pages.about.faq.installing_a_app_store"]()}
                   </a>
                   .
                 </li>
               </ul>
             </li>
             <li id="faq-feedback">
-              <h3>How can I give feedback, report a bug, and/or request a feature?</h3>
+              <h3>{m["pages.about.faq.feedback_q"]()}</h3>
               <ul>
                 <li>
-                  You can email me at <a href="mailto:amtraker@piemadd.com">amtraker@piemadd.com</a>, or you can submit
-                  feedback via the{" "}
+                  {m["pages.about.faq.feedback_a_email"]()} <a href="mailto:amtraker@piemadd.com">amtraker@piemadd.com</a>
+                  {m["pages.about.faq.feedback_a_form"]()}{" "}
                   <a href="https://forms.gle/Fp6fVc2wqVLZKXKq9" target="__blank">
-                    Google Form
+                    {m["pages.about.faq.feedback_a_form_link"]()}
                   </a>
                   .
                 </li>
               </ul>
             </li>
             <li id="faq-stale">
-              <h3>What does it mean when the data is stale?</h3>
+              <h3>{m["pages.about.faq.stale_q"]()}</h3>
               <ul>
                 <li>
-                  When, on average, Amtrak hasn't updated their tracking data for more than 15 minutes, the data is
-                  outdated and inaccurate. This is usually due to Amtrak's servers having issues.
+                  {m["pages.about.faq.stale_a"]()}
                 </li>
               </ul>
             </li>
             <li id="faq-not-tracking">
-              <h3>Why isn't my train tracking?</h3>
+              <h3>{m["pages.about.faq.not_tracking_q"]()}</h3>
               <ul>
                 <li>
-                  Amtraker only shows the data available to it. If Amtrak isn't tracking your train, Amtraker won't be
-                  able to either. If the train, for whatever reason, is tracking on the official tracker, but not on
-                  Amtraker, please <a href="mailto:amtraker@piemadd.com">email me</a> and I'll look as soon as I can.
+                  {m["pages.about.faq.not_tracking_a_before_link"]()}{" "}
+                  <a href="mailto:amtraker@piemadd.com">{m["pages.about.faq.not_tracking_a_link"]()}</a>{" "}
+                  {m["pages.about.faq.not_tracking_a_after_link"]()}
                 </li>
               </ul>
             </li>
             <li id="faq-map-icons-colors">
-              <h3>What do the train icons/colors mean?</h3>
+              <h3>{m["pages.about.faq.icons_q"]()}</h3>
               <ul>
-                <li>The colors of the icons are broken down into two categories: active and inactive trains. </li>
+                <li>{m["pages.about.faq.icons_a_categories"]()}</li>
                 <li>
-                  Any train that has not yet departed its initial terminal, has arrived at its final station, or has
-                  been cancelled is inactive and will be dark grey, as shown below.
+                  {m["pages.about.faq.icons_a_inactive"]()}
                   <br />
                   <svg width="130px" height="60px" viewBox="0 0 208 96" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g>
@@ -282,12 +280,10 @@ const About = () => {
                   </svg>
                 </li>
                 <li>
-                  Otherwise, the shade of the train depends on how late it is, from a green for 0% late, to a an orange
-                  for 25% late, and a bright red for 100% late, with these percentegaes being of a predetermined
-                  threshold (see below) depending on the route length and type.
+                  {m["pages.about.faq.icons_a_active"]()}
                   <ul>
                     <li>
-                      Green (0%) HSV(132&deg;, 69%, 54%):
+                      {m["pages.about.faq.icons_a_green"]()}
                       <br />
                       <svg
                         width="130px"
@@ -317,7 +313,7 @@ const About = () => {
                       </svg>
                     </li>
                     <li>
-                      Orange (25%) HSV(35&deg;, 93%, 78%):
+                      {m["pages.about.faq.icons_a_orange"]()}
                       <br />
                       <svg
                         width="130px"
@@ -347,7 +343,7 @@ const About = () => {
                       </svg>
                     </li>
                     <li>
-                      Red (100%) HSV(-12&deg;, 94%, 78%):
+                      {m["pages.about.faq.icons_a_red"]()}
                       <br />
                       <svg
                         width="130px"
@@ -377,35 +373,31 @@ const About = () => {
                       </svg>
                     </li>
                     <li>
-                      To help differentiate the colors for those with deuteranopia and protanopia, I have made the
-                      saturation and brightness of the colors go up with the percentage, so while not perfect, there
-                      should be some level of differentation between the hues. If you have any feedback/ideas for how I
-                      can improve this, please let me know.
+                      {m["pages.about.faq.icons_a_colorblind"]()}
                     </li>
                   </ul>
                 </li>
                 <li>
-                  For each route, the maximum lateness threshold largely depends on what type of route it is and who is
-                  operating said train.
+                  {m["pages.about.faq.icons_a_thresholds"]()}
                   <ul>
-                    <li>All Via Corridor, Acela, Brightline, and any Amtrak trains &lt;250mi: 60min / 1hr</li>
-                    <li>Amtrak trains 250mi - 349mi: 90min / 1.5hr</li>
-                    <li>Amtrak trains 350mi - 449mi: 120min / 2hr</li>
-                    <li>Amtrak trains 450mi+: 150min / 2.5hr</li>
-                    <li>Any other Via Trains: 360min / 6hr</li>
+                    <li>{m["pages.about.faq.icons_a_threshold_short"]()}</li>
+                    <li>{m["pages.about.faq.icons_a_threshold_250"]()}</li>
+                    <li>{m["pages.about.faq.icons_a_threshold_350"]()}</li>
+                    <li>{m["pages.about.faq.icons_a_threshold_450"]()}</li>
+                    <li>{m["pages.about.faq.icons_a_threshold_via"]()}</li>
                   </ul>
                 </li>
               </ul>
             </li>
           </ul>
           <hr style={{ width: "100%", marginTop: "4px", marginBottom: "12px", border: "1px solid grey" }} />
-          <h1 id="settings-section">Amtraker Settings</h1>
-          <p>Use this page to adjust various settings for Amtraker. More settings will be added over time.</p>
-          <h2>Map View</h2>
-          <p>Whether you'd like the map to use a Globe projection or the traditional Web Mercator (flat) projection.</p>
+          <h1 id="settings-section">{m["pages.about.settings.heading"]()}</h1>
+          <p>{m["pages.about.settings.intro"]()}</p>
+          <h2>{m["pages.about.settings.map_view"]()}</h2>
+          <p>{m["pages.about.settings.map_view_description"]()}</p>
           <select value={currentSettings.mapView} onChange={(e) => handleSettingsUpdate("mapView", e.target.value)}>
-            <option value="mercator">Web Mercator</option>
-            <option value="globe">Globe</option>
+            <option value="mercator">{m["pages.about.settings.map_view_mercator"]()}</option>
+            <option value="globe">{m["pages.about.settings.map_view_globe"]()}</option>
             {/*<option value='vertical-perspective'>Vertical Perspective</option>*/}
             {/* disabled due to high lag and glitching at higher zoom levels from building extrusions */}
           </select>
@@ -429,29 +421,29 @@ const About = () => {
           </select>
           */}
 
-          <h2>Always Saved Trains</h2>
-          <p>Edit the train numbers that will always be saved.</p>
+          <h2>{m["pages.about.settings.always_saved"]()}</h2>
+          <p>{m["pages.about.settings.always_saved_description"]()}</p>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-            {alwaysSavedTrains.length == 0 ? <button>No trains are set to automatically save currently.</button>: null}
+            {alwaysSavedTrains.length == 0 ? <button>{m["pages.about.settings.always_saved_none"]()}</button>: null}
             {alwaysSavedTrains.map((alwaysSavedTrainNum) => {
               return (
                 <button
                   data-trainnum={alwaysSavedTrainNum}
                   onClick={(e) => {
-                    const result =  confirm(`Confirm that you would like to delete '${alwaysSavedTrainNum}' from your list of always saved trains.\n\nPress OK to confirm deletion.`);
+                    const result =  confirm(m["pages.about.settings.always_saved_delete_confirm"]({ trainNum: alwaysSavedTrainNum }));
                     
                     if (result) handleAlwaysSavedTrainsUpdate([], [e.target.dataset.trainnum]);
                   }}
                 >
-                  Delete Train {alwaysSavedTrainNum}
+                  {m["pages.about.settings.always_saved_delete"]({ trainNum: alwaysSavedTrainNum })}
                 </button>
               );
             })}
             <button
               onClick={(e) => {
                 const userInput = prompt(
-                  "Please enter the train number you would like to add.\n\nFor VIA Rail trains, add a 'v' to the beginning and for Brightline trains, add a 'b' to the beginning.\n\nExamples: '5' 'v1' 'b5333'"
+                  m["pages.about.settings.always_saved_add_prompt"]()
                 );
 
                 if (!userInput) return;
@@ -459,155 +451,122 @@ const About = () => {
                 handleAlwaysSavedTrainsUpdate([userInput], []);
               }}
             >
-              Add a Train Manually
+              {m["pages.about.settings.always_saved_add"]()}
             </button>
           </div>
 
-          <h2>Debug Info</h2>
-          <p>User Agent</p>
+          <h2>{m["pages.about.settings.debug_info"]()}</h2>
+          <p>{m["pages.about.settings.debug_user_agent"]()}</p>
           <pre>{navigator.userAgent}</pre>
-          <p>Platform:</p>
+          <p>{m["pages.about.settings.debug_platform"]()}</p>
           <pre>{navigator.platform}</pre>
-          <p>OSCPU</p>
-          <pre>{navigator.oscpu && navigator.oscpu.length > 0 ? navigator.oscpu : "[empty string]"}</pre>
-          <p>Vendor</p>
-          <pre>{navigator.vendor && navigator.vendor.length > 0 ? navigator.vendor : "[empty string]"}</pre>
-          <p>Session Storage</p>
+          <p>{m["pages.about.settings.debug_oscpu"]()}</p>
+          <pre>{navigator.oscpu && navigator.oscpu.length > 0 ? navigator.oscpu : m["pages.about.settings.debug_empty_string"]()}</pre>
+          <p>{m["pages.about.settings.debug_vendor"]()}</p>
+          <pre>{navigator.vendor && navigator.vendor.length > 0 ? navigator.vendor : m["pages.about.settings.debug_empty_string"]()}</pre>
+          <p>{m["pages.about.settings.debug_session_storage"]()}</p>
           <pre>{JSON.stringify(sessionStorage, null, 2)}</pre>
-          <p>Local Storage</p>
+          <p>{m["pages.about.settings.debug_local_storage"]()}</p>
           <pre>{JSON.stringify(localStorage, null, 2)}</pre>
           <hr style={{ width: "100%", marginTop: "4px", marginBottom: "12px", border: "1px solid grey" }} />
-          <h1 id="privacy-section">Privacy Policy for Amtraker</h1>
+          <h1 id="privacy-section">{m["pages.about.privacy.heading"]()}</h1>
           <p>
-            This privacy policy applies to the Amtraker app and website (amtraker.com) (hereby referred to as
-            "Application") that was created by Piero Maddaleni (hereby referred to as "Service Provider") as an Open
-            Source service. This service is intended for use "AS IS".
+            {m["pages.about.privacy.intro"]()}
           </p>
           <br />
-          <h2>Information Collection and Use</h2>
+          <h2>{m["pages.about.privacy.collection_heading"]()}</h2>
           <p>
-            The Application collects information when you download and use it. This information may include information
-            such as{" "}
+            {m["pages.about.privacy.collection_intro"]()}
           </p>
           <ul>
-            <li>Your device's Internet Protocol address (e.g. IP address)</li>
+            <li>{m["pages.about.privacy.collection_ip"]()}</li>
             <li>
-              The pages of the Application that you visit, the time and date of your visit, the time spent on those
-              pages
+              {m["pages.about.privacy.collection_pages"]()}
             </li>
-            <li>The time spent on the Application</li>
-            <li>The operating system you use on your mobile device</li>
+            <li>{m["pages.about.privacy.collection_time"]()}</li>
+            <li>{m["pages.about.privacy.collection_os"]()}</li>
           </ul>
           <br />
           <p>
-            The Service Provider may use the information you provided to contact you for account services, such as
-            password resets, but will not use the data.
+            {m["pages.about.privacy.collection_contact"]()}
           </p>
           <br />
           <p>
-            For a better experience, while using the Application, the Service Provider may require you to provide us
-            with certain personally identifiable information, including but not limited to your first and last name,
-            email address, and train trips. The information that the Service Provider request will be retained by them
-            and used as described in this privacy policy.
+            {m["pages.about.privacy.collection_pii"]()}
           </p>
           <br />
-          <h2>Log Files</h2>
+          <h2>{m["pages.about.privacy.log_files_heading"]()}</h2>
           <p>
-            Amtraker follows a standard procedure of using log files. These files log visitors when they visit websites.
-            All hosting companies do this and a part of hosting services' analytics. The information collected by log
-            files include internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time
-            stamp, referring/exit pages, and possibly the number of clicks. These are not linked to any information that
-            is personally identifiable. The purpose of the information is for analyzing trends, administering the site,
-            tracking users' movement on the website, and gathering demographic information.
+            {m["pages.about.privacy.log_files_body"]()}
           </p>
           <br />
-          <h2>Geolocation</h2>
+          <h2>{m["pages.about.privacy.geolocation_heading"]()}</h2>
           <p>
-            Upon consenting to sharing your location, the application may collect your device's location to display on
-            the map. This data does not leave your device.
+            {m["pages.about.privacy.geolocation_body"]()}
           </p>
           <br />
-          <h2>Third Party Access</h2>
+          <h2>{m["pages.about.privacy.third_party_heading"]()}</h2>
           <div>
             <p>
-              Please note that the Application utilizes third-party services that have their own Privacy Policy about
-              handling data. Below are the links to the Privacy Policy of the third-party service providers used by the
-              Application:
+              {m["pages.about.privacy.third_party_body"]()}
             </p>
             <ul>
               <li>
                 <a href="https://www.google.com/policies/privacy/" target="_blank" rel="noopener noreferrer">
-                  Google Play Services, Google Analytics
+                  {m["pages.about.privacy.third_party_google"]()}
                 </a>
               </li>
             </ul>
           </div>
           <br />
-          <p>The Service Provider may disclose User Provided and Automatically Collected Information:</p>
+          <p>{m["pages.about.privacy.disclosure_intro"]()}</p>
           <ul>
-            <li>as required by law, such as to comply with a subpoena, or similar legal process;</li>
+            <li>{m["pages.about.privacy.disclosure_law"]()}</li>
             <li>
-              when they believe in good faith that disclosure is necessary to protect their rights, protect your safety
-              or the safety of others, investigate fraud, or respond to a government request;
+              {m["pages.about.privacy.disclosure_good_faith"]()}
             </li>
             <li>
-              with their trusted services providers who work on their behalf, do not have an independent use of the
-              information we disclose to them, and have agreed to adhere to the rules set forth in this privacy
-              statement.
+              {m["pages.about.privacy.disclosure_providers"]()}
             </li>
           </ul>
           <p></p>
           <br />
-          <h2>Data Retention Policy</h2>
+          <h2>{m["pages.about.privacy.retention_heading"]()}</h2>
           <p>
-            The Service Provider will retain User Provided data for as long as you use the Application and for a
-            reasonable time thereafter. If you'd like them to delete User Provided Data that you have provided via the
-            Application, please contact them at amtraker@piemadd.com and they will respond in a reasonable time.
+            {m["pages.about.privacy.retention_body"]()}
           </p>
           <br />
-          <h2>Children</h2>
+          <h2>{m["pages.about.privacy.children_heading"]()}</h2>
           <p>
-            The Service Provider does not use the Application to knowingly solicit data from or market to children under
-            the age of 13.
+            {m["pages.about.privacy.children_body_1"]()}
           </p>
           <div>
             <br />
             <p>
-              The Application does not address anyone under the age of 13. The Service Provider does not knowingly
-              collect personally identifiable information from children under 13 years of age. In the case the Service
-              Provider discover that a child under 13 has provided personal information, the Service Provider will
-              immediately delete this from their servers. If you are a parent or guardian and you are aware that your
-              child has provided us with personal information, please contact the Service Provider
-              (amtraker@piemadd.com) so that they will be able to take the necessary actions.
+              {m["pages.about.privacy.children_body_2"]()}
             </p>
           </div>
           <br />
-          <h2>Security</h2>
+          <h2>{m["pages.about.privacy.security_heading"]()}</h2>
           <p>
-            The Service Provider is concerned about safeguarding the confidentiality of your information. The Service
-            Provider provides physical, electronic, and procedural safeguards to protect information the Service
-            Provider processes and maintains.
+            {m["pages.about.privacy.security_body"]()}
           </p>
           <br />
-          <h2>Changes</h2>
+          <h2>{m["pages.about.privacy.changes_heading"]()}</h2>
           <p>
-            This Privacy Policy may be updated from time to time for any reason. The Service Provider will notify you of
-            any changes to the Privacy Policy by updating this page with the new Privacy Policy. You are advised to
-            consult this Privacy Policy regularly for any changes, as continued use is deemed approval of all changes.
+            {m["pages.about.privacy.changes_body"]()}
           </p>
           <br />
-          <p>This privacy policy is effective as of 2025-12-29</p>
+          <p>{m["pages.about.privacy.effective_date"]({ date: "2025-12-29" })}</p>
           <br />
-          <h2>Your Consent</h2>
+          <h2>{m["pages.about.privacy.consent_heading"]()}</h2>
           <p>
-            By using the Application, you are consenting to the processing of your information as set forth in this
-            Privacy Policy now and as amended by us.
+            {m["pages.about.privacy.consent_body"]()}
           </p>
           <br />
-          <h2>Contact Us</h2>
+          <h2>{m["pages.about.privacy.contact_heading"]()}</h2>
           <p>
-            If you have any questions regarding privacy while using the Application, or have questions about the
-            practices, please contact the Service Provider via email at amtraker@piemadd.com.
+            {m["pages.about.privacy.contact_body"]()}
           </p>
         </section>
       </div>

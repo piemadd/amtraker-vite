@@ -5,6 +5,7 @@ import "./trains.css";
 import { useEffect } from "react";
 import settingsInit from "../../components/settingsInit";
 import stringToHash from "../../components/money/stringToHash";
+import { m } from "../../paraglide/messages.js";
 
 const TrainsByName = () => {
   const { trainName } = useParams();
@@ -57,25 +58,25 @@ const TrainsByName = () => {
     <>
       <img
         id='background'
-        alt='Amtrak network map.'
+        alt={m["common_strings.background_alt"]()}
         className={bgClass + ' terrabanner'}
         src={bgURL}
       ></img>
       <main>
         <section className='section-new'>
           <div>
-            <h3>Track the</h3>
+            <h3>{m["common_strings.track_the"]()}</h3>
             <h2>{trainName}</h2>
             {loading ? (
               <>
-                <h4>Loading train data...</h4>
+                <h4>{m["pages.trains.loading_train_data"]()}...</h4>
                 <Link to={-1}>
                   <button
                     style={{
                       marginTop: "8px",
                     }}
                   >
-                    Cancel
+                    {m["common_strings.cancel"]()}
                   </button>
                 </Link>
               </>
@@ -84,7 +85,7 @@ const TrainsByName = () => {
                 {trainData.length === 0 ? (
                   <>
                     <h4>
-                      There are no trains currently running with that name.
+                      {m["pages.trains.names.no_trains_with_name"]()}
                     </h4>
                     <Link to={-1}>
                       <button
@@ -92,13 +93,13 @@ const TrainsByName = () => {
                           marginTop: "8px",
                         }}
                       >
-                        Go Back
+                        {m["common_strings.go_back"]()}
                       </button>
                     </Link>
                   </>
                 ) : (
                   <>
-                    <h4>Choose your train number from the list:</h4>
+                    <h4>{m["pages.trains.names.choose_train_number"]()}</h4>
                     <select
                       name='trainNum'
                       id='trainNum'
@@ -121,7 +122,7 @@ const TrainsByName = () => {
                     </select>
                     <br />
                     <Link to={trainLink} replace={true}>
-                      <button>Track Train</button>
+                      <button>{m["common_strings.track_train"]()}</button>
                     </Link>
                   </>
                 )}

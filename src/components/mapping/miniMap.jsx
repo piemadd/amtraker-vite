@@ -11,6 +11,7 @@ import ManualStationPopup from "../stationBox/maualStationPopup.jsx";
 import ManualMultiplePopup from "../manualMultiplePopup.jsx";
 import settingsInit from "../settingsInit.js";
 import { Link } from "react-router";
+import { m } from "../../paraglide/messages.js";
 
 maplibregl.setWorkerUrl(workerUrl);
 
@@ -425,7 +426,7 @@ const MiniMap = ({
     >
       <div className="map-over">
         <div className="attribution">
-          <Link to={"/map"}>View Full Map</Link>
+          <Link to={"/map"}>{m["pages.map.view_full_map"]()}</Link>
         </div>
       </div>
     </div>

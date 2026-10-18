@@ -1,3 +1,4 @@
+import { m } from "../../paraglide/messages.js";
 export const hoursMinutesDaysDuration = (durationMinutesRaw = 0) => {
   const minutes = durationMinutesRaw;
   const hours = Math.floor(minutes / 60);
@@ -5,10 +6,10 @@ export const hoursMinutesDaysDuration = (durationMinutesRaw = 0) => {
 
   let finalString = '';
 
-  if (minutes < 1 && hours < 1) return '0m';
-  if (days > 0) finalString += `${days}d `;
-  if (hours % 24 > 0 || days > 0) finalString += `${hours % 24}h `;
-  if (minutes % 60 > 0 || days > 0) finalString += `${minutes % 60}m`;
+  if (minutes < 1 && hours < 1) return m["common_strings.time.minutes_short"]({ minutes: 0 });
+  if (days > 0) finalString += `${m["common_strings.time.days_short"]({ days })} `;
+  if (hours % 24 > 0 || days > 0) finalString += `${m["common_strings.time.hours_short"]({ hours: hours % 24 })} `;
+  if (minutes % 60 > 0 || days > 0) finalString += m["common_strings.time.minutes_short"]({ minutes: minutes % 60 });
 
   return finalString.trim();
 };

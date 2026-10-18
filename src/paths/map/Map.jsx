@@ -19,6 +19,7 @@ import ShareButton from "../../components/buttons/shareButton.jsx";
 import BaseButton from "../../components/buttons/baseButton.jsx";
 import Moneyyyyyyyy from "../../components/money/moneyyyyyyyy.jsx";
 import { autoAddTrainsSync } from "../../tools.jsx";
+import { m } from "../../paraglide/messages.js";
 
 maplibregl.setWorkerUrl(workerUrl);
 
@@ -53,10 +54,10 @@ const AmtrakerMap = () => {
   const mapRef = useRef(null);
   const mapContainerRef = useRef(null);
 
-  document.title = "Live Map - Amtraker";
+  document.title = m["pages.map.page_title"]();
   document
     .querySelector('meta[name="description"]')
-    .setAttribute("content", "View Amtrak, Brightline, and VIA Rail trains on the Amtraker train tracking map!");
+    .setAttribute("content", m["pages.map.meta_description"]());
   document
     .querySelector('meta[property="og:image"]')
     .setAttribute("content", "https://amtraker.com/content/images/amtraker-back.webp");
@@ -424,9 +425,9 @@ const AmtrakerMap = () => {
             const hasTrains = finalItems.find((item) => item.layer.id == "trains");
             const hasStations = finalItems.find((item) => item.layer.id == "stations");
 
-            let titleText = "Feature";
-            if (hasTrains && !hasStations) titleText = "Train";
-            if (!hasTrains && hasStations) titleText = "Station";
+            let titleText = "feature";
+            if (hasTrains && !hasStations) titleText = "train";
+            if (!hasTrains && hasStations) titleText = "station";
 
             setPopupInfo({ arrayType: "popup", titleText, finalItems, sourcePopup: popup });
             activatePopup(
@@ -543,14 +544,14 @@ const AmtrakerMap = () => {
             className="click noselect"
             style={{ paddingLeft: "32px", fontSize: "24px", fontWeight: 500 }}
           >
-            {query.length > 0 ? "Clear Search" : "Back"}
+            {query.length > 0 ? m["pages.map.clear_search"]() : m["common_strings.back"]()}
           </p>
           {shitsFucked ? (
-            <p>The Amtrak API seems to be having issues currently! Please try again later...</p>
+            <p>{m["common_strings.shitsfucked"]()}</p>
           ) : dataStale.stale ? (
             <p>
-              Warning: Data is stale. Trains were last updated on average {Math.floor(dataStale.avgLastUpdate / 60000)}{" "}
-              minutes ago.
+              {m["common_strings.warning"]()}{" "}
+              {m["common_strings.stale_data"]({ minutes: Math.floor(dataStale.avgLastUpdate / 60000) })}
             </p>
           ) : null}
           <div className="multiButtonHolder">
@@ -559,7 +560,7 @@ const AmtrakerMap = () => {
               onClick={() => navigate("/about#faq-map-icons-colors")}
               otherCssStyles={{ height: "75%", fontSize: "20px", lineHeight: "20px", paddingTop: "calc(0.5em - 2px)" }}
             />
-            <ShareButton navigatorOptions={{ title: "Amtraker Map", url: "https://amtraker.com/map" }} />
+            <ShareButton navigatorOptions={{ title: m["pages.map.share_title"](), url: "https://amtraker.com/map" }} />
             <BaseButton
               symbol="⟳"
               onClick={() => debounce(updateAllData)}
@@ -574,7 +575,7 @@ const AmtrakerMap = () => {
                 <input
                   type="text"
                   value={query}
-                  placeholder="Search..."
+                  placeholder={m["pages.map.search_placeholder"]()}
                   style={{ width: "100%", padding: "8px" }}
                   onChange={(e) => {
                     updateQuery(e.target.value);
@@ -585,7 +586,13 @@ const AmtrakerMap = () => {
               {popupInfo && popupInfo.arrayType == "popup" ? (
                 <div style={{ marginRight: "8px", display: "flex", flexDirection: "column", gap: "4px" }}>
                   <div className="train-box train-box-max-width">
-                    <div className="train-popup__header">Select a {popupInfo.titleText}:</div>
+                    <div className="train-popup__header">
+                      {{
+                        train: m["components.multiple_popup.select_train"],
+                        station: m["components.multiple_popup.select_station"],
+                        feature: m["components.multiple_popup.select_feature"]
+                      }[popupInfo.titleText]()}
+                    </div>
                   </div>
                   {popupInfo.finalItems.map((item) => {
                     switch (item.layer.id) {
@@ -670,7 +677,7 @@ const AmtrakerMap = () => {
                       className="train-box train-box-max-width mapalerts"
                       style={{ marginTop: "4px", marginBottom: "0px" }}
                     >
-                      <summary>Alerts</summary>
+                      <summary>{m["common_strings.alerts"]()}</summary>
                       <ul style={{ marginLeft: "24px" }}>
                         {popupInfo.alerts.map((alert, i) => {
                           return <li key={i}>{alert.message}</li>;
@@ -732,7 +739,7 @@ const AmtrakerMap = () => {
                     }}
                   />
                   <label>
-                    <b>Only Show Upcoming</b>
+                    <b>{m["common_strings.only_show_upcoming"]()}</b>
                   </label>
                 </div>
               ) : null}
@@ -882,7 +889,7 @@ const AmtrakerMap = () => {
                   setResultsAndRefreshMap(!currentShowAll, query);
                 }}
               >
-                {showAll ? "Show Saved" : "Show All"}
+                {showAll ? m["pages.map.show_saved"]() : m["pages.map.show_all"]()}
               </button>
             </div>
           </div>

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import PocketBase from 'pocketbase';
 import AtlasNav from "./nav";
 import { hoursMinutesDaysDuration } from './common';
+import { m } from "../../paraglide/messages.js";
 
 const pb = new PocketBase('https://pb.amtraker.com');
 
@@ -21,12 +22,12 @@ window.createRecordWithData = createRecordWithData;
 const AtlasAdd = () => {
   const navigate = useNavigate();
 
-  document.title = 'Amtraker Atlas : Add';
+  document.title = m["pages.atlas.add.page_title"]();
   document
     .querySelector('meta[name="description"]')
     .setAttribute(
       "content",
-      "Add a train to your Amtraker Atlas."
+      m["pages.atlas.add.meta_description"]()
     );
   document
     .querySelector('meta[property="og:image"]')
@@ -44,12 +45,13 @@ const AtlasAdd = () => {
   const [selectedRailroad, setSelectedRailroad] = useState("");
   const [selectedRunNumber, setSelectedRunNumber] = useState("");
   const [trainRouteName, setTrainRouteName] = useState("");
+  const [routeNotFound, setRouteNotFound] = useState(false);
   const [selectedStartStation, setSelectedStartStation] = useState("");
   const [selectedEndStation, setSelectedEndStation] = useState("");
   const [departureDate, setDepartureDate] = useState("");
   const [distanceMi, setDistanceMi] = useState(0);
   const [timeMin, setTimeMin] = useState(0);
-  const [loadingData, setLoadingData] = useState("Loading Routes Data...");
+  const [loadingData, setLoadingData] = useState(m["pages.atlas.add.loading_routes"]());
   const [loadedAtlasData, setLoadedAtlasData] = useState({
     amtrak: null,
     brightline: null,
@@ -63,8 +65,10 @@ const AtlasAdd = () => {
     ];
 
     if (!possibleRouteData) {
-      setTrainRouteName('Route Not Found')
+      setRouteNotFound(true)
+      setTrainRouteName(m["pages.atlas.add.route_not_found"]())
     } else {
+      setRouteNotFound(false)
       setTrainRouteName(possibleRouteData.routeLongName)
     };
 
@@ -79,13 +83,13 @@ const AtlasAdd = () => {
         setLoadingData(null);
       })
       .catch((e) => {
-        setLoadingData('There was an error loading routes data for Atlas. Please try again later.')
+        setLoadingData(m["pages.atlas.add.loading_routes_error"]())
       })
   }, []);
 
   useEffect(() => {
     if (!loadedAtlasData[selectedRailroad]) return; // no data yet
-    if (trainRouteName == 'Route Not Found' || selectedStartStation == "" || selectedEndStation == "") {
+    if (routeNotFound || selectedStartStation == "" || selectedEndStation == "") {
       setDistanceMi(0.00);
       setTimeMin(0.00);
       return;
@@ -131,7 +135,7 @@ const AtlasAdd = () => {
       <>
         <img
           id='background'
-          alt='Amtrak network map.'
+          alt={m["common_strings.background_alt"]()}
           className={bgClass + ' terrabanner'}
           src={bgURL}
         ></img>
@@ -152,7 +156,7 @@ const AtlasAdd = () => {
                 fontWeight: 500,
                }}
             >
-              Back
+              {m["common_strings.back"]()}
             </p>
           </div>
           <section className='section-trainPage'>
@@ -165,17 +169,17 @@ const AtlasAdd = () => {
                 gap: '4px',
                 maxWidth: '100%'
               }}>
-                <label htmlFor="atlas-add-railroad">Railroad</label>
+                <label htmlFor="atlas-add-railroad">{m["pages.atlas.add.railroad"]()}</label>
                 <select name="railroad" id="atlas-add-railroad" onChange={((e) => {
                   setSelectedRailroad(e.target.value)
                 })} >
-                  <option value="">[Select an option]</option>
+                  <option value="">{m["pages.atlas.add.select_option"]()}</option>
                   <option value="amtrak">Amtrak</option>
                   <option value="brightline">Brightline</option>
                   <option value="via_rail">VIA Rail</option>
                   <option value="goldrunner">Gold Runner</option>
                 </select>
-                <label htmlFor="atlas-add-train_number">Train Number</label>
+                <label htmlFor="atlas-add-train_number">{m["pages.atlas.add.train_number"]()}</label>
                 <input
                   name="train_number"
                   id="atlas-add-train_number"
@@ -183,9 +187,9 @@ const AtlasAdd = () => {
                   type="text"
                   disabled={selectedRailroad == ''}
                   className={selectedRailroad == '' ? 'disabledButton' : ''}
-                  placeholder={selectedRailroad == '' ? 'No railroad selected' : ''}
+                  placeholder={selectedRailroad == '' ? m["pages.atlas.add.no_railroad_selected"]() : ''}
                 />
-                <label htmlFor="atlas-add-train_route_name">Route Name</label>
+                <label htmlFor="atlas-add-train_route_name">{m["pages.atlas.add.route_name"]()}</label>
                 <input
                   name="train_route_name"
                   id="atlas-add-train_route_name"
@@ -194,16 +198,16 @@ const AtlasAdd = () => {
                   className='disabledButton'
                   value={trainRouteName}
                 />
-                {trainRouteName == 'Route Not Found' ?
-                  <label style={{ maxWidth: '300px' }}>The train number you entered does not exist in our database. Length and time calculations will not be done, but you can enter those values automatically.</label>
+                {routeNotFound ?
+                  <label style={{ maxWidth: '300px' }}>{m["pages.atlas.add.route_not_found_explanation"]()}</label>
                   : null}
-                <label htmlFor="atlas-add-start_code">Start Station</label>
+                <label htmlFor="atlas-add-start_code">{m["pages.atlas.add.start_station"]()}</label>
                 <select name="start_code" id="atlas-add-start_code" onChange={e => setSelectedStartStation(e.target.value)}>
                   {
                     loadedAtlasData[selectedRailroad]?.routeDataFinal[
                       loadedAtlasData[selectedRailroad]?.tripToRoute[selectedRunNumber]
                     ] ? <>
-                      <option value="">[Select an option]</option>
+                      <option value="">{m["pages.atlas.add.select_option"]()}</option>
                       {
                         loadedAtlasData[selectedRailroad]
                           .routeDataFinal[
@@ -214,7 +218,7 @@ const AtlasAdd = () => {
                           .map((stopCode) => <option value={stopCode}>{loadedAtlasData[selectedRailroad].staticStopsData[stopCode].stopName} ({stopCode})</option>)
                       }
                     </> : (selectedRailroad != '' ? <>
-                      <option value="">[Select an option]</option>
+                      <option value="">{m["pages.atlas.add.select_option"]()}</option>
                       {
                         Object.values(loadedAtlasData[selectedRailroad].staticStopsData)
                           .map((stop) => <option value={stop.stopID}>{stop.stopName} ({stop.stopID})</option>)
@@ -222,13 +226,13 @@ const AtlasAdd = () => {
                     </> : null)
                   }
                 </select>
-                <label htmlFor="atlas-add-end_code">End Station</label>
+                <label htmlFor="atlas-add-end_code">{m["pages.atlas.add.end_station"]()}</label>
                 <select name="end_code" id="atlas-add-end_code" onChange={e => setSelectedEndStation(e.target.value)}>
                   {
                     loadedAtlasData[selectedRailroad]?.routeDataFinal[
                       loadedAtlasData[selectedRailroad]?.tripToRoute[selectedRunNumber]
                     ] ? <>
-                      <option value="">[Select an option]</option>
+                      <option value="">{m["pages.atlas.add.select_option"]()}</option>
                       {
                         loadedAtlasData[selectedRailroad]
                           .routeDataFinal[
@@ -240,7 +244,7 @@ const AtlasAdd = () => {
                           .map((stopCode) => <option value={stopCode}>{loadedAtlasData[selectedRailroad].staticStopsData[stopCode].stopName} ({stopCode})</option>)
                       }
                     </> : (selectedRailroad != '' ? <>
-                      <option value="">[Select an option]</option>
+                      <option value="">{m["pages.atlas.add.select_option"]()}</option>
                       {
                         Object.values(loadedAtlasData[selectedRailroad].staticStopsData)
                           .map((stop) => <option value={stop.stopID}>{stop.stopName} ({stop.stopID})</option>)
@@ -248,17 +252,17 @@ const AtlasAdd = () => {
                     </> : null)
                   }
                 </select>
-                <label htmlFor="atlas-add-departure_date">Departure Date</label>
+                <label htmlFor="atlas-add-departure_date">{m["pages.atlas.add.departure_date"]()}</label>
                 <input name="departure_date" id="atlas-add-departure_date" type="date" onChange={e => setDepartureDate(e.target.value)} />
 
-                <label htmlFor="atlas-add-length_mi">Length (mi)</label>
-                {trainRouteName == 'Route Not Found' ?
+                <label htmlFor="atlas-add-length_mi">{m["pages.atlas.length_mi"]()}</label>
+                {routeNotFound ?
                   <input name="departure_date" id="atlas-add-length_mi" onChange={(e) => setDistanceMi(e.target.value)} value={distanceMi} /> :
                   <input name="departure_date" id="atlas-add-length_mi" disabled value={distanceMi} />
                 }
 
-                <label htmlFor="atlas-add-time_min">Time (min)</label>
-                {trainRouteName == 'Route Not Found' ?
+                <label htmlFor="atlas-add-time_min">{m["pages.atlas.add.time_min"]()}</label>
+                {routeNotFound ?
                   <input name="time_min" id="atlas-add-time_min" onChange={(e) => setTimeMin(e.target.value)} value={timeMin} /> :
                   <input name="time_min" id="atlas-add-time_min" disabled value={timeMin} />
                 }
@@ -283,10 +287,10 @@ const AtlasAdd = () => {
                     "time_minutes": timeMin,
                   }, true);
                   navigate('/atlas', { replace: true });
-                }}>Submit</button> :
+                }}>{m["common_strings.submit"]()}</button> :
                 <>
-                <label>Ensure all fields have been filled out.</label>
-                <button disabled className="disabledButton">Submit</button>
+                <label>{m["pages.atlas.add.fill_all_fields"]()}</label>
+                <button disabled className="disabledButton">{m["common_strings.submit"]()}</button>
                 </>
             }
           </section>

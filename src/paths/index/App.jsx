@@ -62,10 +62,10 @@ const App = () => {
 
     if (/Android/.test(userAgent) && sessionStorage.getItem("has_android_twa_referrer") !== "true") {
       // we are in a browser on android
-      return { url: "https://play.google.com/store/apps/details?id=com.amtrak.piero", text: "Download App" };
+      return { url: "https://play.google.com/store/apps/details?id=com.amtrak.piero", text: m["common_strings.download_app"]() };
     } else if (/(iPhone|iPod|iPad)(?!.*PWAShell)/.test(userAgent)) {
       // we are in a browser on ios
-      return { url: "https://apps.apple.com/us/app/amtraker-track-amtrak-via/id6758903803", text: "Download App" };
+      return { url: "https://apps.apple.com/us/app/amtraker-track-amtrak-via/id6758903803", text: m["common_strings.download_app"]() };
     } else return null;
   }, []);
 
@@ -191,7 +191,7 @@ const App = () => {
 
   return (
     <>
-      <img id="background" alt="Amtrak network map." className={bgClass + " terrabanner"} src={bgURL}></img>
+      <img id="background" alt={m["common_strings.background_alt"]()} className={bgClass + " terrabanner"} src={bgURL}></img>
       {downloadURL ? (
         <a href={downloadURL.url} target="_blank">
           <button
@@ -237,8 +237,8 @@ const App = () => {
           {isStale ? (
             <div className="stale">
               <p>
-                <span className="stale-text">Warning:</span> Data is stale. Trains were last updated on average{" "}
-                {Math.floor(timeSinceLastUpdate / 60000)} minutes ago.
+                <span className="stale-text">{m["common_strings.warning"]()}</span>{" "}
+                {m["common_strings.stale_data"]({ minutes: Math.floor(timeSinceLastUpdate / 60000) })}
               </p>
             </div>
           ) : null}
@@ -250,7 +250,7 @@ const App = () => {
                 return (
                   <p key={`gaa_${i}`}>
                     <span className="stale-text">
-                      Alert {i + 1} as of {alert.lastUpdated.toLocaleTimeString()}:
+                      {m["pages.index.alert_header"]({ number: i + 1, time: alert.lastUpdated.toLocaleTimeString() })}
                     </span>{" "}
                     {alert.text}
                   </p>
@@ -261,8 +261,7 @@ const App = () => {
           {shitsFucked ? (
             <div className="stale">
               <p>
-                <span className="stale-text">Warning:</span> The Amtrak API seems to be having issues currently! Please
-                try again later...
+                <span className="stale-text">{m["common_strings.warning"]()}</span> {m["common_strings.shitsfucked"]()}
               </p>
             </div>
           ) : null}
@@ -280,7 +279,7 @@ const App = () => {
             ) : savedTrainsObjects.length > 0 ? (
               <>
                 {savedTrainsObjects}
-                <p>{m["pages.index.data_last_fetched"]()} at: {new Date(siteLastFetched).toLocaleTimeString()}</p>
+                <p>{m["pages.index.data_last_fetched"]()}: {new Date(siteLastFetched).toLocaleTimeString()}</p>
               </>
             ) : (
               <div>{m["pages.index.no_saved_trains"]()}</div>

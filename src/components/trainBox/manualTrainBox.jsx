@@ -1,5 +1,6 @@
 import "../../paths/trains/trains.css";
 import { toHoursAndMinutesLate } from "../../tools";
+import { m } from "../../paraglide/messages.js";
 
 const ManualTrainBox = ({
   train,
@@ -37,13 +38,13 @@ const ManualTrainBox = ({
   );
   const arr = new Date(currentStation.arr ?? currentStation.dep ?? null);
 
-  let trainTimely = "On Time";
+  let trainTimely = m["common_strings.train_status.on_time"]();
 
-  if (schArr.valueOf() > arr.valueOf()) trainTimely = "Early";
-  if (schArr.valueOf() < arr.valueOf()) trainTimely = "Late";
-  if (!schArr || !arr) trainTimely = "No Data";
+  if (schArr.valueOf() > arr.valueOf()) trainTimely = m["common_strings.train_status.early"]();
+  if (schArr.valueOf() < arr.valueOf()) trainTimely = m["common_strings.train_status.late"]();
+  if (!schArr || !arr) trainTimely = m["common_strings.train_status.no_data"]();
   if (train.eventCode === train.destCode && currentStation.status !== "Enroute")
-    trainTimely = "Complete";
+    trainTimely = m["common_strings.train_status.complete"]();
 
   return loading ? (
     <div
@@ -53,7 +54,7 @@ const ManualTrainBox = ({
       }}
       onClick={onClick}
     >
-      Loading train...
+      {m["common_strings.loading_train"]()}...
     </div>
   ) : (
     <div
@@ -89,15 +90,15 @@ const ManualTrainBox = ({
         )}
       </div>
       <p>
-        {train.origCode} to {train.destCode}
+        {m["common_strings.origin_to_destination"]({ origin: train.origCode, destination: train.destCode })}
       </p>
       <p>
-        {toHoursAndMinutesLate(arr, schArr)} - {train.velocity.toFixed(1)} mph
+        {toHoursAndMinutesLate(arr, schArr)} - {m["common_strings.speed_mph"]({ speed: train.velocity.toFixed(1) })}
       </p>
       {overrideEventCode ? (
         <>
           <p>
-            <b>{currentStation.code} ETA:</b>{" "}
+            <b>{m["components.train_box.eta"]({ code: currentStation.code })}</b>{" "}
             {new Intl.DateTimeFormat([], {
               hour: "numeric",
               minute: "numeric",
@@ -111,14 +112,14 @@ const ManualTrainBox = ({
             }).format(arr)}
           </p>
           {currentStation.platform.length > 0 ? (
-            <p>[Track {currentStation.platform}]</p>
+            <p>[{m["common_strings.track_number"]({ platform: currentStation.platform })}]</p>
           ) : null}
         </>
       ) : (
         <p>
-          Next: {train.eventName} ({train.eventCode})
+          {m["components.train_box.next_stop"]({ name: train.eventName, code: train.eventCode })}
           {currentStation.platform.length > 0
-            ? ` [Track ${currentStation.platform}]`
+            ? ` [${m["common_strings.track_number"]({ platform: currentStation.platform })}]`
             : null}
         </p>
       )}
@@ -128,7 +129,7 @@ const ManualTrainBox = ({
           marginBottom: -4,
         }}>
           <p className='greyed'>
-            {currentStation.status === "Departed" ? "Dep" : "Est Dep"}:
+            {currentStation.status === "Departed" ? m["common_strings.time.dep"]() : m["common_strings.time.est_dep"]()}:
           </p>
           <p className=''>
             {new Intl.DateTimeFormat([], {
@@ -141,7 +142,7 @@ const ManualTrainBox = ({
       ) : null}
       {train.statusMsg === "SERVICE DISRUPTION" ? (
         <p>
-          <b>Service Disruption</b>
+          <b>{m["common_strings.service_disruption"]()}</b>
         </p>
       ) : null}
     </div>

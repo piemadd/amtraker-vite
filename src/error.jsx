@@ -1,5 +1,6 @@
 import { useRouteError } from "react-router";
 import { useEffect } from "react";
+import { m } from "./paraglide/messages.js";
 
 export default function ErrorPage() {
   const error = useRouteError();
@@ -43,30 +44,29 @@ export default function ErrorPage() {
 
     return (
       <div id="error-page">
-        <h2>Cache Update</h2>
-        <p>Amtraker's cache needed to be updated.</p>
+        <h2>{m["pages.error.cache_update_title"]()}</h2>
+        <p>{m["pages.error.cache_update_body"]()}</p>
         <br />
-        <p>Reloading in 2 seconds...</p>
+        <p>{m["pages.error.reloading"]()}</p>
       </div>
     );
   } else if (error.status === 404) {
     return (
       <div id="error-page">
-        <h1>404 - Not Found</h1>
-        <p>Seems like that page doens't exist.</p>
+        <h1>{m["pages.error.not_found_title"]()}</h1>
+        <p>{m["pages.error.not_found_body"]()}</p>
         <p>
-          Please copy the following and email it to me (piero@piemadd.com) so I can debug and fix the issue. Thanks, and
-          apologies for the inconvenience.
+          {m["pages.error.report_request"]()}
         </p>
         <p>
           <i>
-            Current path: {window.location.href}
+            {m["pages.error.current_path"]({ path: window.location.href })}
             <br />
-            Current version: v3.21.19
+            {m["pages.error.current_version"]({ version: "v3.21.19" })}
             <br />
-            Current date and time (UTC): {new Date().toUTCString()}
+            {m["pages.error.current_time_utc"]({ time: new Date().toUTCString() })}
             <br />
-            Current date and time (local): {new Date().toLocaleString()}
+            {m["pages.error.current_time_local"]({ time: new Date().toLocaleString() })}
             <br />
             {errorString}
           </i>
@@ -76,22 +76,21 @@ export default function ErrorPage() {
   } else {
     return (
       <div id="error-page">
-        <h1>Oops!</h1>
-        <p>Sorry, an unexpected error has occurred.</p>
+        <h1>{m["pages.error.oops_title"]()}</h1>
+        <p>{m["pages.error.oops_body"]()}</p>
         <p>
-          Please copy the following and email it to me (piero@piemadd.com) so I can debug and fix the issue. Thanks, and
-          apologies for the inconvenience.
+          {m["pages.error.report_request"]()}
         </p>
         <br />
         <p>
           <i>
-            Current path: {window.location.href}
+            {m["pages.error.current_path"]({ path: window.location.href })}
             <br />
-            Current version: v3.21.19
+            {m["pages.error.current_version"]({ version: "v3.21.19" })}
             <br />
-            Current date and time (UTC): {new Date().toUTCString()}
+            {m["pages.error.current_time_utc"]({ time: new Date().toUTCString() })}
             <br />
-            Current date and time (local): {new Date().toLocaleString()}
+            {m["pages.error.current_time_local"]({ time: new Date().toLocaleString() })}
             <br />
             {errorString}
           </i>

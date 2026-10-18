@@ -5,6 +5,7 @@ import Fuse from "fuse.js";
 import settingsInit from "../../components/settingsInit";
 import stringToHash from "../../components/money/stringToHash";
 import Moneyyyyyyyy from "../../components/money/moneyyyyyyyy";
+import { m } from "../../paraglide/messages.js";
 
 const debounce = (func, timeout = 300) => {
   let timer;
@@ -19,10 +20,10 @@ const debounce = (func, timeout = 300) => {
 const StationsList = () => {
   const navigate = useNavigate();
 
-  document.title = "Stations - Amtraker";
+  document.title = m["pages.stations.list.page_title"]();
   document
     .querySelector('meta[name="description"]')
-    .setAttribute("content", "View a list of all Amtrak, Brightline, and VIA Rail Train stations with Amtraker!");
+    .setAttribute("content", m["pages.stations.list.meta_description"]());
   document
     .querySelector('meta[property="og:image"]')
     .setAttribute("content", "https://amtraker.com/content/images/amtraker-back.webp");
@@ -83,7 +84,7 @@ const StationsList = () => {
 
   return (
     <>
-      <img id="background" alt="Amtrak network map." className={bgClass + " terrabanner"} src={bgURL}></img>
+      <img id="background" alt={m["common_strings.background_alt"]()} className={bgClass + " terrabanner"} src={bgURL}></img>
       <div className="trainPage">
         <div className="header-trainpage">
           <p
@@ -97,11 +98,11 @@ const StationsList = () => {
             className="click"
             style={{ paddingLeft: "32px", fontSize: "24px", fontWeight: 500 }}
           >
-            Back
+            {m["common_strings.back"]()}
           </p>
           {shitsFucked ? (
             <>
-              <p>The Amtrak API seems to be having issues currently! Please try again later...</p>
+              <p>{m["common_strings.shitsfucked"]()}</p>
               <p></p>
             </>
           ) : null}
@@ -111,7 +112,7 @@ const StationsList = () => {
             id="searchbox"
             type="text"
             value={query}
-            placeholder="Search for a station"
+            placeholder={m["pages.stations.list.search_placeholder"]()}
             onChange={(e) => {
               updateQuery(e.target.value);
               debounce(
@@ -156,7 +157,7 @@ const StationsList = () => {
                               </span>
                             ) : (
                               <span className="greyed">
-                                Address unavailable.
+                                {m["common_strings.address_unavailable"]()}
                                 <br />
                                 {station.tz}
                               </span>
@@ -170,7 +171,7 @@ const StationsList = () => {
               </>
             ) : (
               <div className="station-box">
-                <p>Loading station data...</p>
+                <p>{m["common_strings.loading_station_data"]()}...</p>
               </div>
             )}
           </div>

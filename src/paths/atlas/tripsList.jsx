@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { hoursMinutesDaysDuration } from "./common";
 import { Link } from "react-router";
 import Moneyyyyyyyy from "../../components/money/moneyyyyyyyy";
+import { m } from "../../paraglide/messages.js";
 
 const TripsList = ({ pb, numberOfRecords, pageNumber, setTripsMeta, dontUseFilter, sortBy = "-departure_date" }) => {
   if (!pb) return null;
@@ -29,9 +30,9 @@ const TripsList = ({ pb, numberOfRecords, pageNumber, setTripsMeta, dontUseFilte
   if (tripsList.length == 0) {
     return (
       <>
-        <label>You don't have any trips recorded yet, try adding one!</label>
+        <label>{m["pages.atlas.trips.no_trips"]()}</label>
         <Link to={"/atlas/add"} replace={true}>
-          <button className="links">Add Trip</button>
+          <button className="links">{m["pages.atlas.add_trip"]()}</button>
         </Link>
       </>
     );
@@ -43,11 +44,11 @@ const TripsList = ({ pb, numberOfRecords, pageNumber, setTripsMeta, dontUseFilte
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Stations</th>
-            <th scope="col">Date</th>
-            <th scope="col">Length (mi)</th>
-            <th scope="col">Duration</th>
-            <th scope="col">Delete</th>
+            <th scope="col">{m["pages.atlas.trips.stations"]()}</th>
+            <th scope="col">{m["pages.atlas.trips.date"]()}</th>
+            <th scope="col">{m["pages.atlas.length_mi"]()}</th>
+            <th scope="col">{m["pages.atlas.trips.duration"]()}</th>
+            <th scope="col">{m["pages.atlas.trips.delete"]()}</th>
           </tr>
         </thead>
         <tbody>
@@ -66,7 +67,7 @@ const TripsList = ({ pb, numberOfRecords, pageNumber, setTripsMeta, dontUseFilte
                 <td>{hoursMinutesDaysDuration(trip.time_minutes)}</td>
                 <td
                   onClick={async () => {
-                    const confirmationRes = confirm("This action is irreversible. Press OK to continue with deletion.");
+                    const confirmationRes = confirm(m["pages.atlas.trips.delete_confirm"]());
                     if (confirmationRes) await pb.collection("trips").delete(trip.id);
                     setActionTime(Date.now());
                   }}

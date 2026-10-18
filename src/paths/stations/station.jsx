@@ -8,6 +8,7 @@ import settingsInit from "../../components/settingsInit";
 import ShareButton from "../../components/buttons/shareButton";
 import MiniMap from "../../components/mapping/miniMap";
 import Moneyyyyyyyy from "../../components/money/moneyyyyyyyy";
+import { m } from "../../paraglide/messages.js";
 
 const StationPage = () => {
   const { stationCode } = useParams();
@@ -32,12 +33,12 @@ const StationPage = () => {
     });
   }, [stationCode]);
 
-  document.title = `${stationData && !loading ? stationData.name : stationCode} Station - Amtraker`;
+  document.title = m["pages.stations.station.page_title"]({ station: stationData && !loading ? stationData.name : stationCode });
   document
     .querySelector('meta[name="description"]')
     .setAttribute(
       "content",
-      `Track trains to and from ${stationData && !loading ? stationData.name : stationCode} Station using Amtraker!`
+      m["pages.stations.station.meta_description"]({ station: stationData && !loading ? stationData.name : stationCode })
     );
   document
     .querySelector('meta[property="og:image"]')
@@ -61,7 +62,7 @@ const StationPage = () => {
   if (isInvalid)
     return (
       <>
-        <img id="background" alt="Amtrak network map." className={bgClass + " terrabanner"} src={bgURL}></img>
+        <img id="background" alt={m["common_strings.background_alt"]()} className={bgClass + " terrabanner"} src={bgURL}></img>
         <div className="trainPage">
           <div className="header-trainpage">
             <p
@@ -75,12 +76,12 @@ const StationPage = () => {
               className="click"
               style={{ paddingLeft: "32px", fontSize: "24px", fontWeight: 500 }}
             >
-              Back
+              {m["common_strings.back"]()}
             </p>
             <div className="multiButtonHolder">
               <ShareButton
                 navigatorOptions={{
-                  title: `Track trains at ${stationData.name} (${stationData.code} with Amtraker!`,
+                  title: m["pages.stations.station.share_title"]({ name: stationData.name, code: stationData.code }),
                   url: `https://amtraker.com/stations/${stationData.code}`
                 }}
               />
@@ -96,13 +97,10 @@ const StationPage = () => {
               }}
             >
               <div className="trainInnerContentScroll">
-                <h2>{stationCode} Station</h2>
+                <h2>{m["pages.stations.station.heading"]({ code: stationCode })}</h2>
                 <p>
-                  This station could not be found in Amtraker's Database. Please ensure '{stationCode}' is a valid
-                  station code.
-                  {stationCode.length > 4
-                    ? " Station codes are always 3-4 characters in length, like 'CHI' or 'TRTO'."
-                    : null}
+                  {m["pages.stations.station.not_found"]({ code: stationCode })}
+                  {stationCode.length > 4 ? " " + m["pages.stations.station.code_length_hint"]() : null}
                 </p>
               </div>
             </section>
@@ -113,7 +111,7 @@ const StationPage = () => {
 
   return (
     <>
-      <img id="background" alt="Amtrak network map." className={bgClass + " terrabanner"} src={bgURL}></img>
+      <img id="background" alt={m["common_strings.background_alt"]()} className={bgClass + " terrabanner"} src={bgURL}></img>
       <div className="trainPage">
         <div className="header-trainpage">
           <p
@@ -127,12 +125,12 @@ const StationPage = () => {
             className="click"
             style={{ paddingLeft: "32px", fontSize: "24px", fontWeight: 500 }}
           >
-            Back
+            {m["common_strings.back"]()}
           </p>
           <div className="multiButtonHolder">
             <ShareButton
               navigatorOptions={{
-                title: `Track trains at ${stationData.name} (${stationData.code} with Amtraker!`,
+                title: m["pages.stations.station.share_title"]({ name: stationData.name, code: stationData.code }),
                 url: `https://amtraker.com/stations/${stationData.code}`
               }}
             />
@@ -162,7 +160,7 @@ const StationPage = () => {
                   </span>
                 ) : (
                   <span className="greyed">
-                    Address unavailable.
+                    {m["common_strings.address_unavailable"]()}
                     <br />
                     {stationData.tz}
                   </span>
@@ -170,7 +168,7 @@ const StationPage = () => {
               </p>
             </div>
             <div className="trainInnerContentScroll">
-              <h2 style={{ marginTop: "0px" }}>Trains</h2>
+              <h2 style={{ marginTop: "0px" }}>{m["pages.stations.station.trains"]()}</h2>
               <div
                 className="train-box train-box-max-width"
                 style={{
@@ -192,7 +190,7 @@ const StationPage = () => {
                   }}
                 />
                 <label>
-                  <b>Only Show Upcoming</b>
+                  <b>{m["common_strings.only_show_upcoming"]()}</b>
                 </label>
               </div>
               <div className="stations fullStationsList">
@@ -258,13 +256,13 @@ const StationPage = () => {
                         })
                     ) : (
                       <div className="station-box">
-                        <p>No trains active for this station</p>
+                        <p>{m["pages.stations.station.no_trains"]()}</p>
                       </div>
                     )}
                   </>
                 ) : (
                   <div className="station-box">
-                    <p>Loading station data...</p>
+                    <p>{m["common_strings.loading_station_data"]()}...</p>
                   </div>
                 )}
               </div>

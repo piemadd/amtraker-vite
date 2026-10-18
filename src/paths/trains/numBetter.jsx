@@ -7,6 +7,7 @@ import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import MiniMap from "../../components/mapping/miniMap";
 import ShareButton from "../../components/buttons/shareButton";
 import Moneyyyyyyyy from "../../components/money/moneyyyyyyyy";
+import { m } from "../../paraglide/messages.js";
 
 const providerShorts = { Amtrak: "AMTK", Via: "VIA", Brightline: "BLNE" };
 
@@ -120,21 +121,25 @@ const BetterTrainsByNumber = () => {
   }, [trainNum, navigate]);
 
   if (trainData[0] && !loading) {
-    document.title = `${trainData[0].provider} Train ${trainData[0].trainNumRaw} Tracker - Amtraker`;
+    document.title = m["pages.trains.page_title"]({ provider: trainData[0].provider, trainNum: trainData[0].trainNumRaw });
     document
       .querySelector('meta[name="description"]')
       .setAttribute(
         "content",
-        `Track the ${trainData[0].provider} ${trainData[0].routeName}, Train Number ${trainData[0].trainNumRaw}, using Amtraker!`
+        m["pages.trains.meta_description"]({
+          provider: trainData[0].provider,
+          routeName: trainData[0].routeName,
+          trainNum: trainData[0].trainNumRaw
+        })
       );
     document
       .querySelector('meta[property="og:image"]')
       .setAttribute("content", `https://ogimg.transitstat.us/images?service=amtraker&type=train&code=${trainNum}`);
   } else {
-    document.title = `Train ${trainNum} Tracker - Amtraker`;
+    document.title = m["pages.trains.page_title_generic"]({ trainNum });
     document
       .querySelector('meta[name="description"]')
-      .setAttribute("content", `Track train ${trainNum} using Amtraker!`);
+      .setAttribute("content", m["pages.trains.meta_description_generic"]({ trainNum }));
     document
       .querySelector('meta[property="og:image"]')
       .setAttribute("content", `https://ogimg.transitstat.us/images?service=amtraker&type=train&code=${trainNum}`);
@@ -157,7 +162,7 @@ const BetterTrainsByNumber = () => {
 
   return (
     <>
-      <img id="background" alt="Amtrak network map." className={bgClass + " terrabanner"} src={bgURL}></img>
+      <img id="background" alt={m["common_strings.background_alt"]()} className={bgClass + " terrabanner"} src={bgURL}></img>
       <div className="trainPage">
         {!searchParams.has("oembed") ? (
           <div className="header-trainpage">
@@ -172,12 +177,12 @@ const BetterTrainsByNumber = () => {
               className="click"
               style={{ paddingLeft: "32px", fontSize: "24px", fontWeight: 500 }}
             >
-              Back
+              {m["common_strings.back"]()}
             </p>
             <div className="multiButtonHolder">
               <ShareButton
                 navigatorOptions={{
-                  title: `Track the ${trainData[0]?.provider} ${trainData[0]?.routeName} Train with Amtraker!`,
+                  title: m["pages.trains.share_title"]({ provider: trainData[0]?.provider, routeName: trainData[0]?.routeName }),
                   url: `https://amtraker.com/trains/${trainData[0]?.trainID.split("-").join("/")}`
                 }}
               />
@@ -199,27 +204,34 @@ const BetterTrainsByNumber = () => {
             {trainData.length > 0 ? (
               <>
                 <h2 style={{ marginTop: -12, marginBottom: -12 }}>
-                  {trainData[0].provider} Train {trainData[0].trainNumRaw}
+                  {m["pages.trains.by_number.heading"]({ provider: trainData[0].provider, trainNum: trainData[0].trainNumRaw })}
                 </h2>
                 <p style={{ lineHeight: 1.4 }}>
-                  Track Amtrak's {trainData[0].routeName} from {trainData[0].stations[0].name} Station to{" "}
-                  {trainData[0].stations.at(-1).name} Station. Please select a currently tracking train:
+                  {m["pages.trains.by_number.route_description"]({
+                    routeName: trainData[0].routeName,
+                    origin: trainData[0].stations[0].name,
+                    destination: trainData[0].stations.at(-1).name
+                  })}{" "}
+                  {m["pages.trains.by_number.select_train_prompt"]()}
                 </p>
               </>
             ) : altTrainData ? (
               <>
                 <h2 style={{ marginTop: -12, marginBottom: -12 }}>
-                  {altTrainData.provider} Train {altTrainData.trainNumRaw}
+                  {m["pages.trains.by_number.heading"]({ provider: altTrainData.provider, trainNum: altTrainData.trainNumRaw })}
                 </h2>
                 <p style={{ lineHeight: 1.4 }}>
-                  Track Amtrak's {altTrainData.routeName} from {altTrainData.stops[0].name} Station to{" "}
-                  {altTrainData.stops.at(-1).name} Station.
+                  {m["pages.trains.by_number.route_description"]({
+                    routeName: altTrainData.routeName,
+                    origin: altTrainData.stops[0].name,
+                    destination: altTrainData.stops.at(-1).name
+                  })}
                 </p>
                 <br />
               </>
             ) : (
               <>
-                <h2 style={{ marginTop: -12, marginBottom: -12 }}>Train {trainNum}</h2>
+                <h2 style={{ marginTop: -12, marginBottom: -12 }}>{m["pages.trains.by_number.heading_generic"]({ trainNum })}</h2>
               </>
             )}
             {!loading ? (
@@ -256,29 +268,28 @@ const BetterTrainsByNumber = () => {
 
                     <p>
                       <small>
-                        This train is not currently tracking, but is scheduled to depart {altTrainData.stops[0].name} at{" "}
-                        {new Date(altTrainData.nextDep).toLocaleTimeString([], {
-                          timeZone: altTrainData.stops[0].tz,
-                          timeStyle: "short"
-                        })}{" "}
-                        on{" "}
-                        {new Date(altTrainData.nextDep).toLocaleDateString([], {
-                          timeZone: altTrainData.stops[0].tz,
-                          dateStyle: "long"
+                        {m["pages.trains.by_number.scheduled_departure"]({
+                          station: altTrainData.stops[0].name,
+                          time: new Date(altTrainData.nextDep).toLocaleTimeString([], {
+                            timeZone: altTrainData.stops[0].tz,
+                            timeStyle: "short"
+                          }),
+                          date: new Date(altTrainData.nextDep).toLocaleDateString([], {
+                            timeZone: altTrainData.stops[0].tz,
+                            dateStyle: "long"
+                          })
                         })}
-                        .
                       </small>
                     </p>
                     <p>
-                      <small>Trains become trackable approximately 1 hour before initial departure.</small>
+                      <small>{m["pages.trains.by_number.trackable_note"]()}</small>
                     </p>
                     <Moneyyyyyyyy />
                   </>
                 ) : (
                   <>
                     <p>
-                      This train number does not exist within our live or scheduled data. Please try again later. We
-                      apologize for the inconvenience.
+                      {m["pages.trains.by_number.does_not_exist"]()}
                     </p>
                     {!searchParams.has("oembed") ? (
                       <button
@@ -290,14 +301,14 @@ const BetterTrainsByNumber = () => {
                           }
                         }}
                       >
-                        Go Back
+                        {m["common_strings.go_back"]()}
                       </button>
                     ) : null}
                   </>
                 )}
               </div>
             ) : (
-              <p>Loading train...</p>
+              <p>{m["common_strings.loading_train"]()}...</p>
             )}
           </section>
           {window.innerWidth >= 900 && !loading ? (

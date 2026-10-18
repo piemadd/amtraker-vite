@@ -2,18 +2,19 @@ import { useNavigate } from "react-router";
 import { useState } from "react";
 import PocketBase from "pocketbase";
 import AtlasNav from "./nav";
+import { m } from "../../paraglide/messages.js";
 
 const pb = new PocketBase("https://pb.amtraker.com");
 
 const AtlasDeleteAccount = () => {
   const navigate = useNavigate();
 
-  document.title = 'Amtraker Atlas : Delete Account';
+  document.title = m["pages.atlas.delete_account.page_title"]();
   document
     .querySelector('meta[name="description"]')
     .setAttribute(
       "content",
-      "Delete your Amtraker Atlas account."
+      m["pages.atlas.delete_account.meta_description"]()
     );
   document
     .querySelector('meta[property="og:image"]')
@@ -29,7 +30,7 @@ const AtlasDeleteAccount = () => {
       <>
         <img
           id="background"
-          alt="Amtrak network map."
+          alt={m["common_strings.background_alt"]()}
           className={bgClass + " terrabanner"}
           src={bgURL}
         ></img>
@@ -50,13 +51,11 @@ const AtlasDeleteAccount = () => {
                 fontWeight: 500,
                }}
             >
-              Back
+              {m["common_strings.back"]()}
             </p>
             <p
               onClick={() => {
-                const confirmationRes = confirm(
-                  "Are you sure you want to log out?",
-                );
+                const confirmationRes = confirm(m["common_strings.log_out_confirm"]());
                 if (!confirmationRes) return;
                 pb.authStore.clear();
                 navigate(0);
@@ -68,7 +67,7 @@ const AtlasDeleteAccount = () => {
                 fontWeight: 500,
                }}
             >
-              Log Out
+              {m["common_strings.log_out"]()}
             </p>
           </div>
           <section className="section-trainPage">
@@ -76,18 +75,16 @@ const AtlasDeleteAccount = () => {
               currentRoute={"delete_account"}
               userData={pb.authStore.record}
             />
-            <h2>Account Deletion</h2>
+            <h2>{m["pages.atlas.account_deletion"]()}</h2>
             <label>
-              Deleting your account is instantaneous and irreversible. You will
-              be prompted upon clicking "Delete Account" and upon confirming,
-              all of your data will be gone forever.
+              {m["pages.atlas.delete_account.explanation"]()}
             </label>
             <button
               className="links"
               onClick={async () => {
                 if (
                   confirm(
-                    'Are you sure you would like you want to delete your account? Again, this is instantaneous and irreversible. Press "OK" if so.',
+                    m["pages.atlas.delete_account.confirm"](),
                   )
                 ) {
                   await pb.collection("users").delete(pb.authStore.record.id);
@@ -98,7 +95,7 @@ const AtlasDeleteAccount = () => {
                 }
               }}
             >
-              Delete Account
+              {m["pages.atlas.delete_account.button"]()}
             </button>
           </section>
         </div>

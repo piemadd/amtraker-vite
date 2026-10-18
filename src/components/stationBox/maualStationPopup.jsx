@@ -1,8 +1,9 @@
+import { m } from "../../paraglide/messages.js";
 const ManualStationPopup = ({ station, loading = false, showLink = true, idLink = false }) => {
   if (!station) return null;
 
   return loading ? (
-    <div>Loading station...</div>
+    <div>{m["common_strings.loading_station"]()}...</div>
   ) : (
     <div className='train-popup'>
       <div className='train-popup__header' style={{
@@ -12,12 +13,12 @@ const ManualStationPopup = ({ station, loading = false, showLink = true, idLink 
         {station.tz}
       </div>
       <div className='train-popup__info train-popup__updated greyed'>
-        {station.trains.length} Train{station.trains.length > 1 ? 's' : ''} Tracking
+        {m["components.station_popup.trains_tracking"]({ count: station.trains.length })}
       </div>
 
       {showLink ?
         <div className='train-popup__info'>
-          <a href={!idLink ? `#redirect_to:/stations/${station.code}` : `#${station.code}`}>{!idLink ? 'View Trains' : 'Scroll to Stop'}</a>
+          <a href={!idLink ? `#redirect_to:/stations/${station.code}` : `#${station.code}`}>{!idLink ? m["components.station_popup.view_trains"]() : m["components.station_popup.scroll_to_stop"]()}</a>
         </div> :
         null}
     </div>
