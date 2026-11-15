@@ -4,7 +4,7 @@ import ManualStationBox from "../../components/stationBox/manualStationBox";
 import stringToHash from "../../components/money/stringToHash";
 import "./trains.css";
 import settingsInit from "../../components/settingsInit";
-import { initAlwaysTracked, addAlwaysTracked, removeAlwaysTracked, getSavedTrain, manageSavedTrain, autoAddTrainsSync } from "../../tools";
+import { initAlwaysTracked, addAlwaysTracked, removeAlwaysTracked, getSavedTrain, manageSavedTrain, autoAddTrains } from "../../tools";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import ShareButton from "../../components/buttons/shareButton";
 import MiniMap from "../../components/mapping/miniMap";
@@ -80,7 +80,6 @@ const BetterTrainPage = () => {
 
   useEffect(() => {
     initAlwaysTracked();
-    autoAddTrainsSync();
     console.log("alwaysTrackedAmtrakerV3:", localStorage.getItem("alwaysTrackedAmtrakerV3"));
     console.log("trainNum:", trainNum);
 
@@ -90,6 +89,12 @@ const BetterTrainPage = () => {
     }
 
     setIsSaved(getSavedTrain(trainNum, trainDate));
+
+    // adding always tracked trains needs the train ids, so this waits for the dataManager's data
+    // only ever flips to saved, so it won't undo the checkbox if it was unchecked while loading
+    autoAddTrains().then(() => {
+      if (getSavedTrain(trainNum, trainDate)) setIsSaved(true);
+    });
   }, []);
 
   const [bgURL, setBGURL] = useState("/content/images/amtraker-back.webp");

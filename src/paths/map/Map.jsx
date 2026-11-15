@@ -35,6 +35,22 @@ const debounce = (func, timeout = 300) => {
   };
 };
 
+// saved trains (long ids) that are currently tracked. needs the dataManager's data, so only call once it's loaded
+const getValidSavedTrains = () => {
+  if (!localStorage.getItem("savedTrainsAmtrakerV3")) {
+    localStorage.setItem("savedTrainsAmtrakerV3", "");
+  }
+
+  autoAddTrainsSync();
+
+  return localStorage
+    .getItem("savedTrainsAmtrakerV3")
+    .split(",")
+    .filter((n) => window.dataManager.getTrainExistsLongID(n));
+};
+
+const toShortTrainIDs = (longTrainIDs) => longTrainIDs.map((n) => `${n.split("-")[0]}-${n.split("-")[2]}`);
+
 const AmtrakerMap = () => {
   const [allData, setAllData] = useState([]);
   const [allIDs, setAllIDs] = useState([]);
@@ -125,29 +141,10 @@ const AmtrakerMap = () => {
     });
   }, []);
 
-  const savedTrains = useMemo(() => {
-    if (!localStorage.getItem("savedTrainsAmtrakerV3")) {
-      localStorage.setItem("savedTrainsAmtrakerV3", "");
-    }
+  // filled in once the initial train data has loaded (see the getTrains call in map initialization)
+  const [savedTrains, setSavedTrains] = useState([]);
 
-    autoAddTrainsSync();
-
-    const trains = localStorage
-      .getItem("savedTrainsAmtrakerV3")
-      .split(",")
-      .filter((n) => window.dataManager.getTrainExistsLongID(n));
-
-    if (trains.length === 0) {
-      setShowAll(true);
-    }
-
-    return trains;
-  }, []);
-
-  const savedTrainsShortID = useMemo(() => {
-    if (savedTrains.length === 0) return [];
-    return savedTrains.map((n) => `${n.split("-")[0]}-${n.split("-")[2]}`);
-  }, [savedTrains]);
+  const savedTrainsShortID = useMemo(() => toShortTrainIDs(savedTrains), [savedTrains]);
 
   const updateAllData = () => {
     // resetting
@@ -337,6 +334,13 @@ const AmtrakerMap = () => {
 
         const allTrains = Object.values(data).flat();
 
+        // data is loaded by now, so saved trains can be checked against it
+        // locals are used below since this effect's closure only ever sees the first render's state
+        const initialSavedTrains = getValidSavedTrains();
+        const initialSavedTrainsShortID = toShortTrainIDs(initialSavedTrains);
+        setSavedTrains(initialSavedTrains);
+        if (initialSavedTrains.length === 0) setShowAll(true);
+
         setAllData(allTrains);
         setResults(allTrains);
         setAllIDs([...allTrains.map((train) => train.trainID), ...allTrains.map((train) => train.trainNum)]);
@@ -387,12 +391,12 @@ const AmtrakerMap = () => {
             },
             paint: {},
             filter:
-              savedTrains.length == 0
+              initialSavedTrains.length == 0
                 ? ["any", true]
                 : [
                     "any",
                     ...allTrains
-                      .filter((n) => savedTrainsShortID.includes(n.trainID))
+                      .filter((n) => initialSavedTrainsShortID.includes(n.trainID))
                       .map((n) => ["==", "trainID", n.trainID])
                   ]
           });
