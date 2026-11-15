@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useMemo, useRef } from "react";
-import { useNavigate, Link, useLocation } from "react-router-dom";
-import maplibregl from "maplibre-gl";
+import { useNavigate, Link, useLocation } from "react-router";
+import * as maplibregl from "maplibre-gl";
+import workerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url";
 import "./Map.css";
 import "maplibre-gl/dist/maplibre-gl.css";
 import Fuse from "fuse.js";
@@ -18,6 +19,11 @@ import ShareButton from "../../components/buttons/shareButton.jsx";
 import BaseButton from "../../components/buttons/baseButton.jsx";
 import Moneyyyyyyyy from "../../components/money/moneyyyyyyyy.jsx";
 import { autoAddTrainsSync } from "../../tools.jsx";
+import { m } from "../../paraglide/messages.js";
+import LanguageButtons from "../../components/buttons/languageButtons";
+import UnitsButton from "../../components/buttons/unitsButton";
+
+maplibregl.setWorkerUrl(workerUrl);
 
 const debounce = (func, timeout = 300) => {
   let timer;
@@ -28,6 +34,22 @@ const debounce = (func, timeout = 300) => {
     }, timeout);
   };
 };
+
+// saved trains (long ids) that are currently tracked. needs the dataManager's data, so only call once it's loaded
+const getValidSavedTrains = () => {
+  if (!localStorage.getItem("savedTrainsAmtrakerV3")) {
+    localStorage.setItem("savedTrainsAmtrakerV3", "");
+  }
+
+  autoAddTrainsSync();
+
+  return localStorage
+    .getItem("savedTrainsAmtrakerV3")
+    .split(",")
+    .filter((n) => window.dataManager.getTrainExistsLongID(n));
+};
+
+const toShortTrainIDs = (longTrainIDs) => longTrainIDs.map((n) => `${n.split("-")[0]}-${n.split("-")[2]}`);
 
 const AmtrakerMap = () => {
   const [allData, setAllData] = useState([]);
@@ -50,10 +72,10 @@ const AmtrakerMap = () => {
   const mapRef = useRef(null);
   const mapContainerRef = useRef(null);
 
-  document.title = "Live Map - Amtraker";
+  document.title = m["pages.map.page_title"]();
   document
     .querySelector('meta[name="description"]')
-    .setAttribute("content", "View Amtrak, Brightline, and VIA Rail trains on the Amtraker train tracking map!");
+    .setAttribute("content", m["pages.map.meta_description"]());
   document
     .querySelector('meta[property="og:image"]')
     .setAttribute("content", "https://amtraker.com/content/images/amtraker-back.webp");
@@ -119,29 +141,10 @@ const AmtrakerMap = () => {
     });
   }, []);
 
-  const savedTrains = useMemo(() => {
-    if (!localStorage.getItem("savedTrainsAmtrakerV3")) {
-      localStorage.setItem("savedTrainsAmtrakerV3", "");
-    }
+  // filled in once the initial train data has loaded (see the getTrains call in map initialization)
+  const [savedTrains, setSavedTrains] = useState([]);
 
-     autoAddTrainsSync();
-
-    const trains = localStorage
-      .getItem("savedTrainsAmtrakerV3")
-      .split(",")
-      .filter((n) => window.dataManager.getTrainExistsLongID(n));
-
-    if (trains.length === 0) {
-      setShowAll(true);
-    }
-
-    return trains;
-  }, []);
-
-  const savedTrainsShortID = useMemo(() => {
-    if (savedTrains.length === 0) return [];
-    return savedTrains.map((n) => `${n.split("-")[0]}-${n.split("-")[2]}`);
-  }, [savedTrains]);
+  const savedTrainsShortID = useMemo(() => toShortTrainIDs(savedTrains), [savedTrains]);
 
   const updateAllData = () => {
     // resetting
@@ -302,7 +305,7 @@ const AmtrakerMap = () => {
 
         setStationsData(allStations);
 
-        mapRef.current.on("load", () => {
+        mapRef.current.on("style.load", () => {
           //adding data to the map
           mapRef.current.getSource("stations").setData({
             type: "FeatureCollection",
@@ -331,13 +334,20 @@ const AmtrakerMap = () => {
 
         const allTrains = Object.values(data).flat();
 
+        // data is loaded by now, so saved trains can be checked against it
+        // locals are used below since this effect's closure only ever sees the first render's state
+        const initialSavedTrains = getValidSavedTrains();
+        const initialSavedTrainsShortID = toShortTrainIDs(initialSavedTrains);
+        setSavedTrains(initialSavedTrains);
+        if (initialSavedTrains.length === 0) setShowAll(true);
+
         setAllData(allTrains);
         setResults(allTrains);
         setAllIDs([...allTrains.map((train) => train.trainID), ...allTrains.map((train) => train.trainNum)]);
         setAllNames(allTrains.map((train) => train.routeName));
         if (fuse) fuse.setCollection(allTrains);
 
-        mapRef.current.on("load", () => {
+        mapRef.current.on("style.load", () => {
           //adding data to the map
           mapRef.current.getSource("trains").setData({
             type: "FeatureCollection",
@@ -381,19 +391,19 @@ const AmtrakerMap = () => {
             },
             paint: {},
             filter:
-              savedTrains.length == 0
+              initialSavedTrains.length == 0
                 ? ["any", true]
                 : [
                     "any",
                     ...allTrains
-                      .filter((n) => savedTrainsShortID.includes(n.trainID))
+                      .filter((n) => initialSavedTrainsShortID.includes(n.trainID))
                       .map((n) => ["==", "trainID", n.trainID])
                   ]
           });
         });
       });
 
-      mapRef.current.on("load", async () => {
+      mapRef.current.on("style.load", async () => {
         mapRef.current.on("click", (e) => {
           const bbox = [
             [e.point.x - 4, e.point.y - 4], // southwest
@@ -421,9 +431,9 @@ const AmtrakerMap = () => {
             const hasTrains = finalItems.find((item) => item.layer.id == "trains");
             const hasStations = finalItems.find((item) => item.layer.id == "stations");
 
-            let titleText = "Feature";
-            if (hasTrains && !hasStations) titleText = "Train";
-            if (!hasTrains && hasStations) titleText = "Station";
+            let titleText = "feature";
+            if (hasTrains && !hasStations) titleText = "train";
+            if (!hasTrains && hasStations) titleText = "station";
 
             setPopupInfo({ arrayType: "popup", titleText, finalItems, sourcePopup: popup });
             activatePopup(
@@ -443,11 +453,7 @@ const AmtrakerMap = () => {
 
           switch (feature.layer.id) {
             case "trains":
-              const train = {
-                ...feature.properties,
-                stations: JSON.parse(feature.properties.stations),
-                alerts: JSON.parse(feature.properties.alerts)
-              };
+              const train = feature.properties;
 
               setPopupInfo(train);
               activatePopup(
@@ -459,7 +465,7 @@ const AmtrakerMap = () => {
               );
               break;
             case "stations":
-              const station = { ...feature.properties, trains: JSON.parse(feature.properties.trains) };
+              const station = feature.properties;
               setPopupInfo(station);
               activatePopup(
                 mapRef,
@@ -544,23 +550,25 @@ const AmtrakerMap = () => {
             className="click noselect"
             style={{ paddingLeft: "32px", fontSize: "24px", fontWeight: 500 }}
           >
-            {query.length > 0 ? "Clear Search" : "Back"}
+            {query.length > 0 ? m["pages.map.clear_search"]() : m["common_strings.back"]()}
           </p>
           {shitsFucked ? (
-            <p>The Amtrak API seems to be having issues currently! Please try again later...</p>
+            <p>{m["common_strings.shitsfucked"]()}</p>
           ) : dataStale.stale ? (
             <p>
-              Warning: Data is stale. Trains were last updated on average {Math.floor(dataStale.avgLastUpdate / 60000)}{" "}
-              minutes ago.
+              {m["common_strings.warning"]()}{" "}
+              {m["common_strings.stale_data"]({ minutes: Math.floor(dataStale.avgLastUpdate / 60000) })}
             </p>
           ) : null}
           <div className="multiButtonHolder">
+            <UnitsButton headerStyle={true} />
+            <LanguageButtons headerStyle={true} />
             <BaseButton
               symbol="?"
               onClick={() => navigate("/about#faq-map-icons-colors")}
               otherCssStyles={{ height: "75%", fontSize: "20px", lineHeight: "20px", paddingTop: "calc(0.5em - 2px)" }}
             />
-            <ShareButton navigatorOptions={{ title: "Amtraker Map", url: "https://amtraker.com/map" }} />
+            <ShareButton navigatorOptions={{ title: m["pages.map.share_title"](), url: "https://amtraker.com/map" }} />
             <BaseButton
               symbol="⟳"
               onClick={() => debounce(updateAllData)}
@@ -575,7 +583,7 @@ const AmtrakerMap = () => {
                 <input
                   type="text"
                   value={query}
-                  placeholder="Search..."
+                  placeholder={m["pages.map.search_placeholder"]()}
                   style={{ width: "100%", padding: "8px" }}
                   onChange={(e) => {
                     updateQuery(e.target.value);
@@ -586,7 +594,13 @@ const AmtrakerMap = () => {
               {popupInfo && popupInfo.arrayType == "popup" ? (
                 <div style={{ marginRight: "8px", display: "flex", flexDirection: "column", gap: "4px" }}>
                   <div className="train-box train-box-max-width">
-                    <div className="train-popup__header">Select a {popupInfo.titleText}:</div>
+                    <div className="train-popup__header">
+                      {{
+                        train: m["components.multiple_popup.select_train"],
+                        station: m["components.multiple_popup.select_station"],
+                        feature: m["components.multiple_popup.select_feature"]
+                      }[popupInfo.titleText]()}
+                    </div>
                   </div>
                   {popupInfo.finalItems.map((item) => {
                     switch (item.layer.id) {
@@ -597,11 +611,7 @@ const AmtrakerMap = () => {
                             className="train-box train-box-max-width"
                             style={{ cursor: "pointer" }}
                             onClick={(e) => {
-                              const train = {
-                                ...item.properties,
-                                stations: JSON.parse(item.properties.stations),
-                                alerts: JSON.parse(item.properties.alerts)
-                              };
+                              const train = item.properties;
 
                               setPopupInfo(train);
                               popupInfo.sourcePopup.remove();
@@ -638,7 +648,7 @@ const AmtrakerMap = () => {
                             className="train-box train-box-max-width"
                             style={{ cursor: "pointer" }}
                             onClick={(e) => {
-                              const station = { ...item.properties, trains: JSON.parse(item.properties.trains) };
+                              const station = item.properties;
                               setPopupInfo(station);
                               popupInfo.sourcePopup.remove();
                               activatePopup(
@@ -675,7 +685,7 @@ const AmtrakerMap = () => {
                       className="train-box train-box-max-width mapalerts"
                       style={{ marginTop: "4px", marginBottom: "0px" }}
                     >
-                      <summary>Alerts</summary>
+                      <summary>{m["common_strings.alerts"]()}</summary>
                       <ul style={{ marginLeft: "24px" }}>
                         {popupInfo.alerts.map((alert, i) => {
                           return <li key={i}>{alert.message}</li>;
@@ -737,7 +747,7 @@ const AmtrakerMap = () => {
                     }}
                   />
                   <label>
-                    <b>Only Show Upcoming</b>
+                    <b>{m["common_strings.only_show_upcoming"]()}</b>
                   </label>
                 </div>
               ) : null}
@@ -832,19 +842,16 @@ const AmtrakerMap = () => {
                     .map((train, i) => {
                       return (
                         <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "4px",
-                            marginRight: "8px"
-                          }}
+                          style={{ display: "flex", flexDirection: "column", gap: "4px", marginRight: "8px" }}
                           key={train.trainID}
                         >
+                          {/*}
                           {i > 0 && (i - 6) % 10 == 0 ? (
                             <div className="train-box train-box-max-width">
                               <Moneyyyyyyyy sizeName="mobile_banner" noOuter={true} />
                             </div>
                           ) : null}
+                           */}
                           <ManualTrainBox
                             train={train}
                             maxWidth={true}
@@ -892,7 +899,7 @@ const AmtrakerMap = () => {
                   setResultsAndRefreshMap(!currentShowAll, query);
                 }}
               >
-                {showAll ? "Show Saved" : "Show All"}
+                {showAll ? m["pages.map.show_saved"]() : m["pages.map.show_all"]()}
               </button>
             </div>
           </div>

@@ -1,20 +1,22 @@
 import "./App.css";
 import { useState, useEffect, useMemo } from "react";
 import stringToHash from "../../components/money/stringToHash";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import settingsInit from "../../components/settingsInit";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import { autoAddTrains } from "../../tools";
 import Moneyyyyyyyy from "../../components/money/moneyyyyyyyy";
+import { m } from "../../paraglide/messages.js";
+import LanguageButtons from "../../components/buttons/languageButtons";
+import UnitsButton from "../../components/buttons/unitsButton";
+import { getIntlLocale } from "../../components/intlLocale.js";
 
 const App = () => {
-  document.title = "Amtraker";
+  document.title = m["common_strings.amtraker_title"]();
   document
     .querySelector('meta[name="description"]')
     .setAttribute(
-      "content",
-      "Amtraker is a fast, lightweight, and easy to use Amtrak, Brightline, and VIA Rail Train Tracker."
-    );
+      "content", m["common_strings.amtraker_meta_description"]());
   document
     .querySelector('meta[property="og:image"]')
     .setAttribute("content", "https://amtraker.com/content/images/amtraker-back.webp");
@@ -63,10 +65,10 @@ const App = () => {
 
     if (/Android/.test(userAgent) && sessionStorage.getItem("has_android_twa_referrer") !== "true") {
       // we are in a browser on android
-      return { url: "https://play.google.com/store/apps/details?id=com.amtrak.piero", text: "Download App" };
+      return { url: "https://play.google.com/store/apps/details?id=com.amtrak.piero", text: m["common_strings.download_app"]() };
     } else if (/(iPhone|iPod|iPad)(?!.*PWAShell)/.test(userAgent)) {
       // we are in a browser on ios
-      return { url: "https://apps.apple.com/us/app/amtraker-track-amtrak-via/id6758903803", text: "Download App" };
+      return { url: "https://apps.apple.com/us/app/amtraker-track-amtrak-via/id6758903803", text: m["common_strings.download_app"]() };
     } else return null;
   }, []);
 
@@ -192,7 +194,7 @@ const App = () => {
 
   return (
     <>
-      <img id="background" alt="Amtrak network map." className={bgClass + " terrabanner"} src={bgURL}></img>
+      <img id="background" alt={m["common_strings.background_alt"]()} className={bgClass + " terrabanner"} src={bgURL}></img>
       {downloadURL ? (
         <a href={downloadURL.url} target="_blank">
           <button
@@ -227,6 +229,10 @@ const App = () => {
       >
         ⟳
       </button>
+      <div style={{ bottom: "8px", right: "64px", position: "absolute", display: "flex", gap: "8px" }}>
+        <UnitsButton />
+        <LanguageButtons />
+      </div>
       <main>
         {/*<h2 className='welcome-to'>Welcome to</h2>*/}
         <div className="titleArea">
@@ -238,8 +244,8 @@ const App = () => {
           {isStale ? (
             <div className="stale">
               <p>
-                <span className="stale-text">Warning:</span> Data is stale. Trains were last updated on average{" "}
-                {Math.floor(timeSinceLastUpdate / 60000)} minutes ago.
+                <span className="stale-text">{m["common_strings.warning"]()}</span>{" "}
+                {m["common_strings.stale_data"]({ minutes: Math.floor(timeSinceLastUpdate / 60000) })}
               </p>
             </div>
           ) : null}
@@ -251,7 +257,7 @@ const App = () => {
                 return (
                   <p key={`gaa_${i}`}>
                     <span className="stale-text">
-                      Alert {i + 1} as of {alert.lastUpdated.toLocaleTimeString()}:
+                      {m["pages.index.alert_header"]({ number: i + 1, time: alert.lastUpdated.toLocaleTimeString(getIntlLocale()) })}
                     </span>{" "}
                     {alert.text}
                   </p>
@@ -262,8 +268,7 @@ const App = () => {
           {shitsFucked ? (
             <div className="stale">
               <p>
-                <span className="stale-text">Warning:</span> The Amtrak API seems to be having issues currently! Please
-                try again later...
+                <span className="stale-text">{m["common_strings.warning"]()}</span> {m["common_strings.shitsfucked"]()}
               </p>
             </div>
           ) : null}
@@ -274,53 +279,48 @@ const App = () => {
             </p>
           </div>
           */}
-          <h2 style={{ fontWeight: 500, fontSize: "1.2rem" }}>Saved Trains</h2>
+          <h2 style={{ fontWeight: 500, fontSize: "1.2rem" }}>{m["pages.index.saved_trains"]()}</h2>
           <div className="savedTrains">
             {loading ? (
-              <div className="loading">Loading...</div>
+              <div className="loading">{m["common_strings.loading"]()}...</div>
             ) : savedTrainsObjects.length > 0 ? (
               <>
                 {savedTrainsObjects}
-                <p>Data Last Fetched at: {new Date(siteLastFetched).toLocaleTimeString()}</p>
+                <p>{m["pages.index.data_last_fetched"]()}: {new Date(siteLastFetched).toLocaleTimeString(getIntlLocale())}</p>
               </>
             ) : (
-              <div>No Saved Trains</div>
+              <div>{m["pages.index.no_saved_trains"]()}</div>
             )}
           </div>
         </section>
-        <h3 style={{ margin: "-4px 0px 0px 0px" }}>or</h3>
+        <h3 style={{ margin: "-4px 0px 0px 0px" }}>{m['common_strings.or']()}</h3>
         <div className="links">
           <Link to={"/trains"}>
-            <button className="root">Trains List</button>
+            <button className="root">{m["pages.index.trains_list"]()}</button>
           </Link>
 
           <Link to={"/stations"}>
-            <button className="root">Stations List</button>
+            <button className="root">{m["pages.index.stations_list"]()}</button>
           </Link>
         </div>
         <div className="links">
           <Link to={"/map"}>
-            <button className="root">Live Map</button>
+            <button className="root">{m["pages.index.live_map"]()}</button>
           </Link>
           <Link to={"/atlas"}>
-            <button className="root">Atlas</button>
+            <button className="root">{m["pages.index.atlas"]()}</button>
           </Link>
         </div>
 
         <section className="footer section-border">
-          <p>Amtraker v3.21.19</p>
+          <p>Amtraker v3.22.0</p>
           <div>
             <Link to="/about">
-              <p>About/Settings/Privacy</p>
+              <p>{m["pages.index.about"]()}/<wbr />{m["pages.index.settings"]()}/<wbr />{m["pages.index.privacy"]()}</p>
             </Link>
-            {/*}
-            <Link to="/about">
-              <p>About</p>
-            </Link>
-            {*/}
             <p>
               <a href="https://api.amtraker.com/docs" target="_blank">
-                API Docs
+                {m["pages.index.api_docs"]()}
               </a>
             </p>
           </div>

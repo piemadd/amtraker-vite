@@ -1,4 +1,4 @@
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router";
 import { useEffect, useState, useMemo } from "react";
 import "./trains.css"; //fuck it we ball
 import Fuse from "fuse.js";
@@ -6,6 +6,9 @@ import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import settingsInit from "../../components/settingsInit";
 import stringToHash from "../../components/money/stringToHash";
 import Moneyyyyyyyy from "../../components/money/moneyyyyyyyy";
+import { m } from "../../paraglide/messages.js";
+import LanguageButtons from "../../components/buttons/languageButtons";
+import UnitsButton from "../../components/buttons/unitsButton";
 
 //import ErrorData from "../../data/error.json";
 
@@ -22,10 +25,10 @@ const debounce = (func, timeout = 300) => {
 const TrainsList = () => {
   const navigate = useNavigate();
 
-  document.title = `All Trains - Amtraker`;
+  document.title = m["pages.trains.list.page_title"]();
   document
     .querySelector('meta[name="description"]')
-    .setAttribute("content", "View a list of all Amtrak, Brightline, and VIA Rail Trains with Amtraker!");
+    .setAttribute("content", m["pages.trains.list.meta_description"]());
   document
     .querySelector('meta[property="og:image"]')
     .setAttribute("content", "https://amtraker.com/content/images/amtraker-back.webp");
@@ -112,7 +115,7 @@ const TrainsList = () => {
 
   return (
     <>
-      <img id="background" alt="Amtrak network map." className={bgClass + " terrabanner"} src={bgURL}></img>
+      <img id="background" alt={m["common_strings.background_alt"]()} className={bgClass + " terrabanner"} src={bgURL}></img>
       <div className="trainPage">
         <div className="header-trainpage">
           <p
@@ -126,21 +129,25 @@ const TrainsList = () => {
             className="click"
             style={{ paddingLeft: "32px", fontSize: "24px", fontWeight: 500 }}
           >
-            Back
+            {m["common_strings.back"]()}
           </p>
           {shitsFucked ? (
             <>
-              <p>The Amtrak API seems to be having issues currently! Please try again later...</p>
+              <p>{m["common_strings.shitsfucked"]()}</p>
               <p></p>
             </>
           ) : null}
+          <div className="multiButtonHolder">
+            <UnitsButton headerStyle={true} />
+            <LanguageButtons headerStyle={true} />
+          </div>
         </div>
         <section className="section-trainPage">
           <input
             id="searchbox"
             type="text"
             value={query}
-            placeholder="Search for a train"
+            placeholder={m["pages.trains.list.search_placeholder"]()}
             onChange={(e) => {
               updateQuery(e.target.value);
               debounce(setSearchResults(e.target.value, agencyFilter));
@@ -154,11 +161,11 @@ const TrainsList = () => {
                   style={{ backgroundColor: agencyFilter == key ? "rgba(255, 255, 255, 0.25)" : null }}
                   onClick={(e) => {
                     console.log(e.target);
-                    setAgencyFilter(e.target.innerText);
-                    debounce(setSearchResults(query, e.target.innerText));
+                    setAgencyFilter(key);
+                    debounce(setSearchResults(query, key));
                   }}
                 >
-                  {key}
+                  {key == "All" ? m["pages.trains.list.filter_all"]() : key}
                 </button>
               );
             })}
@@ -184,7 +191,7 @@ const TrainsList = () => {
               </>
             ) : (
               <div className="station-box">
-                <p>Loading train data...</p>
+                <p>{m["pages.trains.loading_train_data"]()}...</p>
               </div>
             )}
           </div>

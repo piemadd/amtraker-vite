@@ -1,6 +1,10 @@
 import { toHoursAndMinutesLate } from "../../tools";
+import { m } from "../../paraglide/messages.js";
+import { useUnits, formatSpeed } from "../units.js";
+import { getIntlLocale } from "../intlLocale.js";
 
 const ManualTrainPopup = ({ train, showLink = true, idLink = false }) => {
+  const units = useUnits();
   if (!train) return null;
 
   const currentStation = train.stations.find(
@@ -12,17 +16,17 @@ const ManualTrainPopup = ({ train, showLink = true, idLink = false }) => {
       paddingRight: '16px'
     }}>{train.routeName}</div>
     {train.statusMsg === "SERVICE DISRUPTION" ? (
-      <div className='train-popup__header'>Service Disruption</div>
+      <div className='train-popup__header'>{m["common_strings.service_disruption"]()}</div>
     ) : null}
     <div className='train-popup__info train-popup__updated greyed'>
-      {train.origCode} to {train.destCode}
+      {m["common_strings.origin_to_destination"]({ origin: train.origCode, destination: train.destCode })}
     </div>
     <div className='train-popup__info train-popup__updated greyed'>
-      {train.velocity.toFixed(2)} mph {train.heading}
+      {formatSpeed(train.velocity, 2, units)} {train.heading}
     </div>
     <div className='train-popup__info train-popup__updated greyed'>
-      Updated:{" "}
-      {new Intl.DateTimeFormat([], {
+      {m["components.train_popup.updated"]()}{" "}
+      {new Intl.DateTimeFormat(getIntlLocale(), {
         hour: "numeric",
         minute: "numeric",
         timeZoneName: "short",
@@ -37,12 +41,12 @@ const ManualTrainPopup = ({ train, showLink = true, idLink = false }) => {
           ? toHoursAndMinutesLate(new Date(currentStation.arr), new Date(currentStation.schArr))
           : toHoursAndMinutesLate(new Date(currentStation.dep), new Date(currentStation.schDep))}
       </span>{" "}
-      to {currentStation.code}
+      {m["components.train_popup.to_station"]({ code: currentStation.code })}
     </div>
     <div className='train-popup__info train-popup__updated greyed'>
-      Estimated: {new Date(
+      {m["components.train_popup.estimated"]()} {new Date(
         currentStation.arr ?? currentStation.dep ?? null
-      ).toLocaleTimeString([], {
+      ).toLocaleTimeString(getIntlLocale(), {
         hour: "numeric",
         minute: "numeric",
         timeZoneName: "short",
@@ -60,7 +64,7 @@ const ManualTrainPopup = ({ train, showLink = true, idLink = false }) => {
 
             console.log('done')
           })}
-        >{!idLink ? 'View More' : 'Scroll to Train'}</a>
+        >{!idLink ? m["components.train_popup.view_more"]() : m["components.train_popup.scroll_to_train"]()}</a>
       </div>
       : null}
   </div>

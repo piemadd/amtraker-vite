@@ -1,0 +1,355 @@
+key,en,fr,es
+common_strings.amtraker_title,Amtraker,Amtraker,Amtraker
+common_strings.amtraker_meta_description,"Amtraker is a fast, lightweight, and easy to use Amtrak, Brightline, and VIA Rail Train Tracker.","Amtraker est un outil de suivi des trains d'Amtrak, de Brightline et de VIA Rail rapide, léger et facile à utiliser.","Amtraker es un rastreador de trenes de Amtrak, Brightline y VIA Rail rápido, ligero y fácil de usar."
+common_strings.loading,Loading,Chargement,Cargando
+common_strings.or,or,ou,o
+common_strings.back,Back,Retour,Regresar
+common_strings.shitsfucked,The Amtrak API seems to be having issues currently! Please try again later...,L'API d'Amtrak semble éprouver des difficultés présentement! Veuillez réessayer plus tard...,¡Parece que la API de Amtrak tiene problemas en este momento! Inténtalo de nuevo más tarde...
+common_strings.background_alt,Amtrak network map.,Carte du réseau d'Amtrak.,Mapa de la red de Amtrak.
+common_strings.warning,Warning:,Attention :,Aviso:
+common_strings.stale_data,Data is stale. Trains were last updated on average {minutes} minutes ago.,"Les données ne sont pas à jour. En moyenne, les trains ont été mis à jour il y a {minutes} minutes.","Los datos no están actualizados. En promedio, los trenes se actualizaron hace {minutes} minutos."
+common_strings.go_back,Go Back,Retour,Regresar
+common_strings.cancel,Cancel,Annuler,Cancelar
+common_strings.submit,Submit,Soumettre,Enviar
+common_strings.track_train,Track Train,Suivre le train,Rastrear tren
+common_strings.track_the,Track the,Suivez le,Rastrea el
+common_strings.alerts,Alerts,Alertes,Alertas
+common_strings.only_show_upcoming,Only Show Upcoming,Afficher seulement les prochains,Mostrar solo próximos
+common_strings.address_unavailable,Address unavailable.,Adresse non disponible.,Dirección no disponible.
+common_strings.loading_train,Loading train,Chargement du train,Cargando tren
+common_strings.loading_station,Loading station,Chargement de la gare,Cargando estación
+common_strings.loading_station_data,Loading station data,Chargement des données de la gare,Cargando datos de la estación
+common_strings.download_app,Download App,DL l'appli,Descargar app
+common_strings.log_out,Log Out,Déconnexion,Cerrar sesión
+common_strings.log_out_confirm,Are you sure you want to log out?,Voulez-vous vraiment vous déconnecter?,¿Seguro que quieres cerrar sesión?
+common_strings.not_available,N/A,S. O.,N/D
+common_strings.origin_to_destination,{origin} to {destination},{origin} à {destination},{origin} a {destination}
+common_strings.speed_mph,{speed} mph,{speed} mi/h,{speed} mi/h
+common_strings.track_number,Track {platform},Voie {platform},Vía {platform}
+common_strings.service_disruption,Service Disruption,Interruption de service,Interrupción del servicio
+common_strings.train_status.on_time,On Time,À l'heure,A tiempo
+common_strings.train_status.early,Early,En avance,Adelantado
+common_strings.train_status.late,Late,En retard,Tarde
+common_strings.train_status.no_data,No Data,Aucune donnée,Sin datos
+common_strings.train_status.complete,Complete,Terminé,Finalizado
+common_strings.time.days_short,{days}d,{days} j,{days} d
+common_strings.time.hours_short,{hours}h,{hours} h,{hours} h
+common_strings.time.minutes_short,{minutes}m,{minutes} min,{minutes} min
+common_strings.time.amount_late,{amount} late,{amount} de retard,{amount} de tarde
+common_strings.time.amount_early,{amount} early,{amount} d'avance,{amount} adelantado
+common_strings.time.unknown_estimate_error,Unknown (Estimate Error),Inconnu (erreur d'estimation),Desconocido (error de estimación)
+common_strings.time.unknown_schedule_error,Unknown (Schedule Error),Inconnu (erreur d'horaire),Desconocido (error de horario)
+common_strings.time.arr,Arr,Arr.,Lleg.
+common_strings.time.est_arr,Est arr,Arr. prévue,Lleg. est.
+common_strings.time.dep,Dep,Dép.,Sal.
+common_strings.time.est_dep,Est Dep,Dép. prévu,Sal. est.
+components.train_box.eta,{code} ETA:,Arrivée prévue ({code}) :,Llegada est. a {code}:
+components.train_box.next_stop,Next: {name} ({code}),Prochain arrêt : {name} ({code}),Siguiente: {name} ({code})
+components.train_popup.updated,Updated:,Mis à jour :,Actualizado:
+components.train_popup.estimated,Estimated:,Prévu :,Estimado:
+components.train_popup.to_station,to {code},vers {code},a {code}
+components.train_popup.view_more,View More,Voir plus,Ver más
+components.train_popup.scroll_to_train,Scroll to Train,Défiler jusqu'au train,Ir al tren
+components.station_popup.trains_tracking[countPlural=one],{count} Train Tracking,{count} train suivi,{count} tren en seguimiento
+components.station_popup.trains_tracking[countPlural=other],{count} Trains Tracking,{count} trains suivis,
+components.station_popup.trains_tracking[countPlural=*],,,{count} trenes en seguimiento
+components.station_popup.view_trains,View Trains,Voir les trains,Ver trenes
+components.station_popup.scroll_to_stop,Scroll to Stop,Défiler jusqu'à l'arrêt,Ir a la parada
+components.multiple_popup.select_feature,Select a Feature:,Sélectionnez un élément :,Selecciona un elemento:
+components.multiple_popup.select_train,Select a Train:,Sélectionnez un train :,Selecciona un tren:
+components.multiple_popup.select_station,Select a Station:,Sélectionnez une gare :,Selecciona una estación:
+pages.index.saved_trains,Saved Trains,Trains enregistrés,Trenes Guardados
+pages.index.no_saved_trains,No Saved Trains,Aucun train enregistré,No hay Trenes Guardados
+pages.index.data_last_fetched,Data Last Fetched at,Données récupérées à,Datos obtenidos a las
+pages.index.trains_list,Trains List,Liste des trains,Lista de Trenes
+pages.index.stations_list,Stations List,Liste des gares,Lista de Estaciones
+pages.index.live_map,Live Map,Carte en direct,Mapa en Vivo
+pages.index.atlas,Atlas,Atlas,Atlas
+pages.index.about_settings_privacy,About/Settings/Privacy,À propos/Paramètres/Confidentialité,Acerca de/Ajustes/Privacidad
+pages.index.api_docs,API Docs,Documentation de l'API,Documentación de la API
+pages.index.alert_header,Alert {number} as of {time}:,Alerte {number} en date de {time} :,Alerta {number} a las {time}:
+pages.trains.loading_train_data,Loading train data,Chargement des données des trains,Cargando datos de los trenes
+pages.trains.page_title,{routeName} ({provider} {trainNum}) Tracker - Amtraker,Suivi du {routeName} ({provider} {trainNum}) - Amtraker,Rastreador del {routeName} ({provider} {trainNum}) - Amtraker
+pages.trains.page_title_with_date,{routeName} ({provider} {trainNum} - {trainDate}) Tracker - Amtraker,Suivi du {routeName} ({provider} {trainNum} - {trainDate}) - Amtraker,Rastreador del {routeName} ({provider} {trainNum} - {trainDate}) - Amtraker
+pages.trains.page_title_generic,Train {trainNum} Tracker - Amtraker,Suivi du train {trainNum} - Amtraker,Rastreador del tren {trainNum} - Amtraker
+pages.trains.meta_description,"Track the {provider} {routeName}, Train Number {trainNum}, using Amtraker!","Suivez le {routeName}, train numéro {trainNum} ({provider}), avec Amtraker!","¡Rastrea el {routeName}, tren número {trainNum} ({provider}), con Amtraker!"
+pages.trains.meta_description_generic,Track train {trainNum} using Amtraker!,Suivez le train {trainNum} avec Amtraker!,¡Rastrea el tren {trainNum} con Amtraker!
+pages.trains.share_title,Track the {provider} {routeName} Train with Amtraker!,Suivez le train {routeName} ({provider}) avec Amtraker!,¡Rastrea el tren {routeName} ({provider}) con Amtraker!
+pages.trains.list.search_placeholder,Search for a train,Rechercher un train,Buscar un tren
+pages.trains.list.page_title,All Trains - Amtraker,Tous les trains - Amtraker,Todos los trenes - Amtraker
+pages.trains.list.meta_description,"View a list of all Amtrak, Brightline, and VIA Rail Trains with Amtraker!","Consultez la liste de tous les trains d'Amtrak, de Brightline et de VIA Rail avec Amtraker!","¡Consulta la lista de todos los trenes de Amtrak, Brightline y VIA Rail con Amtraker!"
+pages.trains.list.filter_all,All,Tous,Todos
+pages.trains.list_full.intro,Below is a list of trains intended for crawling purposes by search engines and those who prefer to browse a long list of train names and numbers.,Voici une liste de trains destinée à l'indexation par les moteurs de recherche et aux personnes qui préfèrent parcourir une longue liste de noms et de numéros de trains.,A continuación se muestra una lista de trenes pensada para los motores de búsqueda y para quienes prefieren explorar una lista larga de nombres y números de trenes.
+pages.trains.list_full.trains_by_name,Trains by Name,Trains par nom,Trenes por nombre
+pages.trains.list_full.trains_by_number,Trains by Number,Trains par numéro,Trenes por número
+pages.trains.names.no_trains_with_name,There are no trains currently running with that name.,Aucun train portant ce nom n'est en service présentement.,No hay trenes circulando con ese nombre en este momento.
+pages.trains.names.choose_train_number,Choose your train number from the list:,Choisissez votre numéro de train dans la liste :,Elige el número de tu tren de la lista:
+pages.trains.by_number.heading,{provider} Train {trainNum},Train {provider} {trainNum},Tren {provider} {trainNum}
+pages.trains.by_number.heading_generic,Train {trainNum},Train {trainNum},Tren {trainNum}
+pages.trains.by_number.route_description,Track Amtrak's {routeName} from {origin} Station to {destination} Station.,"Suivez le {routeName} d'Amtrak, de la gare {origin} à la gare {destination}.",Rastrea el {routeName} de Amtrak desde la estación {origin} hasta la estación {destination}.
+pages.trains.by_number.select_train_prompt,Please select a currently tracking train:,Veuillez sélectionner un train présentement suivi :,Selecciona un tren que se esté rastreando actualmente:
+pages.trains.by_number.scheduled_departure,"This train is not currently tracking, but is scheduled to depart {station} at {time} on {date}.","Ce train n'est pas suivi présentement, mais son départ de {station} est prévu à {time} le {date}.","Este tren no se está rastreando en este momento, pero tiene programada su salida de {station} a las {time} el {date}."
+pages.trains.by_number.trackable_note,Trains become trackable approximately 1 hour before initial departure.,Les trains peuvent être suivis environ 1 heure avant leur départ initial.,Los trenes se pueden rastrear aproximadamente 1 hora antes de su salida inicial.
+pages.trains.by_number.does_not_exist,This train number does not exist within our live or scheduled data. Please try again later. We apologize for the inconvenience.,Ce numéro de train ne figure pas dans nos données en direct ou nos horaires. Veuillez réessayer plus tard. Nous nous excusons pour les inconvénients.,Este número de tren no existe en nuestros datos en vivo ni en los horarios. Inténtalo de nuevo más tarde. Disculpa las molestias.
+pages.trains.train.manage_train,Manage Train:,Gérer le train :,Administrar tren:
+pages.trains.train.save_train,Save Train {trainNum} ({trainDate}),Enregistrer le train {trainNum} ({trainDate}),Guardar el tren {trainNum} ({trainDate})
+pages.trains.train.save_every_train,Save Every Train {trainNum},Toujours enregistrer le train {trainNum},Guardar siempre el tren {trainNum}
+pages.trains.train.stale_warning,WARNING: THIS TRAIN'S DATA IS STALE! Data feed has not been updated since {time},ATTENTION : LES DONNÉES DE CE TRAIN NE SONT PAS À JOUR! Le flux de données n'a pas été mis à jour depuis {time},AVISO: ¡LOS DATOS DE ESTE TREN NO ESTÁN ACTUALIZADOS! La fuente de datos no se ha actualizado desde {time}
+pages.trains.train.stations,Stations,Gares,Estaciones
+pages.trains.train.not_tracking,This train is not currently tracking. Please try again later. We apologize for the inconvenience.,Ce train n'est pas suivi présentement. Veuillez réessayer plus tard. Nous nous excusons pour les inconvénients.,Este tren no se está rastreando en este momento. Inténtalo de nuevo más tarde. Disculpa las molestias.
+pages.trains.leaderboard.page_title,Late Train Leaderboard - Amtraker,Palmarès des trains en retard - Amtraker,Ranking de trenes tardes - Amtraker
+pages.trains.leaderboard.rank,Rank,Rang,Lugar
+pages.trains.leaderboard.name,Name,Nom,Nombre
+pages.trains.leaderboard.railroad,Railroad,Transporteur,Ferrocarril
+pages.trains.leaderboard.hh_mm_late,HH:MM Late,Retard (HH:MM),Tarde (HH:MM)
+pages.stations.list.page_title,Stations - Amtraker,Gares - Amtraker,Estaciones - Amtraker
+pages.stations.list.meta_description,"View a list of all Amtrak, Brightline, and VIA Rail Train stations with Amtraker!","Consultez la liste de toutes les gares d'Amtrak, de Brightline et de VIA Rail avec Amtraker!","¡Consulta la lista de todas las estaciones de Amtrak, Brightline y VIA Rail con Amtraker!"
+pages.stations.list.search_placeholder,Search for a station,Rechercher une gare,Buscar una estación
+pages.stations.station.page_title,{station} Station - Amtraker,Gare {station} - Amtraker,Estación {station} - Amtraker
+pages.stations.station.meta_description,Track trains to and from {station} Station using Amtraker!,Suivez les trains en provenance et à destination de la gare {station} avec Amtraker!,¡Rastrea los trenes que llegan y salen de la estación {station} con Amtraker!
+pages.stations.station.share_title,Track trains at {name} ({code}) with Amtraker!,Suivez les trains à {name} ({code}) avec Amtraker!,¡Rastrea los trenes en {name} ({code}) con Amtraker!
+pages.stations.station.heading,{code} Station,Gare {code},Estación {code}
+pages.stations.station.not_found,This station could not be found in Amtraker's Database. Please ensure '{code}' is a valid station code.,Cette gare est introuvable dans la base de données d'Amtraker. Veuillez vous assurer que « {code} » est un code de gare valide.,No se encontró esta estación en la base de datos de Amtraker. Asegúrate de que '{code}' sea un código de estación válido.
+pages.stations.station.code_length_hint,"Station codes are always 3-4 characters in length, like 'CHI' or 'TRTO'.","Les codes de gare comptent toujours de 3 à 4 caractères, comme « CHI » ou « TRTO ».","Los códigos de estación siempre tienen de 3 a 4 caracteres, como 'CHI' o 'TRTO'."
+pages.stations.station.trains,Trains,Trains,Trenes
+pages.stations.station.no_trains,No trains active for this station,Aucun train actif pour cette gare,No hay trenes activos para esta estación
+pages.map.page_title,Live Map - Amtraker,Carte en direct - Amtraker,Mapa en vivo - Amtraker
+pages.map.meta_description,"View Amtrak, Brightline, and VIA Rail trains on the Amtraker train tracking map!","Visualisez les trains d'Amtrak, de Brightline et de VIA Rail sur la carte de suivi d'Amtraker!","¡Ve los trenes de Amtrak, Brightline y VIA Rail en el mapa de rastreo de Amtraker!"
+pages.map.share_title,Amtraker Map,Carte Amtraker,Mapa de Amtraker
+pages.map.clear_search,Clear Search,Effacer la recherche,Borrar búsqueda
+pages.map.search_placeholder,Search...,Rechercher...,Buscar...
+pages.map.show_saved,Show Saved,Afficher les enregistrés,Mostrar guardados
+pages.map.show_all,Show All,Afficher tout,Mostrar todos
+pages.map.view_full_map,View Full Map,Voir la carte complète,Ver mapa completo
+pages.atlas.amtraker_atlas,Amtraker Atlas,Amtraker Atlas,Amtraker Atlas
+pages.atlas.note_title,Atlas Note,Note sur Atlas,Nota sobre Atlas
+pages.atlas.note_bugs,If you notice any bugs or have any feature requests,"Si vous remarquez des bogues ou avez des demandes de fonctionnalités,","Si encuentras algún error o tienes alguna sugerencia de funciones,"
+pages.atlas.note_email,please email me directly at,veuillez m'écrire directement à,escríbeme directamente a
+pages.atlas.note_important,It is important to note,Il est important de noter que,Es importante aclarar que
+pages.atlas.note_not_required,Atlas is not required to use the regular train tracking aspects of Amtraker,Atlas n'est pas nécessaire pour utiliser les fonctions habituelles de suivi des trains d'Amtraker,Atlas no es necesario para usar las funciones normales de rastreo de trenes de Amtraker
+pages.atlas.account_deletion,Account Deletion,Suppression du compte,Eliminación de cuenta
+pages.atlas.account_deletion_prompt,"If you would like to delete your account, click","Si vous souhaitez supprimer votre compte, cliquez","Si quieres eliminar tu cuenta, haz clic"
+pages.atlas.account_deletion_link,here,ici,aquí
+pages.atlas.trips_list,Trips List,Liste des voyages,Lista de viajes
+pages.atlas.stats,Stats,Statistiques,Estadísticas
+pages.atlas.all_stats,All Stats,Toutes les statistiques,Todas las estadísticas
+pages.atlas.add_trip,Add Trip,Ajouter un voyage,Agregar viaje
+pages.atlas.length_mi,Length (mi),Distance (mi),Distancia (mi)
+pages.atlas.time_spent,Time Spent,Temps passé,Tiempo total
+pages.atlas.charts,Charts,Graphiques,Gráficas
+pages.atlas.index.page_title,Amtraker Atlas : Home,Amtraker Atlas : Accueil,Amtraker Atlas : Inicio
+pages.atlas.index.meta_description,Record your trips in Amtraker Atlas.,Consignez vos voyages dans Amtraker Atlas.,Registra tus viajes en Amtraker Atlas.
+pages.atlas.index.page_selection,Page Selection,Sélection de la page,Selección de página
+pages.atlas.index.sort_by,Sort By,Trier par,Ordenar por
+pages.atlas.index.sort_departure_date,Departure Date,Date de départ,Fecha de salida
+pages.atlas.index.sort_length,Length,Distance,Distancia
+pages.atlas.index.sort_time,Time,Durée,Duración
+pages.atlas.index.sort_direction,Sort Direction,Ordre de tri,Orden
+pages.atlas.index.sort_desc,Desc.,Décr.,Desc.
+pages.atlas.index.sort_asc,Asc.,Croiss.,Asc.
+pages.atlas.index.login_google,Login With Google,Se connecter avec Google,Iniciar sesión con Google
+pages.atlas.index.login_apple,Login With Apple,Se connecter avec Apple,Iniciar sesión con Apple
+pages.atlas.index.login_divider,===== or =====,===== ou =====,===== o =====
+pages.atlas.index.email,Email,Courriel,Correo electrónico
+pages.atlas.index.password,Password,Mot de passe,Contraseña
+pages.atlas.index.login_user_pass,Login With User/Pass,Se connecter avec courriel/mot de passe,Iniciar sesión con correo/contraseña
+pages.atlas.trips.no_trips,"You don't have any trips recorded yet, try adding one!","Vous n'avez encore aucun voyage consigné, essayez d'en ajouter un!","Todavía no tienes viajes registrados, ¡intenta agregar uno!"
+pages.atlas.trips.stations,Stations,Gares,Estaciones
+pages.atlas.trips.date,Date,Date,Fecha
+pages.atlas.trips.duration,Duration,Durée,Duración
+pages.atlas.trips.delete,Delete,Supprimer,Eliminar
+pages.atlas.trips.delete_confirm,This action is irreversible. Press OK to continue with deletion.,Cette action est irréversible. Appuyez sur OK pour procéder à la suppression.,Esta acción es irreversible. Presiona Aceptar para continuar con la eliminación.
+pages.atlas.add.page_title,Amtraker Atlas : Add,Amtraker Atlas : Ajouter,Amtraker Atlas : Agregar
+pages.atlas.add.meta_description,Add a train to your Amtraker Atlas.,Ajoutez un train à votre Amtraker Atlas.,Agrega un tren a tu Amtraker Atlas.
+pages.atlas.add.loading_routes,Loading Routes Data...,Chargement des données des trajets...,Cargando datos de rutas...
+pages.atlas.add.loading_routes_error,There was an error loading routes data for Atlas. Please try again later.,Une erreur est survenue lors du chargement des données des trajets pour Atlas. Veuillez réessayer plus tard.,Hubo un error al cargar los datos de rutas para Atlas. Inténtalo de nuevo más tarde.
+pages.atlas.add.route_not_found,Route Not Found,Trajet introuvable,Ruta no encontrada
+pages.atlas.add.railroad,Railroad,Transporteur,Ferrocarril
+pages.atlas.add.select_option,[Select an option],[Sélectionnez une option],[Selecciona una opción]
+pages.atlas.add.train_number,Train Number,Numéro de train,Número de tren
+pages.atlas.add.no_railroad_selected,No railroad selected,Aucun transporteur sélectionné,No se seleccionó ningún ferrocarril
+pages.atlas.add.route_name,Route Name,Nom du trajet,Nombre de la ruta
+pages.atlas.add.route_not_found_explanation,"The train number you entered does not exist in our database. Length and time calculations will not be done, but you can enter those values automatically.","Le numéro de train que vous avez entré ne figure pas dans notre base de données. La distance et la durée ne seront pas calculées, mais vous pouvez entrer ces valeurs vous-même.","El número de tren que ingresaste no existe en nuestra base de datos. No se calcularán la distancia ni la duración, pero puedes ingresar esos valores tú mismo."
+pages.atlas.add.start_station,Start Station,Gare de départ,Estación de salida
+pages.atlas.add.end_station,End Station,Gare d'arrivée,Estación de llegada
+pages.atlas.add.departure_date,Departure Date,Date de départ,Fecha de salida
+pages.atlas.add.time_min,Time (min),Durée (min),Duración (min)
+pages.atlas.add.fill_all_fields,Ensure all fields have been filled out.,Assurez-vous que tous les champs sont remplis.,Asegúrate de llenar todos los campos.
+pages.atlas.delete_account.page_title,Amtraker Atlas : Delete Account,Amtraker Atlas : Supprimer le compte,Amtraker Atlas : Eliminar cuenta
+pages.atlas.delete_account.meta_description,Delete your Amtraker Atlas account.,Supprimez votre compte Amtraker Atlas.,Elimina tu cuenta de Amtraker Atlas.
+pages.atlas.delete_account.explanation,"Deleting your account is instantaneous and irreversible. You will be prompted upon clicking ""Delete Account"" and upon confirming, all of your data will be gone forever.","La suppression de votre compte est instantanée et irréversible. Une confirmation vous sera demandée lorsque vous cliquerez sur « Supprimer le compte » et, une fois confirmée, toutes vos données seront effacées pour toujours.","Eliminar tu cuenta es instantáneo e irreversible. Se te pedirá confirmar al hacer clic en ""Eliminar cuenta"" y, una vez que confirmes, todos tus datos se borrarán para siempre."
+pages.atlas.delete_account.confirm,"Are you sure you would like you want to delete your account? Again, this is instantaneous and irreversible. Press ""OK"" if so.","Voulez-vous vraiment supprimer votre compte? Encore une fois, cette action est instantanée et irréversible. Appuyez sur « OK » si c'est le cas.","¿Seguro que quieres eliminar tu cuenta? De nuevo, esto es instantáneo e irreversible. Presiona ""Aceptar"" si es así."
+pages.atlas.delete_account.button,Delete Account,Supprimer le compte,Eliminar cuenta
+pages.atlas.stats_ind.page_title,Amtraker Atlas : Stats,Amtraker Atlas : Statistiques,Amtraker Atlas : Estadísticas
+pages.atlas.stats_ind.meta_description,View your Amtraker Atlas stats.,Consultez vos statistiques Amtraker Atlas.,Consulta tus estadísticas de Amtraker Atlas.
+pages.atlas.stats_ind.this_year,This Year,Cette année,Este año
+pages.atlas.stats_ind.overall,Overall,Au total,En total
+pages.atlas.stats_ind.trips_taken,Trips Taken,Voyages effectués,Viajes realizados
+pages.atlas.stats_ind.miles_traveled,Miles Traveled,Milles parcourus,Millas recorridas
+pages.atlas.stats_ind.top_station,Top Station,Gare la plus fréquentée,Estación más visitada
+pages.atlas.stats_ind.monthly_trips,Monthly Trips,Voyages par mois,Viajes por mes
+pages.atlas.stats_ind.monthly_miles,Monthly Miles,Milles par mois,Millas por mes
+pages.atlas.stats_ind.monthly_minutes,Monthly Minutes,Minutes par mois,Minutos por mes
+pages.atlas.stats_all.total_trips_length,Total Trips Length,Distance totale des voyages,Distancia total de viajes
+pages.atlas.stats_all.total_trips_time,Total Trips Time,Durée totale des voyages,Duración total de viajes
+pages.atlas.stats_all.trips_count,Trips Count,Nombre de voyages,Número de viajes
+pages.atlas.stats_all.users_count,Users Count,Nombre d'utilisateurs,Número de usuarios
+pages.atlas.stats_all.last_user_creation,Last User Creation,Dernier utilisateur créé,Último usuario creado
+pages.atlas.stats_all.last_trip_creation,Last Trip Creation,Dernier voyage créé,Último viaje creado
+pages.atlas.stats_all.length_mi_value,{length}mi,{length} mi,{length} mi
+pages.atlas.stats_all.basic_stats,Basic Stats,Statistiques de base,Estadísticas básicas
+pages.atlas.stats_all.top_users,Top Users,Meilleurs utilisateurs,Usuarios principales
+pages.atlas.stats_all.rank,Rank,Rang,Lugar
+pages.atlas.stats_all.trip_count,Trip Count,Nombre de voyages,Número de viajes
+pages.atlas.stats_all.total_length,Total Length,Distance totale,Distancia total
+pages.atlas.stats_all.trips_recorded,Trips Recorded,Voyages consignés,Viajes registrados
+pages.atlas.stats_all.daily_trips_created,Daily Trips Created,Voyages créés par jour,Viajes creados por día
+pages.atlas.stats_all.daily_miles_recorded,Daily Miles Recorded,Milles consignés par jour,Millas registradas por día
+pages.atlas.stats_all.daily_minutes_recorded,Daily Minutes Recorded,Minutes consignées par jour,Minutos registrados por día
+pages.atlas.stats_all.trips_ridden,Trips Ridden,Voyages effectués,Viajes realizados
+pages.atlas.stats_all.daily_trips_ridden,Daily Trips Ridden,Voyages effectués par jour,Viajes realizados por día
+pages.atlas.stats_all.daily_miles_ridden,Daily Miles Ridden,Milles parcourus par jour,Millas recorridas por día
+pages.atlas.stats_all.daily_minutes_ridden,Daily Minutes Ridden,Minutes parcourues par jour,Minutos recorridos por día
+pages.atlas.stats_all.users_created,Users Created,Utilisateurs créés,Usuarios creados
+pages.atlas.stats_all.daily_account_creation,Daily Account Creation,Comptes créés par jour,Cuentas creadas por día
+pages.error.cache_update_title,Cache Update,Mise à jour du cache,Actualización de caché
+pages.error.cache_update_body,Amtraker's cache needed to be updated.,Le cache d'Amtraker devait être mis à jour.,Era necesario actualizar la caché de Amtraker.
+pages.error.reloading,Reloading in 2 seconds...,Rechargement dans 2 secondes...,Recargando en 2 segundos...
+pages.error.not_found_title,404 - Not Found,404 - Page introuvable,404 - No encontrado
+pages.error.not_found_body,Seems like that page doens't exist.,Il semble que cette page n'existe pas.,Parece que esa página no existe.
+pages.error.oops_title,Oops!,Oups!,¡Ups!
+pages.error.oops_body,"Sorry, an unexpected error has occurred.","Désolé, une erreur inattendue est survenue.","Lo sentimos, ocurrió un error inesperado."
+pages.error.report_request,"Please copy the following and email it to me (piero@piemadd.com) so I can debug and fix the issue. Thanks, and apologies for the inconvenience.","Veuillez copier ce qui suit et me l'envoyer par courriel (piero@piemadd.com) afin que je puisse déboguer et corriger le problème. Merci, et désolé pour les inconvénients.","Copia lo siguiente y envíamelo por correo (piero@piemadd.com) para que pueda depurar y corregir el problema. Gracias, y disculpa las molestias."
+pages.error.current_path,Current path: {path},Chemin actuel : {path},Ruta actual: {path}
+pages.error.current_version,Current version: {version},Version actuelle : {version},Versión actual: {version}
+pages.error.current_time_utc,Current date and time (UTC): {time},Date et heure actuelles (UTC) : {time},Fecha y hora actual (UTC): {time}
+pages.error.current_time_local,Current date and time (local): {time},Date et heure actuelles (locales) : {time},Fecha y hora actual (local): {time}
+pages.about.page_title,About - Amtraker,À propos - Amtraker,Acerca de - Amtraker
+pages.about.meta_description,"Amtraker About, Setings, and Privacy Policy.","À propos, paramètres et politique de confidentialité d'Amtraker.","Acerca de Amtraker, ajustes y aviso de privacidad."
+pages.about.sections,Sections:,Sections :,Secciones:
+pages.about.section_about,About,À propos,Acerca de
+pages.about.section_settings,Settings,Paramètres,Ajustes
+pages.about.section_privacy,Privacy Policy,Politique de confidentialité,Aviso de privacidad
+pages.about.about_heading,About Amtraker,À propos d'Amtraker,Acerca de Amtraker
+pages.about.faqs,FAQs,FAQ,Preguntas frecuentes
+pages.about.faq.what_is_q,What is Amtraker?,Qu'est-ce qu'Amtraker?,¿Qué es Amtraker?
+pages.about.faq.what_is_a,Amtraker is a website and app that allows you to track Amtrak trains in real time.,Amtraker est un site Web et une application qui vous permettent de suivre les trains d'Amtrak en temps réel.,Amtraker es un sitio web y una app que te permite rastrear los trenes de Amtrak en tiempo real.
+pages.about.faq.data_source_q,Where does your data come from?,D'où proviennent vos données?,¿De dónde vienen sus datos?
+pages.about.faq.data_source_a,"Amtraker pulls its data from multiple sources and and rehosts it on our servers. The list of data providers includes, but is not limited to:","Amtraker récupère ses données auprès de plusieurs sources et les héberge sur nos serveurs. La liste des fournisseurs de données comprend, sans s'y limiter :","Amtraker obtiene sus datos de varias fuentes y los aloja en nuestros servidores. La lista de proveedores de datos incluye, entre otros:"
+pages.about.faq.data_source_protomaps,Built Map Archives,Archives de cartes compilées,Archivos de mapas compilados
+pages.about.faq.data_source_osm,"General Map Data (Streets, Buildings, Cities, etc)","Données cartographiques générales (rues, bâtiments, villes, etc.)","Datos generales del mapa (calles, edificios, ciudades, etc.)"
+pages.about.faq.data_source_overture,"General Map Data (Land, Oceans, etc)","Données cartographiques générales (terres, océans, etc.)","Datos generales del mapa (tierra, océanos, etc.)"
+pages.about.faq.data_source_usdot,Most Amtrak Map Lines,La plupart des tracés des lignes d'Amtrak,La mayoría de las líneas de Amtrak en el mapa
+pages.about.faq.data_source_amtrak,"Some Map Lines, Train Data","Certains tracés de lignes, données des trains","Algunas líneas del mapa, datos de los trenes"
+pages.about.faq.data_source_brightline,Train Data and Platform Numbers,Données des trains et numéros de quai,Datos de los trenes y números de andén
+pages.about.faq.data_source_via,Train Data,Données des trains,Datos de los trenes
+pages.about.faq.data_source_njt,Some NEC Platform Data,Certaines données de quai du NEC,Algunos datos de andenes del NEC
+pages.about.faq.data_source_metrolink,LA Area Platform Data,Données de quai de la région de Los Angeles,Datos de andenes del área de Los Ángeles
+pages.about.faq.data_source_moynihan,NYP Platform Data (When available - tends to be more accurate than NJT),Données de quai de NYP (lorsque disponibles - généralement plus précises que celles de NJT),Datos de andenes de NYP (cuando están disponibles; suelen ser más precisos que los de NJT)
+pages.about.faq.dev_q,Can I use your data?,Puis-je utiliser vos données?,¿Puedo usar sus datos?
+pages.about.faq.dev_a_before_link,"Yes! Amtraker's data is available for use for free, as long as you don't spam the API ofc. You can find the API documentation","Oui! Les données d'Amtraker sont offertes gratuitement, tant que vous ne surchargez pas l'API, évidemment. Vous pouvez trouver la documentation de l'API","¡Sí! Los datos de Amtraker se pueden usar gratis, siempre y cuando no satures la API, obvio. Puedes encontrar la documentación de la API"
+pages.about.faq.dev_a_link,here,ici,aquí
+pages.about.faq.dev_a_after_link,. Let me know any issues you have with the API by emailing me at,. Faites-moi part de tout problème avec l'API en m'écrivant à,. Avísame de cualquier problema que tengas con la API escribiéndome a
+pages.about.faq.installing_q,Can I install Amtraker as an App?,Puis-je installer Amtraker comme application?,¿Puedo instalar Amtraker como app?
+pages.about.faq.installing_a_android,"This depends on what device you're using. If you're using an Android device, head on over to","Cela dépend de l'appareil que vous utilisez. Si vous utilisez un appareil Android, rendez-vous sur","Depende del dispositivo que uses. Si usas un dispositivo Android, entra a"
+pages.about.faq.installing_a_google_play,Google Play,Google Play,Google Play
+pages.about.faq.installing_a_apple,and if you're on an Apple device head over to,"et si vous êtes sur un appareil Apple, rendez-vous sur","y si tienes un dispositivo Apple, entra a"
+pages.about.faq.installing_a_app_store,the App Store,l'App Store,la App Store
+pages.about.faq.feedback_q,"How can I give feedback, report a bug, and/or request a feature?","Comment puis-je donner mon avis, signaler un bogue ou demander une fonctionnalité?","¿Cómo puedo dar mi opinión, reportar un error o pedir una función?"
+pages.about.faq.feedback_a_email,You can email me at,Vous pouvez m'écrire à,Puedes escribirme a
+pages.about.faq.feedback_a_form,", or you can submit feedback via the",", ou soumettre vos commentaires au moyen du",", o puedes enviar tus comentarios a través del"
+pages.about.faq.feedback_a_form_link,Google Form,formulaire Google,formulario de Google
+pages.about.faq.stale_q,What does it mean when the data is stale?,Qu'est-ce que ça veut dire quand les données ne sont pas à jour?,¿Qué significa que los datos no estén actualizados?
+pages.about.faq.stale_a,"When, on average, Amtrak hasn't updated their tracking data for more than 15 minutes, the data is outdated and inaccurate. This is usually due to Amtrak's servers having issues.","Lorsqu'en moyenne, Amtrak n'a pas mis à jour ses données de suivi depuis plus de 15 minutes, les données sont désuètes et inexactes. C'est habituellement dû à des problèmes avec les serveurs d'Amtrak.","Cuando, en promedio, Amtrak no ha actualizado sus datos de rastreo en más de 15 minutos, los datos están desactualizados y son imprecisos. Normalmente esto se debe a problemas en los servidores de Amtrak."
+pages.about.faq.not_tracking_q,Why isn't my train tracking?,Pourquoi mon train n'est-il pas suivi?,¿Por qué no se está rastreando mi tren?
+pages.about.faq.not_tracking_a_before_link,"Amtraker only shows the data available to it. If Amtrak isn't tracking your train, Amtraker won't be able to either. If the train, for whatever reason, is tracking on the official tracker, but not on Amtraker, please","Amtraker affiche seulement les données dont il dispose. Si Amtrak ne suit pas votre train, Amtraker ne pourra pas le suivre non plus. Si, pour une raison quelconque, le train est suivi sur l'outil de suivi officiel, mais pas sur Amtraker, veuillez","Amtraker solo muestra los datos que tiene disponibles. Si Amtrak no está rastreando tu tren, Amtraker tampoco podrá hacerlo. Si por alguna razón el tren aparece en el rastreador oficial pero no en Amtraker,"
+pages.about.faq.not_tracking_a_link,email me,m'écrire,escríbeme
+pages.about.faq.not_tracking_a_after_link,and I'll look as soon as I can.,et je vais regarder ça dès que possible.,y lo reviso lo antes posible.
+pages.about.faq.icons_q,What do the train icons/colors mean?,Que signifient les icônes et les couleurs des trains?,¿Qué significan los íconos y colores de los trenes?
+pages.about.faq.icons_a_categories,The colors of the icons are broken down into two categories: active and inactive trains.,Les couleurs des icônes se divisent en deux catégories : les trains actifs et les trains inactifs.,Los colores de los íconos se dividen en dos categorías: trenes activos e inactivos.
+pages.about.faq.icons_a_inactive,"Any train that has not yet departed its initial terminal, has arrived at its final station, or has been cancelled is inactive and will be dark grey, as shown below.","Tout train qui n'a pas encore quitté son terminus de départ, qui est arrivé à sa gare finale ou qui a été annulé est inactif et s'affiche en gris foncé, comme ci-dessous.","Cualquier tren que todavía no ha salido de su terminal inicial, que ya llegó a su estación final o que fue cancelado está inactivo y se mostrará en gris oscuro, como se ve abajo."
+pages.about.faq.icons_a_active,"Otherwise, the shade of the train depends on how late it is, from a green for 0% late, to a an orange for 25% late, and a bright red for 100% late, with these percentegaes being of a predetermined threshold (see below) depending on the route length and type.","Sinon, la teinte du train dépend de son retard, passant du vert pour 0 % de retard à l'orange pour 25 % de retard, puis au rouge vif pour 100 % de retard. Ces pourcentages sont calculés par rapport à un seuil prédéterminé (voir ci-dessous) selon la longueur et le type du trajet.","De lo contrario, el tono del tren depende de qué tan tarde va: verde para 0% de tarde, naranja para 25% de tarde y rojo brillante para 100% de tarde. Estos porcentajes son de un límite predeterminado (ver abajo) que depende de la longitud y el tipo de ruta."
+pages.about.faq.icons_a_green,"Green (0%) HSV(132°, 69%, 54%):","Vert (0 %) TSV(132°, 69 %, 54 %) :","Verde (0%) HSV(132°, 69%, 54%):"
+pages.about.faq.icons_a_orange,"Orange (25%) HSV(35°, 93%, 78%):","Orange (25 %) TSV(35°, 93 %, 78 %) :","Naranja (25%) HSV(35°, 93%, 78%):"
+pages.about.faq.icons_a_red,"Red (100%) HSV(-12°, 94%, 78%):","Rouge (100 %) TSV(-12°, 94 %, 78 %) :","Rojo (100%) HSV(-12°, 94%, 78%):"
+pages.about.faq.icons_a_colorblind,"To help differentiate the colors for those with deuteranopia and protanopia, I have made the saturation and brightness of the colors go up with the percentage, so while not perfect, there should be some level of differentation between the hues. If you have any feedback/ideas for how I can improve this, please let me know.","Pour aider à distinguer les couleurs pour les personnes atteintes de deutéranopie ou de protanopie, j'ai fait en sorte que la saturation et la luminosité des couleurs augmentent avec le pourcentage. Même si ce n'est pas parfait, il devrait y avoir une certaine différence entre les teintes. Si vous avez des commentaires ou des idées pour améliorer ceci, n'hésitez pas à me le faire savoir.","Para ayudar a distinguir los colores a las personas con deuteranopia y protanopia, hice que la saturación y el brillo de los colores aumenten junto con el porcentaje. Aunque no es perfecto, debería haber cierta diferencia entre los tonos. Si tienes comentarios o ideas para mejorarlo, avísame."
+pages.about.faq.icons_a_thresholds,"For each route, the maximum lateness threshold largely depends on what type of route it is and who is operating said train.","Pour chaque trajet, le seuil de retard maximal dépend en grande partie du type de trajet et de l'exploitant du train.","Para cada ruta, el límite máximo de tarde depende principalmente del tipo de ruta y de quién opera el tren."
+pages.about.faq.icons_a_threshold_short,"All Via Corridor, Acela, Brightline, and any Amtrak trains <250mi: 60min / 1hr","Tous les trains du corridor de VIA, l'Acela, Brightline et tout train d'Amtrak de moins de 250 mi : 60 min / 1 h","Todos los trenes del Corredor de Via, Acela, Brightline y cualquier tren de Amtrak de menos de 250 mi: 60 min / 1 h"
+pages.about.faq.icons_a_threshold_250,Amtrak trains 250mi - 349mi: 90min / 1.5hr,"Trains d'Amtrak de 250 mi à 349 mi : 90 min / 1,5 h",Trenes de Amtrak de 250 mi a 349 mi: 90 min / 1.5 h
+pages.about.faq.icons_a_threshold_350,Amtrak trains 350mi - 449mi: 120min / 2hr,Trains d'Amtrak de 350 mi à 449 mi : 120 min / 2 h,Trenes de Amtrak de 350 mi a 449 mi: 120 min / 2 h
+pages.about.faq.icons_a_threshold_450,Amtrak trains 450mi+: 150min / 2.5hr,"Trains d'Amtrak de 450 mi et plus : 150 min / 2,5 h",Trenes de Amtrak de 450 mi o más: 150 min / 2.5 h
+pages.about.faq.icons_a_threshold_via,Any other Via Trains: 360min / 6hr,Tous les autres trains de VIA : 360 min / 6 h,Cualquier otro tren de Via: 360 min / 6 h
+pages.about.settings.heading,Amtraker Settings,Paramètres d'Amtraker,Ajustes de Amtraker
+pages.about.settings.intro,Use this page to adjust various settings for Amtraker. More settings will be added over time.,Utilisez cette page pour ajuster différents paramètres d'Amtraker. D'autres paramètres seront ajoutés au fil du temps.,Usa esta página para ajustar varias opciones de Amtraker. Se irán agregando más ajustes con el tiempo.
+pages.about.settings.map_view,Map View,Affichage de la carte,Vista del mapa
+pages.about.settings.map_view_description,Whether you'd like the map to use a Globe projection or the traditional Web Mercator (flat) projection.,Choisissez si la carte doit utiliser une projection en globe ou la projection Web Mercator traditionnelle (plane).,Elige si quieres que el mapa use una proyección de globo o la proyección tradicional Web Mercator (plana).
+pages.about.settings.map_view_mercator,Web Mercator,Web Mercator,Web Mercator
+pages.about.settings.map_view_globe,Globe,Globe,Globo
+pages.about.settings.always_saved,Always Saved Trains,Trains toujours enregistrés,Trenes siempre guardados
+pages.about.settings.always_saved_description,Edit the train numbers that will always be saved.,Modifiez les numéros de train qui seront toujours enregistrés.,Edita los números de tren que siempre se guardarán.
+pages.about.settings.always_saved_none,No trains are set to automatically save currently.,Aucun train n'est présentement réglé pour être enregistré automatiquement.,Actualmente no hay trenes configurados para guardarse automáticamente.
+pages.about.settings.always_saved_delete_confirm,"Confirm that you would like to delete '{trainNum}' from your list of always saved trains.
+
+Press OK to confirm deletion.","Confirmez que vous souhaitez retirer « {trainNum} » de votre liste de trains toujours enregistrés.
+
+Appuyez sur OK pour confirmer la suppression.","Confirma que quieres quitar '{trainNum}' de tu lista de trenes siempre guardados.
+
+Presiona Aceptar para confirmar."
+pages.about.settings.always_saved_delete,Delete Train {trainNum},Supprimer le train {trainNum},Eliminar el tren {trainNum}
+pages.about.settings.always_saved_add_prompt,"Please enter the train number you would like to add.
+
+For VIA Rail trains, add a 'v' to the beginning and for Brightline trains, add a 'b' to the beginning.
+
+Examples: '5' 'v1' 'b5333'","Veuillez entrer le numéro du train que vous souhaitez ajouter.
+
+Pour les trains de VIA Rail, ajoutez un « v » au début et pour les trains de Brightline, ajoutez un « b » au début.
+
+Exemples : « 5 » « v1 » « b5333 »","Ingresa el número del tren que quieres agregar.
+
+Para trenes de VIA Rail, agrega una 'v' al principio y para trenes de Brightline, agrega una 'b' al principio.
+
+Ejemplos: '5' 'v1' 'b5333'"
+pages.about.settings.always_saved_add,Add a Train Manually,Ajouter un train manuellement,Agregar un tren manualmente
+pages.about.settings.debug_info,Debug Info,Informations de débogage,Información de depuración
+pages.about.settings.debug_user_agent,User Agent,Agent utilisateur,Agente de usuario
+pages.about.settings.debug_platform,Platform:,Plateforme :,Plataforma:
+pages.about.settings.debug_oscpu,OSCPU,OSCPU,OSCPU
+pages.about.settings.debug_vendor,Vendor,Fournisseur,Proveedor
+pages.about.settings.debug_session_storage,Session Storage,Stockage de session,Almacenamiento de sesión
+pages.about.settings.debug_local_storage,Local Storage,Stockage local,Almacenamiento local
+pages.about.settings.debug_empty_string,[empty string],[chaîne vide],[cadena vacía]
+pages.about.privacy.heading,Privacy Policy for Amtraker,Politique de confidentialité d'Amtraker,Aviso de privacidad de Amtraker
+pages.about.privacy.intro,"This privacy policy applies to the Amtraker app and website (amtraker.com) (hereby referred to as ""Application"") that was created by Piero Maddaleni (hereby referred to as ""Service Provider"") as an Open Source service. This service is intended for use ""AS IS"".","La présente politique de confidentialité s'applique à l'application et au site Web Amtraker (amtraker.com) (ci-après appelés « l'Application »), créés par Piero Maddaleni (ci-après appelé « le Fournisseur de services ») en tant que service à code source ouvert. Ce service est destiné à être utilisé « TEL QUEL ».","Este aviso de privacidad aplica a la app y al sitio web de Amtraker (amtraker.com) (en adelante, la ""Aplicación""), creados por Piero Maddaleni (en adelante, el ""Proveedor del Servicio"") como un servicio de código abierto. Este servicio se ofrece ""TAL CUAL""."
+pages.about.privacy.collection_heading,Information Collection and Use,Collecte et utilisation des renseignements,Recopilación y uso de la información
+pages.about.privacy.collection_intro,The Application collects information when you download and use it. This information may include information such as,"L'Application recueille des renseignements lorsque vous la téléchargez et l'utilisez. Ces renseignements peuvent comprendre, par exemple :","La Aplicación recopila información cuando la descargas y la usas. Esta información puede incluir, por ejemplo:"
+pages.about.privacy.collection_ip,Your device's Internet Protocol address (e.g. IP address),L'adresse de protocole Internet de votre appareil (c.-à-d. l'adresse IP),"La dirección de Protocolo de Internet de tu dispositivo (es decir, la dirección IP)"
+pages.about.privacy.collection_pages,"The pages of the Application that you visit, the time and date of your visit, the time spent on those pages","Les pages de l'Application que vous visitez, l'heure et la date de votre visite, le temps passé sur ces pages","Las páginas de la Aplicación que visitas, la hora y fecha de tu visita y el tiempo que pasas en esas páginas"
+pages.about.privacy.collection_time,The time spent on the Application,Le temps passé dans l'Application,El tiempo que pasas en la Aplicación
+pages.about.privacy.collection_os,The operating system you use on your mobile device,Le système d'exploitation de votre appareil mobile,El sistema operativo que usas en tu dispositivo móvil
+pages.about.privacy.collection_contact,"The Service Provider may use the information you provided to contact you for account services, such as password resets, but will not use the data.","Le Fournisseur de services peut utiliser les renseignements que vous avez fournis pour communiquer avec vous au sujet des services liés à votre compte, comme la réinitialisation du mot de passe, mais n'utilisera pas les données.","El Proveedor del Servicio puede usar la información que proporcionaste para contactarte sobre servicios de tu cuenta, como el restablecimiento de contraseña, pero no usará los datos."
+pages.about.privacy.collection_pii,"For a better experience, while using the Application, the Service Provider may require you to provide us with certain personally identifiable information, including but not limited to your first and last name, email address, and train trips. The information that the Service Provider request will be retained by them and used as described in this privacy policy.","Pour une meilleure expérience, lors de l'utilisation de l'Application, le Fournisseur de services peut vous demander de nous fournir certains renseignements personnels permettant de vous identifier, notamment votre prénom et votre nom, votre adresse courriel et vos voyages en train. Les renseignements demandés par le Fournisseur de services seront conservés par celui-ci et utilisés tel que décrit dans la présente politique de confidentialité.","Para una mejor experiencia, al usar la Aplicación, el Proveedor del Servicio puede pedirte que nos proporciones cierta información de identificación personal, incluyendo, entre otros, tu nombre y apellido, correo electrónico y viajes en tren. La información que solicite el Proveedor del Servicio será conservada por este y usada como se describe en este aviso de privacidad."
+pages.about.privacy.log_files_heading,Log Files,Fichiers journaux,Archivos de registro
+pages.about.privacy.log_files_body,"Amtraker follows a standard procedure of using log files. These files log visitors when they visit websites. All hosting companies do this and a part of hosting services' analytics. The information collected by log files include internet protocol (IP) addresses, browser type, Internet Service Provider (ISP), date and time stamp, referring/exit pages, and possibly the number of clicks. These are not linked to any information that is personally identifiable. The purpose of the information is for analyzing trends, administering the site, tracking users' movement on the website, and gathering demographic information.","Amtraker suit une procédure standard d'utilisation de fichiers journaux. Ces fichiers enregistrent les visiteurs lorsqu'ils visitent des sites Web. Toutes les entreprises d'hébergement le font, et cela fait partie de l'analytique des services d'hébergement. Les renseignements recueillis par les fichiers journaux comprennent les adresses de protocole Internet (IP), le type de navigateur, le fournisseur d'accès Internet (FAI), l'horodatage, les pages de provenance et de sortie, et possiblement le nombre de clics. Ces renseignements ne sont liés à aucune information permettant d'identifier une personne. Ils servent à analyser les tendances, à administrer le site, à suivre les déplacements des utilisateurs sur le site Web et à recueillir des données démographiques.","Amtraker sigue un procedimiento estándar de uso de archivos de registro. Estos archivos registran a los visitantes cuando visitan sitios web. Todas las empresas de hosting hacen esto y forma parte de la analítica de los servicios de hosting. La información recopilada por los archivos de registro incluye direcciones de protocolo de internet (IP), tipo de navegador, proveedor de servicios de internet (ISP), fecha y hora, páginas de referencia/salida y, posiblemente, el número de clics. Esta información no está vinculada a ningún dato de identificación personal. Su propósito es analizar tendencias, administrar el sitio, rastrear el movimiento de los usuarios en el sitio web y recopilar información demográfica."
+pages.about.privacy.geolocation_heading,Geolocation,Géolocalisation,Geolocalización
+pages.about.privacy.geolocation_body,"Upon consenting to sharing your location, the application may collect your device's location to display on the map. This data does not leave your device.","Si vous consentez à partager votre position, l'application peut recueillir la position de votre appareil afin de l'afficher sur la carte. Ces données ne quittent pas votre appareil.","Si das tu consentimiento para compartir tu ubicación, la aplicación puede obtener la ubicación de tu dispositivo para mostrarla en el mapa. Estos datos no salen de tu dispositivo."
+pages.about.privacy.third_party_heading,Third Party Access,Accès par des tiers,Acceso de terceros
+pages.about.privacy.third_party_body,Please note that the Application utilizes third-party services that have their own Privacy Policy about handling data. Below are the links to the Privacy Policy of the third-party service providers used by the Application:,Veuillez noter que l'Application utilise des services tiers qui ont leur propre politique de confidentialité concernant le traitement des données. Voici les liens vers les politiques de confidentialité des fournisseurs de services tiers utilisés par l'Application :,Ten en cuenta que la Aplicación utiliza servicios de terceros que tienen sus propios avisos de privacidad sobre el manejo de datos. A continuación están los enlaces a los avisos de privacidad de los proveedores de servicios de terceros que utiliza la Aplicación:
+pages.about.privacy.third_party_google,"Google Play Services, Google Analytics","Services Google Play, Google Analytics","Servicios de Google Play, Google Analytics"
+pages.about.privacy.disclosure_intro,The Service Provider may disclose User Provided and Automatically Collected Information:,Le Fournisseur de services peut divulguer les renseignements fournis par l'utilisateur et les renseignements recueillis automatiquement :,El Proveedor del Servicio puede divulgar la información proporcionada por el usuario y la recopilada automáticamente:
+pages.about.privacy.disclosure_law,"as required by law, such as to comply with a subpoena, or similar legal process;","lorsque la loi l'exige, par exemple pour se conformer à une assignation à comparaître ou à une procédure judiciaire semblable;","cuando lo exija la ley, por ejemplo, para cumplir con un citatorio o un proceso legal similar;"
+pages.about.privacy.disclosure_good_faith,"when they believe in good faith that disclosure is necessary to protect their rights, protect your safety or the safety of others, investigate fraud, or respond to a government request;","lorsqu'il croit de bonne foi que la divulgation est nécessaire pour protéger ses droits, protéger votre sécurité ou celle d'autrui, enquêter sur une fraude ou répondre à une demande gouvernementale;","cuando crea de buena fe que la divulgación es necesaria para proteger sus derechos, proteger tu seguridad o la de otras personas, investigar un fraude o responder a una solicitud del gobierno;"
+pages.about.privacy.disclosure_providers,"with their trusted services providers who work on their behalf, do not have an independent use of the information we disclose to them, and have agreed to adhere to the rules set forth in this privacy statement.","à ses fournisseurs de services de confiance qui travaillent en son nom, qui ne font pas d'utilisation indépendante des renseignements que nous leur divulguons et qui ont accepté de respecter les règles énoncées dans la présente déclaration de confidentialité.","con sus proveedores de servicios de confianza que trabajan en su nombre, que no hacen un uso independiente de la información que les divulgamos y que han aceptado cumplir con las reglas establecidas en este aviso de privacidad."
+pages.about.privacy.retention_heading,Data Retention Policy,Politique de conservation des données,Política de conservación de datos
+pages.about.privacy.retention_body,"The Service Provider will retain User Provided data for as long as you use the Application and for a reasonable time thereafter. If you'd like them to delete User Provided Data that you have provided via the Application, please contact them at amtraker@piemadd.com and they will respond in a reasonable time.","Le Fournisseur de services conservera les données fournies par l'utilisateur aussi longtemps que vous utiliserez l'Application et pendant une période raisonnable par la suite. Si vous souhaitez qu'il supprime les données que vous avez fournies au moyen de l'Application, veuillez communiquer avec lui à amtraker@piemadd.com et il vous répondra dans un délai raisonnable.","El Proveedor del Servicio conservará los datos proporcionados por el usuario mientras uses la Aplicación y durante un tiempo razonable después. Si quieres que eliminen los datos que proporcionaste a través de la Aplicación, contáctalos en amtraker@piemadd.com y te responderán en un tiempo razonable."
+pages.about.privacy.children_heading,Children,Enfants,Menores de edad
+pages.about.privacy.children_body_1,The Service Provider does not use the Application to knowingly solicit data from or market to children under the age of 13.,Le Fournisseur de services n'utilise pas l'Application pour solliciter sciemment des données auprès d'enfants de moins de 13 ans ni pour leur faire de la publicité.,El Proveedor del Servicio no usa la Aplicación para solicitar datos a sabiendas ni para hacer publicidad dirigida a menores de 13 años.
+pages.about.privacy.children_body_2,"The Application does not address anyone under the age of 13. The Service Provider does not knowingly collect personally identifiable information from children under 13 years of age. In the case the Service Provider discover that a child under 13 has provided personal information, the Service Provider will immediately delete this from their servers. If you are a parent or guardian and you are aware that your child has provided us with personal information, please contact the Service Provider (amtraker@piemadd.com) so that they will be able to take the necessary actions.","L'Application ne s'adresse à aucune personne de moins de 13 ans. Le Fournisseur de services ne recueille pas sciemment de renseignements personnels permettant d'identifier des enfants de moins de 13 ans. Si le Fournisseur de services découvre qu'un enfant de moins de 13 ans a fourni des renseignements personnels, il les supprimera immédiatement de ses serveurs. Si vous êtes un parent ou un tuteur et que vous savez que votre enfant nous a fourni des renseignements personnels, veuillez communiquer avec le Fournisseur de services (amtraker@piemadd.com) afin qu'il puisse prendre les mesures nécessaires.","La Aplicación no está dirigida a menores de 13 años. El Proveedor del Servicio no recopila a sabiendas información de identificación personal de menores de 13 años. Si el Proveedor del Servicio descubre que un menor de 13 años ha proporcionado información personal, la eliminará de inmediato de sus servidores. Si eres padre, madre o tutor y sabes que tu hijo o hija nos ha proporcionado información personal, contacta al Proveedor del Servicio (amtraker@piemadd.com) para que pueda tomar las medidas necesarias."
+pages.about.privacy.security_heading,Security,Sécurité,Seguridad
+pages.about.privacy.security_body,"The Service Provider is concerned about safeguarding the confidentiality of your information. The Service Provider provides physical, electronic, and procedural safeguards to protect information the Service Provider processes and maintains.","Le Fournisseur de services a à cœur de protéger la confidentialité de vos renseignements. Le Fournisseur de services met en place des mesures de protection physiques, électroniques et procédurales pour protéger les renseignements qu'il traite et conserve.","Al Proveedor del Servicio le importa proteger la confidencialidad de tu información. El Proveedor del Servicio cuenta con medidas de seguridad físicas, electrónicas y de procedimiento para proteger la información que procesa y conserva."
+pages.about.privacy.changes_heading,Changes,Modifications,Cambios
+pages.about.privacy.changes_body,"This Privacy Policy may be updated from time to time for any reason. The Service Provider will notify you of any changes to the Privacy Policy by updating this page with the new Privacy Policy. You are advised to consult this Privacy Policy regularly for any changes, as continued use is deemed approval of all changes.","La présente politique de confidentialité peut être mise à jour de temps à autre pour quelque raison que ce soit. Le Fournisseur de services vous avisera de toute modification à la politique de confidentialité en mettant à jour cette page avec la nouvelle politique. Nous vous conseillons de consulter régulièrement la présente politique de confidentialité, car l'utilisation continue de l'Application est réputée constituer une acceptation de toutes les modifications.","Este aviso de privacidad puede actualizarse de vez en cuando por cualquier motivo. El Proveedor del Servicio te notificará cualquier cambio actualizando esta página con el nuevo aviso de privacidad. Te recomendamos consultar este aviso de privacidad con regularidad, ya que el uso continuo de la Aplicación se considera aceptación de todos los cambios."
+pages.about.privacy.effective_date,This privacy policy is effective as of {date},La présente politique de confidentialité est en vigueur depuis le {date},Este aviso de privacidad está vigente a partir del {date}
+pages.about.privacy.consent_heading,Your Consent,Votre consentement,Tu consentimiento
+pages.about.privacy.consent_body,"By using the Application, you are consenting to the processing of your information as set forth in this Privacy Policy now and as amended by us.","En utilisant l'Application, vous consentez au traitement de vos renseignements tel qu'énoncé dans la présente politique de confidentialité, dans sa version actuelle et telle que modifiée par nous.","Al usar la Aplicación, aceptas el tratamiento de tu información conforme a lo establecido en este aviso de privacidad, en su versión actual y con las modificaciones que hagamos."
+pages.about.privacy.contact_heading,Contact Us,Nous joindre,Contáctanos
+pages.about.privacy.contact_body,"If you have any questions regarding privacy while using the Application, or have questions about the practices, please contact the Service Provider via email at amtraker@piemadd.com.","Si vous avez des questions concernant la confidentialité lors de l'utilisation de l'Application, ou des questions sur nos pratiques, veuillez communiquer avec le Fournisseur de services par courriel à amtraker@piemadd.com.","Si tienes alguna pregunta sobre la privacidad al usar la Aplicación, o sobre nuestras prácticas, contacta al Proveedor del Servicio por correo electrónico en amtraker@piemadd.com."

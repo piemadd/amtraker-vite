@@ -1,22 +1,27 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import PocketBase from "pocketbase";
 import AtlasNav from "./nav";
 import { hoursMinutesDaysDuration } from "./common";
 import { Bar } from "react-chartjs-2";
 import "chart.js/auto";
+import { m } from "../../paraglide/messages.js";
+import LanguageButtons from "../../components/buttons/languageButtons";
+import UnitsButton from "../../components/buttons/unitsButton";
+import { useUnits, toDisplayDistance } from "../../components/units.js";
+import { getIntlLocale } from "../../components/intlLocale.js";
 
 const pb = new PocketBase("https://pb.amtraker.com");
 
 const AtlasStatsInd = () => {
   const navigate = useNavigate();
 
-  document.title = 'Amtraker Atlas : Stats';
+  document.title = m["pages.atlas.stats_ind.page_title"]();
   document
     .querySelector('meta[name="description"]')
     .setAttribute(
       "content",
-      "View your Amtraker Atlas stats."
+      m["pages.atlas.stats_ind.meta_description"]()
     );
   document
     .querySelector('meta[property="og:image"]')
@@ -41,6 +46,7 @@ const AtlasStatsInd = () => {
     top_station_curr_year: "",
   });
   const [lastTwelveMonths, setLastTwelveMonths] = useState([]);
+  const units = useUnits();
 
   useEffect(() => {
     // user summary
@@ -95,7 +101,7 @@ const AtlasStatsInd = () => {
           };
 
           finalDataForChart.push({
-            label: new Intl.DateTimeFormat("en-US", {
+            label: new Intl.DateTimeFormat(getIntlLocale(), {
               year: "numeric",
               month: "short",
               timeZone: "UTC",
@@ -112,7 +118,7 @@ const AtlasStatsInd = () => {
       <>
         <img
           id="background"
-          alt="Amtrak network map."
+          alt={m["common_strings.background_alt"]()}
           className={bgClass + " terrabanner"}
           src={bgURL}
         ></img>
@@ -133,26 +139,28 @@ const AtlasStatsInd = () => {
                 fontWeight: 500,
               }}
             >
-              Back
+              {m["common_strings.back"]()}
             </p>
-            <p
-              onClick={() => {
-                const confirmationRes = confirm(
-                  "Are you sure you want to log out?",
-                );
-                if (!confirmationRes) return;
-                pb.authStore.clear();
-                navigate(0);
-              }}
-              className="click"
-              style={{
-               paddingRight: '32px',
-                fontSize: "24px",
-                fontWeight: 500,
-              }}
-            >
-              Log Out
-            </p>
+            <div className="multiButtonHolder" style={{ alignItems: "center" }}>
+              <UnitsButton headerStyle={true} />
+              <LanguageButtons headerStyle={true} />
+              <p
+                onClick={() => {
+                  const confirmationRes = confirm(m["common_strings.log_out_confirm"]());
+                  if (!confirmationRes) return;
+                  pb.authStore.clear();
+                  navigate(0);
+                }}
+                className="click"
+                style={{
+                 paddingRight: '32px',
+                  fontSize: "24px",
+                  fontWeight: 500,
+                }}
+              >
+                {m["common_strings.log_out"]()}
+              </p>
+            </div>
           </div>
           <section className="section-trainPage">
             <AtlasNav
@@ -164,27 +172,27 @@ const AtlasStatsInd = () => {
                 marginTop: -2,
               }}
             >
-              This Year
+              {m["pages.atlas.stats_ind.this_year"]()}
             </h2>
             <div className="atlas-stats-ind-stat">
               <p>
                 {userSummary.trip_count_curr_year}
-                <span>Trips Taken</span>
+                <span>{m["pages.atlas.stats_ind.trips_taken"]()}</span>
               </p>
               <hr />
               <p>
-                {Intl.NumberFormat().format(userSummary.total_length_curr_year)}
-                <span>Miles Traveled</span>
+                {Intl.NumberFormat().format(toDisplayDistance(userSummary.total_length_curr_year, units))}
+                <span>{units === "metric" ? m["pages.atlas.stats_ind.kilometers_traveled"]() : m["pages.atlas.stats_ind.miles_traveled"]()}</span>
               </p>
               <hr />
               <p>
                 {hoursMinutesDaysDuration(userSummary.total_time_curr_year)}
-                <span>Time Spent</span>
+                <span>{m["pages.atlas.time_spent"]()}</span>
               </p>
               <hr />
               <p>
-                {userSummary.top_station_curr_year ?? "N/A"}
-                <span>Top Station</span>
+                {userSummary.top_station_curr_year ?? m["common_strings.not_available"]()}
+                <span>{m["pages.atlas.stats_ind.top_station"]()}</span>
               </p>
             </div>
             <h2
@@ -192,27 +200,27 @@ const AtlasStatsInd = () => {
                 marginTop: -2,
               }}
             >
-              Overall
+              {m["pages.atlas.stats_ind.overall"]()}
             </h2>
             <div className="atlas-stats-ind-stat">
               <p>
                 {userSummary.trip_count}
-                <span>Trips Taken</span>
+                <span>{m["pages.atlas.stats_ind.trips_taken"]()}</span>
               </p>
               <hr />
               <p>
-                {Intl.NumberFormat().format(userSummary.total_length)}
-                <span>Miles Traveled</span>
+                {Intl.NumberFormat().format(toDisplayDistance(userSummary.total_length, units))}
+                <span>{units === "metric" ? m["pages.atlas.stats_ind.kilometers_traveled"]() : m["pages.atlas.stats_ind.miles_traveled"]()}</span>
               </p>
               <hr />
               <p>
                 {hoursMinutesDaysDuration(userSummary.total_time)}
-                <span>Time Spent</span>
+                <span>{m["pages.atlas.time_spent"]()}</span>
               </p>
               <hr />
               <p>
-                {userSummary.top_station ?? "N/A"}
-                <span>Top Station</span>
+                {userSummary.top_station ?? m["common_strings.not_available"]()}
+                <span>{m["pages.atlas.stats_ind.top_station"]()}</span>
               </p>
             </div>
             <h2
@@ -221,7 +229,7 @@ const AtlasStatsInd = () => {
                 marginBottom: 4,
               }}
             >
-              Charts
+              {m["pages.atlas.charts"]()}
             </h2>
             <div
               style={{
@@ -238,7 +246,7 @@ const AtlasStatsInd = () => {
                   marginBottom: 4,
                 }}
               >
-                Monthly Trips
+                {m["pages.atlas.stats_ind.monthly_trips"]()}
               </h4>
               <Bar
                 options={{
@@ -273,7 +281,7 @@ const AtlasStatsInd = () => {
                   marginBottom: 4,
                 }}
               >
-                Monthly Miles
+                {units === "metric" ? m["pages.atlas.stats_ind.monthly_kilometers"]() : m["pages.atlas.stats_ind.monthly_miles"]()}
               </h4>
               <Bar
                 options={{
@@ -285,7 +293,7 @@ const AtlasStatsInd = () => {
                   labels: lastTwelveMonths.map((month) => month.label),
                   datasets: [
                     {
-                      data: lastTwelveMonths.map((month) => month.sum_length),
+                      data: lastTwelveMonths.map((month) => toDisplayDistance(month.sum_length, units)),
                       borderWidth: 1,
                     },
                   ],
@@ -308,7 +316,7 @@ const AtlasStatsInd = () => {
                   marginBottom: 4,
                 }}
               >
-                Monthly Minutes
+                {m["pages.atlas.stats_ind.monthly_minutes"]()}
               </h4>
               <Bar
                 options={{

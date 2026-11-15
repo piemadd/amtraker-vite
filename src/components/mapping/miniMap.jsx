@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo, useRef } from "react";
-import maplibregl from "maplibre-gl";
+import * as maplibregl from "maplibre-gl";
+import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 import "../../paths/map/Map.css";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { layers, sprite, glyphs } from "../../paths/map/mapLayers.json";
@@ -9,7 +10,10 @@ import ManualTrainPopup from "../trainBox/manualTrainPopup.jsx";
 import ManualStationPopup from "../stationBox/maualStationPopup.jsx";
 import ManualMultiplePopup from "../manualMultiplePopup.jsx";
 import settingsInit from "../settingsInit.js";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
+import { m } from "../../paraglide/messages.js";
+
+maplibregl.setWorkerUrl(workerUrl);
 
 const MiniMap = ({
   filteredTrainIDs = [],
@@ -166,7 +170,7 @@ const MiniMap = ({
       dataManager.getStations().then((data) => {
         const allStations = Object.values(data);
 
-        mapRef.current.on("load", () => {
+        mapRef.current.on("style.load", () => {
           //adding data to the map
           mapRef.current.setLayerZoomRange("stations", 0);
           mapRef.current.setLayerZoomRange("stations_label", 5);
@@ -194,7 +198,7 @@ const MiniMap = ({
       dataManager.getTrains().then((data) => {
         const allTrains = Object.values(data).flat();
 
-        mapRef.current.on("load", () => {
+        mapRef.current.on("style.load", () => {
           //adding data to the map
           mapRef.current.getSource("trains").setData({
             type: "FeatureCollection",
@@ -241,7 +245,7 @@ const MiniMap = ({
         });
       });
 
-      mapRef.current.on("load", async () => {
+      mapRef.current.on("style.load", async () => {
         mapRef.current.on("click", (e) => {
           const bbox = [
             [e.point.x - 4, e.point.y - 4], // southwest
@@ -305,11 +309,7 @@ const MiniMap = ({
 
           switch (feature.layer.id) {
             case "trains":
-              const train = {
-                ...feature.properties,
-                stations: JSON.parse(feature.properties.stations),
-                alerts: JSON.parse(feature.properties.alerts)
-              };
+              const train = feature.properties;
 
               targetElement = document.getElementById(train.trainID);
               if (targetElement) {
@@ -337,7 +337,7 @@ const MiniMap = ({
               );
               break;
             case "stations":
-              const station = { ...feature.properties, trains: JSON.parse(feature.properties.trains) };
+              const station = feature.properties;
 
               targetElement = document.getElementById(station.code);
               if (targetElement) {
@@ -426,7 +426,7 @@ const MiniMap = ({
     >
       <div className="map-over">
         <div className="attribution">
-          <Link to={"/map"}>View Full Map</Link>
+          <Link to={"/map"}>{m["pages.map.view_full_map"]()}</Link>
         </div>
       </div>
     </div>

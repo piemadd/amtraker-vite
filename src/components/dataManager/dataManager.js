@@ -26,7 +26,7 @@ export class DataManager {
         console.log("DM-R:", this._id);
         fetch(URL_TO_USE, {
           cache: "reload",
-          headers: { "User-Agent": "AmtrakerVite/v3.21.19 (+https://amtraker.com)", "Amtraker-Version": "v3.21.19" }
+          headers: { "User-Agent": "AmtrakerVite/v3.22.0 (+https://amtraker.com)", "Amtraker-Version": "v3.22.0" }
         })
           .then((res) => res.json())
           .then((data) => {
@@ -49,26 +49,45 @@ export class DataManager {
     setInterval(() => {
       updateData();
     }, 15000); //every 15 seconds, refresh
+
+    // the in flight fetch from checkDataStatusAndUpdate, so overlapping calls share one request
+    this._fetchPromise = null;
+
+    // start loading right away so the app can render while data comes in. async getters wait on this,
+    // sync getters return whatever is loaded so far (empty until this resolves). never rejects
+    this._initialLoad = this.checkDataStatusAndUpdate().catch((e) => {
+      console.log("Initial load failed: " + e.toString());
+    });
   }
 
-  //if the data hasnt been updated within 5 minute or is null, update it
+  // resolves once the first load (fresh data or the offline cache) is done
+  ready() {
+    return this._initialLoad;
+  }
+
+  //if the data hasnt been updated within 5 minutes or is null, update it
   async checkDataStatusAndUpdate() {
     const runFetch = async () => {
       try {
-        if (!this._lastUpdated || !this._data || this._lastUpdated < Date.now() - 1000 * 60 * 5) {
-          const res = await fetch(URL_TO_USE, {
-            cache: "reload",
-            headers: { "User-Agent": "AmtrakerVite/v3.21.19 (+https://amtraker.com)", "Amtraker-Version": "v3.21.19" },
-            signal: AbortSignal.timeout(5000)
-          });
-          const data = await res.json();
-          this._data = data;
-          this._lastUpdated = Date.now();
+        const res = await fetch(URL_TO_USE, {
+          cache: "reload",
+          headers: { "User-Agent": "AmtrakerVite/v3.22.0 (+https://amtraker.com)", "Amtraker-Version": "v3.22.0" },
+          signal: AbortSignal.timeout(5000)
+        });
+        const data = await res.json();
+        this._data = data;
+        this._lastUpdated = Date.now();
 
-          localForage.setItem("amtraker_datamanager_v1_data", JSON.stringify(this._data));
-          console.log("Initial request succeeded");
-        }
+        localForage.setItem("amtraker_datamanager_v1_data", JSON.stringify(this._data));
+        localForage.setItem("amtraker_datamanager_v1_last_updated", this._lastUpdated);
+        console.log("Initial request succeeded");
       } catch (e) {
+        // already have data in memory, keep it rather than swapping in the (older or equal) cache
+        if (this._lastUpdated) {
+          console.log("Request failed, keeping current data");
+          return;
+        }
+
         let tempData = await localForage.getItem("amtraker_datamanager_v1_data");
 
         if (!tempData)
@@ -76,28 +95,25 @@ export class DataManager {
             '{"trains":{},"stations":{},"ids":[],"shitsFucked":true,"staleData":{"avgLastUpdate":9999999,"activeTrains":1,"stale":true}}';
 
         this._data = JSON.parse(tempData);
-        this._lastUpdated = await localForage.getItem("amtraker_datamanager_v1_last_updated");
+        this._lastUpdated = (await localForage.getItem("amtraker_datamanager_v1_last_updated")) ?? 0;
         console.log("Initial request timed out, using cached data");
       }
     };
 
-    // if we have no data
-    if (Object.keys(this._data).length === 0) {
-      console.log("DM-CND:", this._id);
-      await runFetch(); //run fetch but dont allow a success until we've updated
-    }
+    if (this._lastUpdated && this._data && this._lastUpdated >= Date.now() - 1000 * 60 * 5) return;
 
-    // if data is out of date
-    else if (this._lastUpdated < Date.now() - 1000 * 60) {
+    if (!this._fetchPromise) {
       console.log("DM-COD:", this._id);
-      await runFetch(); // return data but allow a success for now
-      //actually we want to try blocking, at least for now
+      this._fetchPromise = runFetch().finally(() => {
+        this._fetchPromise = null;
+      });
     }
 
-    return;
+    return this._fetchPromise;
   }
 
   async getTrains() {
+    await this._initialLoad;
     console.log("DM: All Trains");
     return this._data.trains;
   }
@@ -130,6 +146,7 @@ export class DataManager {
   }
 
   async getTrain(trainID, justObject = false) {
+    await this._initialLoad;
     return this.getTrainSync(trainID, justObject);
   }
 
@@ -148,6 +165,7 @@ export class DataManager {
   }
 
   async getStations() {
+    await this._initialLoad;
     console.log("DM: All Stops");
     return this._data.stations;
   }
@@ -161,10 +179,12 @@ export class DataManager {
   }
 
   async getStation(stationCode) {
+    await this._initialLoad;
     return this.getStationSync(stationCode);
   }
 
   async getIDs() {
+    await this._initialLoad;
     console.log("DM: IDs");
 
     return this._data.ids;
@@ -177,11 +197,13 @@ export class DataManager {
   }
 
   async getShitsFucked() {
+    await this._initialLoad;
     console.log("DM: ShitsFucked");
     return this._data.shitsFucked;
   }
 
   async getStaleData() {
+    await this._initialLoad;
     console.log("DM: Stale Data");
     return this._data.staleData;
   }

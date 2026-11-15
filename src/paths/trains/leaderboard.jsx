@@ -1,10 +1,13 @@
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router";
 import { useEffect, useState, useMemo } from "react";
 import "./trains.css"; //fuck it we ball
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import settingsInit from "../../components/settingsInit";
 import stringToHash from "../../components/money/stringToHash";
 import { toHoursAndMinutesLate } from "../../tools";
+import { m } from "../../paraglide/messages.js";
+import LanguageButtons from "../../components/buttons/languageButtons";
+import UnitsButton from "../../components/buttons/unitsButton";
 
 // calculateIconColor.ts in amtraker-v3
 
@@ -132,7 +135,7 @@ const providerTextColors = {
 const TrainsLeaderboard = () => {
   const navigate = useNavigate();
 
-  document.title = `Late Train Leaderboard - Amtraker`;
+  document.title = m["pages.trains.leaderboard.page_title"]();
 
   const dataManager = window.dataManager;
   const appSettings = useMemo(settingsInit, []);
@@ -177,7 +180,7 @@ const TrainsLeaderboard = () => {
       
       <img
         id="background"
-        alt="Amtrak network map."
+        alt={m["common_strings.background_alt"]()}
         className={bgClass + " terrabanner"}
         src={bgURL}
       ></img>
@@ -198,24 +201,25 @@ const TrainsLeaderboard = () => {
               fontWeight: 500,
             }}
           >
-            Back
+            {m["common_strings.back"]()}
           </p>
           {shitsFucked ? (
             <>
-              <p>
-                The Amtrak API seems to be having issues currently! Please try
-                again later...
-              </p>
+              <p>{m["common_strings.shitsfucked"]()}</p>
               <p></p>
             </>
           ) : null}
+          <div className="multiButtonHolder">
+            <UnitsButton headerStyle={true} />
+            <LanguageButtons headerStyle={true} />
+          </div>
         </div>
         <section className="section-trainPage">
           <div className="trainsLeaderboard">
-            <div className="leaderboardTitle">Rank</div>
-            <div className="leaderboardTitle">Name</div>
-            <div className="leaderboardTitle">Railroad</div>
-            <div className="leaderboardTitle">HH:MM Late</div>
+            <div className="leaderboardTitle">{m["pages.trains.leaderboard.rank"]()}</div>
+            <div className="leaderboardTitle">{m["pages.trains.leaderboard.name"]()}</div>
+            <div className="leaderboardTitle">{m["pages.trains.leaderboard.railroad"]()}</div>
+            <div className="leaderboardTitle">{m["pages.trains.leaderboard.hh_mm_late"]()}</div>
             {!loading ? (
               <>
                 {trainData
@@ -304,7 +308,7 @@ const TrainsLeaderboard = () => {
               </>
             ) : (
               <div className="station-box">
-                <p>Loading train data...</p>
+                <p>{m["pages.trains.loading_train_data"]()}...</p>
               </div>
             )}
           </div>

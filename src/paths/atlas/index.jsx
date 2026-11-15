@@ -1,17 +1,20 @@
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router";
 import { useEffect, useState } from "react";
 import PocketBase from "pocketbase";
 import AtlasNav from "./nav";
 import TripsList from "./tripsList";
 import AppleLogo from "./apple";
+import { m } from "../../paraglide/messages.js";
+import LanguageButtons from "../../components/buttons/languageButtons";
+import UnitsButton from "../../components/buttons/unitsButton";
 
 const pb = new PocketBase("https://pb.amtraker.com");
 
 const AtlasIndex = () => {
   const navigate = useNavigate();
 
-  document.title = "Amtraker Atlas : Home";
-  document.querySelector('meta[name="description"]').setAttribute("content", "Record your trips in Amtraker Atlas.");
+  document.title = m["pages.atlas.index.page_title"]();
+  document.querySelector('meta[name="description"]').setAttribute("content", m["pages.atlas.index.meta_description"]());
   document
     .querySelector('meta[property="og:image"]')
     .setAttribute("content", "https://amtraker.com/content/images/amtraker-back.webp");
@@ -38,7 +41,7 @@ const AtlasIndex = () => {
   if (pb.authStore.isValid) {
     return (
       <>
-        <img id="background" alt="Amtrak network map." className={bgClass + " terrabanner"} src={bgURL}></img>
+        <img id="background" alt={m["common_strings.background_alt"]()} className={bgClass + " terrabanner"} src={bgURL}></img>
         <div className="trainPage">
           <div className="header-trainpage">
             <p
@@ -52,27 +55,31 @@ const AtlasIndex = () => {
               className="click"
               style={{ paddingLeft: "32px", fontSize: "24px", fontWeight: 500 }}
             >
-              Back
+              {m["common_strings.back"]()}
             </p>
-            <p
-              onClick={() => {
-                const confirmationRes = confirm("Are you sure you want to log out?");
-                if (!confirmationRes) return;
-                pb.authStore.clear();
-                navigate(0);
-              }}
-              className="click"
-              style={{ paddingRight: "32px", fontSize: "24px", fontWeight: 500 }}
-            >
-              Log Out
-            </p>
+            <div className="multiButtonHolder" style={{ alignItems: "center" }}>
+              <UnitsButton headerStyle={true} />
+              <LanguageButtons headerStyle={true} />
+              <p
+                onClick={() => {
+                  const confirmationRes = confirm(m["common_strings.log_out_confirm"]());
+                  if (!confirmationRes) return;
+                  pb.authStore.clear();
+                  navigate(0);
+                }}
+                className="click"
+                style={{ paddingRight: "32px", fontSize: "24px", fontWeight: 500 }}
+              >
+                {m["common_strings.log_out"]()}
+              </p>
+            </div>
           </div>
           <section className="section-trainPage">
             <AtlasNav currentRoute={"index"} userData={pb.authStore.record} />
             {tripsMeta && tripsMeta.totalItems > 0 ? (
               <div style={{ display: "flex", columnGap: "12px", rowGap: "0px", flexWrap: "wrap" }}>
                 <div>
-                  <label>Page Selection</label>
+                  <label>{m["pages.atlas.index.page_selection"]()}</label>
                   <div className="linksJoined">
                     {Array(tripsMeta.totalPages)
                       .fill("amongus")
@@ -89,17 +96,17 @@ const AtlasIndex = () => {
                         );
                       })}
                     <Link to={"/atlas/add"} replace={true}>
-                      <button className="joinedLink">Add Trip</button>
+                      <button className="joinedLink">{m["pages.atlas.add_trip"]()}</button>
                     </Link>
                   </div>
                 </div>
                 <div>
-                  <label>Sort By</label>
+                  <label>{m["pages.atlas.index.sort_by"]()}</label>
                   <div className="linksJoined">
                     {[
-                      ["departure_date", "Departure Date"],
-                      ["length_mi", "Length"],
-                      ["time_minutes", "Time"]
+                      ["departure_date", m["pages.atlas.index.sort_departure_date"]()],
+                      ["length_mi", m["pages.atlas.index.sort_length"]()],
+                      ["time_minutes", m["pages.atlas.index.sort_time"]()]
                     ].map((val, i) => {
                       return (
                         <a href="#" onClick={() => {}}>
@@ -115,11 +122,11 @@ const AtlasIndex = () => {
                   </div>
                 </div>
                 <div>
-                  <label>Sort Direction</label>
+                  <label>{m["pages.atlas.index.sort_direction"]()}</label>
                   <div className="linksJoined" style={{ marginBottom: "8px" }}>
                     {[
-                      ["-", "Desc."],
-                      ["+", "Asc."]
+                      ["-", m["pages.atlas.index.sort_desc"]()],
+                      ["+", m["pages.atlas.index.sort_asc"]()]
                     ].map((val, i) => {
                       return (
                         <a href="#" onClick={() => {}}>
@@ -151,7 +158,7 @@ const AtlasIndex = () => {
 
   return (
     <>
-      <img id="background" alt="Amtrak network map." className={bgClass + " terrabanner"} src={bgURL}></img>
+      <img id="background" alt={m["common_strings.background_alt"]()} className={bgClass + " terrabanner"} src={bgURL}></img>
       <div className="trainPage">
         <div className="header-trainpage">
           <p
@@ -165,18 +172,22 @@ const AtlasIndex = () => {
             className="click"
             style={{ paddingLeft: "32px", fontSize: "24px", fontWeight: 500 }}
           >
-            Back
+            {m["common_strings.back"]()}
           </p>
+          <div className="multiButtonHolder">
+            <UnitsButton headerStyle={true} />
+            <LanguageButtons headerStyle={true} />
+          </div>
         </div>
         <section className="section-trainPage">
-          <h1>Atlas</h1>
+          <h1>{m["pages.index.atlas"]()}</h1>
           <details style={{ maxWidth: "500px", marginBottom: "2px" }}>
-            <summary style={{ fontSize: "16px", marginBottom: "2px" }}>Atlas Note</summary>
+            <summary style={{ fontSize: "16px", marginBottom: "2px" }}>{m["pages.atlas.note_title"]()}</summary>
             <label>
-              <b>If you notice any bugs or have any feature requests</b> please email me directly at{" "}
-              <a href="mailto:piero@piemadd.com">piero@piemadd.com</a>. It is important to note{" "}
+              <b>{m["pages.atlas.note_bugs"]()}</b> {m["pages.atlas.note_email"]()}{" "}
+              <a href="mailto:piero@piemadd.com">piero@piemadd.com</a>. {m["pages.atlas.note_important"]()}{" "}
               <i>
-                <b>Atlas is not required to use the regular train tracking aspects of Amtraker</b>
+                <b>{m["pages.atlas.note_not_required"]()}</b>
               </i>
               .
             </label>
@@ -203,9 +214,9 @@ const AtlasIndex = () => {
               }
             }}
           >
-            Login With Google
+            {m["pages.atlas.index.login_google"]()}
           </button>
-          <p>===== or =====</p>
+          <p>{m["pages.atlas.index.login_divider"]()}</p>
           <button
             className="root"
             style={{
@@ -238,10 +249,10 @@ const AtlasIndex = () => {
               }
             }}
           >
-            <AppleLogo style={{ margin: "-16px -8px -18px -16px" }} /> Login With Apple
+            <AppleLogo style={{ margin: "-16px -8px -18px -16px" }} /> {m["pages.atlas.index.login_apple"]()}
           </button>
-          <p>===== or =====</p>
-          <label htmlFor="atlas-login_email">Email</label>
+          <p>{m["pages.atlas.index.login_divider"]()}</p>
+          <label htmlFor="atlas-login_email">{m["pages.atlas.index.email"]()}</label>
           <input
             name="login_email"
             id="atlas-login_email"
@@ -249,7 +260,7 @@ const AtlasIndex = () => {
             value={currentUsername}
             type="email"
           />
-          <label htmlFor="atlas-login_password">Password</label>
+          <label htmlFor="atlas-login_password">{m["pages.atlas.index.password"]()}</label>
           <input
             name="login_password"
             id="atlas-login_password"
@@ -267,7 +278,7 @@ const AtlasIndex = () => {
                 });
             }}
           >
-            Login With User/Pass
+            {m["pages.atlas.index.login_user_pass"]()}
           </button>
         </section>
       </div>

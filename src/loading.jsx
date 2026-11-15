@@ -1,3 +1,4 @@
+import { m } from "./paraglide/messages.js";
 export default function LoadingPage() {
   return (
     <div id='error-page' style={{
@@ -9,7 +10,7 @@ export default function LoadingPage() {
       justifyContent: 'center',
       alignItems: 'center',
     }}>
-      <h1>Loading...</h1>
+      <h1>{m["common_strings.loading"]()}...</h1>
     </div>
   );
 }

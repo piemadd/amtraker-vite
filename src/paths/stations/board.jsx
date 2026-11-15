@@ -1,4 +1,4 @@
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router";
 import { useEffect, useState, useMemo, useRef } from "react";
 import totallyAFont from "../../components/board-accessories/totally-a-font";
 
