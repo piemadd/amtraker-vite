@@ -170,7 +170,7 @@ const MiniMap = ({
       dataManager.getStations().then((data) => {
         const allStations = Object.values(data);
 
-        mapRef.current.on("load", () => {
+        mapRef.current.on("style.load", () => {
           //adding data to the map
           mapRef.current.setLayerZoomRange("stations", 0);
           mapRef.current.setLayerZoomRange("stations_label", 5);
@@ -198,7 +198,7 @@ const MiniMap = ({
       dataManager.getTrains().then((data) => {
         const allTrains = Object.values(data).flat();
 
-        mapRef.current.on("load", () => {
+        mapRef.current.on("style.load", () => {
           //adding data to the map
           mapRef.current.getSource("trains").setData({
             type: "FeatureCollection",
@@ -245,7 +245,7 @@ const MiniMap = ({
         });
       });
 
-      mapRef.current.on("load", async () => {
+      mapRef.current.on("style.load", async () => {
         mapRef.current.on("click", (e) => {
           const bbox = [
             [e.point.x - 4, e.point.y - 4], // southwest

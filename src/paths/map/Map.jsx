@@ -308,7 +308,7 @@ const AmtrakerMap = () => {
 
         setStationsData(allStations);
 
-        mapRef.current.on("load", () => {
+        mapRef.current.on("style.load", () => {
           //adding data to the map
           mapRef.current.getSource("stations").setData({
             type: "FeatureCollection",
@@ -343,7 +343,7 @@ const AmtrakerMap = () => {
         setAllNames(allTrains.map((train) => train.routeName));
         if (fuse) fuse.setCollection(allTrains);
 
-        mapRef.current.on("load", () => {
+        mapRef.current.on("style.load", () => {
           //adding data to the map
           mapRef.current.getSource("trains").setData({
             type: "FeatureCollection",
@@ -399,7 +399,7 @@ const AmtrakerMap = () => {
         });
       });
 
-      mapRef.current.on("load", async () => {
+      mapRef.current.on("style.load", async () => {
         mapRef.current.on("click", (e) => {
           const bbox = [
             [e.point.x - 4, e.point.y - 4], // southwest
@@ -841,11 +841,13 @@ const AmtrakerMap = () => {
                           style={{ display: "flex", flexDirection: "column", gap: "4px", marginRight: "8px" }}
                           key={train.trainID}
                         >
+                          {/*}
                           {i > 0 && (i - 6) % 10 == 0 ? (
                             <div className="train-box train-box-max-width">
                               <Moneyyyyyyyy sizeName="mobile_banner" noOuter={true} />
                             </div>
                           ) : null}
+                           */}
                           <ManualTrainBox
                             train={train}
                             maxWidth={true}

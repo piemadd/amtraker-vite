@@ -239,14 +239,13 @@ const LocalizedRouter = () => {
   return <RouterProvider key={routerInfo.id} router={routerInfo.router} />;
 };
 
+// render right away, the dataManager starts loading in its constructor and its async getters wait for that
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-dataManager.checkDataStatusAndUpdate().then(() => {
-  root.render(
-    <React.Suspense fallback={<LoadingPage />}>
-      <React.StrictMode>
-        <LocalizedRouter />
-      </React.StrictMode>
-    </React.Suspense>
-  );
-});
+root.render(
+  <React.Suspense fallback={<LoadingPage />}>
+    <React.StrictMode>
+      <LocalizedRouter />
+    </React.StrictMode>
+  </React.Suspense>
+);
