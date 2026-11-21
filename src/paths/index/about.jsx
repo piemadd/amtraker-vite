@@ -464,12 +464,19 @@ const About = () => {
           <h2>{m["pages.about.settings.debug_info"]()}</h2>
           <p>{m["pages.about.settings.debug_user_agent"]()}</p>
           <pre>{navigator.userAgent}</pre>
+          <p>{m["pages.about.settings.debug_user_agent_ios_app"]()}</p>
+          <pre>{navigator.userAgent?.includes('Amtraker PWAShell') ? 'true' : 'false'}</pre>
           <p>{m["pages.about.settings.debug_platform"]()}</p>
           <pre>{navigator.platform}</pre>
           <p>{m["pages.about.settings.debug_oscpu"]()}</p>
           <pre>{navigator.oscpu && navigator.oscpu.length > 0 ? navigator.oscpu : m["pages.about.settings.debug_empty_string"]()}</pre>
           <p>{m["pages.about.settings.debug_vendor"]()}</p>
           <pre>{navigator.vendor && navigator.vendor.length > 0 ? navigator.vendor : m["pages.about.settings.debug_empty_string"]()}</pre>
+          <p>CSS Vars</p>
+          <pre>Left: {window.getComputedStyle(document.documentElement).getPropertyValue('--sal').trim()}</pre>
+          <pre>Right: {window.getComputedStyle(document.documentElement).getPropertyValue('--sar').trim()}</pre>
+          <pre>Top: {window.getComputedStyle(document.documentElement).getPropertyValue('--sat').trim()}</pre>
+          <pre>Bottom: {window.getComputedStyle(document.documentElement).getPropertyValue('--sab').trim()}</pre>
           <p>{m["pages.about.settings.debug_session_storage"]()}</p>
           <pre>{JSON.stringify(sessionStorage, null, 2)}</pre>
           <p>{m["pages.about.settings.debug_local_storage"]()}</p>

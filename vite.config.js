@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import { VitePWA } from "vite-plugin-pwa";
 import { paraglideVitePlugin } from "@inlang/paraglide-js";
+import { cloudflare } from "@cloudflare/vite-plugin";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -126,7 +127,15 @@ export default defineConfig({
       project: "./project.inlang",
       outdir: "./src/paraglide",
       emitTsDeclarations: false,
-      strategy: ["url", "baseLocale"] // locale comes from a url prefix, ie /fr/trains/5
+      strategy: ["url", "baseLocale"]
+    }),
+    /*
+    cloudflare({
+      tunnel: {
+        name: "amtraker-indev", // Omit for a random Quick Tunnel
+        autoStart: true // Opens automatically when Vite starts
+      }
     })
+    */
   ]
 });

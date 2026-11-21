@@ -376,6 +376,7 @@
         "always_saved_add": "Agregar un tren manualmente",
         "debug_info": "Información de depuración",
         "debug_user_agent": "Agente de usuario",
+        "debug_user_agent_ios_app": "Agente de usuario iOS",
         "debug_platform": "Plataforma:",
         "debug_oscpu": "OSCPU",
         "debug_vendor": "Proveedor",

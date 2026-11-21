@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo, useRef } from "react";
 import * as maplibregl from "maplibre-gl";
-import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
+import workerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url";
 import "../../paths/map/Map.css";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { layers, sprite, glyphs } from "../../paths/map/mapLayers.json";
@@ -386,30 +386,35 @@ const MiniMap = ({
           console.log(`Map moved to ${mapRef.current.getCenter()} with zoom ${mapRef.current.getZoom()}`);
         });
 
-        mapRef.current.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), "top-right");
-        mapRef.current.addControl(new maplibregl.FullscreenControl());
-        mapRef.current.addControl(
-          new maplibregl.GeolocateControl({ positionOptions: { enableHighAccuracy: true }, trackUserLocation: true })
-        );
-        mapRef.current.addControl(
-          new maplibregl.AttributionControl({
-            customAttribution: [
-              '<a href="https://github.com/protomaps/basemaps" target="_blank">Protomaps</a>',
-              '<a href="https://openstreetmap.org" target="_blank">© OpenStreetMap contributors</a>',
-              '<a href="https://overturemaps.org" target="_blank">© Overture Maps Foundation</a>',
-              '<a href="https://geodata.bts.gov/datasets/usdot::amtrak-routes/about" target="_blank">USDOT BTS</a>',
-              "<span>Amtrak</span>",
-              '<a href="http://feed.gobrightline.com/" target="_blank">© Brightline</a>',
-              '<a href="https://www.viarail.ca/en/developer-resources" target="_blank">© VIA Rail</a>'
-              /*
-            '<a href="https://developer.njtransit.com/terms/" target="_blank">© NJT</a>',
-            '<a href="https://metrolinktrains.com/about/gtfs/gtfs-rt-access/" target="_blank">© LA Metrolink</a>',
-            '<a href="https://moynihantrainhall.nyc/" target="_blank">© NY Moynihan</a>',
-            */
-            ].join(" | "),
-            compact: false
-          })
-        );
+        let mapControlsPosition = "top-right";
+        const mapControls = [
+          [new maplibregl.NavigationControl({ visualizePitch: true })],
+          [new maplibregl.FullscreenControl()],
+          [
+            new maplibregl.GeolocateControl({ positionOptions: { enableHighAccuracy: true }, trackUserLocation: true })
+          ],
+          [
+            new maplibregl.AttributionControl({
+              customAttribution: [
+                '<a href="https://github.com/protomaps/basemaps" target="_blank">Protomaps</a>',
+                '<a href="https://openstreetmap.org" target="_blank">© OpenStreetMap contributors</a>',
+                '<a href="https://overturemaps.org" target="_blank">© Overture Maps Foundation</a>',
+                '<a href="https://geodata.bts.gov/datasets/usdot::amtrak-routes/about" target="_blank">USDOT BTS</a>',
+                "<span>Amtrak</span>",
+                '<a href="http://feed.gobrightline.com/" target="_blank">© Brightline</a>',
+                '<a href="https://www.viarail.ca/en/developer-resources" target="_blank">© VIA Rail</a>'
+              ].join(" | ")
+            }),
+            "bottom-right"
+          ]
+        ];
+
+        if (navigator?.userAgent?.includes("Amtraker PWAShell")) {
+          mapControls.reverse();
+          mapControlsPosition = "bottom-right";
+        }
+
+        mapControls.forEach((control) => mapRef.current.addControl(control[0], control[1] ?? mapControlsPosition));
 
         console.log("Map initialized");
       });

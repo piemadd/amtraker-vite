@@ -1,3 +1,10 @@
+:root {
+  --sal: env(safe-area-inset-left, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+  --sat: env(safe-area-inset-top, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+}
+
 .train-box {
   font-size: 1.2rem;
   text-align: left;
@@ -65,14 +72,14 @@
   width: 100%;
 }
 
-.station-line>div {
+.station-line > div {
   display: flex;
   flex-wrap: wrap;
   margin-top: -8px;
   width: 100%;
 }
 
-.station-line>div:first-child {
+.station-line > div:first-child {
   margin-top: 0px;
 }
 
@@ -199,7 +206,8 @@ div.trainPage section.section-trainPage div.stations {
   gap: 4px;
 }
 
-.leaderboardTitle, .leaderboardElement {
+.leaderboardTitle,
+.leaderboardElement {
   background-color: #00000099;
   padding: 4px 8px;
 }
@@ -234,6 +242,11 @@ td {
 
 .section-trainPage summary {
   margin-bottom: -0.25em;
+}
+
+.maplibregl-ctrl-attrib-button {
+  margin-bottom: 0 !important;
+  margin-top: 0 !important;
 }
 
 .section-trainPage ul li {
@@ -283,7 +296,7 @@ div.trainInnerContentScroll {
 }
 
 div.trainInnerContentScroll > * {
-text-align: left;
+  text-align: left;
 }
 
 #searchbox {
@@ -314,12 +327,12 @@ text-align: left;
   font-weight: 400;
 }
 
-.train-popup__info>span {
+.train-popup__info > span {
   font-size: 1.4rem;
   font-style: italic;
 }
 
-.train-popup__info>a {
+.train-popup__info > a {
   text-decoration: underline;
 }
 
@@ -344,7 +357,7 @@ text-align: left;
 
 .multiButtonHolder {
   display: flex;
-  padding-right: 4px;
+  padding-right: max(max(env(safe-area-inset-right), env(safe-area-inset-top)), 4px);
   gap: 4px;
 }
 

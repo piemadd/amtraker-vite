@@ -376,6 +376,7 @@
         "always_saved_add": "Add a Train Manually",
         "debug_info": "Debug Info",
         "debug_user_agent": "User Agent",
+        "debug_user_agent_ios_app": "iOS App User Agent",
         "debug_platform": "Platform:",
         "debug_oscpu": "OSCPU",
         "debug_vendor": "Vendor",

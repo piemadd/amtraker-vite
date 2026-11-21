@@ -73,9 +73,7 @@ const AmtrakerMap = () => {
   const mapContainerRef = useRef(null);
 
   document.title = m["pages.map.page_title"]();
-  document
-    .querySelector('meta[name="description"]')
-    .setAttribute("content", m["pages.map.meta_description"]());
+  document.querySelector('meta[name="description"]').setAttribute("content", m["pages.map.meta_description"]());
   document
     .querySelector('meta[property="og:image"]')
     .setAttribute("content", "https://amtraker.com/content/images/amtraker-back.webp");
@@ -498,29 +496,33 @@ const AmtrakerMap = () => {
           console.log(`Map moved to ${mapRef.current.getCenter()} with zoom ${mapRef.current.getZoom()}`);
         });
 
-        mapRef.current.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), "top-right");
-        mapRef.current.addControl(new maplibregl.FullscreenControl());
-        mapRef.current.addControl(
-          new maplibregl.GeolocateControl({ positionOptions: { enableHighAccuracy: true }, trackUserLocation: true })
-        );
-        mapRef.current.addControl(
-          new maplibregl.AttributionControl({
-            customAttribution: [
-              '<a href="https://github.com/protomaps/basemaps" target="_blank">Protomaps</a>',
-              '<a href="https://openstreetmap.org" target="_blank">© OpenStreetMap contributors</a>',
-              '<a href="https://overturemaps.org" target="_blank">© Overture Maps Foundation</a>',
-              '<a href="https://geodata.bts.gov/datasets/usdot::amtrak-routes/about" target="_blank">USDOT BTS</a>',
-              "<span>Amtrak</span>",
-              '<a href="http://feed.gobrightline.com/" target="_blank">© Brightline</a>',
-              '<a href="https://www.viarail.ca/en/developer-resources" target="_blank">© VIA Rail</a>'
-              /*
-              '<a href="https://developer.njtransit.com/terms/" target="_blank">© NJT</a>',
-              '<a href="https://metrolinktrains.com/about/gtfs/gtfs-rt-access/" target="_blank">© LA Metrolink</a>',
-              '<a href="https://moynihantrainhall.nyc/" target="_blank">© NY Moynihan</a>',
-              */
-            ].join(" | ")
-          })
-        );
+        let mapControlsPosition = "top-right";
+        const mapControls = [
+          [new maplibregl.NavigationControl({ visualizePitch: true })],
+          [new maplibregl.FullscreenControl()],
+          [new maplibregl.GeolocateControl({ positionOptions: { enableHighAccuracy: true }, trackUserLocation: true })],
+          [
+            new maplibregl.AttributionControl({
+              customAttribution: [
+                '<a href="https://github.com/protomaps/basemaps" target="_blank">Protomaps</a>',
+                '<a href="https://openstreetmap.org" target="_blank">© OpenStreetMap contributors</a>',
+                '<a href="https://overturemaps.org" target="_blank">© Overture Maps Foundation</a>',
+                '<a href="https://geodata.bts.gov/datasets/usdot::amtrak-routes/about" target="_blank">USDOT BTS</a>',
+                "<span>Amtrak</span>",
+                '<a href="http://feed.gobrightline.com/" target="_blank">© Brightline</a>',
+                '<a href="https://www.viarail.ca/en/developer-resources" target="_blank">© VIA Rail</a>'
+              ].join(" | ")
+            }),
+            "bottom-right"
+          ]
+        ];
+
+        if (navigator?.userAgent?.includes("Amtraker PWAShell")) {
+          mapControls.reverse();
+          mapControlsPosition = "bottom-right";
+        }
+
+        mapControls.forEach((control) => mapRef.current.addControl(control[0], control[1] ?? mapControlsPosition));
 
         console.log("Map initialized");
       });
@@ -548,7 +550,7 @@ const AmtrakerMap = () => {
               }
             }}
             className="click noselect"
-            style={{ paddingLeft: "32px", fontSize: "24px", fontWeight: 500 }}
+            style={{ paddingLeft: "max(env(safe-area-inset-left), 32px)", fontSize: "24px", fontWeight: 500 }}
           >
             {query.length > 0 ? m["pages.map.clear_search"]() : m["common_strings.back"]()}
           </p>
