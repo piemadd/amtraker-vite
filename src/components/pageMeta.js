@@ -6,8 +6,8 @@ const SITE_ORIGIN = "https://amtraker.com";
 const DEFAULT_OG_IMAGE = "https://amtraker.com/content/images/amtraker-back.webp";
 const ATLAS_OG_IMAGE = "https://amtraker.com/content/images/amtraker_cover.webp";
 const API_HEADERS = {
-  "User-Agent": "AmtrakerViteWorker/v3.22.1 (+https://amtraker.com)",
-  "Amtraker-Version": "v3.22.1"
+  "User-Agent": "AmtrakerViteWorker/v3.22.2 (+https://amtraker.com)",
+  "Amtraker-Version": "v3.22.2"
 };
 
 // url prefix and og:locale for each locale, english has no prefix

@@ -313,7 +313,7 @@ const App = () => {
         </div>
 
         <section className="footer section-border">
-          <p>Amtraker v3.22.1</p>
+          <p>Amtraker v3.22.2</p>
           <div>
             <Link to="/about">
               <p>{m["pages.index.about"]()}/<wbr />{m["pages.index.settings"]()}/<wbr />{m["pages.index.privacy"]()}</p>

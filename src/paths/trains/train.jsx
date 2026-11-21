@@ -4,7 +4,14 @@ import ManualStationBox from "../../components/stationBox/manualStationBox";
 import stringToHash from "../../components/money/stringToHash";
 import "./trains.css";
 import settingsInit from "../../components/settingsInit";
-import { initAlwaysTracked, addAlwaysTracked, removeAlwaysTracked, getSavedTrain, manageSavedTrain, autoAddTrains } from "../../tools";
+import {
+  initAlwaysTracked,
+  addAlwaysTracked,
+  removeAlwaysTracked,
+  getSavedTrain,
+  manageSavedTrain,
+  autoAddTrains
+} from "../../tools";
 import ManualTrainBox from "../../components/trainBox/manualTrainBox";
 import ShareButton from "../../components/buttons/shareButton";
 import MiniMap from "../../components/mapping/miniMap";
@@ -13,7 +20,6 @@ import { m } from "../../paraglide/messages.js";
 import LanguageButtons from "../../components/buttons/languageButtons";
 import UnitsButton from "../../components/buttons/unitsButton";
 import { getIntlLocale } from "../../components/intlLocale.js";
-
 
 const BetterTrainPage = () => {
   const { trainNum, trainDate } = useParams();
@@ -112,9 +118,40 @@ const BetterTrainPage = () => {
     });
   }, []);
 
+  const StationsSection = () => {
+    return (
+      <>
+        <h3>{m["pages.trains.train.stations"]()}</h3>
+        <div className="stations">
+          {trainData[0].stations.map((station, i, arr) => {
+            return (
+              <>
+                {i > 0 && (i - 4) % 10 == 0 ? <Moneyyyyyyyy /> : null}
+                <Link
+                  to={`/stations/${station.code}`}
+                  key={`station-${station.code}`}
+                  id={station.code}
+                  className="station-link"
+                  style={{ width: "calc(100% - 18px)" }}
+                >
+                  <ManualStationBox station={station} train={trainData[0]} />
+                </Link>
+              </>
+            );
+          })}
+        </div>
+      </>
+    );
+  };
+
   return (
     <>
-      <img id="background" alt={m["common_strings.background_alt"]()} className={bgClass + " terrabanner"} src={bgURL}></img>
+      <img
+        id="background"
+        alt={m["common_strings.background_alt"]()}
+        className={bgClass + " terrabanner"}
+        src={bgURL}
+      ></img>
       <div className="trainPage">
         {!searchParams.has("oembed") ? (
           <div className="header-trainpage">
@@ -136,7 +173,10 @@ const BetterTrainPage = () => {
               <LanguageButtons headerStyle={true} />
               <ShareButton
                 navigatorOptions={{
-                  title: m["pages.trains.share_title"]({ provider: trainData[0]?.provider, routeName: trainData[0]?.routeName }),
+                  title: m["pages.trains.share_title"]({
+                    provider: trainData[0]?.provider,
+                    routeName: trainData[0]?.routeName
+                  }),
                   url: `https://amtraker.com/trains/${trainData[0]?.trainID.split("-").join("/")}`
                 }}
               />
@@ -207,9 +247,7 @@ const BetterTrainPage = () => {
                                 console.log("saved change:", e.target.checked);
                               }}
                             />
-                            <label>
-                              {m["pages.trains.train.save_train"]({ trainNum, trainDate })}
-                            </label>
+                            <label>{m["pages.trains.train.save_train"]({ trainNum, trainDate })}</label>
                           </div>
                           <div
                             style={{
@@ -252,32 +290,12 @@ const BetterTrainPage = () => {
                           })}
                         </p>
                       ) : null}
-                      <h3>{m["pages.trains.train.stations"]()}</h3>
-                      <div className="stations">
-                        {trainData[0].stations.map((station, i, arr) => {
-                          return (
-                            <>
-                            {i > 0 && (i - 4) % 10 == 0 ? <Moneyyyyyyyy /> : null}
-                            <Link
-                              to={`/stations/${station.code}`}
-                              key={`station-${station.code}`}
-                              id={station.code}
-                              className="station-link"
-                              style={{ width: "calc(100% - 18px)" }}
-                            >
-                              <ManualStationBox station={station} train={trainData[0]} />
-                            </Link>
-                            </>
-                          );
-                        })}
-                      </div>
+                      {window.innerWidth < 750 || window.innerWidth >= 900 ? <StationsSection /> : null}
                     </div>
                   </>
                 ) : (
                   <>
-                    <p>
-                      {m["pages.trains.train.not_tracking"]()}
-                    </p>
+                    <p>{m["pages.trains.train.not_tracking"]()}</p>
                     {!searchParams.has("oembed") ? (
                       <button
                         onClick={() => {
@@ -298,6 +316,18 @@ const BetterTrainPage = () => {
               <p>{m["common_strings.loading_train"]()}...</p>
             )}
           </section>
+          {window.innerWidth >= 750 && window.innerWidth < 900 && !loading ? (
+            <section
+              className="section-trainPage"
+              style={{
+                height: searchParams.has("oembed") ? "calc(100svh - 32px)" : "calc(100svh - 98px)",
+                padding: "8px 12px",
+                borderColor: "#444"
+              }}
+            >
+              <StationsSection />
+            </section>
+          ) : null}
           {window.innerWidth >= 900 && !loading ? (
             <section
               className="section-trainPage"

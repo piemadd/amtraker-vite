@@ -35,12 +35,16 @@ const StationPage = () => {
     });
   }, [stationCode]);
 
-  document.title = m["pages.stations.station.page_title"]({ station: stationData && !loading ? stationData.name : stationCode });
+  document.title = m["pages.stations.station.page_title"]({
+    station: stationData && !loading ? stationData.name : stationCode
+  });
   document
     .querySelector('meta[name="description"]')
     .setAttribute(
       "content",
-      m["pages.stations.station.meta_description"]({ station: stationData && !loading ? stationData.name : stationCode })
+      m["pages.stations.station.meta_description"]({
+        station: stationData && !loading ? stationData.name : stationCode
+      })
     );
   document
     .querySelector('meta[property="og:image"]')
@@ -64,7 +68,12 @@ const StationPage = () => {
   if (isInvalid)
     return (
       <>
-        <img id="background" alt={m["common_strings.background_alt"]()} className={bgClass + " terrabanner"} src={bgURL}></img>
+        <img
+          id="background"
+          alt={m["common_strings.background_alt"]()}
+          className={bgClass + " terrabanner"}
+          src={bgURL}
+        ></img>
         <div className="trainPage">
           <div className="header-trainpage">
             <p
@@ -113,9 +122,94 @@ const StationPage = () => {
       </>
     );
 
+  const TrainsSection = () => {
+    return (
+      <>
+        <h3 style={{ marginTop: "0px" }}>{m["pages.stations.station.trains"]()}</h3>
+        <div className="stations fullStationsList">
+          {!loading ? (
+            <>
+              {stationData.trains.length > 0 ? (
+                stationData.trains
+                  .map((trainID) => dataManager.getTrainSync(trainID, true))
+                  .filter((train) => {
+                    if (onlyShowUpcoming) {
+                      const trainThisStation = (train.stations ?? []).find((station) => station.code == stationCode);
+
+                      if (!trainThisStation) return true; // still include, but it will be sorted downwards later
+
+                      if (trainThisStation.status != "Enroute") return false;
+                    }
+
+                    return true;
+                  })
+                  .sort((trainA, trainB) => {
+                    if (onlyShowUpcoming) {
+                      // getting the stations
+                      const trainAThisStation = trainA.stations.find((station) => station.code == stationCode);
+                      const trainBThisStation = trainB.stations.find((station) => station.code == stationCode);
+
+                      // managing edge cases
+                      if (!trainAThisStation && !trainBThisStation) return trainB.trainID - trainA.trainID; // by train ID
+                      if (!trainAThisStation) return 1; // prioritize B
+                      if (!trainBThisStation) return -1; // prioritize A
+
+                      //getting time stamps
+                      const trainAThisStationTime = new Date(trainAThisStation.arr ?? trainAThisStation.dep);
+                      const trainBThisStationTime = new Date(trainBThisStation.arr ?? trainBThisStation.dep);
+
+                      // more edge cases
+                      if (!trainAThisStationTime && !trainBThisStationTime) return trainB.trainID - trainA.trainID; // by train ID
+                      if (!trainAThisStationTime) return 1; // prioritize B
+                      if (!trainBThisStationTime) return -1; // prioritize A
+
+                      return trainAThisStationTime.valueOf() - trainBThisStationTime.valueOf();
+                    }
+
+                    return trainB.trainID - trainA.trainID;
+                  })
+                  .map((train, i, arr) => {
+                    return (
+                      <>
+                        <Link
+                          to={`/trains/${train.trainID.split("-").join("/")}`}
+                          key={`train-${train.trainID}`}
+                          id={train.trainID}
+                          className="station-link"
+                          style={{ width: "calc(100% - 26px)" }}
+                        >
+                          <ManualTrainBox train={train} maxWidth={true} overrideEventCode={stationCode} />
+                        </Link>
+                        {(i > 0 && i % 3 == 0) || (arr.length < 4 && i == arr.length - 1) ? (
+                          <Moneyyyyyyyy sizeName="mobile_banner" />
+                        ) : null}
+                      </>
+                    );
+                  })
+              ) : (
+                <div className="station-box">
+                  <p>{m["pages.stations.station.no_trains"]()}</p>
+                </div>
+              )}
+            </>
+          ) : (
+            <div className="station-box">
+              <p>{m["common_strings.loading_station_data"]()}...</p>
+            </div>
+          )}
+        </div>
+      </>
+    );
+  };
+
   return (
     <>
-      <img id="background" alt={m["common_strings.background_alt"]()} className={bgClass + " terrabanner"} src={bgURL}></img>
+      <img
+        id="background"
+        alt={m["common_strings.background_alt"]()}
+        className={bgClass + " terrabanner"}
+        src={bgURL}
+      ></img>
       <div className="trainPage">
         <div className="header-trainpage">
           <p
@@ -174,7 +268,6 @@ const StationPage = () => {
               </p>
             </div>
             <div className="trainInnerContentScroll">
-              <h2 style={{ marginTop: "0px" }}>{m["pages.stations.station.trains"]()}</h2>
               <div
                 className="train-box train-box-max-width"
                 style={{
@@ -185,7 +278,8 @@ const StationPage = () => {
                   fontSize: "1.5rem",
                   fontWeight: "300",
                   width: "calc(100% - 26px)",
-                  maxWidth: "380px"
+                  maxWidth: "380px",
+                  marginTop: "8px"
                 }}
               >
                 <input
@@ -199,81 +293,17 @@ const StationPage = () => {
                   <b>{m["common_strings.only_show_upcoming"]()}</b>
                 </label>
               </div>
-              <div className="stations fullStationsList">
-                {!loading ? (
-                  <>
-                    {stationData.trains.length > 0 ? (
-                      stationData.trains
-                        .map((trainID) => dataManager.getTrainSync(trainID, true))
-                        .filter((train) => {
-                          if (onlyShowUpcoming) {
-                            const trainThisStation = (train.stations ?? []).find(
-                              (station) => station.code == stationCode
-                            );
-
-                            if (!trainThisStation) return true; // still include, but it will be sorted downwards later
-
-                            if (trainThisStation.status != "Enroute") return false;
-                          }
-
-                          return true;
-                        })
-                        .sort((trainA, trainB) => {
-                          if (onlyShowUpcoming) {
-                            // getting the stations
-                            const trainAThisStation = trainA.stations.find((station) => station.code == stationCode);
-                            const trainBThisStation = trainB.stations.find((station) => station.code == stationCode);
-
-                            // managing edge cases
-                            if (!trainAThisStation && !trainBThisStation) return trainB.trainID - trainA.trainID; // by train ID
-                            if (!trainAThisStation) return 1; // prioritize B
-                            if (!trainBThisStation) return -1; // prioritize A
-
-                            //getting time stamps
-                            const trainAThisStationTime = new Date(trainAThisStation.arr ?? trainAThisStation.dep);
-                            const trainBThisStationTime = new Date(trainBThisStation.arr ?? trainBThisStation.dep);
-
-                            // more edge cases
-                            if (!trainAThisStationTime && !trainBThisStationTime)
-                              return trainB.trainID - trainA.trainID; // by train ID
-                            if (!trainAThisStationTime) return 1; // prioritize B
-                            if (!trainBThisStationTime) return -1; // prioritize A
-
-                            return trainAThisStationTime.valueOf() - trainBThisStationTime.valueOf();
-                          }
-
-                          return trainB.trainID - trainA.trainID;
-                        })
-                        .map((train, i, arr) => {
-                          return (
-                            <>
-                              <Link
-                                to={`/trains/${train.trainID.split("-").join("/")}`}
-                                key={`train-${train.trainID}`}
-                                id={train.trainID}
-                                className="station-link"
-                                style={{ width: "calc(100% - 26px)" }}
-                              >
-                                <ManualTrainBox train={train} maxWidth={true} overrideEventCode={stationCode} />
-                              </Link>
-                              {(i > 0 && i % 3 == 0) || (arr.length < 4 && i == arr.length - 1) ? <Moneyyyyyyyy sizeName="mobile_banner" /> : null}
-                            </>
-                          );
-                        })
-                    ) : (
-                      <div className="station-box">
-                        <p>{m["pages.stations.station.no_trains"]()}</p>
-                      </div>
-                    )}
-                  </>
-                ) : (
-                  <div className="station-box">
-                    <p>{m["common_strings.loading_station_data"]()}...</p>
-                  </div>
-                )}
-              </div>
+              {window.innerWidth < 750 || window.innerWidth >= 900 ? <TrainsSection /> : null }
             </div>
           </section>
+          {window.innerWidth >= 750 && window.innerWidth < 900 && !loading ? (
+            <section
+              className="section-trainPage"
+              style={{ padding: "8px 12px", borderColor: "#444", height: "calc(100svh - 98px)", flexGrow: 99 }}
+            >
+              <TrainsSection />
+            </section>
+          ) : null}
           {window.innerWidth >= 900 && !loading ? (
             <section
               className="section-trainPage"

@@ -63,7 +63,7 @@ export default function ErrorPage() {
           <i>
             {m["pages.error.current_path"]({ path: window.location.href })}
             <br />
-            {m["pages.error.current_version"]({ version: "v3.22.1" })}
+            {m["pages.error.current_version"]({ version: "v3.22.2" })}
             <br />
             {m["pages.error.current_time_utc"]({ time: new Date().toUTCString() })}
             <br />
@@ -87,7 +87,7 @@ export default function ErrorPage() {
           <i>
             {m["pages.error.current_path"]({ path: window.location.href })}
             <br />
-            {m["pages.error.current_version"]({ version: "v3.22.1" })}
+            {m["pages.error.current_version"]({ version: "v3.22.2" })}
             <br />
             {m["pages.error.current_time_utc"]({ time: new Date().toUTCString() })}
             <br />
