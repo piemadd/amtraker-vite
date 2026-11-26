@@ -21,11 +21,11 @@ const alternateLocales = [
 // path is relative to the site root, ie /trains/5
 // translated pages get one entry per locale, each listing every version of the page (plus x-default)
 // lastmod is only included for pages with live data, since today's date would be wrong for the static ones
-const writeUrl = (path, changefreq, priority, { translated = true, live = false } = {}) => {
+const writeUrl = (path, changefreq, priority, { translated = true, live = false } = {}, domain = 'https://amtraker.com') => {
   const alternates = translated
     ? [
-        ...alternateLocales.map(([locale, prefix]) => [locale, `https://amtraker.com${prefix}${path}`]),
-        ['x-default', `https://amtraker.com${path}`],
+        ...alternateLocales.map(([locale, prefix]) => [locale, `${domain}${prefix}${path}`]),
+        ['x-default', `${domain}${path}`],
       ]
         .map(([hreflang, href]) => `
     <xhtml:link rel="alternate" hreflang="${hreflang}" href="${href}"/>`)
@@ -37,7 +37,7 @@ const writeUrl = (path, changefreq, priority, { translated = true, live = false 
   prefixes.forEach((prefix) => {
     sitemap.write(`
   <url>
-    <loc>https://amtraker.com${prefix}${path}</loc>${live ? `
+    <loc>${domain}${prefix}${path}</loc>${live ? `
     <lastmod>${lastmod}</lastmod>` : ''}
     <changefreq>${changefreq}</changefreq>
     <priority>${priority}</priority>${alternates}
@@ -72,28 +72,16 @@ const writeUrl = (path, changefreq, priority, { translated = true, live = false 
   writeUrl('/', 'never', '1.0');
   writeUrl('/llms.txt', 'never', '0.9', { translated: false });
 
-  // train names
-  /*
-  [...new Set(Object.values(trainNames))].forEach((trainName) => {
-    sitemap.write(`
-    <url>
-      <loc>https://amtraker.com/trains/names/${trainName.replaceAll(' ', '%20')}</loc>
-      <lastmod>${year}-${month}-${day}</lastmod>
-      <changefreq>monthly</changefreq>
-      <priority>0.9</priority>
-    </url>
-  `);
-  });
-  */
-
   // train numbers
   [...new Set(Object.keys(finalTrains))].forEach((trainNum) => {
     writeUrl(`/trains/${trainNum}`, 'daily', '0.8', { live: true });
+    writeUrl(`/v3/md/trains/${trainNum}`, 'hourly', '0.1', { live: true, translated: false }, 'https://api.amtraker.com');
   });
 
   // station codes
   [...new Set(Object.keys(newStationsData))].forEach((station) => {
     writeUrl(`/stations/${station}`, 'hourly', '0.7', { live: true });
+    writeUrl(`/v3/md/stations/${station}`, 'hourly', '0.1', { live: true, translated: false }, 'https://api.amtraker.com');
   });
 
   // train list
