@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host --port 3000 --force",
-    "build": "vite build",
+    "build": "vite build && node ./genSitemap.js && node ./genSlopMarkdown.js",
     "preview": "vite preview --host --port 3000"
   },
   "dependencies": {

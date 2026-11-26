@@ -7,8 +7,6 @@ const MiniMapHolderTest = () => {
   const trainsArr = queryDict.trains?.split(',') ?? [];
   const stationsArr = queryDict.stations?.split(',') ?? [];
 
-  console.log(trainsArr)
-
   return (
     <div style={{
       height: '100dvh',
